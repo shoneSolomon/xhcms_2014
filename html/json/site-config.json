@@ -1,6 +1,6 @@
 {	"news" : [
 		{
-			"id" : "3243",
+			"id" : "3240",
 			"name" : "政治",
 			"classify" : "国情咨文、各种皮书集中于此。如需按内容细为",
 			"community" : "时政论坛",
@@ -8,7 +8,7 @@
 			"account" : "hfuighifdg"
 		},
 		{
-			"id" : "3243",
+			"id" : "3241",
 			"name" : "政治",
 			"classify" : "国情咨文、各种皮书集中于此。如需按内容细为",
 			"community" : "",
@@ -17,7 +17,7 @@
 
 		},
 		{
-			"id" : "3243",
+			"id" : "3242",
 			"name" : "国家概况",
 			"classify" : "",
 			"community" : "",
@@ -33,7 +33,7 @@
 			"account" : "hfuighifdg"
 		},
 		{
-			"id" : "3243",
+			"id" : "3244",
 			"name" : "新华网",
 			"classify" : "国情咨文、各种皮书集中于此。如需按内容细为",
 			"community" : "",
@@ -41,7 +41,7 @@
 			"account" : ""
 		},
 		{
-			"id" : "3243",
+			"id" : "3245",
 			"name" : "新华网",
 			"classify" : "国情咨文、各种皮书集中于此。如需按内容细为",
 			"community" : "时政论坛",
@@ -49,7 +49,7 @@
 			"account" : "hfuighifdg"
 		},
 		{
-			"id" : "3243",
+			"id" : "3246",
 			"name" : "新华网",
 			"classify" : "",
 			"community" : "时政论坛",
@@ -57,7 +57,7 @@
 			"account" : "hfuighifdg"
 		},
 		{
-			"id" : "3243",
+			"id" : "3247",
 			"name" : "新华网",
 			"classify" : "",
 			"community" : "时政论坛",
@@ -65,127 +65,17 @@
 			"account" : "hfuighifdg"
 		},
 		{
-			"id" : "3243",
+			"id" : "3248",
 			"name" : "新华网",
 			"classify" : "",
 			"community" : "时政论坛",
 			"visit" : "http://www.xinhuanet.com/",
 			"account" : "hfuighifdg"
-		}
-	],
-	"config" : [
-		{
-			"id" : "3243",
-			"name" : "新华网",
-			"domain_name" : "api.hong.com",
-			"url" : "2",
-			"d_suffix" : "html",
-			"s_suffix" : "html",
-			"fe_suffix": "html"
-		},
-		{
-			"id" : "3243",
-			"name" : "新华网",
-			"domain_name" : "api.hong.com",
-			"url" : "2",
-			"d_suffix" : "html",
-			"s_suffix" : "html",
-			"fe_suffix": "html"
-		},
-		{
-			"id" : "3243",
-			"name" : "新华网",
-			"domain_name" : "api.hong.com",
-			"url" : "2",
-			"d_suffix" : "html",
-			"s_suffix" : "html",
-			"fe_suffix": "html"
-		},
-		{
-			"id" : "3243",
-			"name" : "新华网",
-			"domain_name" : "api.hong.com",
-			"url" : "2",
-			"d_suffix" : "html",
-			"s_suffix" : "html",
-			"fe_suffix": "html"
-		},
-		{
-			"id" : "3243",
-			"name" : "新华网",
-			"domain_name" : "api.hong.com",
-			"url" : "2",
-			"d_suffix" : "html",
-			"s_suffix" : "html",
-			"fe_suffix": "html"
-		},
-		{
-			"id" : "3243",
-			"name" : "新华网",
-			"domain_name" : "api.hong.com",
-			"url" : "2",
-			"d_suffix" : "html",
-			"s_suffix" : "html",
-			"fe_suffix": "html"
-		},
-		{
-			"id" : "3243",
-			"name" : "新华网",
-			"domain_name" : "api.hong.com",
-			"url" : "2",
-			"d_suffix" : "html",
-			"s_suffix" : "html",
-			"fe_suffix": "html"
-		},
-		{
-			"id" : "3243",
-			"name" : "新华网",
-			"domain_name" : "api.hong.com",
-			"url" : "2",
-			"d_suffix" : "html",
-			"s_suffix" : "html",
-			"fe_suffix": "html"
-		},
-		{
-			"id" : "3243",
-			"name" : "新华网",
-			"domain_name" : "api.hong.com",
-			"url" : "2",
-			"d_suffix" : "html",
-			"s_suffix" : "html",
-			"fe_suffix": "html"
-		},
-		{
-			"id" : "3243",
-			"name" : "新华网",
-			"domain_name" : "api.hong.com",
-			"url" : "2",
-			"d_suffix" : "html",
-			"s_suffix" : "html",
-			"fe_suffix": "html"
-		},
-		{
-			"id" : "3243",
-			"name" : "新华网",
-			"domain_name" : "api.hong.com",
-			"url" : "2",
-			"d_suffix" : "html",
-			"s_suffix" : "html",
-			"fe_suffix": "html"
-		},
-		{
-			"id" : "3243",
-			"name" : "新华网",
-			"domain_name" : "api.hong.com",
-			"url" : "2",
-			"d_suffix" : "html",
-			"s_suffix" : "html",
-			"fe_suffix": "html"
 		}
 	],
 	"content" : [
 		{
-			"id" : "3243",
+			"id" : "3230",
 			"name" : "普通",
 			"width" : "434",
 			"height" : "123",
@@ -194,7 +84,7 @@
 			"handle": ".html"
 		},
 		{
-			"id" : "3243",
+			"id" : "3231",
 			"name" : "图集",
 			"width" : "434",
 			"height" : "123",
@@ -203,7 +93,7 @@
 			"handle": ".html"
 		},
 		{
-			"id" : "3243",
+			"id" : "3232",
 			"name" : "普通",
 			"width" : "434",
 			"height" : "123",
@@ -212,7 +102,7 @@
 			"handle": ".html"
 		},
 		{
-			"id" : "3243",
+			"id" : "3233",
 			"name" : "图集",
 			"width" : "434",
 			"height" : "123",
@@ -221,7 +111,7 @@
 			"handle": ".html"
 		},
 		{
-			"id" : "3243",
+			"id" : "3234",
 			"name" : "普通",
 			"width" : "434",
 			"height" : "123",
@@ -230,7 +120,7 @@
 			"handle": ".html"
 		},
 		{
-			"id" : "3243",
+			"id" : "3235",
 			"name" : "图集",
 			"width" : "434",
 			"height" : "123",
@@ -239,7 +129,7 @@
 			"handle": ".html"
 		},
 		{
-			"id" : "3243",
+			"id" : "3236",
 			"name" : "普通",
 			"width" : "434",
 			"height" : "123",
@@ -248,7 +138,7 @@
 			"handle": ".html"
 		},
 		{
-			"id" : "3243",
+			"id" : "3237",
 			"name" : "图集",
 			"width" : "434",
 			"height" : "123",
@@ -257,26 +147,7 @@
 			"handle": ".html"
 		},
 		{
-			"id" : "3243",
-			"name" : "普通",
-			"width" : "434",
-			"height" : "123",
-			"hasPic" : ".htm",
-			"isUsing" : ".html",
-			"handle": ".html"
-		}
-		,
-		{
-			"id" : "3243",
-			"name" : "图集",
-			"width" : "434",
-			"height" : "123",
-			"hasPic" : ".htm",
-			"isUsing" : ".html",
-			"handle": ".html"
-		},
-		{
-			"id" : "3243",
+			"id" : "3238",
 			"name" : "普通",
 			"width" : "434",
 			"height" : "123",
@@ -286,157 +157,14 @@
 		}
 		,
 		{
-			"id" : "3243",
+			"id" : "3239",
 			"name" : "图集",
 			"width" : "434",
 			"height" : "123",
 			"hasPic" : ".htm",
 			"isUsing" : ".html",
 			"handle": ".html"
-		}
-	],
-	"column" : [
-		{
-			"id" : "3243",
-			"name" : "政治",
-			"c_suffix" : "api.hong.com",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"id" : "3243",
-			"name" : "政治",
-			"c_suffix" : "api.hong.com",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"id" : "3243",
-			"name" : "政治",
-			"c_suffix" : "api.hong.com",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"id" : "3243",
-			"name" : "政治",
-			"c_suffix" : "api.hong.com",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"id" : "3243",
-			"name" : "政治",
-			"c_suffix" : "api.hong.com",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"id" : "3243",
-			"name" : "政治",
-			"c_suffix" : "api.hong.com",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"id" : "3243",
-			"name" : "政治",
-			"c_suffix" : "api.hong.com",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"id" : "3243",
-			"name" : "政治",
-			"c_suffix" : "api.hong.com",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"id" : "3243",
-			"name" : "政治",
-			"c_suffix" : "api.hong.com",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"id" : "3243",
-			"name" : "政治",
-			"c_suffix" : "api.hong.com",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		}
-	],
-	"tabColumn" : [
-		{
-			"field" : "name",
-			"name" : "政治",
-			"data-type" : "字符串文本",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"field" : "name",
-			"name" : "政治",
-			"data-type" : "字符串文本",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"field" : "name",
-			"name" : "政治",
-			"data-type" : "字符串文本",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"field" : "name",
-			"name" : "政治",
-			"data-type" : "字符串文本",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"field" : "name",
-			"name" : "政治",
-			"data-type" : "字符串文本",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"field" : "name",
-			"name" : "政治",
-			"data-type" : "字符串文本",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"field" : "name",
-			"name" : "政治",
-			"data-type" : "字符串文本",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"field" : "name",
-			"name" : "政治",
-			"data-type" : "字符串文本",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"field" : "name",
-			"name" : "政治",
-			"data-type" : "字符串文本",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
-		},
-		{
-			"field" : "name",
-			"name" : "政治",
-			"data-type" : "字符串文本",
-			"n_suffix" : "api.hong.co",
-			"show":"显示"
 		}
 	]
+	
 }

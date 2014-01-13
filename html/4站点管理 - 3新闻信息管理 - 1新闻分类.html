@@ -20,7 +20,7 @@ $belong[html/main.html]
 	</div>
 </div>
 <script type="template/html" id="md-list-sites">
-	<table class="table station_table news-table">
+	<table class="table station_table">
 		<tr>
 			<th width="8%">ID</th>
 			<th>分类名称</th>
@@ -32,11 +32,11 @@ $belong[html/main.html]
 		</tr>
 		{{#each news}}
 		<tr>
-			<td><input type="checkbox" name="checkbox" class="checkbox" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
+			<td><input type="checkbox" name="checkbox" class="checkbox ids" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
 			<td style="color:#2cac93;">{{name}}</td>
-			<td>{{classify}}<br />{{classify}}</td>
+			<td>{{classify}}</td>
 			<td>{{community}}</td>
-			<td>{{visit}}<br />{{visit}}</td>
+			<td>{{visit}}</td>
 			<td>{{account}}</td>
 			<td style="color:#2cac93;"><a href="#" data-id="{{id}}" >修改</a> | <a class="delete" href="#" data-id="{{id}}">删除</a></td>
 		</tr>
@@ -59,11 +59,22 @@ $belong[html/main.html]
 				dataType : "json",
 				success: function(data){
 					$("#list-sites").html( template(data) );
-					$("#list-sites").find(".checkbox").toCheckbox();
+					$("#list-sites").find(".ids").toCheckbox();
 				} 
 			});
 		};
 		refreshList();
+		$(".checkbox").toCheckbox();
+
+		/*全选*/
+		$(".station_menu").find(".checkbox").on("click",function(){
+			var _this = $(this);
+			$("#list-sites").find(".ids").each(function(){
+				if( $(this).is(":checked") !== _this.is(":checked") ){
+					$(this).trigger('click')
+				}
+			});
+		});
 
 		/*table  delete*/
 		$("#list-sites").on("click",".delete",function(){

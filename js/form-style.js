@@ -47,10 +47,10 @@
 			opt = opt || {};
 
 			return this.each(function(){
-				var _this = $(this), v = _this.attr("value"), holder = $('<i class="fm-item fm-select"><span class="value-holder"></span><div class="option-holder"></div></i>');
+				var _this = $(this), holder = $('<i class="fm-item fm-select"><span class="value-holder"></span><div class="option-holder"></div></i>');
 				if( _this.data("select-init") ) return;
 				_this.after( holder );
-				if(v){_this.val( v );} //使用value参数赋值
+
 				if( opt.colorful ){
 					holder.addClass("colorful");
 				}

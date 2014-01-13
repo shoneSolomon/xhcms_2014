@@ -1,22 +1,17 @@
 ﻿window.requestAFrame = (function () {
-		var f = window.requestAnimationFrame ||
+		return  window.requestAnimationFrame ||
 				window.webkitRequestAnimationFrame ||
 				window.mozRequestAnimationFrame ||
-				window.oRequestAnimationFrame;
-
-		if( !f ){
-			f = function (fn) {
-				return window.setTimeout(fn, 200); 
-			};
-			f.ie = true;
-		}	
-		return  f;
+				window.oRequestAnimationFrame ||
+				function (fn) {
+					return window.setTimeout(fn, 1000/60); 
+				};
 	})();
 requestAFrame.i = 0;
 $.extend({
 	_timeoutQueue :{},
 	addTimeout: function(k,fn,timer,times){
-		fn.timer = requestAFrame.ie ? Math.ceil( (timer||200) / 200) : Math.ceil( (timer||200) * 60 / 1000);
+		fn.timer = Math.floor( (timer||200) * 60 / 1000);
 		fn.times = times || Infinity;
 		this._timeoutQueue[k] = fn;
 	}

@@ -1,5 +1,8 @@
 /* 4站点管理 - 2栏目配置 - 3模板配置 */
-
+.fm-button.btn-set{
+	background-position: 8px -344px;
+	padding-left: 30px;
+}
 .formSet1{
 	border-bottom: 1px solid #d5d5d5;
 	padding: 0px 0px 46px 50px;
@@ -20,12 +23,17 @@
 	padding-top: 3px;
 	color: #000;
 }
+.fm-button.btn-text{
+	background-position: 8px -368px;
+	padding-left: 30px;
+}
 
 .text_edit{
 	width: 90%;
 	height: 560px;
 	border: 1px solid #d5d5d5;
 	margin-bottom: 30px;
+	overflow: hidden;
 }
 .text_edit textarea{
 	width: 96%;
@@ -35,6 +43,7 @@
 	padding-top: 2%;
 	line-height: 22px;
 	border: none;
+	border: 0px;
 }
 .btns{
 	margin-left: 81%;
