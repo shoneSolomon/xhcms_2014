@@ -14,7 +14,7 @@ $belong[html/main.html]
 		</form>
 	</div>
 		
-	<div class="pager-line">
+	<div class="pager-line page">
 		<p id="pager" class="fm-pager"></p>
 	</div>
 </div>
@@ -32,7 +32,7 @@ $belong[html/main.html]
 	</tr>
 	{{#each content}}
 	<tr>
-		<td><input type="checkbox" name="checkbox" class="checkbox" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
+		<td><input type="checkbox" name="checkbox" class="checkbox ids" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
 		<td style="color:#2cac93;">{{name}}</td>
 		<td>{{width}}</td>
 		<td>{{height}}</td>
@@ -74,13 +74,13 @@ $belong[html/main.html]
 
 		/*menu删除*/
 		$(".station_menu").find(".btn-delete").on("click",function(){
-			var deLists=$(".station_table").find(".checkbox");
+			var deLists=$(".station_table").find(".ids");
 			var len=deLists.length;
 			if(len!==0){
 				var arr=[];
 				for(i=0; i<len; i++){
 					if(deLists[i].checked){
-						arr.push($(".station_table").find(".checkbox")[i].value)			
+						arr.push($(".station_table").find(".ids").eq(i))			
 					}
 				}
 				if(arr[0]){
@@ -89,14 +89,9 @@ $belong[html/main.html]
 						cancelButton : "否"
 					},function(result){
 						if(result ){
-							$.ajax({
-								url : "json/site-config.json",
-								data:arr,
-								dataType : "json",
-								success: function(data){
-									refreshList();
-								}
-							})
+							for(i=0; i<arr.length;i++){
+								arr[i].parent().parent().parent().remove();
+							}
 						}
 					});	
 				};
@@ -150,17 +145,11 @@ $belong[html/main.html]
 				cancelButton : "否"
 			},function(result){
 				if(result ){
-					$.ajax({
-						url : "json/site-config.json",
-						data : ID,
-						dataType : "json",
-						success: function(data){
-							refreshList();
-						}
-					})
+					$("#list-sites").find(".station_table").find("tr").eq(newIndex+1).remove();
 				}
 			});	
 		});
+		
 		/*分页*/
 		$("#pager").toPager({
 			totalPage : 6,

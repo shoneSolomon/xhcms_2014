@@ -28,6 +28,8 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .mainCenter{ margin:auto; padding-top:60px; width:90%;height:100%}
 .mainHead{height:52px; line-height:52px; text-indent:2em; border-bottom:1px solid #d2d2d2;}
 .form_setup, .form_write,.form_send,.form_recycle{padding-top:25px;}
+.form_recycletop i, .form_recycletop .fm-button{float: left;}
+.form_recycletop i{ margin-right: 20px;}
 .form_setup .item{padding:10px 0px;line-height:28px;}
 .form_setup dl .item{float: left;  width: 550px;}
 .form_setup dl .item_left{ width: 660px;}
@@ -54,7 +56,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .form_write .text{float:left;}
 .form_write .text i{float:left;}
 .form_write .text label{float:left; padding-right:10px;line-height:28px;}
-.form_write .text input{float:left; margin-right:30px; padding:6px 10px;border: 1px solid #cbcbcb;border-radius:3px; width:144px;height:16px;}
+.form_write .text input{float:left; margin-right:20px; padding:6px 10px;border: 1px solid #cbcbcb;border-radius:3px; width:144px;height:16px;}
 .form_write .text .theme{width:464px;}
 .form_write .text textarea{float:left; margin-right:30px; padding:6px 10px;border: 1px solid #cbcbcb;border-radius:3px; width:464px;height:158px;text-decoration:none;}
 .form_write .text .radio{ width:auto;}
@@ -188,7 +190,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .list-move span:hover{ background: #fff; color: #000;}
 .mainRight .pager-line{ text-align: center; margin-top: 35px;}
 .form_chdialog .lable{ width: 102px;}
-.form_setup .text .Wdate{ width: 142px;}
+.form_setup .text .Wdate[type="text"]{width: 142px;}
 
 
 /*栏目模型设置--by王彩风*/

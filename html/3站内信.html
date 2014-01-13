@@ -14,11 +14,11 @@ $belong[html/main-simple.html]
 					<div class="text">
 						<input type="radio" class="radio" name="radio" id="radio0" value="0"> <label for="radio0">个人</label><input type="text" name="personage"/>
 						<input type="radio" class="radio" name="radio" id="radio1" value="1"> <label for="radio1">会员组</label>
-						<select name="sel" id="select0" class="select1">
+						<select name="group" class="select1" value=2>
 							<option value="1">选项1</option>
 							<option value="2">选项2选项2</option>
 							<option value="3">选项3选项2选项2</option>
-							<option value="4" selected="selected">选项4</option>
+							<option value="4">选项4</option>
 							<option value="5">选项5选项2选项2选项2</option>
 							<option value="6">选项6</option>
 							<option value="7">选项7</option>
@@ -129,8 +129,14 @@ $belong[html/main-simple.html]
 	<div id="tabs-4">
 		<form id="recycle_bin" onsubmit="" method="">
 			<div class="form_recycle">
-				<a href="#" class="fm-button btn-remove  round">转移至</a>&nbsp;&nbsp;&nbsp;
-				<a href="#" class="fm-button btn-delete  round">删除</a>
+				<div class="form_recycletop clearfix">
+					<select name="transferTo"  class="select2" value=1>
+						<option value="1">转移至</option>
+						<option value="2">收件箱</option>
+						<option value="3">发件箱</option>
+					</select>
+					<a href="#" class="fm-button btn-delete  round">删除</a>
+				</div>
 				<div class="send_lists recycle_lists">
 					<table>
 						<tr class="first_tr">
@@ -172,12 +178,6 @@ $belong[html/main-simple.html]
 (function(){
 	
 	require(["form-style","alerts","tabs","draggable"],function(){
-		$(".select").toSelect({
-			width: 136,
-			colorful: true
-		}).on('change',function(){
-
-		}).trigger("change");
 
 		$(".radio").toRadio();
 		$("#tabs").tabs();
@@ -187,6 +187,13 @@ $belong[html/main-simple.html]
 			colorful: false
 		}).on('change',function(){
 			
+		}).trigger("change");
+
+		$(".select2").toSelect({
+			width: 80,
+			colorful: false
+		}).on('change',function(){
+
 		}).trigger("change");
 
 		jConfirm('<h2 class="title">你收到一条站内信</h2> <p>强骁已解锁并编辑稿件“ 比特币网站疑卷款数千万跑路嫌犯被抓资金恐难”</p> ',"站内信",{

@@ -90,7 +90,7 @@
 			if( !$(this).hasClass('muti-tree') ){
 				$("#tree-nav .expended").trigger('_click');
 			}
-			e.preventDefault();
+			if( !$(this).attr("href") )e.preventDefault();
 		});
 
 
