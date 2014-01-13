@@ -36,7 +36,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .item .text-tip{display: inline-block; padding-left:8px; line-height:28px;}
 .form_setup .lable{display:block;float:left;padding-right:12px; width:63px;text-align:right;line-height:28px; }
 .form_setup .text{float:left;height:30px;}
-.form_setup .text input[type="text"], .form_setup .text input[type="password"]{padding:6px 10px;border: 1px solid #cbcbcb;border-radius:3px; width:253px;height:14px;}
+.form_setup .text input[type="text"], .form_setup .text input[type="password"]{padding:6px 10px;border: 1px solid #cbcbcb;border-radius:3px; width:253px; height: 16px;}
 .form_setup .text .disabled{border:none; background:#fff; color:#000;}
 .form_setup .text_radio label{display:block; float:left;padding-right:35px; }
 .form_setup .text_radio i{display:block; float:left; margin:3px 2px 0px 0px;}
@@ -222,3 +222,81 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 #tabs .ui-widget{font-size:14px;}
 .set_column-model .table tr td .requireKey{border-color: #000;}
 .set_column-model .table tr.last{ display: none;} 
+
+
+
+/*4站点管理 - 2栏目配置 - 3模板配置 --by郭慧丹*/
+.page{
+	margin-bottom: 35px;
+}
+.fm-button.btn-set{
+	background-position: 8px -344px;
+	padding-left: 30px;
+}
+.formSet1{
+	border-bottom: 1px solid #d5d5d5;
+	padding: 0px 0px 46px 50px;
+	margin-bottom: 45px;
+}
+.formSet1 .item .lable {
+	width: 100px;
+}
+
+.formSet1 .item input.ipt{
+	width: 253px;
+}
+
+.item-sel .paging {
+	display: inline-block;
+	padding-left: 8px;
+	line-height: 26px;
+	padding-top: 3px;
+	color: #000;
+}
+.items {
+	clear: both;
+	height: 40px;
+}
+.items select.select{
+	float: left;
+}
+.fm-button.btn-text{
+	background-position: 8px -368px;
+	padding-left: 30px;
+}
+
+.text_edit{
+	width: 90%;
+	height: 560px;
+	border: 1px solid #d5d5d5;
+	margin-bottom: 30px;
+	overflow: hidden;
+}
+.text_edit textarea{
+	width: 96%;
+	height: 95%;
+	margin-left: 25px;
+	padding-right: 2%;
+	padding-top: 2%;
+	line-height: 22px;
+	border: none;
+	border: 0px;
+}
+.btns{
+	margin-left: 81%;
+	margin-bottom: 70px;
+}
+
+
+/*4站点管理 - 3新闻信息管理 - 1新闻分类 --by郭慧丹 */
+.search-style{
+	width: 260px;
+	margin-bottom: 20px;
+}
+.fm-search.gray1 {
+  background-color: #e8e8e8;
+}
+.fm-search.gray1 input {
+  background-color: #e8e8e8;
+  border: none;
+}

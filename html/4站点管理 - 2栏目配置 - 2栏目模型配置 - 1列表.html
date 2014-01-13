@@ -11,7 +11,7 @@ $belong[html/main.html]
 		<input type="submit" class="fm-button round" style="height:30px; vertical-align: top; border:none;" action="o_delete.do" value="保存">
 	</div>
 	<div id="list-sites">
-		<form id="tableForm">
+		<form id="tableForm" class="tableForm">
 
 		</form>
 	</div>
@@ -54,8 +54,8 @@ $belong[html/main.html]
 				url : "json/list-model.json",
 				dataType : "json",
 				success: function(data){
-					$("#tableForm").html( template(data) );
-					$("#tableForm").find(".checkbox").toCheckbox();
+					$(".tableForm").html( template(data) );
+					$(".tableForm").find(".checkbox").toCheckbox();
 					$(".switchIds").toSwitch();
 				} 
 			});

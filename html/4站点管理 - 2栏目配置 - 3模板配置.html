@@ -23,7 +23,7 @@ $belong[html/main.html]
 		<div class="item clearfix item-sel items">
 			<span class="lable">模板类型:</span>
 			<div class="text">
-				<select name="sel" class="select">
+				<select name="sel1" class="select">
 					<option value="1"></option>
 					<option value="2">选项2选项2</option>
 					<option value="3">选项3选项2选项2</option>
@@ -34,7 +34,7 @@ $belong[html/main.html]
 				</select>
 			</div>
 			<span class="paging">
-				<input type="checkbox" name="checkbox" class="checkbox" value="0"><label for="paging">分页</label>
+				<input type="checkbox" name="checkbox" class="checkbox" value="0" id="pages"><label for="pages">分页</label>
 			</span>
 		</div>
 		<div class="item clearfix items">
@@ -53,7 +53,7 @@ $belong[html/main.html]
 		</div>
 		<div class="item clearfix items">
 			<span class="lable">连字符:</span>
-			<select name="sel" class="select">
+			<select name="sel2" class="select">
 				<option value="1"></option>
 				<option value="2">选项2选项2</option>
 				<option value="3">选项3选项2选项2</option>
@@ -64,7 +64,7 @@ $belong[html/main.html]
 		</div>
 		<div class="item clearfix items">
 			<span class="lable">生成文件后缀:</span>
-			<select name="sel" class="select">
+			<select name="sel3" class="select">
 				<option value="1"></option>
 				<option value="2">选项2选项2</option>
 				<option value="3">选项3选项2选项2</option>
@@ -93,7 +93,7 @@ $belong[html/main.html]
 			<input type="button" class="fm-button" value="提交">
 			<input type="button" class="fm-button" value="取消">
 		</form>
-	<div>
+	</div>
 </div>
 <script>
 (function(){
@@ -107,7 +107,7 @@ $belong[html/main.html]
 
 		$(".select").toSelect({
 			//width: 200,
-			colorful: false,
+			colorful: false
 
 		}).on('change',function(){
 			//jAlert( this.value, "你选择的值为：" );

@@ -77,7 +77,7 @@ $belong[html/main.html]
 		});
 
 		/*table  delete*/
-		/*$("#list-sites").on("click",".delete",function(){
+		$("#list-sites").on("click",".delete",function(){
 			var newIndex=$(".station_table").find(".delete").index(this);
 			var ID=$(".station_table").find(".delete").eq(newIndex).attr("data-id");
 			jConfirm('<h2 class="title"></h2> <p class="delete_content">是否删除该条信息</p> ',"",{
@@ -95,19 +95,8 @@ $belong[html/main.html]
 					})
 				}
 			});	
-		});*/
-		$("#list-sites").on("click",".delete",function(){
-			var newIndex=$(".station_table").find(".delete").index(this);
-			var ID=$(".station_table").find(".delete").eq(newIndex).attr("data-id");
-			jConfirm('<h2 class="title"></h2> <p class="delete_content">是否删除该条信息</p> ',"",{
-				okButton : "是",
-				cancelButton : "否"
-			},function(result){
-				if(result ){
-					$("#list-sites").find(".station_table").find("tr").eq(newIndex+1).remove();
-				}
-			});	
 		});
+		
 
 		/*paging*/
 		$("#pager").toPager({
