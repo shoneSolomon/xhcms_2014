@@ -60,6 +60,7 @@
 
 /* 4站点管理 - 3新闻信息管理 - 1新闻分类 */
 .search-style{
+	width: 260px;
 	margin-bottom: 20px;
 }
 .fm-search.gray1 {

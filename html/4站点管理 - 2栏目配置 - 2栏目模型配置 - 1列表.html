@@ -82,7 +82,7 @@ $belong[html/main.html]
 				var arr=[];
 				for(i=0; i<len; i++){
 					if(deLists[i].checked){
-						arr.push($(".station_table").find(".ids")[i].value)			
+						arr.push($(".station_table").find(".ids").eq(i))			
 					}
 				}
 				if(arr[0]){
@@ -91,14 +91,9 @@ $belong[html/main.html]
 						cancelButton : "否"
 					},function(result){
 						if(result ){
-							$.ajax({
-								url : "json/list-collocate.json",
-								data:arr,
-								dataType : "json",
-								success: function(data){
-									refreshList();
-								}
-							})
+							for(i=0; i<arr.length;i++){
+								arr[i].parent().parent().parent().remove();
+							}
 						}
 					});	
 				};
@@ -130,7 +125,7 @@ $belong[html/main.html]
 						data:sub,
 						dataType : "json",
 						success: function(data){
-							refreshList();
+							
 						}
 					})
 				};
@@ -171,17 +166,9 @@ $belong[html/main.html]
 						jAlert('<h2 class="title"></h2> <p class="delete_content">已经置顶</p>');
 					}
 					else if(newNu==1&&index>0){	
-						$.ajax({ 
-							url: "json/list-collocate.json",
-							data:"",
-							dataType : "json",
-							success: function(data){
-								refreshList();
-							},
-							error: function (XMLHttpRequest, textStatus, errorThrown) { 
-								alert("请求异常"); 
-							} 
-						});
+						var onthis=$("#list-sites").find(".station_table").find("tr").eq(index+1);
+						var getup=onthis.prev();
+						getup.before(onthis);
 					}
 				}
 				if($(this).index()==1){
@@ -190,17 +177,9 @@ $belong[html/main.html]
 						jAlert('<h2 class="title"></h2> <p class="delete_content">已经置底</p>');
 					}
 					else if(newNu==1&&index<contentlength){	
-						$.ajax({ 
-							url: "json/list-collocate.json",
-							data:"",
-							dataType : "json",
-							success: function(data){
-								refreshList();
-							},
-							error: function (XMLHttpRequest, textStatus, errorThrown) { 
-								alert("请求异常"); 
-							} 
-						});
+						var onthis=$("#list-sites").find(".station_table").find("tr").eq(index+1);
+						var getdown=onthis.next();
+						getdown.after(onthis);
 					}
 				}
 			}
@@ -211,23 +190,20 @@ $belong[html/main.html]
 		$(".station_menu").find(".btn-top").on("click",function(){
 			var deLists=$(".station_table").find(".ids");
 			var len=deLists.length;
+			var index;
 			if(len!==0){
 				var arr=[];
 				for(i=0; i<len; i++){
 					if(deLists[i].checked){
-						arr.push($(".station_table").find(".ids")[i].value)			
+						arr.push($(".station_table").find(".ids")[i].value);
+						index=i;			
 					}
 				};
 				var sub=arr.join();
 				if(arr[0]&&!arr[1]){
-					$.ajax({
-						url : "json/list-collocate.json",
-						data:sub,
-						dataType : "json",
-						success: function(data){
-							refreshList();
-						}
-					})
+					var onthis=$("#list-sites").find(".station_table").find("tr").eq(index+1);
+					var getup=$("#list-sites").find(".station_table").find("tr").eq(1);
+					getup.before(onthis);
 				};
 				if(!arr[0]){
 					jAlert('<h2 class="title"></h2> <p class="delete_content">请选择一项</p>');
@@ -248,14 +224,7 @@ $belong[html/main.html]
 				cancelButton : "否"
 			},function(result){
 				if(result ){
-					$.ajax({
-						url : "json/list-collocate.json",
-						data : ID,
-						dataType : "json",
-						success: function(data){
-							refreshList();
-						}
-					})
+					$("#list-sites").find(".station_table").find("tr").eq(newIndex+1).remove();
 				}
 			});	
 		});

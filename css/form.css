@@ -29,10 +29,12 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .mainHead{height:52px; line-height:52px; text-indent:2em; border-bottom:1px solid #d2d2d2;}
 .form_setup, .form_write,.form_send,.form_recycle{padding-top:25px;}
 .form_setup .item{padding:10px 0px;line-height:28px;}
+.form_setup dl .item{float: left;  width: 550px;}
+.form_setup dl .item_left{ width: 660px;}
 .item .text-tip{display: inline-block; padding-left:8px; line-height:28px;}
 .form_setup .lable{display:block;float:left;padding-right:12px; width:63px;text-align:right;line-height:28px; }
 .form_setup .text{float:left;height:30px;}
-.form_setup .text input{padding:6px 10px;border: 1px solid #cbcbcb;border-radius:3px; width:253px;height:14px;}
+.form_setup .text input[type="text"], .form_setup .text input[type="password"]{padding:6px 10px;border: 1px solid #cbcbcb;border-radius:3px; width:253px;height:14px;}
 .form_setup .text .disabled{border:none; background:#fff; color:#000;}
 .form_setup .text_radio label{display:block; float:left;padding-right:35px; }
 .form_setup .text_radio i{display:block; float:left; margin:3px 2px 0px 0px;}
@@ -188,6 +190,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .form_chdialog .lable{ width: 102px;}
 .form_setup .text .Wdate{ width: 142px;}
 
+
 /*栏目模型设置--by王彩风*/
 .set_column-model{width:95%;}
 .set_column-model  #tabs-1{ margin-top: 30px; width: 86%; border: 1px solid #d4d4d4; padding: 10px 7% 130px 7%; }
@@ -195,8 +198,11 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .set_column-model #tabs-1 .model-left{ width: 50%; min-width: 420px}
 .set_column-model #tabs-1 .model-right{ width: 36%; min-width: 400px}
 .set_column-model #tabs-1 .lable{display:block;float:left;padding-right:12px; width:100px;text-align:right;line-height:28px; }
-.set_column-model #tabs-1 .text{float:left;height:30px; }
-.set_column-model #tabs-1 .text input{padding:6px 10px;border: 1px solid #cbcbcb;border-radius:3px; width:253px;}
+.set_column-model #tabs-1 .text{float:left;height:30px;}
+.set_column-model .top_item{ margin-top:50px;}
+.set_column-model dl .item{float: left; width: 500px;  margin: 10px 0px;}
+.set_column-model #tabs-1 .text input{padding:6px 14px;border: 1px solid #cbcbcb;border-radius:3px; width:253px; }
+.set_column-model #tabs-1 .text .fm-label-item input{padding:0px 10px; line-height: 28px;}
 .set_column-model .fm-label-item{height: auto; line-height:auto;}
 .set_column-model .fm-label-item input{line-height:14px;}
 .set_column-model #tabs-2,.set_column-model #tabs-3{padding: 0px;}
@@ -212,3 +218,5 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .add_field a{ cursor: pointer; font-size: 14px; color:#fff;}
 .set_column-model #tabs-2 .selsectMin{min-width: 40px; width: 44px;}
 #tabs .ui-widget{font-size:14px;}
+.set_column-model .table tr td .requireKey{border-color: #000;}
+.set_column-model .table tr.last{ display: none;} 
