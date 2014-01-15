@@ -11,6 +11,7 @@
 .tree-module .ztree>li span.button.center_open, .tree-module .ztree>li span.button.roots_open{background:url(../images/tree-icons.png) 0 -30px no-repeat }
 
 .tree-module .ztree li ul.line,.tree-module .ztree li span.button.bottom_docu{background: none;}
+.tree-module .ztree li span.button{background: none;}
 .tree-module .ztree li span.button.ico_docu{display: none;}
 .tree-module .ztree li a.curSelectedNode{border:0; background-color:#8ddacb;padding-top: 1px;}
 .tree-module .ztree li a.curSelectedNode span{color: #188b75;}

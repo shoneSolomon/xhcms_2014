@@ -4,6 +4,7 @@
 		return ;
 	}
 
+	var tree = $("#tree-nav"), treeHolder = $("#tree-module"), rightTarget = $("#tree-target");
 	
 	require(["requestAFrame"],function(){
 		//当前日期和时间
@@ -26,7 +27,26 @@
 					_this.stop().slideToggle();
 				});
 			});
-		},1000,1);
+		},5000,1);
+
+		$.addTimeout("close-tree",function(){	//检测关闭二级选框
+			var handle = tree.find(".tree-link");
+				
+			if( treeHolder.width() ){
+				if( !handle.length || !handle.hasClass('selected')){
+					treeHolder.animate({
+						width: "0%",
+						opacity: 0
+					},'fast',function(){
+						handle.removeClass('expended')
+					});
+					rightTarget.animate({
+						width: "42%"
+					},'fast');
+				}
+			}
+				
+		});
 
 	});
 		
@@ -41,80 +61,75 @@
 	
 	//含左边菜单的布局，额外添加事件
 	if( $("#tree-nav").length ){
+		
 
 		require(["requestAFrame"],function(){
 			// 判断 $("#tree-target") 的实时高度，如果发生变化，触发重新修改高度 [相当于模拟resize]
-			var tar_height = $("#tree-target").height(); 
+			var tar_height = null; //使用null，确保至少触发一遍。
 			$.addTimeout("resize",function(){
-				if( tar_height != $("#tree-target").height() ){
-					tar_height = $("#tree-target").height();
+				if( tar_height != rightTarget.height() ){
+					tar_height = rightTarget.height();
 					var h = $("body").height() - 40;
-					$("#tree-nav, #tree-module>ul").css({"height": h-$("#tree-nav").offset().top});				
+					$("#tree-nav, #tree-module>ul").css({"height": h-tree.offset().top});				
 				}	
 			},100);
 
 		});
-
-		// 二级树形菜单选择
-		$("#tree-nav").on("click _click",".muti-tree",function(e){
-			var _this = $(this);
-			if( _this.hasClass('expended') ){
-				$("#tree-module").animate({
-					width: "0%",
-					opacity: 0
-				},'fast',function(){
-					_this.removeClass('expended')
-				});
-				$("#tree-target").animate({
-					width: "42%"
-				},'fast');
-
-			}else{
-				$("#tree-target").animate({
-					width: "34%"
-				},'fast');
-				var id = _this.attr("data-show");
-
-				$("#"+id).show().siblings().hide().parent().animate({
-					width: "8%",
-					opacity: 1
-				},'fast',function(){
-					_this.addClass('expended')
-				});
-
-			}
-		});	
-		$("#tree-nav").on("click",">dd>a",function(e){
+			
+		tree.on("click","a",function(e){
 			$("#tree-nav .selected").not(this).removeClass('selected');
 			$(this).addClass('selected');
-			if( !$(this).hasClass('muti-tree') ){
-				$("#tree-nav .expended").trigger('_click');
-			}
-			if( !$(this).attr("href") )e.preventDefault();
+		});
+		tree.on('click','dt',function(e){
+			$(this).toggleClass('dt-open').next().slideToggle();
+			if( !$(this).hasClass('link') )e.preventDefault();
 		});
 
-
-		//加载zTree菜单
+		
 		require(["zTree"],function(){
-			$("#tree-nav").on('click','dt',function(){
-				$(this).toggleClass('dt-open').next().slideToggle();
-				return false;
-			});
-			$("#tree-nav .selected").parent().prev().trigger('click'); //触发打开
-			var setting = {
-				async: {
-					enable: true,
-					url:"json/tree-nav.json",
-					autoParam:["id", "name=n", "level=lv"]
+
+			// 二级树形菜单选择
+			tree.on("click _click",".tree-link",function(e){
+				var _this = $(this);
+				if( _this.hasClass('expended') ){
+					treeHolder.animate({
+						width: "0%",
+						opacity: 0
+					},'fast',function(){
+						_this.removeClass('expended')
+					});
+					rightTarget.animate({
+						width: "42%"
+					},'fast');
+
+				}else{
+					rightTarget.animate({
+						width: "34%"
+					},'fast');
+
+					//加载zTree菜单
+					$.fn.zTree.init($("#ztree-inner"), {
+						async: {
+							enable: true,
+							url:_this.attr("href"),
+							autoParam:["id", "name=n", "level=lv"]
+						}
+					});
+
+					treeHolder.animate({
+						width: "8%",
+						opacity: 1
+					},'fast',function(){
+						_this.addClass('expended');
+
+					});
+
 				}
-			};
-			$.fn.zTree.init($("#tree-mudule1"), setting);
-			$.fn.zTree.init($("#tree-mudule2"), setting);
+				e.preventDefault();
+			});
 
+			
 		});
-
-	
 	}
-
 
 })(jQuery);

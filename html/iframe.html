@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>新华网新闻信息集成服务内容加工平台</title>
+	<title>全局配置_head_left</title>
 	<link rel="stylesheet" href="../css/jqueryui/jquery-ui.css">
 	<link rel="stylesheet" href="../css/form.css">
 	<script src="../js/jquery.min.js"></script>
@@ -29,58 +29,146 @@
 				</select>
 			</div>
 			<div class="nav">
-				<ul>
-					<li><a class="out" href="http://cloudnews.home.news.cn:8080/xhcms/xhadmin/main.do" target="mainFrame">首页</a></li>
-					<li><a class="out" href="http://cloudnews.home.news.cn:8080/xhcms/xhadmin/frame/content_main.do" target="mainFrame" >内容发布</a></li>
-					<li>
-						<a class="out">百科发布</a>
-						<div class="Tmenu">
-							<a href="#">专题库</a>
-							<a href="#">人物</a>
-							<a href="#">企业</a>
-							<a href="#">机构</a>
-							<a href="#">地域</a>
-							<a href="#">主题</a>
-							<a href="#">名词</a>
-						</div>
-					</li>
-					<li><a class="out">站点管理</a>
-						<div class="Tmenu">
-							<a href="#">站点设置</a>
-							<a href="#">栏目设置</a>
-							<a href="#">人员管理</a>
-							<a href="#">新闻信息管理</a>
-							<a href="#">静态化管理</a>
-						</div>
-					</li>
-					<li><a class="out">资源管理</a>
-						<div class="Tmenu">
-							<a href="#">推广资源管理</a>
-							<a href="#">素材资源管理</a>
-						</div>
-					</li>
-					<li>
-						<a class="out">互动管理</a>
-						<div class="Tmenu">
-							<a href="#">评论</a>
-							<a href="#">投票</a>
-							<a href="#">留言</a>
-						</div>
-					</li>
-					<li>
-						<a class="out">统计日志</a>
-						<div class="Tmenu">
-							<a href="#">统计</a>
-							<a href="#">日志</a>
-						</div>
-					</li>
-				</ul>
+				
 			</div>
 		</div>
 	</div>
 	<div class="mainBox">
-		<iframe name="mainFrame" src="http://cloudnews.home.news.cn:8080/xhcms/xhadmin/main.do" frameborder="0" style="width:100%; min-height:720px;"></iframe>
+		<div class="mainHead">	
+		</div>
+		<div class="mainBody clearfix" >
+			<dl class="tree-nav" id="tree-nav">
+
+			</dl>
+			<div class="tree-module" id="tree-module">
+				<ul class="ztree" id="ztree-inner"></ul>
+			</div>
+			<div class="tree-target" id="tree-target">
+				<iframe name="targetFrame" id="targetFrame" src="http://172.18.11.69" frameborder="0" style="width:100%;min-height:600px;"></iframe>
+			</div>
+		</div>
 	</div>
+
+
+<script type="template/html" id="md-nav">
+	<ul>
+		{{#each content}}
+		<li><a class="out {{#if childMenus.length}}with-nav{{/if}}" href="{{url}}" target="targetFrame" data-id="{{id}}" id="top-nav-{{id}}">{{name}}</a>
+			{{#if childMenus.length}}
+			<div class="Tmenu">
+				{{#each childMenus}}
+				<a href="{{url}}" target="targetFrame" id="top-nav-{{id}}" data-id="{{id}}" class="{{#if childMenus.length}}with-nav{{/if}}">{{name}}</a>
+				{{/each}}
+			</div>
+			{{/if}}
+		</li>
+		{{/each}}
+	</ul>
+</script>
+
+<script type="template/html" id="md-nav-sub">
+	{{#each childMenus}}
+		<dt class="{{#if childMenus.length}}no-link{{else}}link{{/if}}"><a href="{{url}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a></dt>
+		<dd>
+			{{#each childMenus}}
+			<a href="{{url}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a>
+			{{/each}}
+		</dd>
+	{{/each}}
+</script>
+
+<script type="template/html" id="md-main-head">
+	{{#each this}}
+		<a href="{{url}}" class="{{#if childMenus.length}}with-nav{{/if}}" data-id="{{id}}" target="targetFrame">{{name}}</a> &gt; 
+	{{/each}}
+</script>
+
+	
+<script>
+	//异步加载导航和菜单
+	require(["template"],function(){
+
+		var nav = Handlebars.compile( $("#md-nav").html() );
+		var sub = Handlebars.compile( $("#md-nav-sub").html() );
+		var crumb = Handlebars.compile( $("#md-main-head").html() );
+
+		var tree = $("#tree-nav"), treeHolder = $("#tree-module"), rightTarget = $("#tree-target");
+
+		$.ajax({
+			url : "json/menu.json",
+			dataType : "json",
+			success: function(n){
+				$(".nav").html( nav(n) );
+
+				var m = {};
+
+				//将结果数据通过id作为key标识成map。
+				var toMap = function(n){
+					for (var i = 0; i < n.length; i++) {
+						m[ n[i].id ] = n[i];
+						toMap( n[i].childMenus );
+					};
+				}
+				toMap(n.content); 
+
+				//根据id获取当前节点的导航回溯。
+				var toChain = function(id){	
+					var chain = [], cid = id, temp;
+					while( temp = m[cid] ){
+						chain.splice(0,0,temp);
+						cid = temp.parentId;
+					}
+					return chain;
+				}
+
+				//顶部和面包屑事件触发
+				$(".nav, .mainHead").on('click','a',function(){
+					var _this = $(this), id = _this.attr('data-id');
+					if( _this.hasClass("with-nav") ){
+						tree.html( sub(m[ id ]) );
+
+						tree.animate({
+							width: "8%",
+							opacity: 1
+						},'fast');
+						rightTarget.animate({
+							width: "42%"
+						},'fast');
+					}else{
+						tree.html("");
+						
+						tree.animate({
+							width: "0%",
+							opacity: 0
+						},'fast');
+						rightTarget.animate({
+							width: "50%"
+						},'fast');
+
+					}
+					$(".mainHead").html( crumb( toChain( $(this).attr("data-id") ) ) );
+				});  
+
+				//左侧导航触发
+				$("#tree-nav").on('click','a',function(){
+					$(".mainHead").html( crumb( toChain( $(this).attr("data-id") ) ) );
+				});
+
+				
+				require(["module/queryparam"],function(queryparam){
+					var id = queryparam("id") || 1;
+					$("#top-nav-"+id).trigger("click");
+				});
+
+			}
+		});
+
+
+
+
+	});	
+</script>
+
 
 <!--[if  lte  IE  6]>
 <script> window.IE6 = true; </script>
