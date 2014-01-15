@@ -1,8 +1,8 @@
 (function($){
-	if( window.IE6 ){
-		alert( "IE6 or older browser is not supported!" );
-		return ;
-	}
+
+	require(["iealert"],function(IEAlert){
+		new IEAlert();
+	});
 
 	var tree = $("#tree-nav"), treeHolder = $("#tree-module"), rightTarget = $("#tree-target");
 	

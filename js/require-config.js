@@ -11,7 +11,8 @@ paths = {
 	underscore: "underscore.min",
 	zTree: "zTree/jquery.ztree.all-3.5.min",
 	WdatePicker: "My97DatePicker/WdatePicker",
-	"form-style": "form-style.min" 
+	"form-style": "form-style.min",
+	iealert : "module/iealert/index"
 },
 ui = [
 "accordion",
@@ -100,6 +101,9 @@ require.config({
 		},
 		zTree:{
 			deps: ["css!../js/zTree/zTreeStyle/zTreeStyle.css","css!../css/new-tree.css"]
+		},
+		iealert:{
+			deps: ["css!module/iealert/css/style.css"]
 		}
 	}
 });
