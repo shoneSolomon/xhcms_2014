@@ -81,7 +81,7 @@
 			$(this).addClass('selected');
 		});
 		tree.on('click','dt',function(e){
-			$(this).toggleClass('dt-open').next().slideToggle();
+			$(this).toggleClass('dt-open').next().slideToggle("fast");
 			if( !$(this).hasClass('link') )e.preventDefault();
 		});
 
