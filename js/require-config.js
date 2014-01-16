@@ -12,7 +12,8 @@ paths = {
 	zTree: "zTree/jquery.ztree.all-3.5.min",
 	WdatePicker: "My97DatePicker/WdatePicker",
 	"form-style": "form-style.min",
-	iealert : "module/iealert/index"
+	iealert : "module/iealert/index",
+	requestAFrame : "module/requestAFrame"
 },
 ui = [
 "accordion",

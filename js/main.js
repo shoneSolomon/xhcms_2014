@@ -6,15 +6,15 @@
 
 	var tree = $("#tree-nav"), treeHolder = $("#tree-module"), rightTarget = $("#tree-target");
 	
-	require(["requestAFrame"],function(){
+	require(["requestAFrame"],function(r){
 		//当前日期和时间
-		$.addTimeout("now-time",function(){
+		r.addTimeout("now-time",function(){
 			$("#now-time").html( (function(d){
 				return "现在时间： "+d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日 "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+" 星期"+"日一二三四五六".charAt(d.getDay())
 			})(new Date()) );	
 		},1000);
 
-		$.addTimeout("top-toggle",function(){
+		r.addTimeout("top-toggle",function(){
 			$(".head_nav").slideUp(600,function(){
 				var flashTip = $('<p style="width:200px; position:absolute; right:50%; margin-right:-100px; color:#f60;">点击顶部展开/收起导航栏</p>');
 				var _this = $(this), _top = _this.prev();
@@ -29,7 +29,7 @@
 			});
 		},5000,1);
 
-		$.addTimeout("close-tree",function(){	//检测关闭二级选框
+		r.addTimeout("close-tree",function(){	//检测关闭二级选框
 			var handle = tree.find(".tree-link");
 				
 			if( treeHolder.width() ){
@@ -63,10 +63,10 @@
 	if( $("#tree-nav").length ){
 		
 
-		require(["requestAFrame"],function(){
+		require(["requestAFrame"],function(r){
 			// 判断 $("#tree-target") 的实时高度，如果发生变化，触发重新修改高度 [相当于模拟resize]
 			var tar_height = null; //使用null，确保至少触发一遍。
-			$.addTimeout("resize",function(){
+			r.addTimeout("resize",function(){
 				if( tar_height != rightTarget.height() ){
 					tar_height = rightTarget.height();
 					var h = $("body").height() - 40;
