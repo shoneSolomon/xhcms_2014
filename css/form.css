@@ -98,7 +98,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .head_exit{background-position:-4px -96px;}
 .head_settings{background-position:-4px -63px; }
 .head_receiving{background-position:-4px -33px; line-height: normal;}
-.head_receiving font{display:inline-block;margin-bottom: 8px; margin-left: 12px; padding:0px 3px; height: 14px;border-radius:6px;background:#ea7857; line-height: 14px; font-size: 12px; font-style: normal; color: #fff;}
+.head_receiving i{display:inline-block;margin-bottom: 8px; margin-left: 12px; padding:0px 3px; height: 14px;border-radius:6px;background:#ea7857; line-height: 14px; font-size: 12px; font-style: normal; color: #fff;}
 .login_name{padding-right:26px;}
 .head_top span{color: #fff; display: inline-block; float: left;}
 .head_top .login_name{ float:right;}

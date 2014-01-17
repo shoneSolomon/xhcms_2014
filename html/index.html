@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>全局配置_head_left</title>
+	<title>炫知新闻加工后台</title>
 	<link rel="stylesheet" href="../css/jqueryui/jquery-ui.css">
 	<link rel="stylesheet" href="../css/form.css">
 	<script src="../js/jquery.min.js"></script>
@@ -15,9 +15,9 @@
 			<span class="headIcon skin_peeler">换肤</span>
 			<span id="now-time"></span>
 			<div class="head_login">
-				<a class="headIcon sizeOn head_exit">&nbsp;</a>
+				<a class="headIcon sizeOn head_exit" href="../../xhadmin/logout.do?returnUrl=index.do" onclick="return confirm('您确定退出吗？')">&nbsp;</a>
 				<a class="headIcon sizeOn head_settings">&nbsp;</a>
-				<a class="headIcon sizeOn head_receiving">&nbsp;<i>1</i></a>
+				<a class="headIcon sizeOn head_receiving" href="../../xhadmin/message/v_list.do" target="targetFrame">&nbsp;<i id="count-receiving">?</i></a>
 				<span class="login_name">秋瑟</span>		
 			</div>
 		</div>
@@ -26,6 +26,7 @@
 				<select name="sel" id="site-select">
 					<option value="1" selected="selected">云悦知主站</option>
 					<option value="2">云悦知测试站</option>
+					<option value="3">发稿平台</option>
 				</select>
 			</div>
 			<div class="nav">
@@ -44,7 +45,7 @@
 				<ul class="ztree" id="ztree-inner"></ul>
 			</div>
 			<div class="tree-target" id="tree-target">
-				<iframe name="targetFrame" id="targetFrame" src="http://172.18.11.69" frameborder="0" style="width:100%;min-height:600px;"></iframe>
+				<iframe name="targetFrame" id="targetFrame" src="../../xhadmin/main.do" frameborder="0" style="width:100%;min-height:662px;"></iframe>
 			</div>
 		</div>
 	</div>
@@ -53,11 +54,11 @@
 <script type="template/html" id="md-nav">
 	<ul>
 		{{#each content}}
-		<li><a class="out {{#if childMenus.length}}with-nav{{/if}}" href="{{url}}" target="targetFrame" data-id="{{id}}" id="top-nav-{{id}}">{{name}}</a>
+		<li><a class="out {{#if childMenus.length}}with-nav{{/if}}" href="../../xhadmin{{url}}" target="targetFrame" data-id="{{id}}" id="top-nav-{{id}}">{{name}}</a>
 			{{#if childMenus.length}}
 			<div class="Tmenu">
 				{{#each childMenus}}
-				<a href="{{url}}" target="targetFrame" id="top-nav-{{id}}" data-id="{{id}}" class="{{#if childMenus.length}}with-nav{{/if}}">{{name}}</a>
+				<a href="../../xhadmin{{url}}" target="targetFrame" id="top-nav-{{id}}" data-id="{{id}}" class="{{#if childMenus.length}}with-nav{{/if}}">{{name}}</a>
 				{{/each}}
 			</div>
 			{{/if}}
@@ -68,10 +69,10 @@
 
 <script type="template/html" id="md-nav-sub">
 	{{#each childMenus}}
-		<dt class="{{#if childMenus.length}}no-link{{else}}link{{/if}}"><a href="{{url}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a></dt>
+		<dt class="{{#if childMenus.length}}no-link{{else}}link{{/if}}"><a href="../../xhadmin{{url}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a></dt>
 		<dd>
 			{{#each childMenus}}
-			<a href="{{url}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a>
+			<a href="../../xhadmin{{url}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a>
 			{{/each}}
 		</dd>
 	{{/each}}
@@ -79,12 +80,39 @@
 
 <script type="template/html" id="md-main-head">
 	{{#each this}}
-		<a href="{{url}}" class="{{#if childMenus.length}}with-nav{{/if}}" data-id="{{id}}" target="targetFrame">{{name}}</a> &gt; 
+		<a href="../../xhadmin{{url}}" class="{{#if childMenus.length}}with-nav{{/if}}" data-id="{{id}}" target="targetFrame">{{name}}</a> &gt; 
 	{{/each}}
 </script>
 
 	
 <script>
+	$("#site-select").on('change',function(){
+		if( this.value == 3 ){
+			window.open("../../xhcms0.2/main.html");
+		}
+	});
+
+	require(["requestAFrame"],function(r){
+		r.addTimeout("count-receiving",(function(){
+			var fn = function(){
+				$.ajax({
+					url: "../../xhadmin/message/v_countUnreadMsg.do",
+					type:"post",
+					dataType:"json",
+					success: function(data){
+						if(data.result){
+							 $("#count-receiving").html(data.count);
+						}else{
+							alert("请先登录");
+						}
+					}
+				});
+			};
+			fn();
+			return fn;		
+		})(),1000*30);
+	});
+
 	//异步加载导航和菜单
 	require(["template"],function(){
 
@@ -95,7 +123,7 @@
 		var tree = $("#tree-nav"), treeHolder = $("#tree-module"), rightTarget = $("#tree-target");
 
 		$.ajax({
-			url : "json/menu.json",
+			url : "../../xhadmin/basic/getMenu.do",
 			dataType : "json",
 			success: function(n){
 				$(".nav").html( nav(n) );
@@ -157,7 +185,8 @@
 				
 				require(["module/queryparam"],function(queryparam){
 					var id = queryparam("id") || 1;
-					$("#top-nav-"+id).trigger("click");
+					var t = $("#top-nav-"+id)[0];
+					t ? t.click() : alert("wrong id:"+id);
 				});
 
 			}
