@@ -25,6 +25,8 @@
 					});;
 				}).on('click',function(){
 					_this.stop().slideToggle();
+				}).on('click','a',function(e){
+					e.stopPropagation();
 				});
 			});
 		},5000,1);
