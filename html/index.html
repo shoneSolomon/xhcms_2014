@@ -18,7 +18,7 @@
 				<a class="headIcon sizeOn head_exit" href="../../xhadmin/logout.do?returnUrl=index.do" onclick="return confirm('您确定退出吗？')">&nbsp;</a>
 				<a class="headIcon sizeOn head_settings">&nbsp;</a>
 				<a class="headIcon sizeOn head_receiving" href="../../xhadmin/message/v_list.do" target="targetFrame">&nbsp;<i id="count-receiving">?</i></a>
-				<span class="login_name">秋瑟</span>		
+				<span class="login_name">[未知用户]</span>		
 			</div>
 		</div>
 		<div class="head_nav">
@@ -100,6 +100,17 @@
 		var doc = $(this).contents()[0];
 		var t = $('<link rel="stylesheet" href="'+baseUrl+'css/frame.css" />')[0];
 		doc.body.appendChild( t );
+	});
+
+	$.ajax({		//获取登录用户信息
+		url: "../../xhadmin/basic/getCurrentUser.do",
+		type:"post",
+		dataType:"json",
+		success: function(data){
+			if(data.success){
+				$(".login_name").html(data.content.username);
+			}
+		}
 	});
 
 	require(["requestAFrame"],function(r){
