@@ -54,11 +54,11 @@
 <script type="template/html" id="md-nav">
 	<ul>
 		{{#each content}}
-		<li><a class="out {{#if childMenus.length}}with-nav{{/if}}" href="../../xhadmin{{url}}" target="targetFrame" data-id="{{id}}" id="top-nav-{{id}}">{{name}}</a>
+		<li><a class="out {{type}}" href="{{#if url}}../../xhadmin{{url}}{{else}}about:blank{{/if}}" target="targetFrame" data-id="{{id}}" id="top-nav-{{id}}">{{name}}</a>
 			{{#if childMenus.length}}
 			<div class="Tmenu">
 				{{#each childMenus}}
-				<a href="../../xhadmin{{url}}" target="targetFrame" id="top-nav-{{id}}" data-id="{{id}}" class="{{#if childMenus.length}}with-nav{{/if}}">{{name}}</a>
+				<a href="{{#if url}}../../xhadmin{{url}}{{else}}about:blank{{/if}}" target="targetFrame" id="top-nav-{{id}}" data-id="{{id}}" class="{{#if childMenus.length}}with-nav{{/if}}">{{name}}</a>
 				{{/each}}
 			</div>
 			{{/if}}
@@ -69,10 +69,10 @@
 
 <script type="template/html" id="md-nav-sub">
 	{{#each childMenus}}
-		<dt class="{{#if childMenus.length}}no-link{{else}}link{{/if}}"><a href="../../xhadmin{{url}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a></dt>
-		<dd>
+		<dt class="{{type}} {{#if childMenus.length}}with-sub{{else}}without-sub{{/if}} dt-open"><a href="{{#if url}}../../xhadmin{{url}}{{else}}about:blank{{/if}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a></dt>
+		<dd style="display:block;">
 			{{#each childMenus}}
-			<a href="../../xhadmin{{url}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a>
+			<a href="{{#if url}}../../xhadmin{{url}}{{else}}about:blank{{/if}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a>
 			{{/each}}
 		</dd>
 	{{/each}}
@@ -80,7 +80,7 @@
 
 <script type="template/html" id="md-main-head">
 	{{#each this}}
-		<a href="../../xhadmin{{url}}" class="{{#if childMenus.length}}with-nav{{/if}}" data-id="{{id}}" target="targetFrame">{{name}}</a> &gt; 
+		<a href="{{#if url}}../../xhadmin{{url}}{{else}}about:blank{{/if}}" class="{{#if childMenus.length}}with-nav{{/if}} {{type}}" data-id="{{id}}" target="targetFrame">{{name}}</a> &gt; 
 	{{/each}}
 </script>
 
@@ -173,7 +173,13 @@
 				//顶部和面包屑事件触发
 				$(".nav, .mainHead").on('click','a',function(){
 					var _this = $(this), id = _this.attr('data-id');
+
+					if( _this.hasClass("super-nav") ){	// 有子节点的一级导航不要点击事件
+						return false;
+					}
+
 					if( _this.hasClass("with-nav") ){
+						
 						tree.html( sub(m[ id ]) );
 
 						tree.animate({
@@ -182,7 +188,10 @@
 						},'fast');
 						rightTarget.animate({
 							width: "42%"
-						},'fast');
+						},'fast',function(){
+							var tarLink = tree.find('a.link').first().addClass('selected').one('click',function(e){e.stopPropagation();});
+							tarLink[0].click();
+						});
 					}else{
 						tree.html("");
 						

@@ -1,3 +1,217 @@
 .box-positon{
 	display: none;
 }
+
+/* 栏目配置  */
+table.pn-ltable{
+	border: 1px solid #cdcdcd;
+	border-collapse: separate;
+	border-spacing: 0px;
+	border-color: #cbcbcb;
+	border-left:0px;
+	border-bottom: 0px;
+}
+
+.pn-lthead th{
+	height: 34px;
+	padding: 8px 10px;
+	border-bottom: 0;
+	background-color: #cbcbcb;
+	background-image: -webkit-linear-gradient(top, #ffffff 0%, #e3e3e3 50%, #ebebeb 100%);
+	background-image: -moz-linear-gradient(top, #ffffff 0%, #e3e3e3 50%, #ebebeb 100%);
+	background-image: -ms-linear-gradient(top, #ffffff 0%, #e3e3e3 50%, #ebebeb 100%);
+	background-image: -o-linear-gradient(top, #ffffff 0%, #e3e3e3 50%, #ebebeb 100%);
+	background-image: linear-gradient(top, #ffffff 0%, #e3e3e3 50%, #ebebeb 100%);
+	border-left: 1px solid #cdcdcd;
+	color: #343539;
+}
+.pn-ltbody td{
+	height: 50px;
+	text-align: center;
+	padding: 0px;
+	border-left: 1px solid #cdcdcd;
+	border-bottom: 1px solid #cdcdcd;
+}
+.pn-ltbody tr:nth-child(even){
+	background: #ececec;
+}
+.pn-ltbody tr:hover{
+	background: #d9f4f2;
+}
+.pn-ltbody input[name=priority]{
+	text-align: center;
+	border: 1px solid #cbcbcb;
+}
+.pn-opt {
+	color: #2cac93; 
+}
+a.pn-opt:visited{
+	color: #2cac93;
+}
+a.pn-opt:link{
+	color: #2cac93;
+}
+
+#tableForm input[type=button]{
+  display: inline-block;
+  border: 1px solid #2cac93;
+  color: #ffffff;
+  height: 28px;
+  line-height: 28px;
+  font-size: 14px;
+  padding: 0 1em;
+  border-radius: 3px;
+  opacity: .9;
+  filter: alpha(opacity=90);
+  background: url("../images/form.png") 100px 100px no-repeat #2cac93;
+  text-indent: 0;
+  margin: 10px 0;
+}
+
+/* 站点管理 > 栏目配置 > 栏目模型配置 */
+
+
+/* 百科发布  */
+.add-subject-name{
+	margin-bottom: 5px;
+}
+.form_edit input{
+  border: 0;
+  padding: 0;
+  margin-bottom: 10px;
+  padding: 0 6px;
+  height: 26px;
+  line-height: 26px;
+  border: 1px solid #cbcbcb;
+  border-radius: 3px;
+}
+.add-subject-name input[type=button],.submit-bt input[type=button]{
+	border: 0;
+	color: #fff;
+	background: url("../images/form.png") 100px 100px no-repeat #2cac93;
+}
+.submit-bt {
+	margin-bottom: 15px;
+}
+.submit-bt input,#jvForm input[name=selectName]{
+	border: 0;
+	height: 26px;
+	color: #fff;
+	background: #2cac93;
+}
+
+/* 百科发布 > 人物 */
+.letter22 {
+	margin-left: 10px;
+}
+.letter22 input,.letter22 select{
+	margin-right: 10px;
+}
+.second_navi li{
+	float: left;
+	width: 120px;
+	height: 25px;
+	line-height: 25px;
+	border: 1px solid #2cac93;
+	border-bottom: 0px;
+	margin-left: 3px;
+}
+.second_navi .currentLi {
+	background-color: #33c2a6;
+	color: #fff;
+}
+#jvForm input[name=selectName]{
+	margin-right: 10px;
+	border-radius: 3px;
+}
+
+.pn-ftable {
+	background-color:#fff;
+}
+.pn-fcontent span.addr input[type=text]{
+	height: 18px;
+	line-height: 18px;
+	margin-top: 0px;
+}
+
+/* 站点管理 > 站点设置 */
+.pn-flabel {
+	background-color: rgb(219, 237, 233);
+}
+.pn-ftable tr{
+	clear: both;
+	height: 52px;
+}
+
+.pn-fcontent input[type=text],.letter22 input[type=text]{
+	border: 0;
+	padding: 0;
+	margin-bottom: 10px;
+	padding: 0 6px;
+	height: 26px;
+	line-height: 26px;
+	border: 1px solid #cbcbcb;
+	border-radius: 3px;
+	margin-top: 10px;
+}
+.pn-fcontent select,.letter22 .select{
+	height: 28px;
+	width: 163px;
+	border-radius: 3px;
+	border: 1px solid #cbcbcb;
+}
+.pn-fcontent label input[type=radio]{
+	height: 28px;
+}
+.pn-fbutton input,.query{
+	text-indent: 0;
+	border: 0;
+	height: 26px;
+	color: #fff;
+	background: #2cac93;
+	border-radius: 3px;
+}
+
+/* 互动管理 > 评论管理 */
+#tableForm .pn-sp {
+	background: #5ed0ba;
+}
+/*.body-box #tableForm input.first-page,.body-box #tableForm input.pre-page,.body-box #tableForm input.next-page,.body-box #tableForm input.last-page {
+	display: inline-block;
+	border: 1px solid #cbcbcb;
+	color: #000000;
+	height: 28px;
+	line-height: 28px;
+	font-size: 12px;
+	background: url("../images/form.png") 100px 100px no-repeat #fff;
+}*/
+#tableForm .pn-sp input[text-indent=button]{
+
+}
+#tableForm .pn-sp input[type=text]{
+	border: 1px solid #b4b4b4;
+	text-align: center;
+}
+
+/* 统计日志 > 统计 > */
+#queryForm select{
+	width: 60px;
+	height: 26px;
+	margin-right: 5px;
+	border-radius: 3px;
+	border: 1px solid #cbcbcb;
+}
+#queryForm input[type=text]{
+	text-indent: 0;
+	height: 26px;
+	border: 1px solid #b4b4b4;
+	border-radius: 3px;
+}
+
+/* 统计日志 > 日志 > */
+.body-box input[name=queryUsername],.body-box input[name=queryTitle],.body-box input[name=queryIp]{
+	padding: 0 6px;
+	height: 20px;
+	border: 1px solid #b4b4b4;
+	border-radius: 3px;
+}

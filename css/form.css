@@ -120,13 +120,13 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .tree-nav a{color: #555;display: block; line-height: 30px; height: 30px; }
 .tree-nav dt{font-weight: bold; padding-left: 20px;}
 .tree-nav dt:before{display: block;content: " ";width: 0;height: 0;line-height: 0;font-size: 0;border: 4px solid #dbede9;left: 30px;margin-top: 11px;position: absolute;border-left: 4px solid #555;}
-.tree-nav dt.link:before{visibility: hidden;}
+.tree-nav dt.without-sub:before{visibility: hidden;}
 .tree-nav dt.dt-open:before{border-left: 4px solid #dbede9;border-top: 4px solid #555;}
 .tree-nav dd a{padding-left: 20px; font-size: 12px;}
 .tree-nav dd a.tree-link:after{ content: " "; display: inline-block; float: right; margin: 3px 8px; width: 24px; height: 24px; background: url(../images/tree-icons.png) no-repeat 0 -60px;}
 .tree-nav dd a.tree-link.expended:after{ background-position: 0 -100px; }
 .tree-nav dd a.selected,.tree-nav dd a:hover{background-color: #8ddacb;}
-.tree-nav dt.link a.selected{background-color: #8ddacb;}
+.tree-nav dt.without-sub a.selected{background-color: #8ddacb;}
 .tree-nav dd{overflow: hidden;padding: 0;display: none;}
 /*tree-nav end*/
 
