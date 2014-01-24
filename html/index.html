@@ -16,10 +16,11 @@
 			<span id="now-time"></span>
 			<div class="head_login">
 				<a class="headIcon sizeOn head_exit" href="../../xhadmin/logout.do?returnUrl=index.do" onclick="return confirm('您确定退出吗？')">&nbsp;</a>
-				<a class="headIcon sizeOn head_settings">&nbsp;</a>
+				<a class="headIcon sizeOn head_settings" href="../../xhadmin/personal/v_profile.do" target="targetFrame">&nbsp;</a>
 				<a class="headIcon sizeOn head_receiving" href="../../xhadmin/message/v_list.do" target="targetFrame">&nbsp;<i id="count-receiving">?</i></a>
 				<span class="login_name">[未知用户]</span>		
 			</div>
+			<span class="t-handle">-</span>
 		</div>
 		<div class="head_nav">
 			<div class="head_select">
@@ -45,7 +46,7 @@
 				<ul class="ztree" id="ztree-inner"></ul>
 			</div>
 			<div class="tree-target" id="tree-target">
-				<iframe name="targetFrame" id="targetFrame" src="../../xhadmin/main.do" frameborder="0" style="width:100%;min-height:720px;"></iframe>
+				<iframe name="targetFrame" id="targetFrame" src="../../xhadmin/main.do" frameborder="0" style="width:100%;min-height:700px;"></iframe>
 			</div>
 		</div>
 	</div>
@@ -70,7 +71,7 @@
 <script type="template/html" id="md-nav-sub">
 	{{#each childMenus}}
 		<dt class="{{type}} {{#if childMenus.length}}with-sub{{else}}without-sub{{/if}} dt-open"><a href="{{#if url}}../../xhadmin{{url}}{{else}}about:blank{{/if}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a></dt>
-		<dd style="display:block;">
+		<dd style="display:block;" href="{{#if url}}../../xhadmin{{url}}{{/if}}">
 			{{#each childMenus}}
 			<a href="{{#if url}}../../xhadmin{{url}}{{else}}about:blank{{/if}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a>
 			{{/each}}
@@ -122,7 +123,10 @@
 					dataType:"json",
 					success: function(data){
 						if(data.result){
-							 $("#count-receiving").html(data.count);
+							 $("#count-receiving").html(data.count).css({
+							 	visibility: (data.count > 0 ? "visible" : "hidden")
+							 });
+
 						}else{
 							alert("请先登录");
 						}
@@ -171,10 +175,10 @@
 				}
 
 				//顶部和面包屑事件触发
-				$(".nav, .mainHead").on('click','a',function(){
+				$(".nav, .mainHead, .head_login").on('click','a',function(){
 					var _this = $(this), id = _this.attr('data-id');
 
-					if( _this.hasClass("super-nav") ){	// 有子节点的一级导航不要点击事件
+					if( _this.hasClass("super-nav") || _this.hasClass("tree-link") || _this.next().hasClass("tree-link") ){	// 有子节点的一级导航不要点击事件
 						return false;
 					}
 

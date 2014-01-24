@@ -5,6 +5,21 @@
 	});
 
 	var tree = $("#tree-nav"), treeHolder = $("#tree-module"), rightTarget = $("#tree-target");
+
+	$(".head_top").on('click',function(e){
+		var hidden = $('.head_nav').is(":hidden");
+		if( hidden ){
+			$("#targetFrame, #tree-target").css({ height : "700px"});
+		}
+		$('.head_nav').stop().slideToggle(function(){
+			$(".t-handle").html( hidden ? "-" : "+" );
+			if( !hidden ){
+				$("#targetFrame, #tree-target").css({ height : "860px"});
+			}
+		});
+	}).on('click','a',function(e){
+		e.stopPropagation();
+	});
 	
 	require(["requestAFrame"],function(r){
 		//当前日期和时间
@@ -13,23 +28,6 @@
 				return "现在时间： "+d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日 "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+" 星期"+"日一二三四五六".charAt(d.getDay())
 			})(new Date()) );	
 		},1000);
-
-		r.addTimeout("top-toggle",function(){
-			$(".head_nav").slideUp(600,function(){
-				var flashTip = $('<p style="width:200px; position:absolute; right:50%; margin-right:-100px; color:#f60;">点击顶部展开/收起导航栏</p>');
-				var _this = $(this), _top = _this.prev();
-				flashTip.appendTo(_top).fadeOut().fadeIn().fadeOut().fadeIn().fadeOut().fadeIn();
-				_top.one('click',function(){
-					flashTip.fadeOut('slow', function() {
-						$(this).remove();
-					});;
-				}).on('click',function(){
-					_this.stop().slideToggle();
-				}).on('click','a',function(e){
-					e.stopPropagation();
-				});
-			});
-		},5000,1);
 
 		r.addTimeout("close-tree",function(){	//检测关闭二级选框
 			var handle = tree.find(".tree-link");
@@ -71,8 +69,7 @@
 			r.addTimeout("resize",function(){
 				if( tar_height != rightTarget.height() ){
 					tar_height = rightTarget.height();
-					var h = $("body").height() - 40;
-					$("#tree-nav, #tree-module>ul").css({"height": h-tree.offset().top});				
+					$("#tree-nav, #tree-module>ul").css({"height": tar_height-30});				
 				}	
 			},100);
 
@@ -109,12 +106,20 @@
 						width: "34%"
 					},'fast');
 
+					var v_href = _this.parent().attr("href"); //存儲展示的url
 					//加载zTree菜单
 					$.fn.zTree.init($("#ztree-inner"), {
 						async: {
 							enable: true,
 							url:_this.attr("href"),
-							autoParam:["id", "name=n", "level=lv"]
+							autoParam:["id", "name=n", "level=lv"],
+							dataFilter:function(id, parent, data){
+								for (var i = 0; i < data.length; i++) {
+									data[i].target = "targetFrame";
+									data[i].url = v_href ? v_href+"?root="+data[i].id : "";
+								};
+								return data;
+							}
 						}
 					});
 
