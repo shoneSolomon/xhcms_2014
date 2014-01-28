@@ -11,11 +11,11 @@ paths = {
 	underscore: "underscore.min",
 	zTree: "zTree/jquery.ztree.all-3.5.min",
 	WdatePicker: "My97DatePicker/WdatePicker",
-	"form-style": "form-style",
+	"form-style": "form-style.min",
 	iealert : "module/iealert/index",
 	requestAFrame : "module/requestAFrame",
 	highcharts: "highcharts/highcharts",
-	"template-init": "module/template-init"
+	"template-init": "module/template-init.min"
 },
 ui = [
 "accordion",
