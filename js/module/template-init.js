@@ -151,7 +151,7 @@ define(function(require, exports, module) {
             var tpl = $(options.tmpl), _this = this;
             return tpl.each(function(){
                 var _t = $(this),
-                    o = $.extend(base,{
+                    o = $.extend($.extend({},base),{
                         sourceUrl: _t.attr("data-url"),
                         target : _t.attr("data-target"),
                         append : _t.attr("data-append"),

@@ -114,6 +114,9 @@
 			if(data.success){
 				$(".login_name").html(data.content.username);
 			}
+		},
+		error: function(){
+			window.top.location.href = "../../xhadmin/login.do?returnUrl=/xhcms_2014/html/index.html";
 		}
 	});
 

@@ -10,14 +10,14 @@
 }
 
 /* 栏目配置  */
-#jvForm table{
+#jvForm .pn-ltable{
   border: 1px solid #cdcdcd;
   border-collapse: separate;
   border-spacing: 0px;
   border-color: #cbcbcb;
 }
 .i-search #jvForm table{
-  display: none;
+  
 }
 
 .pn-ltable{
@@ -75,7 +75,7 @@ a.pn-opt:link{
   border-radius: 3px;
   opacity: .9;
   filter: alpha(opacity=90);
-  background: url("../images/form.png") 100px 100px no-repeat #2cac93;
+  background: #2cac93;
   text-indent: 0;
   margin: 10px 0;
 }
@@ -145,7 +145,7 @@ switch end */
 .add-subject-name input[type=button],.submit-bt input[type=button]{
   border: 0;
   color: #fff;
-  background: url("../images/form.png") 100px 100px no-repeat #2cac93;
+  background: #2cac93;
 }
 .submit-bt {
   margin-bottom: 15px;
@@ -281,10 +281,10 @@ switch end */
 .pn-flabel {
   background-color: rgb(219, 237, 233);
 }
-.pn-ftable tr{
+/*.pn-ftable tr{
   clear: both;
   height: 52px;
-}
+}*/
 
 .pn-fcontent input[type=text],.letter22 input[type=text]{
   border: 0;
