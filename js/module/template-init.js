@@ -60,21 +60,24 @@ define(function(require, exports, module) {
 
             var p = null;
             if( o.pagination ){
-                p = $(o.pagination).toPager({
-                    currentPage: currentPage | 0,    // 默认选中的页码
-                    totalPage: totalPage |0      // 总页数
-                });
+                if( totalPage != "0" ){
+                    $(o.pagination).show();
+                }
                 o.url = location.href.replace(/([?])?[&]?toPage=\w*&?/,"$1");
-            }
-            if( typeof o.callback === "function" ){
-                o.callback.call(this,o,p,first);
-            }else{
-                if(p && first){
+                p = $(o.pagination).toPager({
+                    currentPage: Math.floor(currentPage) || 1,    // 默认选中的页码
+                    totalPage: totalPage | 0      // 总页数
+                },!first);
+                
+                if( typeof o.callback === "function" ){
+                    o.callback.call(this,o,p,first);
+                }else if(p && first){
                     p.on("switch",function(event,e){
                         location.href = o.url + ( o.url.indexOf("?") > -1 ? ("&toPage=" + e.toPage) : ("?toPage=" + e.toPage) );
                     });
                 }
             }
+                
         },
         __ajax__ : function(o,first){
             var tpl = $(o.tmpl).html();
