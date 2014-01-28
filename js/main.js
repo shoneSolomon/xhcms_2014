@@ -8,18 +8,28 @@
 
 	$(".head_top").on('click',function(e){
 		var hidden = $('.head_nav').is(":hidden");
-		if( hidden ){
-			$("#targetFrame, #tree-target").css({ height : "700px"});
+		if( hidden && !window.autoHeight){
+			$("#targetFrame, #tree-target").css({ height : $(window).height()-320 });
 		}
+		
 		$('.head_nav').stop().slideToggle(function(){
 			$(".t-handle").html( hidden ? "-" : "+" );
-			if( !hidden ){
-				$("#targetFrame, #tree-target").css({ height : "860px"});
+			if( !hidden && !window.autoHeight ){
+				$("#targetFrame, #tree-target").css({ height : $(window).height()-150 });
 			}
 		});
 	}).on('click','a',function(e){
 		e.stopPropagation();
 	});
+
+	window.reHeight = function(){
+		if(window.autoHeight)return;
+		var hidden = $('.head_nav').is(":hidden");
+		$("#targetFrame, #tree-target").css({ height : $(window).height()-( hidden ? 320 : 150) });
+	};
+
+	window.reHeight();
+
 	
 	require(["requestAFrame"],function(r){
 		//当前日期和时间
@@ -38,6 +48,7 @@
 						width: "0%",
 						opacity: 0
 					},'fast',function(){
+						treeHolder.hide();
 						handle.removeClass('expended')
 					});
 					rightTarget.animate({
@@ -60,7 +71,7 @@
 	});
 	
 	//含左边菜单的布局，额外添加事件
-	if( $("#tree-nav").length ){
+	if( tree.length ){
 		
 
 		require(["requestAFrame"],function(r){
@@ -69,7 +80,7 @@
 			r.addTimeout("resize",function(){
 				if( tar_height != rightTarget.height() ){
 					tar_height = rightTarget.height();
-					$("#tree-nav, #tree-module>ul").css({"height": tar_height-30});				
+					$("#tree-nav, #tree-module>ul").css({"height": tar_height-40});				
 				}	
 			},100);
 
@@ -95,7 +106,8 @@
 						width: "0%",
 						opacity: 0
 					},'fast',function(){
-						_this.removeClass('expended')
+						treeHolder.hide();
+						_this.removeClass('expended');
 					});
 					rightTarget.animate({
 						width: "42%"
@@ -106,7 +118,8 @@
 						width: "34%"
 					},'fast');
 
-					var v_href = _this.parent().attr("href"); //存儲展示的url
+					var v_href = _this.parent().attr("href"); //存儲展示的url,
+					var e_href = _this.attr("data-href");  //存储修改的url
 					//加载zTree菜单
 					$.fn.zTree.init($("#ztree-inner"), {
 						async: {
@@ -115,20 +128,21 @@
 							autoParam:["id", "name=n", "level=lv"],
 							dataFilter:function(id, parent, data){
 								for (var i = 0; i < data.length; i++) {
-									data[i].target = "targetFrame";
-									data[i].url = v_href ? v_href+"?root="+data[i].id : "";
+									(function(d){
+										d.target = "targetFrame";
+										d.url = d.isParent ? v_href+"?root="+d.id : "../../xhadmin"+e_href+"?id="+d.id;
+									})(data[i]);
 								};
 								return data;
 							}
 						}
 					});
 
-					treeHolder.animate({
+					treeHolder.show().animate({
 						width: "8%",
 						opacity: 1
 					},'fast',function(){
 						_this.addClass('expended');
-
 					});
 
 				}

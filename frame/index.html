@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	<link rel="stylesheet" href="../css/jqueryui/jquery-ui.css">
+	<link rel="stylesheet" href="../css/form.css">
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/require.js"></script>
+	<script src="../js/require-config.js"></script>
+	<style type="text/css">
+		body{height: 1800px;}
+		.index-main{margin:auto; margin-top:94px;position: relative; width: 982px; height: 1000px; background: #fff; border-radius: 7px; overflow: visible;}
+		.headimg{position: absolute; left:20px; top:-54px; background: #fff; box-shadow: 2px 2px 4px #a7a7a7 ; width: 180px; height:232px; padding: 2px;}
+		.headimg img{ width: 180px; height: 232px; }
+		.headwelcome{ position: absolute;left: 230px; top:-32px;}
+		.headleft{margin-left:226px; width: 730px; }
+		.headmessage{ height: 158px; padding-top:23px;  border-bottom:1px dotted #c3c3c3;}
+		.headmessage h2{ float: left; font-size: 18px; color:#2cac93; font-family: "微软雅黑"; font-weight: normal; height: 20px; line-height: 20px; }
+		.headmessage h3{ float: left; margin-left: 10px; font-size: 14px; color:#515151; font-family: "微软雅黑"; font-weight: normal; height: 20px; line-height: 20px;}
+		.headmessage p{height:24px; line-height:24px; color: #aaaaaa; font-size: 12px;}
+		.headmessage p span{padding-left: 8px;color: #5d5d5d;}
+		.headmessage p.headreceive{height: 35px; padding-left:32px;  background: url(../images/head_icon.png) -4px -128px no-repeat;line-height: 35px;}
+		.headmessage p.headreceive i{ font-family: "微软雅黑"; font-size: 18px; color:#ff815c; padding: 0px 4px; margin-top: 10px;}
+		.headmessage .headicon{ display: block; float: right; margin-left: 20px; width: 86px; height: 32px; background: #2cac93; line-height: 32px; text-align:center; color:#fff; cursor: pointer; }
+		.cont_entrance{ height: 202px;  border-bottom:1px dotted #c3c3c3; }
+		.cont_entrance h2 ,.workload h2{ height: 76px; line-height: 76px; color:#515151; font-size: 18px; font-family: "微软雅黑"; font-weight: normal;}
+		.cont_entrance a,.workload a{display: block; float: left; margin-top: 10PX; margin-right: 32PX; width: 170px; height: 70px;  text-align: center;  color: #FFF;cursor: pointer;}
+		.cont_entrance .entrance{line-height: 70px;background:#2cac93;}
+		.workload .works{ margin: 10px 32px 10px 0px;}
+		.workload .works span{ display: block; height: 40px;line-height:40px; text-align: center;}
+		.workload .works strong{font-size: 24px; font-weight: normal;}
+		.workload .daynews_amount{ background: #e89d80;}
+		.workload .weeknews_amount{ background: #eab162;}
+		.workload .monthnews_amount{ background: #668e83;}
+		.workload .allnews_amount{ background: #ae6a57;}
+	</style>
+</head>
+<body>
+	<div class="index-main">
+		<div class="headimg">
+			<img src="../images/img.png">
+		</div>
+		<div class="headwelcome"><img src="../images/welcome.png"></div>
+		<div class="headleft">
+			<div class="headmessage">
+				<h2>王小燕</h2>
+				<h3>普通编辑</h3>
+				<a class="headicon head_quit">退出</a>
+				<a class="headicon head_modified">修改资料</a>
+				<div style="clear:both"></div>
+				<p>本次登陆地点:<span>大兴星光影视园</span></p>
+				<p>上次登录时间:<span>2013-11-23 14:00:00</span></p>
+				<p>上次登陆地点:<span>北京市西城区  172.32.33.2</span></p>
+				<p class="headreceive">你收到<i>2</i>条站内信</p>
+			</div>
+			<div class="cont_entrance">
+				<h2>内容发布入口</h2>
+				<a class="entrance yyz_Platform">云月知平台</a>
+				<a class="entrance yyz_testStation">云月知测试站</a>
+			</div>
+			<div class="workload">
+				<h2>内容发布入口</h2>
+				<a class="works daynews_amount"><span>今天发稿量</span><strong>7</strong></a>
+				<a class="works weeknews_amount"><span>本周发稿量</span><strong>20</strong></a>
+				<div style="clear:both"></div>
+				<a class="works monthnews_amount"><span>本月发稿量</span><strong>200</strong></a>
+				<a class="works allnews_amount"><span>累积发稿量</span><strong>1435</strong></a>
+			</div>
+		</div>
+	</div>
+<script>
+(function($){
+
+	$(function(){
+		if( window.top != window ){
+			window.top.autoHeight = true;
+			var targetFrame = window.top.document.getElementById("targetFrame");
+			targetFrame.style.height = targetFrame.parentNode.style.height =  $(document).height() + "px";
+			top.reHeight();
+
+			$(window).on('unload',function(){
+				window.top.autoHeight = false;
+				top.reHeight();
+			});
+		}
+	});
+
+})(jQuery);
+</script>
+
+</body>
+</html>

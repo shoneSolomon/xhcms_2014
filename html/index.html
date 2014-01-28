@@ -27,7 +27,6 @@
 				<select name="sel" id="site-select">
 					<option value="1" selected="selected">云悦知主站</option>
 					<option value="2">云悦知测试站</option>
-					<option value="3">发稿平台</option>
 				</select>
 			</div>
 			<div class="nav">
@@ -46,7 +45,7 @@
 				<ul class="ztree" id="ztree-inner"></ul>
 			</div>
 			<div class="tree-target" id="tree-target">
-				<iframe name="targetFrame" id="targetFrame" src="../../xhadmin/main.do" frameborder="0" style="width:100%;min-height:700px;"></iframe>
+				<iframe name="targetFrame" id="targetFrame" src="" frameborder="0" style="width:100%; height:500px;"></iframe>
 			</div>
 		</div>
 	</div>
@@ -55,11 +54,11 @@
 <script type="template/html" id="md-nav">
 	<ul>
 		{{#each content}}
-		<li><a class="out {{type}}" href="{{#if url}}../../xhadmin{{url}}{{else}}about:blank{{/if}}" target="targetFrame" data-id="{{id}}" id="top-nav-{{id}}">{{name}}</a>
+		<li><a class="out {{type}}" href="{{url}}" target="{{target}}" data-id="{{id}}" id="top-nav-{{id}}">{{name}}</a>
 			{{#if childMenus.length}}
 			<div class="Tmenu">
 				{{#each childMenus}}
-				<a href="{{#if url}}../../xhadmin{{url}}{{else}}about:blank{{/if}}" target="targetFrame" id="top-nav-{{id}}" data-id="{{id}}" class="{{#if childMenus.length}}with-nav{{/if}}">{{name}}</a>
+				<a href="{{url}}" target="{{target}}" id="top-nav-{{id}}" data-id="{{id}}" class="{{#if childMenus.length}}with-nav{{/if}}">{{name}}</a>
 				{{/each}}
 			</div>
 			{{/if}}
@@ -70,10 +69,10 @@
 
 <script type="template/html" id="md-nav-sub">
 	{{#each childMenus}}
-		<dt class="{{type}} {{#if childMenus.length}}with-sub{{else}}without-sub{{/if}} dt-open"><a href="{{#if url}}../../xhadmin{{url}}{{else}}about:blank{{/if}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a></dt>
-		<dd style="display:block;" href="{{#if url}}../../xhadmin{{url}}{{/if}}">
+		<dt class="{{type}} {{#if childMenus.length}}with-sub{{else}}without-sub{{/if}} dt-open"><a href="{{url}}" class="{{type}}" target="{{target}}" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a></dt>
+		<dd style="display:block;" href="{{url}}" >
 			{{#each childMenus}}
-			<a href="{{#if url}}../../xhadmin{{url}}{{else}}about:blank{{/if}}" class="{{type}}" target="targetFrame" id="tree-nav-{{id}}" data-id="{{id}}">{{name}}</a>
+			<a href="{{url}}" class="{{type}}" target="{{target}}" id="tree-nav-{{id}}" data-id="{{id}}" data-href="{{treeLinkUrl}}">{{name}}</a>
 			{{/each}}
 		</dd>
 	{{/each}}
@@ -81,26 +80,30 @@
 
 <script type="template/html" id="md-main-head">
 	{{#each this}}
-		<a href="{{#if url}}../../xhadmin{{url}}{{else}}about:blank{{/if}}" class="{{#if childMenus.length}}with-nav{{/if}} {{type}}" data-id="{{id}}" target="targetFrame">{{name}}</a> &gt; 
+		<a href="{{url}}" class="{{#if childMenus.length}}with-nav{{/if}} {{type}}" data-id="{{id}}" target="{{target}}">{{name}}</a> &gt; 
 	{{/each}}
 </script>
 
 	
 <script>
-	
+
 	window.baseUrl = $("<a href='../'></a>")[0].href;
 
-	$("#site-select").on('change',function(){
-		if( this.value == 3 ){
-			window.open("../../xhcms0.2/main.html");
-		}
-	});
-
-
 	$("#targetFrame").on("load",function(){	//frame加载完成，添加frame.css样式表
-		var doc = $(this).contents()[0];
+		var _this = $(this), doc = _this.contents()[0];
+		_this.next().remove();
+
 		var t = $('<link rel="stylesheet" href="'+baseUrl+'css/frame.css" />')[0];
 		doc.body.appendChild( t );
+
+		if(window.reHeight){
+			window.reHeight();
+		}
+
+		var loading = $('<div class="loading"></div>');
+		doc.body.onunload = function(){
+			_this.after( loading );
+		}
 	});
 
 	$.ajax({		//获取登录用户信息
@@ -147,24 +150,53 @@
 
 		var tree = $("#tree-nav"), treeHolder = $("#tree-module"), rightTarget = $("#tree-target");
 
+		/**手工修改数据原型。
+		 * t: 当前节点，
+		 * p: 父级节点
+		**/
+		var dataBegin = function(t,p){
+
+			// 通过id修改url，可以让指定id索引的页面地址发生变化。
+			switch( t.id ){	
+				case 1: t.url = "../frame/index.html"; break; 
+				default: 
+					t.url = t.url ? "../../xhadmin" + t.url : "about:blank";
+			}
+
+			/**
+			 * "link": "普通链接，有定义css使用",
+			 * "blank-link" : "顶部导航使用的新打开页面链接",
+			 * "super-nav" : "和blank-link同级，不可点击",
+			 * "sub-nav" : "左侧导航的普通二级节点",
+			 * "tree-link : "左侧导航的"
+			**/
+			switch( t.type ){
+				case "blank-link": t.target = "_blank"; break;
+				default:
+					t.target = "targetFrame";
+			}
+
+		};
+
 		$.ajax({
 			url : "../../xhadmin/basic/getMenu.do",
 			dataType : "json",
 			success: function(n){
-				$(".nav").html( nav(n) );
-
 				var m = {};
-
 				//将结果数据通过id作为key标识成map。
 				var toMap = function(n){
 					for (var i = 0; i < n.length; i++) {
+						dataBegin( n[i], m[ n[i].parentId ] );	 //包装数据效果
 						m[ n[i].id ] = n[i];
 						toMap( n[i].childMenus );
 					};
 				}
 				toMap(n.content); 
 
-				//根据id获取当前节点的导航回溯。
+				$(".nav").html( nav(n) );	//顶部导航。
+
+
+				//根据id获取当前节点的导航回溯。 
 				var toChain = function(id){	
 					var chain = [], cid = id, temp;
 					while( temp = m[cid] ){
@@ -175,7 +207,7 @@
 				}
 
 				//顶部和面包屑事件触发
-				$(".nav, .mainHead, .head_login").on('click','a',function(){
+				$(".nav, .mainHead, .head_login").on('click','a',function(e){
 					var _this = $(this), id = _this.attr('data-id');
 
 					if( _this.hasClass("super-nav") || _this.hasClass("tree-link") || _this.next().hasClass("tree-link") ){	// 有子节点的一级导航不要点击事件
@@ -186,7 +218,7 @@
 						
 						tree.html( sub(m[ id ]) );
 
-						tree.animate({
+						tree.show().animate({
 							width: "8%",
 							opacity: 1
 						},'fast');
@@ -198,17 +230,21 @@
 						});
 					}else{
 						tree.html("");
-						
 						tree.animate({
 							width: "0%",
 							opacity: 0
-						},'fast');
+						},'fast',function(){
+							$(this).hide();
+						});
 						rightTarget.animate({
 							width: "50%"
 						},'fast');
 
 					}
-					$(".mainHead").html( crumb( toChain( $(this).attr("data-id") ) ) );
+					if( !_this.hasClass('blank-link') ){
+						$(".mainHead").html( crumb( toChain( $(this).attr("data-id") ) ) );
+					}
+						
 				});  
 
 				//左侧导航触发

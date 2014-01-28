@@ -11,9 +11,11 @@ paths = {
 	underscore: "underscore.min",
 	zTree: "zTree/jquery.ztree.all-3.5.min",
 	WdatePicker: "My97DatePicker/WdatePicker",
-	"form-style": "form-style.min",
+	"form-style": "form-style",
 	iealert : "module/iealert/index",
-	requestAFrame : "module/requestAFrame"
+	requestAFrame : "module/requestAFrame",
+	highcharts: "highcharts/highcharts",
+	"template-init": "module/template-init"
 },
 ui = [
 "accordion",
@@ -105,6 +107,9 @@ require.config({
 		},
 		iealert:{
 			deps: ["css!module/iealert/css/style.css"]
+		},
+		"template-init":{
+			deps: ["template","form-style"]
 		}
 	}
 });

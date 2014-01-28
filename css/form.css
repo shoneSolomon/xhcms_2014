@@ -23,8 +23,8 @@ zoom: 1;
 }
 
 /*dataSetup-个人资料设置--by王彩凤*/
-body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-width: 1200px;}
-.mainBox{margin:0 auto 20px; width:90%; min-height:720px; height: 100%; background:#ffffff;overflow-x:hidden;}
+body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-width: 1200px; }
+.mainBox{margin:0 auto 20px; width:90%; min-height:500px; height: 100%; background:#ffffff; overflow:hidden;}
 .mainCenter{ margin:auto; padding-top:60px; width:90%;height:100%}
 .mainHead{height:52px; line-height:52px; text-indent:2em; border-bottom:1px solid #d2d2d2;}
 .form_setup, .form_write,.form_send,.form_recycle{padding-top:25px;}
@@ -132,7 +132,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .head .nav ul li .Tmenu a:hover{background:#2cac93;}
 
 /*tree-nav by shiyangyang*/
-.mainBody{width: 200%;}
+.mainBody{width: 200%; background:url("../images/boy_bg.png") repeat; }
 .tree-nav{line-height: 30px;text-indent: 24px;padding: 20px 0;background-color: #dbede9; width: 8%; float: left; position: relative; overflow-y: scroll;}
 .tree-nav a{color: #555;display: block; line-height: 30px; height: 30px; }
 .tree-nav dt{font-weight: bold; padding-left: 20px;}
@@ -149,7 +149,12 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 
 .tree-module{line-height: 30px;padding:0;width: 0%;float: left;background-color: #2cac93;}
 
-.mainBody .tree-target{padding: 0;width: 42%; float: left;}
+.mainBody .tree-target{padding: 0;width: 42%; float: left; position: relative;}
+.mainBody .tree-target .loading{ 
+	opacity: .6;
+	filter: alpha(opacity=60);
+ 	background: url(../images/loading.gif) center no-repeat #fff; width: 100%;height: 100%; position: absolute; z-index: 2; left: 0; top: 0;
+}
 
 /**webkit滚动条样式*/
 ::-webkit-scrollbar {

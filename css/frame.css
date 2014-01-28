@@ -19,6 +19,7 @@
 .i-search #jvForm table{
   display: none;
 }
+
 .pn-ltable{
   background-color: #ececec;
 }
@@ -67,9 +68,9 @@ a.pn-opt:link{
   display: inline-block;
   border: 1px solid #2cac93;
   color: #ffffff;
-  height: 28px;
-  line-height: 28px;
-  font-size: 14px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 12px;
   padding: 0 1em;
   border-radius: 3px;
   opacity: .9;
@@ -157,13 +158,14 @@ switch end */
   background: #2cac93;
 }
 
+
 /* 百科发布 > 人物 */
 .letter22 {
   margin-left: 10px;
 }
 .letter22 input,.letter22 select{
   margin-right: 10px;
-  line-height: 28px;
+  line-height: 24px;
 }
 
 .second_navi li{
@@ -194,7 +196,6 @@ switch end */
 }
 .pn-fcontent label input[type=radio]{
 	vertical-align: -10px;
-	background: #fc0;
 }
 #comment input[type=button]{
 
@@ -265,6 +266,16 @@ switch end */
   background: #2cac93;
 }
 
+.ropt input[type=submit],.ropt input[type=button]{   /* 按钮样式更改 */
+  text-indent: 0;
+  border: 0;
+  height: 24px;
+  line-height: 24px;
+  color: #fff;
+  background: #2cac93;
+  border-radius: 3px;
+  cursor: pointer;
+}
 
 /* 站点管理 > 站点设置 */
 .pn-flabel {
@@ -306,8 +317,17 @@ switch end */
 .pn-fbutton input,.query,.add{
   text-indent: 0;
   border: 0;
-  height: 26px;
-  line-height: 26px;
+  height: 24px;
+  line-height: 24px;
+  color: #fff;
+  background: #2cac93;
+  border-radius: 3px;
+}
+.pn-fbutton input[type=submit],.pn-fbutton input[type=reset]{
+  text-indent: 0;
+  border: 0;
+  height: 28px;
+  line-height: 28px;
   color: #fff;
   background: #2cac93;
   border-radius: 3px;
@@ -373,3 +393,77 @@ switch end */
   text-indent: 0px;
   border-radius: 3px;
 }
+
+
+
+/* 细节（先去掉按钮上的图标） */
+/* 百科发布 > 专题库 > 全部专题 */
+.form-all-top em{
+  background: none;
+}
+.form-all-top a span {
+  vertical-align: middle;
+  margin-left: -8px;
+}
+
+/* 资源管理 > 推广资源管理 > 友情链接 > 管理 >修改 */
+.browse,.upload-button,.pn-fcontent input[type=button]{
+  height: 24px;
+  background: #2cac93;
+  color: #ffffff;
+  text-indent: 0px;
+  border-radius: 3px;
+}
+.pn-fcontent textarea{
+  border-radius: 3px;
+  border: 1px solid #cbcbcb;
+}
+.pn-fbutton input[type=text]{
+  text-indent: 0;
+  border: 0;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 3px;
+  background: #fff;
+  border: 1px solid #cbcbcb;
+  margin-top: 5px;
+  color: #000;
+  text-align: center;
+}
+.pn-ftable  input[type=password]{
+  height: 24px;
+  line-height: 24px;
+  border: 1px solid #cbcbcb;
+  border-radius: 3px;
+}
+.pn-fcontent input[type=text]{
+  height: 26px;
+}
+.pn-fcontent input[type=button]{
+  border: none; 
+  cursor: pointer;
+  margin-left: 6px;
+}
+.preview-button{
+  margin-left: 6px;
+}
+.pn-ftable input#username{
+  height: 22px;
+  border: 1px solid #cbcbcb;
+  width: 163px;
+  border-radius: 3px;
+}
+
+/* table行高 */
+.content-form tbody td {
+  height: 35px;
+}
+.pn-ltbody td {
+  height: 35px;
+}
+
+/*站点管理 > 站点设置 >*/
+.ropt .sys-setting, .ropt .login-setting,.ropt .member-setting, .ropt .mark-setting, .ropt .base-setting, .ropt .submit{display: block;float: left;height: 28px;width: 80px;padding: 0 6px;line-height: 28px;background: #2cac93;color: #fff;border-radius: 3px;margin-right: 25px; text-indent: 0px;}
+.pn-fcontent .preview-button{ margin-right: 0px; width: 40px;height: 25px; background: #2cac93; text-indent: 0px;line-height: 25px;color: #fff;border-radius: 3px;}
+.body-box #jvForm table{float: left;}
+.ropt .submit{ width: 40px; float: none; display: inline;  height: 24px; line-height:24px;}
