@@ -15,7 +15,7 @@
 			<span class="headIcon skin_peeler">换肤</span>
 			<span id="now-time"></span>
 			<div class="head_login">
-				<a class="headIcon sizeOn head_exit" href="../../xhadmin/logout.do?returnUrl=index.do" onclick="return confirm('您确定退出吗？')">&nbsp;</a>
+				<a class="headIcon sizeOn head_exit" href="../../xhadmin/logout.do?returnUrl=/xhcms_2014/html/index.html" onclick="return confirm('您确定退出吗？')">&nbsp;</a>
 				<a class="headIcon sizeOn head_settings" href="../../xhadmin/personal/v_profile.do" target="targetFrame">&nbsp;</a>
 				<a class="headIcon sizeOn head_receiving" href="../../xhadmin/message/v_list.do" target="targetFrame">&nbsp;<i id="count-receiving">?</i></a>
 				<span class="login_name">[未知用户]</span>		
@@ -101,7 +101,7 @@
 		}
 
 		var loading = $('<div class="loading"></div>');
-		doc.body.onunload = function(){
+		doc.body.onbeforeunload = function(){
 			_this.after( loading );
 		}
 	});

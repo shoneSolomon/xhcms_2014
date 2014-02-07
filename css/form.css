@@ -27,6 +27,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .mainBox{margin:0 auto 20px; width:90%; height: 100%; background:#ffffff; overflow:hidden;}
 .mainCenter{ margin:auto; padding-top:60px; width:90%;height:100%}
 .mainHead{height:52px; line-height:52px; text-indent:2em; border-bottom:1px solid #d2d2d2;}
+.in-index .mainHead{display: none;}
 .form_setup, .form_write,.form_send,.form_recycle{padding-top:25px;}
 .form_recycletop i, .form_recycletop .fm-button{float: left;}
 .form_recycletop i{ margin-right: 20px;}

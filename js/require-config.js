@@ -15,7 +15,8 @@ paths = {
 	iealert : "module/iealert/index",
 	requestAFrame : "module/requestAFrame",
 	highcharts: "highcharts/highcharts",
-	"template-init": "module/template-init.min"
+	"template-init": "module/template-init.min",
+	morris:"morris/morris.min"
 },
 ui = [
 "accordion",
@@ -110,6 +111,9 @@ require.config({
 		},
 		"template-init":{
 			deps: ["template","form-style"]
+		},
+		morris :{
+			deps: ["raphael","css!../js/morris/morris.css"]
 		}
 	}
 });
