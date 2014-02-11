@@ -11,7 +11,8 @@ define(function(require, exports, module) {
         sourceMethod : "get",
         sourceData : function(){
             return {};
-        }
+        },
+        nonResult : '<div class="no-content" style="padding-top: 150px;"><span class="nocon-bid"></span><span class="nocon-detail">暂无内容！</span></div>'
     };
 
     /**
@@ -49,7 +50,7 @@ define(function(require, exports, module) {
             var currentPage = dom.children(".currentPage").hide().html(),
                 totalPage = Math.ceil( dom.children(".totalPage").hide().html() );
             if(totalPage === 0 ){
-                dom.html( '<h4 style="clear: both; width:100%; text-align:center; color:#c00;">对不起！没有符合条件的搜索结果。</h4>' );
+                dom.html( o.nonResult );
             }
 
             if(o.prepend){
@@ -99,7 +100,7 @@ define(function(require, exports, module) {
             }, o.sourceData() ),function(data){
 
                 if(data.code != 200){
-                    target.html( '<div class="no-content" style="padding-top: 150px;"><span class="nocon-bid"></span><span class="nocon-detail">暂无内容！</span></div>' );
+                    target.html( o.nonResult );
                     return ;
                 }
 
@@ -117,7 +118,7 @@ define(function(require, exports, module) {
                 var currentPage = dom.children(".currentPage").hide().html(),
                     totalPage = Math.ceil( dom.children(".totalPage").hide().html() );
                 if(totalPage === 0 ){
-                    dom.html( '<div class="no-content" style="padding-top: 150px;"><span class="nocon-bid"></span><span class="nocon-detail">暂无内容！</span></div>' );
+                    dom.html( o.nonResult );
                 }
 
                 dom.remove(".list-wait");

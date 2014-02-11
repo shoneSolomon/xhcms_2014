@@ -16,6 +16,13 @@
   border-spacing: 0px;
   border-color: #cbcbcb;
 }
+/*  */
+#jvForm table.pn-ftable {
+border-collapse: separate;
+border-spacing: 0px;
+border-color: gray;
+}
+
 .i-search #jvForm table{
   
 }
@@ -207,6 +214,10 @@ switch end */
 	vertical-align: -2px;
 }
 
+.profession ul {
+  height: 60px;
+}
+
 /* 百科发布 > 专题库 */
 .form-all {
   width: auto;
@@ -280,6 +291,7 @@ switch end */
 /* 站点管理 > 站点设置 */
 .pn-flabel {
   background-color: rgb(219, 237, 233);
+  height: 49px;
 }
 /*.pn-ftable tr{
   clear: both;
@@ -372,7 +384,8 @@ switch end */
 
 /* 统计日志 > 日志 > */
 .body-box input[name=queryUsername],.body-box input[name=queryTitle],.body-box input[name=queryIp],.body-box input[name=queryId],.body-box input[name=queryName],
-.body-box input[name=name],.body-box input[name=url],.body-box input[name=replacement],.body-box input[name=search],.body-box input[name=priority]{
+.body-box input[name=name],.body-box input[name=url],.body-box input[name=replacement],.body-box input[name=search],.body-box input[name=priority],
+.body-box input[name=prioritys],.body-box input[name=label],.body-box input[name=labels]{
   padding: 0 6px;
   height: 20px;
   border: 1px solid #b4b4b4;
@@ -461,6 +474,7 @@ switch end */
 .pn-ltbody td {
   height: 35px;
 }
+
 
 /*站点管理 > 站点设置 >*/
 .ropt .sys-setting, .ropt .login-setting,.ropt .member-setting, .ropt .mark-setting, .ropt .base-setting, .ropt .submit{display: block;float: left;height: 28px;width: 80px;padding: 0 6px;line-height: 28px;background: #2cac93;color: #fff;border-radius: 3px;margin-right: 25px; text-indent: 0px;}

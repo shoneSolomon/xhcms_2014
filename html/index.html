@@ -12,11 +12,11 @@
 <body>
 	<div class="head">
 		<div class="head_top">
-			<span class="headIcon skin_peeler">换肤</span>
+			<a class="headIcon skin_peeler" href="javascript:void(0);">换肤</a>
 			<span id="now-time"></span>
 			<div class="head_login">
 				<a class="headIcon sizeOn head_exit" href="../../xhadmin/logout.do?returnUrl=/xhcms_2014/html/index.html" onclick="return confirm('您确定退出吗？')">&nbsp;</a>
-				<a class="headIcon sizeOn head_settings" href="../../xhadmin/personal/v_profile.do" target="targetFrame">&nbsp;</a>
+				<a class="headIcon sizeOn head_settings" href="../../xhadmin/personal/v_profile.do" target="targetFrame" id="personal-settings">&nbsp;</a>
 				<a class="headIcon sizeOn head_receiving" href="../../xhadmin/message/v_list.do" target="targetFrame">&nbsp;<i id="count-receiving">?</i></a>
 				<span class="login_name">[未知用户]</span>		
 			</div>
@@ -25,8 +25,8 @@
 		<div class="head_nav">
 			<div class="head_select">
 				<select name="sel" id="site-select">
-					<option value="1" selected="selected">云悦知主站</option>
-					<option value="2">云悦知测试站</option>
+					<option value="1" selected="selected">新华新闻主站</option>
+					<option value="2">百科聚合测试站</option>
 				</select>
 			</div>
 			<div class="nav">
@@ -88,6 +88,12 @@
 <script>
 
 	window.baseUrl = $("<a href='../'></a>")[0].href;
+
+	$("#site-select").on('change',function(){
+		if(this.value == 2){
+			window.location.href="../../xhadmin/index.do?_site_id_param=2";
+		}
+	});
 
 	$("#targetFrame").on("load",function(){	//frame加载完成，添加frame.css样式表
 		var _this = $(this), doc = _this.contents()[0];

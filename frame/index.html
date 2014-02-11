@@ -10,10 +10,10 @@
 	<script src="../js/require-config.js"></script>
 	<style type="text/css">
 		.index-main{margin:auto; margin-top:94px;position: relative; width: 982px; height: auto; background: #fff; border-radius: 7px; overflow: visible;}
-		.headimg{position: absolute; left:20px; top:-54px; background: #fff; box-shadow: 2px 2px 4px #a7a7a7 ; width: 180px; height:232px; padding: 2px;}
-		.headimg img{ width: 180px; height: 232px; }
-		.headwelcome{ position: absolute;left: 230px; top:-32px;}
-		.headleft{margin-left:226px; width: 730px; }
+		.headimg{position: absolute; left:20px; top:-54px; background: #fff; box-shadow: 2px 2px 4px #a7a7a7 ; width: 200px; height:200px; padding: 2px;}
+		.headimg img{ width: 200px; height: 200px; }
+		.headwelcome{ position: absolute;left: 250px; top:-32px;}
+		.headleft{margin-left:240px; width: 730px; }
 		.headmessage{ height: 158px; padding-top:23px;  border-bottom:1px dotted #c3c3c3;}
 		.index-main h2{ height: 76px; line-height: 76px; color:#515151; font-size: 18px; font-family: "微软雅黑"; font-weight: normal; color:#515151;}
 		.index-main .headmessage h2{ float: left; font-size: 18px; color:#2cac93; font-family: "微软雅黑"; font-weight: normal; height: 20px; line-height: 20px; }
@@ -21,7 +21,7 @@
 		.headmessage p{height:24px; line-height:24px; color: #aaaaaa; font-size: 12px;}
 		.headmessage p span{padding-left: 8px;color: #5d5d5d;}
 		.headmessage p.headreceive{height: 35px; padding-left:32px;  background: url(../images/head_icon.png) -4px -128px no-repeat;line-height: 35px;}
-		.headmessage p.headreceive i{ font-family: "微软雅黑"; font-size: 18px; color:#ff815c; padding: 0px 4px; margin-top: 10px;}
+		.headmessage p.headreceive a{ font-family: "微软雅黑"; font-size: 18px; color:#ff815c; padding: 0px 4px; margin-top: 10px;}
 		.headmessage .headicon{ display: block; float: right; margin-left: 20px; width: 86px; height: 32px; background: #2cac93; line-height: 32px; text-align:center; color:#fff; cursor: pointer; }
 		.cont_entrance{ height: 202px;  border-bottom:1px dotted #c3c3c3; }
 		.cont_entrance a,.workload a{display: block; float: left; margin-top: 10px; margin-right: 32px; width: 170px; height: 70px;  text-align: center;  color: #FFF;cursor: pointer;}
@@ -58,9 +58,9 @@
 
 		.system_py{float: left; width: 515px; height: 380px;}
 		.system_py .properties{ width: 515px; height: 244px; padding-top: 18px; background: #ededed;}
-		.system_py .properties p{ height: 30px; word-wrap:break-word; }
-		.system_py .properties p span{display: block; float:left; width: 170px; text-align: right; margin-right:22px;line-height: 30px;color: #515151; font-weight: bold;}
-		.system_py .properties p a{ display: block; float: left; width: 310px;line-height: 30px;color: #515151; word-wrap:break-word; }
+		.system_py .properties p{word-wrap:break-word; }
+		.system_py .properties p span{float:left; width: 170px; text-align: right; margin-right:22px;line-height: 30px;color: #515151; font-weight: bold;}
+		.system_py .properties p a{float: left; width: 310px;line-height: 30px;color: #515151; word-wrap:break-word; }
 		.memory_stat{ margin-top: 20px;}
 		.memory_stat p{ float: left; width: 142px; font-size: 12px;}
 		.memory_stat span{ display: inline-block; width:60px; height: 26px; border: 1px solid #cecece; line-height: 26px; text-align: center; color: #7f7f7f;}
@@ -76,28 +76,28 @@
 		<div class="headwelcome"><img src="../images/welcome.png"></div>
 		<div class="headleft">
 			<div class="headmessage">
-				<h2>王小燕</h2>
-				<h3>普通编辑</h3>
-				<a class="headicon head_quit">退出</a>
-				<a class="headicon head_modified">修改资料</a>
+				<h2><span class="data-hole">realname</span></h2>
+				<h3><span class="data-hole">role</span></h3>
+				<a class="headicon head_quit" href="../../xhadmin/logout.do?returnUrl=/xhcms_2014/html/index.html" onclick="return confirm('您确定退出吗？')">退出</a>
+				<a class="headicon head_modified" onclick="window.parent.document.getElementById('personal-settings').click();">修改资料</a>
 				<div style="clear:both"></div>
-				<p>本次登陆地点:<span>大兴星光影视园</span></p>
-				<p>上次登录时间:<span>2013-11-23 14:00:00</span></p>
-				<p>上次登陆地点:<span>北京市西城区  172.32.33.2</span></p>
-				<p class="headreceive">你收到<i>2</i>条站内信</p>
+				<p>本次登录地点:<span><span class="data-hole">ip</span></span></p>
+				<p>上次登录时间:<span><span class="data-hole">lastLoginTime</span></span></p>
+				<p>上次登录地点:<span><span class="data-hole">lastLoginAddress</span>  <span class="data-hole">lastLoginIp</span></span></p>
+				<p class="headreceive" id="count-receiving"></p>
 			</div>
 			<div class="cont_entrance">
 				<h2>内容发布入口</h2>
-				<a class="entrance yyz_Platform">云月知平台</a>
-				<a class="entrance yyz_testStation">云月知测试站</a>
+				<a class="entrance yyz_Platform" href="#" onclick="window.parent.document.getElementById('top-nav-2').click(); return false;" >新华新闻主站</a>
+				<!-- <a class="entrance yyz_testStation">云月知测试站</a> -->
 			</div>
 			<div class="workload clearfix">
 				<h2>工作量</h2>
-				<a class="works daynews_amount"><span>今天发稿量</span><strong>7</strong></a>
-				<a class="works weeknews_amount"><span>本周发稿量</span><strong>20</strong></a>
+				<a class="works daynews_amount"><span>今天发稿量</span><strong></strong>开发中...</a>
+				<a class="works weeknews_amount"><span>本周发稿量</span><strong></strong>开发中...</a>
 				<div style="clear:both"></div>
-				<a class="works monthnews_amount"><span>本月发稿量</span><strong>200</strong></a>
-				<a class="works allnews_amount"><span>累积发稿量</span><strong>1435</strong></a>
+				<a class="works monthnews_amount"><span>本月发稿量</span><strong></strong>开发中...</a>
+				<a class="works allnews_amount"><span>累积发稿量</span><strong></strong>开发中...</a>
 			</div>
 			<div class="over_percent">
 				<h2>你的发稿量超过了</h2>
@@ -150,16 +150,32 @@
 			<div class="system_py">
 				<h2>系统属性</h2>
 				<div class="properties">
-					<P><span>操作系统版本</span><a>Linux 2.6.18-194.el5</a></p>
-					<P><span>操作系统类型</span><a>amd64 64位</a></p>
-					<P><span>用户、目录、临时目录</span><a>weblogic, /data/weblogic/wlserver/user_projects/domains/base_domain, /tmp</a></p>
-					<P><span>JAVA运行环境</span><a>e_domain, /tmp</a></p>
-					<P><span>JAVA虚拟机</span><a>Java(TM) SE Runtime Environment 1.6.0_25-b06Java HotSpot(TM) 64-Bit Server VM 20.0-b11</a></p>		
+					<P><span>操作系统版本</span><a><span class="data-hole">props/os.name</span> <span class="data-hole">props/os.version</span></a></p>
+					<P><span>操作系统类型</span><a><span class="data-hole">props/os.arch</span></a></p>
+					<P><span>用户、目录、临时目录</span>
+						<a>
+							<span class="data-hole">username</span>, 
+							<span class="data-hole">props/user.dir</span>, 
+							<span class="data-hole">props/java.io.tmpdir</span>
+						</a>
+					</p>
+					<P><span>JAVA运行环境</span>
+						<a>
+							<span class="data-hole">props/java.runtime.name</span>  
+							<span class="data-hole">props/java.runtime.version</span>
+						</a>
+					</p>
+					<P><span>JAVA虚拟机</span>
+						<a>
+							<span class="data-hole">props/java.vm.name</span>  
+							<span class="data-hole">props/java.vm.version</span>
+						</a>
+					</p>		
 				</div>
 				<div class="memory_stat clearfix">
-					<p><span>已知内存</span><a>2324.MB</a></p>
-					<p><span>剩余内存</span><a>2324.MB</a></p>
-					<p><span>最大内存</span><a>2324.MB</a></p>
+					<p><span>已用内存</span><a><span class="data-hole">usedMemory</span></a></p>
+					<p><span>剩余内存</span><a><span class="data-hole">freeMemoery</span></a></p>
+					<p><span>最大内存</span><a><span class="data-hole">useableMemory</span></a></p>
 				</div>
 			</div>
 		</div>
@@ -183,6 +199,48 @@
 		}
 	});
 
+
+	$.ajax({
+		url : "../../xhadmin/basic/getInfo.do",
+		dataType: "json",
+		success: function(data){
+			var o = data.content;
+
+			function get( key ){
+				var keys = key.split("/");
+				switch( keys.length ){
+					case 1: return o[key];
+					case 2: return o[keys[0]][keys[1]];
+					case 3: return o[keys[0]][keys[1]][keys[2]];
+					case 4: return o[keys[0]][keys[1]][keys[2]][keys[3]];
+				}
+			}
+
+			$(".data-hole").each(function(){
+				var result = get( this.innerHTML );
+				var tNode = document.createTextNode( result || "开发中..." );
+				$(this).before(tNode).remove();
+			});
+
+		}	
+	});
+
+	$.ajax({
+		url: "../../xhadmin/message/v_countUnreadMsg.do",
+		type:"post",
+		dataType:"json",
+		success: function(data){
+			// data.count = 2; //测试数据
+			if(data.result){
+				 $("#count-receiving").html( '你收到<a href="#" onclick="window.parent.document.getElementById(\'personal-settings\').click(); return false;">' + data.count + '</a>条站内信' ).css({
+				 	visibility: (data.count > 0 ? "visible" : "hidden")
+				 });
+			}else{
+				alert("请先登录");
+			}
+		}
+	});
+
 	$(".stage_volume .title").on("click",function(){
 		$(this).parent().addClass("current").siblings().removeClass('current');
 	}).first().trigger('click');
@@ -192,6 +250,7 @@
 		/**
 		 * api: http://www.oesmith.co.uk/morris.js/lines.html
 		**/
+		/*
 		Morris.Line({
 			element: 'trend_1',
 			data: [
@@ -210,6 +269,7 @@
 			pointStrokeColors: ['#ee5a30','#ac75ca',"#89ba34"],
 			smooth:false
 		});
+*/
 
 		var per = .83;
 		Morris.Donut({
@@ -220,7 +280,7 @@
 			],
 			colors:["#fff","#2cac93"],
 			formatter:function(y,data){
-				return 100*y + "%";
+				return "的编辑";
 			}
 		}).select(1);
 

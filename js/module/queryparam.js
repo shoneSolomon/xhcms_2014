@@ -1,6 +1,9 @@
 define(function(require, exports, module) {
+	//缓存的地址栏参数对象
 	var queryParam = {};
-    // 包装地址栏参数
+    /**
+     * 通过 传入的key 获取对应的search参数 
+    **/
 	return function(key){
 	    var search = queryParam.search ||  (function(w){
 	        var m = {},ar = w.location.search;
@@ -15,7 +18,7 @@ define(function(require, exports, module) {
 	                	case 'object': //如果已经是数组，push
 	                		m[t[0]].push( t[1] );
 	                		break; 
-	                	default: 	//第一次想、设置为字符串
+	                	default: 	//第一次需要设置为字符串
 	                 		m[t[0]] = t[1];
 	                }
 	            }

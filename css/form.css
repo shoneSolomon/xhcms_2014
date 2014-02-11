@@ -93,7 +93,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .head{width:100%; margin-bottom: 20px; background:url("../images/head_bg.png") repeat-x;}
 .head_top{margin:auto;width:90%; height:29px; line-height:30px; padding:10px 0px;  background:#332d2d;}
 .headIcon{background:url("../images/head_icon.png") no-repeat 4px -2px;cursor: pointer;}
-.skin_peeler{float:left;background-position:-4px 0px; padding-left:30px;padding-right: 66px; }
+.skin_peeler{float:left;background-position:-4px 0px; padding-left:30px;padding-right: 66px; color: #fff; }
 .head .sizeOn{float:right;margin-right:26px;min-width:24px;}
 .head_login{float: right; }
 .head_exit{background-position:-4px -96px;}

@@ -16,7 +16,8 @@ paths = {
 	requestAFrame : "module/requestAFrame",
 	highcharts: "highcharts/highcharts",
 	"template-init": "module/template-init.min",
-	morris:"morris/morris.min"
+	morris:"morris/morris.min",
+	dateUtil: "module/date-util"
 },
 ui = [
 "accordion",

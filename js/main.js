@@ -4,6 +4,12 @@
 		new IEAlert();
 	});
 
+	require(["alerts"],function(){
+		$(".skin_peeler").on('click',function(){
+			jAlert("切换皮肤功能开发中... 敬请关注!");
+		});
+	});
+
 	var tree = $("#tree-nav"), treeHolder = $("#tree-module"), rightTarget = $("#tree-target");
 
 	$(".head_top").on('click',function(e){
@@ -31,12 +37,11 @@
 	window.reHeight();
 
 	
-	require(["requestAFrame"],function(r){
+	require(["requestAFrame","dateUtil"],function(r,DateUtil){
+
 		//当前日期和时间
 		r.addTimeout("now-time",function(){
-			$("#now-time").html( (function(d){
-				return "现在时间： "+d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日 "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+" 星期"+"日一二三四五六".charAt(d.getDay())
-			})(new Date()) );	
+			$("#now-time").html( DateUtil.format(new Date(), "现在时间： yy年MM月dd日 hh:mm:ss $$") );	
 		},1000);
 
 		r.addTimeout("close-tree",function(){	//检测关闭二级选框
