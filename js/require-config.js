@@ -59,9 +59,9 @@ ui = [
 for (var i = 0; i < ui.length; i++) {
 	paths[ui[i]] = uiModule.replace( "{{module}}",ui[i] );
 };
-
+var _src = Array.prototype.pop.call( document.getElementsByTagName('script') ).src;
 require.config({
-	baseUrl: "../js",
+	baseUrl: _src.replace( /\/[^\/]*$/,"" ),
 	paths: paths,
 	shim :{
 		widget:{

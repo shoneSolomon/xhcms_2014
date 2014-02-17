@@ -68,7 +68,7 @@
 		
 	require(["form-style"],function(){
 		$("#site-select").toSelect({
-			width: 136,
+			// width: 136,
 			colorful: true
 		}).on('change',function(){
 			// 执行 切换站点

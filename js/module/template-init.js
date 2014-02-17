@@ -35,6 +35,7 @@ define(function(require, exports, module) {
      * @param {Boolean} prepend  是否以追加的模式填充目标标签     |data-prepend| 优先于append
      * @param {Function} begin(o*数据源options*, data*渲染数据*,first*首次加载*) 数据准备完成，渲染开始前运行
      * @param {Function} callback(o*数据源options*, pager*分页对象*,first*首次加载*) 渲染结束以后运行
+     * @param {String} nonResult 当totalPage为0时,  填充目标.
      */
     return {
         __simple__ : function(o,first){
@@ -49,6 +50,8 @@ define(function(require, exports, module) {
                 dom = $("<div>"+html+"</div>");
             var currentPage = dom.children(".currentPage").hide().html(),
                 totalPage = Math.ceil( dom.children(".totalPage").hide().html() );
+            
+            $(o.pagination).hide(); //先隐藏分页组件
             if(totalPage === 0 ){
                 dom.html( o.nonResult );
             }

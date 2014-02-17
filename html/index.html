@@ -27,6 +27,7 @@
 				<select name="sel" id="site-select">
 					<option value="1" selected="selected">新华新闻主站</option>
 					<option value="2">百科聚合测试站</option>
+					<option value="3">炫知新闻加工后台【旧版】</option>
 				</select>
 			</div>
 			<div class="nav">
@@ -90,8 +91,9 @@
 	window.baseUrl = $("<a href='../'></a>")[0].href;
 
 	$("#site-select").on('change',function(){
-		if(this.value == 2){
-			window.location.href="../../xhadmin/index.do?_site_id_param=2";
+		switch( this.value ){
+			case '2': window.location.href="../../xhadmin/index.do?_site_id_param=2";
+			case '3': window.open( "../../xhadmin/index.do" ); break;
 		}
 	});
 
