@@ -17,7 +17,8 @@ paths = {
 	highcharts: "highcharts/highcharts",
 	"template-init": "module/template-init.min",
 	morris:"morris/morris.min",
-	dateUtil: "module/date-util"
+	dateUtil: "module/date-util",
+	numberUtil: "module/number-util"
 },
 ui = [
 "accordion",
@@ -59,7 +60,7 @@ ui = [
 for (var i = 0; i < ui.length; i++) {
 	paths[ui[i]] = uiModule.replace( "{{module}}",ui[i] );
 };
-var _src = Array.prototype.pop.call( document.getElementsByTagName('script') ).src;
+var _src = Array.prototype.slice.call( document.getElementsByTagName('script') ).pop().src;
 require.config({
 	baseUrl: _src.replace( /\/[^\/]*$/,"" ),
 	paths: paths,
