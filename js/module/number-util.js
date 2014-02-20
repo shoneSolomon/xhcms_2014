@@ -11,13 +11,12 @@ define(function(require, exports, module) {
 				return _c[b.charAt(0)] + "角" + _c[b.charAt(1)] + "分"
 		}
 	};
-
 	var _set = {
 		"B": 1,
 		"KB": 1024,
 		"MB" : 1024*1024,
 		"GB" : 1024*1024*1024,
-		"TB" : 1024*1024*1024*1024,
+		"TB" : 1024*1024*1024*1024
 	};
 	var _getUnit = function(n){ //判断使用哪个单位合适
 		var i = 0, _n = n;
@@ -27,7 +26,6 @@ define(function(require, exports, module) {
 		}
 		return ["B","KB","MB","GB","TB"][i] || "TB"; 
 	};
-
 	return {
 		/** 人民币大写读数 */
 		toRMB: function(n){
@@ -57,13 +55,11 @@ define(function(require, exports, module) {
 	        return a.match(/\d{3}/g).join(split || ",").replace(/^0+(\d+)/,"$1") + c + b;
 		},
 		/**数据存储表示法,默认保留小数点后2位*/
-		toStorage:function(n,unit){
-			if( !unit ){
+		toStorage:function(n,unit,fixed_len){
+			if( !unit || !_set[unit] ){
 				unit = _getUnit(n);
 			}
-
-			return (n / (_set[unit]||1) +.005).toFixed(2) + unit;
-
+			return ( n / _set[unit] ).toFixed(fixed_len||2) + unit;
 		}
 	};
 

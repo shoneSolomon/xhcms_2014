@@ -232,7 +232,7 @@
 		success: function(data){
 			// data.count = 2; //测试数据
 			if(data.result){
-				 $("#count-receiving").html( '你收到<a href="#" onclick="window.parent.document.getElementById(\'personal-settings\').click(); return false;">' + data.count + '</a>条站内信' ).css({
+				 $("#count-receiving").html( '你收到<a href="#" onclick="window.parent.document.getElementById(\'count-receiving\').click(); return false;">' + data.count + '</a>条站内信' ).css({
 				 	visibility: (data.count > 0 ? "visible" : "hidden")
 				 });
 			}else{
