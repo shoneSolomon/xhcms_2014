@@ -16,8 +16,8 @@
 			<span id="now-time"></span>
 			<div class="head_login">
 				<a class="headIcon sizeOn head_exit" href="../../xhadmin/logout.do?returnUrl=/xhcms_2014/html/index.html" onclick="return confirm('您确定退出吗？')">&nbsp;</a>
-				<a class="headIcon sizeOn head_settings" href="../../xhadmin/personal/v_profile.do" target="targetFrame" id="personal-settings">&nbsp;</a>
-				<a class="headIcon sizeOn head_receiving" href="../../xhadmin/message/v_list.do" target="targetFrame">&nbsp;<i id="count-receiving">?</i></a>
+				<a class="headIcon sizeOn head_settings" href="../frame/p-data-set.html" target="targetFrame" id="personal-settings">&nbsp;</a>
+				<a class="headIcon sizeOn head_receiving" href="../frame/msg.html" target="targetFrame">&nbsp;<i id="count-receiving">?</i></a>
 				<span class="login_name">[未知用户]</span>		
 			</div>
 			<span class="t-handle">-</span>
@@ -87,6 +87,22 @@
 
 	
 <script>
+(function($){
+	var isLocal = !( location.host && /news\.cn/.test(location.host) );
+
+	if( isLocal ){
+		alert("如果域名不是以news.cn结尾, 将使用代理JSON数据");
+	}
+
+	var CONF = isLocal ? {
+		userInfo : "json/getCurrentUser.json",
+		msgCount : "json/v_countUnreadMsg.json",
+		menu 	 : "json/getMenu.json"
+	} : {
+		userInfo : "../../xhadmin/basic/getCurrentUser.do",
+		msgCount : "../../xhadmin/message/v_countUnreadMsg.do",
+		menu 	 : "../../xhadmin/basic/getMenu.do"
+	};
 
 	$("#site-select").on('change',function(){
 		switch( this.value ){
@@ -95,7 +111,7 @@
 		}
 	});
 
-	$("#targetFrame").on("load",function(){	//frame加载完成，添加frame.css样式表
+	$("#targetFrame").on("load",function(){	
 		var _this = $(this), doc = _this.contents()[0];
 		_this.next().remove();
 
@@ -110,7 +126,7 @@
 	});
 
 	$.ajax({		//获取登录用户信息
-		url: "../../xhadmin/basic/getCurrentUser.do",
+		url: CONF.userInfo,
 		type:"post",
 		dataType:"json",
 		success: function(data){
@@ -123,11 +139,11 @@
 		}
 	});
 
-	require(["requestAFrame"],function(r){
+	require(["requestAFrame","alerts","draggable"],function(r){
 		r.addTimeout("count-receiving",(function(){
 			var fn = function(){
 				$.ajax({
-					url: "../../xhadmin/message/v_countUnreadMsg.do",
+					url: CONF.msgCount,
 					type:"post",
 					dataType:"json",
 					success: function(data){
@@ -135,10 +151,23 @@
 							 $("#count-receiving").html(data.count).css({
 							 	visibility: (data.count > 0 ? "visible" : "hidden")
 							 });
-
+							 if( data.count > 0  ){
+							 	jConfirm('<h2 class="title">你有新的站内信</h2><p>'+(data.info||"[无法展示详情信息]")+'</p>',"站内信",{
+									okButton : "查看",
+									cancelButton : "忽略"
+								},function(result){
+									if(result ){
+									 	
+									}
+								});
+							 }
+								 
 						}else{
 							alert("请先登录");
 						}
+					},
+					error: function() {
+						alert('登录超时或服务器响应失败,无法获取未读信息数据')
 					}
 				});
 			};
@@ -164,9 +193,7 @@
 
 			// 通过id修改url，可以让指定id索引的页面地址发生变化。
 			switch( t.id ){	
-				case 1: t.url = "../frame/index.html"; break; 
-				default: 
-					t.url = t.url ? "../../xhadmin" + t.url : "about:blank";
+				
 			}
 
 			/**
@@ -185,7 +212,7 @@
 		};
 
 		$.ajax({
-			url : "../../xhadmin/basic/getMenu.do",
+			url : CONF.menu,
 			dataType : "json",
 			success: function(n){
 				var m = {};
@@ -267,11 +294,9 @@
 
 			}
 		});
-
-
-
-
 	});	
+})(jQuery);
+	
 </script>
 
 

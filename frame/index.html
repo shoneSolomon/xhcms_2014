@@ -180,6 +180,7 @@
 			</div>
 		</div>
 	</div>
+<script src="js/frame.js"></script>
 <script>
 (function($){
 
@@ -200,7 +201,7 @@
 	});
 
 	$.ajax({
-		url : "../../xhadmin/basic/getInfo.do",
+		url : isLocal ? "json/index.json" : "../../xhadmin/basic/getInfo.do",
 		dataType: "json",
 		success: function(data){
 			var o = data.content;
@@ -230,7 +231,7 @@
 	});
 	
 	$.ajax({
-		url: "../../xhadmin/message/v_countUnreadMsg.do",
+		url: isLocal ? "../html/json/v_countUnreadMsg.json" : "../../xhadmin/message/v_countUnreadMsg.do",
 		type:"post",
 		dataType:"json",
 		success: function(data){

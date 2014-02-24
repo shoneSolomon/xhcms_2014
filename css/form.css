@@ -324,3 +324,8 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
   background-color: #e8e8e8;
   border: none;
 }
+
+/*新页面iframe插入调整*/
+.inner-frame{background:#ffffff; width:92%; margin:auto; margin-top:55px;}
+
+

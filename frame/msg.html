@@ -9,7 +9,7 @@
 	<script src="../js/require.js"></script>
 	<script src="../js/require-config.js"></script>
 </head>
-<body>
+<body class="inner-frame">
 	<div id="tabs">
 	<ul>
 		<li><a href="#tabs-1">写信</a></li>
@@ -23,7 +23,8 @@
 				<div class="item clearfix">
 					<span class="lable">收件人:</span>
 					<div class="text">
-						<input type="radio" class="radio" name="radio" id="radio0" value="0"> <label for="radio0">个人</label><input type="text" name="personage"/>
+						<input type="radio" class="radio" name="radio" id="radio0" value="0"> <label for="radio0">个人</label>
+						<input type="text" name="personage" placeholder="个人姓名"/>
 						<input type="radio" class="radio" name="radio" id="radio1" value="1"> <label for="radio1">会员组</label>
 						<select name="group" class="select1" value="2">
 							<option value="1">选项1</option>
@@ -185,9 +186,11 @@
 		</form>
 	</div>
 </div>
+<script src="js/frame.js"></script>
 <script>
 (function(){
-	
+	$.initFrame('msg');
+
 	require(["form-style","alerts","tabs","draggable"],function(){
 
 		$(".radio").toRadio();
@@ -207,14 +210,7 @@
 
 		}).trigger("change");
 
-		jConfirm('<h2 class="title">你收到一条站内信</h2> <p>强骁已解锁并编辑稿件“ 比特币网站疑卷款数千万跑路嫌犯被抓资金恐难”</p> ',"站内信",{
-			okButton : "查看",
-			cancelButton : "忽略"
-		},function(result){
-			if(result ){
-			 window.location.href="3站内信-查看.html";
-			}
-		});
+		
 		
 		$("#send_mail").find(".btn-delete").on("click",function(){
 			var checkboxs=$("#send_mail").find(".checkbox");
