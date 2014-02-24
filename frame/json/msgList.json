@@ -1,0 +1,16 @@
+{
+	"code":200,
+	"list":[
+		{"id":10000,"from_name":"强晓0","title":"关于修改栏目配置1","content":"你好，修改栏目配置如何进行?","date":"2013-11-15 13:00:49","readed":false},
+		{"id":10001,"from_name":"强晓1","title":"关于修改栏目配置2","content":"你好，修改栏目配置如何进行?","date":"2013-11-15 13:00:49","readed":false},
+		{"id":10002,"from_name":"强晓2","title":"关于修改栏目配置3","content":"你好，修改栏目配置如何进行?","date":"2013-11-15 13:02:49","readed":true },
+		{"id":10003,"from_name":"强晓3","title":"关于修改栏目配置4","content":"你好，修改栏目配置如何进行?","date":"2013-11-15 13:00:49","readed":false},
+		{"id":10004,"from_name":"强晓4","title":"关于修改栏目配置5","content":"你好，修改栏目配置如何进行?","date":"2013-11-15 13:05:49","readed":false},
+		{"id":10005,"from_name":"强晓5","title":"关于修改栏目配置6","content":"你好，修改栏目配置如何进行?","date":"2013-11-15 13:00:49","readed":false},
+		{"id":10006,"from_name":"强晓6","title":"关于修改栏目配置7","content":"你好，修改栏目配置如何进行?","date":"2013-11-15 13:00:49","readed":false},
+		{"id":10007,"from_name":"强晓7","title":"关于修改栏目配置7","content":"你好，修改栏目配置如何进行?","date":"2013-11-15 13:00:49","readed":false}
+	],
+	"currentPage": 1,
+	"totalCount" : 50,
+	"pageSize"	 : 10
+}
