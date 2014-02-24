@@ -60,7 +60,7 @@ ui = [
 for (var i = 0; i < ui.length; i++) {
 	paths[ui[i]] = uiModule.replace( "{{module}}",ui[i] );
 };
-var _src = Array.prototype.slice.call( document.getElementsByTagName('script') ).pop().src;
+var scripts = document.getElementsByTagName('script') , _src = scripts[scripts.length-1].src;
 require.config({
 	baseUrl: _src.replace( /\/[^\/]*$/,"" ),
 	paths: paths,
