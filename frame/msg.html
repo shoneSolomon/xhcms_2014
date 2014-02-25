@@ -14,7 +14,7 @@
 	<ul>
 		<li><a href="#tabs-1">写信</a></li>
 		<li><a href="#tabs-2">发信箱</a></li>
-		<li><a href="#tabs-3">收信箱<span>10</span></a></li>
+		<li><a href="#tabs-3">收信箱<span id="unread-msg">?</span></a></li>
 		<li><a href="#tabs-4">回收站</a></li>
 	</ul>
 	<div id="tabs-1">
@@ -26,17 +26,14 @@
 						<input type="radio" class="radio" name="radio" id="radio0" value="0"> <label for="radio0">个人</label>
 						<input type="text" name="personage" placeholder="个人姓名"/>
 						<input type="radio" class="radio" name="radio" id="radio1" value="1"> <label for="radio1">会员组</label>
-						<select name="group" class="select1" value="2">
-							<option value="1">选项1</option>
-							<option value="2">选项2选项2</option>
-							<option value="3">选项3选项2选项2</option>
-							<option value="4">选项4</option>
-							<option value="5">选项5选项2选项2选项2</option>
-							<option value="6">选项6</option>
-							<option value="7">选项7</option>
-							<option value="8">选项8选项2选项2选项2选项2选项2</option>
-							<option value="9">选项9</option>
+						<select name="group" class="select1">
+							<option value="-1">请选择</option>
 						</select>
+						<script type="html/template" id="group-options" data-target=".select1" data-append="true">
+							{{#each content}}
+							<option value="{{code}}">{{name}}</option>
+							{{/each}}
+						</script>
 					</div>
 				</div>
 				<div class="item clearfix">
@@ -62,39 +59,25 @@
 		<form id="send_mail" onsubmit="" method="">
 			<div class="form_send">
 				<a href="#" class="fm-button btn-delete round">删除</a>
-				<div class="send_lists">
-					<table>
-						<tr class="first_tr">
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="checkbox0" value="0"></td>
-							<td>强姚0</td>
-							<td>关于修改栏目配置</td>
-							<td>你好，修改栏目配置如何进行</td>
-							<td class="send_time">2013-11-15 13:00：49</td>
-						</tr>
-						<tr>
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="checkbox1" value="0"></td>
-							<td>强姚1</td>
-							<td>关于修改栏目配置</td>
-							<td>你好，修改栏目配置如何进行</td>
-							<td class="send_time">2013-11-15 13:00：49</td>
-						</tr>
-						<tr>
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="checkbox2" value="0"></td>
-							<td>强姚2</td>
-							<td>关于修改栏目配置</td>
-							<td>你好，修改栏目配置如何进行</td>
-							<td class="send_time">2013-11-15 13:00：49</td>
-						</tr>
-						<tr>
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="checkbox3" value="0"></td>
-							<td>强姚3</td>
-							<td>关于修改栏目配置</td>
-							<td>你好，修改栏目配置如何进行</td>
-							<td class="send_time">2013-11-15 13:00：49</td>
-						</tr>
-					
-					</table>
+				<div class="msg_lists send_lists"></div>
+				<div class="pager-line">
+					<p id="pager_send_lists" class="fm-pager"></p>
 				</div>
+				<script type="html/template" id="temp_send_lists" data-target=".send_lists" data-pagination="#pager_send_lists">
+					<table>
+					{{#each list}}
+						<tr class="">
+							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb1-{{id}}" value="0"></td>
+							<td class="from_name">{{from_name}}</td>
+							<td>{{title}}</td>
+							<td>{{content}}</td>
+							<td class="send_time">{{date}}</td>
+						</tr>
+					{{/each}}
+					</table>
+					<span class="currentPage">{{currentPage}}</span>
+					<span class="totalPage">{{{division totalCount pageSize }}}</span>
+				</script>
 			</div>
 		</form>
 	</div>
@@ -102,39 +85,25 @@
 		<form id="receive_mail" onsubmit="" method="">
 			<div class="form_send">
 				<a href="#" class="fm-button btn-delete  round">删除</a>
-				<div class="send_lists receive_lists">
-					<table>
-						<tr class="first_tr">
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="checkbox00" value="0"></td>
-							<td class="from_name">强姚0</td>
-							<td>关于修改栏目配置</td>
-							<td>你好，修改栏目配置如何进行</td>
-							<td class="send_time">2013-11-15 13:00：49</td>
-						</tr>
-						<tr class="have_read">
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="checkbox01" value="0"></td>
-							<td class="from_name">强姚1</td>
-							<td>关于修改栏目配置</td>
-							<td>你好，修改栏目配置如何进行</td>
-							<td class="send_time">2013-11-15 13:00：49</td>
-						</tr>
-						<tr>
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="checkbox02" value="0"></td>
-							<td class="from_name">强姚2</td>
-							<td>关于修改栏目配置</td>
-							<td>你好，修改栏目配置如何进行</td>
-							<td class="send_time">2013-11-15 13:00：49</td>
-						</tr>
-						<tr>
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="checkbox03" value="0"></td>
-							<td class="from_name">强姚3</td>
-							<td>关于修改栏目配置</td>
-							<td>你好，修改栏目配置如何进行</td>
-							<td class="send_time">2013-11-15 13:00：49</td>
-						</tr>
-					
-					</table>
+				<div class="msg_lists receive_lists"></div>
+				<div class="pager-line">
+					<p id="pager_receive_lists" class="fm-pager"></p>
 				</div>
+				<script type="html/template" id="temp_receive_lists" data-target=".receive_lists" data-pagination="#pager_receive_lists">
+					<table>
+					{{#each list}}
+						<tr class="{{#if readed}}have_read{{else}}{{/if}}">
+							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb2-{{id}}" value="0"></td>
+							<td class="from_name">{{from_name}}</td>
+							<td>{{title}}</td>
+							<td>{{content}}</td>
+							<td class="send_time">{{date}}</td>
+						</tr>
+					{{/each}}
+					</table>
+					<span class="currentPage">{{currentPage}}</span>
+					<span class="totalPage">{{{division totalCount pageSize }}}</span>
+				</script>
 			</div>
 		</form>
 	</div>
@@ -149,39 +118,26 @@
 					</select>
 					<a href="#" class="fm-button btn-delete  round">删除</a>
 				</div>
-				<div class="send_lists recycle_lists">
-					<table>
-						<tr class="first_tr">
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="checkbox000" value="0"></td>
-							<td class="from_name">强姚0</td>
-							<td>关于修改栏目配置</td>
-							<td>你好，修改栏目配置如何进行</td>
-							<td class="send_time">2013-11-15 13:00：49</td>
-						</tr>
-						<tr class="have_read">
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="checkbox001" value="0"></td>
-							<td class="from_name">强姚1</td>
-							<td>关于修改栏目配置</td>
-							<td>你好，修改栏目配置如何进行</td>
-							<td class="send_time">2013-11-15 13:00：49</td>
-						</tr>
-						<tr>
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="checkbox002" value="0"></td>
-							<td class="from_name">强姚2</td>
-							<td>关于修改栏目配置</td>
-							<td>你好，修改栏目配置如何进行</td>
-							<td class="send_time">2013-11-15 13:00：49</td>
-						</tr>
-						<tr>
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="checkbox003" value="0"></td>
-							<td class="from_name">强姚3</td>
-							<td>关于修改栏目配置</td>
-							<td>你好，修改栏目配置如何进行</td>
-							<td class="send_time">2013-11-15 13:00：49</td>
-						</tr>
-					
-					</table>
+				<div class="msg_lists recycle_lists"></div>
+				<div class="pager-line">
+					<p id="pager_recycle_lists" class="fm-pager"></p>
 				</div>
+				<script type="html/template" id="temp_recycle_lists" data-target=".recycle_lists" data-pagination="#pager_recycle_lists">
+					<table>
+					{{#each list}}
+						<tr class="">
+							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb3-{{id}}" value="0"></td>
+							<td class="from_name">{{from_name}}</td>
+							<td>{{title}}</td>
+							<td>{{content}}</td>
+							<td class="send_time">{{date}}</td>
+						</tr>
+					{{/each}}
+					</table>
+					<span class="currentPage">{{currentPage}}</span>
+					<span class="totalPage">{{{division totalCount pageSize }}}</span>
+				</script>
+
 			</div>
 		</form>
 	</div>
@@ -189,28 +145,60 @@
 <script src="js/frame.js"></script>
 <script>
 (function(){
-	$.initFrame('msg');
+	var URL = $.initFrame('msg').URL;
 
-	require(["form-style","alerts","tabs","draggable"],function(){
+	require(["template-init","form-style"],function(T){
 
 		$(".radio").toRadio();
+
+		$(".select2").toSelect();
+
+		//会员组加载和美化
+		T.init({
+			tmpl:"#group-options",
+			sourceUrl:URL.groups,
+			callback:function(){
+				$(".select1").toSelect();	
+			}
+		});
+
+		//发信箱列表加载
+		T.init({
+			tmpl:"#temp_send_lists",
+			sourceUrl:URL.send_lists,
+			callback:function(){
+				$(".checkbox").toCheckbox();	
+			}
+		});
+
+		//收件箱列表加载
+		T.init({
+			tmpl:"#temp_receive_lists",
+			sourceUrl:URL.receive_lists,
+			callback:function(data){
+				$(".checkbox").toCheckbox();	
+				require(['underscore'],function(){
+					var list = data.source.list;
+					var unread = _.filter(list,function(d){return !d.readed;}).length;
+					$("#unread-msg").html(unread)[ unread ? "show" : "hide" ]();
+				});
+			}
+		});
+
+		//回收站列表加载
+		T.init({
+			tmpl:"#temp_recycle_lists",
+			sourceUrl:URL.recycle_lists,
+			callback:function(){
+				$(".checkbox").toCheckbox();	
+			}
+		});
+
+	});
+
+	require(["alerts","tabs","draggable"],function(){
+
 		$("#tabs").tabs();
-		$(".checkbox").toCheckbox();
-		$(".select1").toSelect({
-			width: 122,
-			colorful: false
-		}).on('change',function(){
-			
-		}).trigger("change");
-
-		$(".select2").toSelect({
-			width: 80,
-			colorful: false
-		}).on('change',function(){
-
-		}).trigger("change");
-
-		
 		
 		$("#send_mail").find(".btn-delete").on("click",function(){
 			var checkboxs=$("#send_mail").find(".checkbox");

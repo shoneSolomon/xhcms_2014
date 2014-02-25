@@ -167,11 +167,11 @@
 	            if( !noToPage ){
 	            	_this.on('switch',o["switch"]);
 	            	$(o.el).on('click','.pagination-spec',function(e){
-	            		_switchToPage( $(this).attr("data-page") )
+	            		_switchToPage( $(this).html() )
 	            	}).on('click','.pagination-prev',function(e){
-	            		_switchToPage( o.currentPage - 1 )
+	            		_switchToPage( Number( $(this).siblings(".pagination-curr").html() ) - 1 )
 	            	}).on('click','.pagination-next',function(e){
-	            		_switchToPage( o.currentPage + 1 )
+	            		_switchToPage( Number( $(this).siblings(".pagination-curr").html() ) + 1 )
 	            	});
 	            }
 			});

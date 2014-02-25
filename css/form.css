@@ -66,13 +66,14 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .form_write .text_radio label{padding-right:35px;}
 .ui-widget-content .fm-button{color:#fff;}
 .fm-button.btn-remove{background-position:-2px -301px; padding-right:20px;}
-.send_lists{ margin-top:20px;}
-.send_lists table{width:100%;}
-.send_lists table tr:hover{background: #c0ebe3;}
-.send_lists table tr td{height:38px; border-bottom:1px solid #d4d4d4;}
-.send_lists table .first_tr td{border-top:1px solid #d4d4d4;}
-.send_lists table tr .checked_bt{width:40px; text-align:center}
-.send_lists table tr .send_time{text-align:right; padding-right:3.5%; color:#9a9a9a;}
+.msg_lists{ margin-top:20px;}
+.msg_lists table{width:100%;}
+.msg_lists table tr:hover{background: #c0ebe3;}
+.msg_lists table tr td{height:38px; border-bottom:1px solid #d4d4d4;}
+.msg_lists table .first_tr td{border-top:1px solid #d4d4d4;}
+.msg_lists table{border-top:1px solid #d4d4d4;}
+.msg_lists table tr .checked_bt{width:40px; text-align:center}
+.msg_lists table tr .send_time{text-align:right; padding-right:3.5%; color:#9a9a9a;}
 .receive_lists table tr td{font-weight:bold;}
 .receive_lists table tr .from_name{ background:url("../images/letter_icon.png") no-repeat center left; padding-left:27px;}
 .receive_lists table .have_read td{font-weight:normal;}
@@ -327,5 +328,6 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 
 /*新页面iframe插入调整*/
 .inner-frame{background:#ffffff; width:92%; margin:auto; margin-top:55px;}
+.pager-line{ padding: 10px 0; }
 
 

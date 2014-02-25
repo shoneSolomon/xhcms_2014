@@ -93,8 +93,8 @@ define(function(require, exports, module) {
             }else{
                 if( !o.prepend && !o.append ){
                     target.html("");
+                    target.append( $('<div class="list-wait">等待中...</div>') );
                 }
-                target.append( $('<div class="list-wait">等待中...</div>') );
             }
             $[type](o.sourceUrl, $.extend({
                 t:new Date().getTime(),
@@ -102,7 +102,7 @@ define(function(require, exports, module) {
                 pageSize: 15
             }, o.sourceData() ),function(data){
 
-                if(data.code != 200){
+                if(data.code && data.code != 200){
                     target.html( o.nonResult );
                     return ;
                 }
@@ -142,6 +142,7 @@ define(function(require, exports, module) {
                         currentPage: Math.floor(currentPage) || 1,    // 默认选中的页码
                         totalPage: totalPage | 0      // 总页数
                     },!first);
+                    
                     if(p && first){
                         p.on("switch",function(event,e){
                             o.toPage = e.toPage;
