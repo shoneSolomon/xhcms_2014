@@ -184,7 +184,7 @@
                             "priority": 2,
                             "treeLinkUrl": "",
                             "type": "link",
-                            "url": "/site_config/v_base_edit.do"
+                            "url": "../frame/s-configur-list.html"
                         },
                         {
                             "childMenus": [],
@@ -194,7 +194,7 @@
                             "priority": 1,
                             "treeLinkUrl": "",
                             "type": "link",
-                            "url": "/config/v_system_edit.do"
+                            "url": "../frame/siteMge/SiteSettings/global-conf.html"
                         }
                     ],
                     "id": 17,
@@ -215,9 +215,9 @@
                                     "name": "栏目节点树",
                                     "parentId": 37,
                                     "priority": 1,
-                                    "treeLinkUrl": "/channel/v_edit.do",
+                                    "treeLinkUrl": "../frame/node-edit.html",
                                     "type": "tree-link",
-                                    "url": "/content/tree.do"
+                                    "url": "json/tree.json"
                                 }
                             ],
                             "id": 37,
@@ -226,7 +226,7 @@
                             "priority": 1,
                             "treeLinkUrl": "",
                             "type": "link",
-                            "url": "/channel/v_list.do"
+                            "url": "../frame/c-configur-list.html"
                         },
                         {
                             "childMenus": [],
@@ -236,7 +236,7 @@
                             "priority": 2,
                             "treeLinkUrl": "",
                             "type": "link",
-                            "url": "/model/v_list.do"
+                            "url": "../frame/siteMge/SiteSettings/ColumnModel-conf.html"
                         },
                         {
                             "childMenus": [
@@ -258,7 +258,7 @@
                                     "priority": 2,
                                     "treeLinkUrl": "",
                                     "type": "sub-nav",
-                                    "url": ""
+                                    "url": "../frame/siteMge/news_manage/template-conf.html"
                                 }
                             ],
                             "id": 39,
@@ -277,7 +277,7 @@
                             "priority": 4,
                             "treeLinkUrl": "",
                             "type": "link",
-                            "url": "/type/v_list.do"
+                            "url": "../frame/siteMge/news_manage/con-classify-conf.html"
                         }
                     ],
                     "id": 18,
@@ -371,7 +371,7 @@
                             "priority": 1,
                             "treeLinkUrl": "",
                             "type": "link",
-                            "url": "/category/v_list.do"
+                            "url": "../frame/siteMge/news_manage/new-classify.html"
                         },
                         {
                             "childMenus": [
@@ -421,7 +421,7 @@
                     "priority": 4,
                     "treeLinkUrl": "",
                     "type": "sub-nav",
-                    "url": ""
+                    "url": "../frame/siteMge/news_manage/new-classify.html"
                 },
                 {
                     "childMenus": [

@@ -63,7 +63,7 @@
 				<div class="pager-line">
 					<p id="pager_send_lists" class="fm-pager"></p>
 				</div>
-				<script type="html/template" id="temp_send_lists" data-target=".send_lists" data-pagination="#pager_send_lists">
+				<script type="html/template" id="temp_send_lists" data-target=".send_lists" data-pagination="#pager_send_lists" data-method="post">
 					<table>
 					{{#each list}}
 						<tr class="">
@@ -89,7 +89,7 @@
 				<div class="pager-line">
 					<p id="pager_receive_lists" class="fm-pager"></p>
 				</div>
-				<script type="html/template" id="temp_receive_lists" data-target=".receive_lists" data-pagination="#pager_receive_lists">
+				<script type="html/template" id="temp_receive_lists" data-target=".receive_lists" data-pagination="#pager_receive_lists" >
 					<table>
 					{{#each list}}
 						<tr class="{{#if readed}}have_read{{else}}{{/if}}">
@@ -196,11 +196,12 @@
 
 	});
 
-	require(["alerts","tabs","draggable"],function(){
+	require(["template-init","alerts","tabs","draggable"],function(T){
 
 		$("#tabs").tabs();
 		
 		$("#send_mail").find(".btn-delete").on("click",function(){
+
 			var checkboxs=$("#send_mail").find(".checkbox");
 			var arr=[];
 			for(i=0; i<checkboxs.length;i++){
@@ -214,22 +215,23 @@
 					cancelButton : "否"
 				},function(result){
 					if(result ){
-						var checkboxs=$("#send_mail").find(".checkbox");
-						for(i=0;i<arr.length;i++){
-							$("#"+arr[i]).parent().parent().parent().remove()			
-						}
-						$.ajax({
-							type:"get",
-							url:"url",
-							data:arr,
-							success: function(msg) {
-								for(i=0;i<arr.length;i++){
-									$("#"+arr[i]).parent().parent().parent().remove()			
-								}
+						//发信箱列表删除
+						T.refresh({
+							tmpl:"#temp_send_lists",
+							sourceUrl:URL.send_lists,
+							callback:function(){
+								$(".checkbox").toCheckbox();	
+							},
+							sourceData:function(){
+								return {
+									deleteIds:arr.join(",")
+								};
 							}
-						})
+						});
 					}
 				});	
+			}else{
+				jAlert("请选择要删除的数据");
 			}	
 		})
 		

@@ -9,7 +9,7 @@
 	<script src="../js/require.js"></script>
 	<script src="../js/require-config.js"></script>
 </head>
-<body class="noleft-content">
+<body class="inner-frame">
 <div id="tabs">
 	<ul>
 		<li><a href="#tabs-1">基本信息</a></li>
@@ -123,6 +123,7 @@
 
 <script>
 (function(){
+	$(".disabled").val( $(".login_name",parent.document).html());
 	require(["form-style","alerts","tabs","requestAFrame"],function(){
 		$(".radio").toRadio();
 		$("#tabs").tabs();

@@ -31,7 +31,7 @@
 	window.reHeight = function(){
 		if(window.autoHeight)return;
 		var hidden = $('.head_nav').is(":hidden");
-		$("#targetFrame, #tree-target").css({ height : $(window).height()-( hidden ? 320 : 150) });
+		$("#targetFrame, #tree-target").css({ height : $(window).height()-( hidden ? 150 : 320 ) });
 	};
 
 	window.reHeight();

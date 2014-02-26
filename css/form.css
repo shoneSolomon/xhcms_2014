@@ -22,6 +22,8 @@ clear: both;
 zoom: 1;
 }
 
+.hidden{display: none;}
+
 /*dataSetup-个人资料设置--by王彩凤*/
 body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-width: 1200px; }
 .mainBox{margin:0 auto 20px; width:90%; height: 100%; background:#ffffff; overflow:hidden;}
@@ -177,7 +179,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 
 
 /*global_config--全局配置--by王彩凤*/
-.mainRight{ margin-left: 18px; height: auto; background: #fff;}
+.mainRight{ padding-left: 18px; height: auto; background: #fff;}
 .global_cont{position: relative;width: 92%; }
 .global_form{padding: 18px 0px 90px 10px; border: 1px solid #d4d4d4;}
 .global_form .lable{width: 94px;}
@@ -327,7 +329,12 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 }
 
 /*新页面iframe插入调整*/
-.inner-frame{background:#ffffff; width:92%; margin:auto; margin-top:55px;}
+.inner-frame, .outter-frame{background:#fff;  min-width: 800px;}
+.inner-frame{width:92%; margin: 40px auto;}
+.outter-frame{width:94%; margin: 0 auto;}
+
 .pager-line{ padding: 10px 0; }
+
+
 
 
