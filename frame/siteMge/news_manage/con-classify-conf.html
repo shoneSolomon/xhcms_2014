@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>n内容类型配置</title>
+	<title>内容类型配置</title>
 	<link rel="stylesheet" href="../../../css/jqueryui/jquery-ui.css">
 	<link rel="stylesheet" href="../../../css/form.css">
 	<script src="../../../js/jquery.min.js"></script>
@@ -19,49 +19,52 @@
 	</div>
 	
 	<div id="list-sites">
-		<form id="tableForm">
 
-		</form>
 	</div>
 		
 	<div class="pager-line page">
-		<p id="pager" class="fm-pager"></p>
+		<p id="pager_con" class="fm-pager"></p>
 	</div>
 </div>
 
-<script type="template/html" id="md-list-sites">
-<table class="table station_table" id="list-sites">
-	<tr>
-		<th width="8%">ID</th>
-		<th>名称</th>
-		<th>图片宽度</th>
-		<th>图片高度</th>
-		<th>有图片</th>
-		<th>启用</th>
-		<th width="10%">操作</th>
-	</tr>
-	{{#each content}}
-	<tr>
-		<td><input type="checkbox" name="checkbox" class="checkbox ids" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
-		<td style="color:#2cac93;">{{name}}</td>
-		<td>{{width}}</td>
-		<td>{{height}}</td>
-		<td><input type="checkbox" name="switch" class="switch" {{default-p}}></td>
-		<td><input type="checkbox" name="switch" class="switch" {{default}}></td>
-		<td style="color:#2cac93;"><a href="#" data-id="{{id}}" >编辑</a> | <a class="delete" href="#" data-id="{{id}}">删除</a></td>
-	</tr>
-	{{/each}}
-</table>	
+<script type="template/html" id="md-list-sites" data-target="#list-sites" data-pagination="#pager_con">
+	<table class="table station_table" id="list-sites">
+		<tr>
+			<th width="8%">ID</th>
+			<th>名称</th>
+			<th>图片宽度</th>
+			<th>图片高度</th>
+			<th>有图片</th>
+			<th>启用</th>
+			<th width="10%">操作</th>
+		</tr>
+		{{#each content}}
+		<tr>
+			<td><input type="checkbox" name="checkbox" class="checkbox ids" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
+			<td style="color:#2cac93;">{{name}}</td>
+			<td>{{width}}</td>
+			<td>{{height}}</td>
+			<td><input type="checkbox" name="switch" class="switch" {{default-p}}></td>
+			<td><input type="checkbox" name="switch" class="switch" {{default}}></td>
+			<td style="color:#2cac93;"><a href="#" data-id="{{id}}" >编辑</a> | <a class="delete" href="#" data-id="{{id}}">删除</a></td>
+		</tr>
+		{{/each}}
+	</table>
+	<span class="currentPage">{{currentPage}}</span>
+	<span class="totalPage">{{{division totalCount pageSize }}}</span>	
 </script>
 <script type="text/javascript" src="../../js/frame.js"></script>
 <script>
 (function($){
-	require(["form-style","alerts","draggable","template"],function(){
+	
+	var URL = $.initFrame('conClassifyConf').URL;
+
+	require(["template-init","form-style","alerts","draggable","template"],function(T){
 		var template = Handlebars.compile($("#md-list-sites").html()); //创建模板编译器
 
 		var refreshList = function(){
 			$.ajax({
-				url : "../../json/site-config.json",
+				url : "json/site-config.json",
 				dataType : "json",
 				success: function(data){
 					$("#list-sites").html( template(data) );
@@ -72,6 +75,15 @@
 		};
 		refreshList();
 		$(".checkbox").toCheckbox();
+
+		//内容类型配置加载列表
+		T.init({
+			tmpl:"#md-list-sites",
+			sourceUrl:URL.conClassifyConf,
+			callback:function(){
+				$("#list-sites").find(".ids").toCheckbox();
+			}
+		});
 
 		/*全选*/
 		$(".station_menu").find(".checkbox").on("click",function(){
@@ -130,7 +142,7 @@
 				var sub=arr.join();
 				if(arr[0]&&!arr[1]){
 					$.ajax({
-						url : "../../json/site-config.json",
+						url : "json/site-config.json",
 						data:sub,
 						dataType : "json",
 						success: function(data){

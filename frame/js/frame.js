@@ -31,20 +31,28 @@ var conf =
 	 			siteConfigur: "json/list-sites.json"
 	 		})
 	},
-	'new-classify':{
+	'newClassify':{
 		URL : (isLocal ? {
-				list_sites : "../../json/list-config.json"
+				newClassify : "json/site-config.json"
 			} : {
-				list_sites : "../../json/list-config.json"
+				newClassify : "json/site-config.json"
+			})
+	},
+	'conClassifyConf':{
+		URL : (isLocal ? {
+				conClassifyConf : "json/site-config.json"
+			} : {
+				conClassifyConf : "json/site-config.json"
+			})
+	},
+	'columnModelConf':{
+		URL : (isLocal ? {
+				columnModelConf : "json/list-model.json"
+			} : {
+				columnModelConf : "json/list-model.json"
 			})
 	}
-	// 'site-conf':{
-	// 	URL : (isLocal ? {
-	// 			list_sites : "../../json/list-sites.json"
-	// 		} : {
-	// 			list_sites : "../../json/list-sites.json"
-	// 		})
-	// }
+
 };
 
 $.initFrame = function(key){
