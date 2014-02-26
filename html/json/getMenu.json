@@ -184,7 +184,7 @@
                             "priority": 2,
                             "treeLinkUrl": "",
                             "type": "link",
-                            "url": "../frame/s-configur-list.html"
+                            "url": "../frame/site-mge/s-configur-list.html"
                         },
                         {
                             "childMenus": [],
@@ -226,7 +226,7 @@
                             "priority": 1,
                             "treeLinkUrl": "",
                             "type": "link",
-                            "url": "../frame/c-configur-list.html"
+                            "url": "../frame/site-mge/c-configur-list.html"
                         },
                         {
                             "childMenus": [],

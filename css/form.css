@@ -179,7 +179,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 
 
 /*global_config--全局配置--by王彩凤*/
-.mainRight{ padding-left: 18px; height: auto; background: #fff;}
+.mainRight{height: auto; background: #fff;}
 .global_cont{position: relative;width: 92%; }
 .global_form{padding: 18px 0px 90px 10px; border: 1px solid #d4d4d4;}
 .global_form .lable{width: 94px;}
@@ -194,7 +194,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .station_menu .fm-button.round{ margin-left: 12px;}
 .station_menu .fm-checkbox{ background-position: 2px -94px;}
 .station_menu .fm-checkbox.checked{ background-position: 2px -62px;}
-.mainRight .station_table{ width: 98%;}
+.mainRight .station_table{ width: 100%;}
 .station_table th{text-align: center; vertical-align: middle; height: 30px;}
 .station_table td{text-align: center; vertical-align: middle;height: 30px;}
 .table.station_table label{ vertical-align: -5px; *vertical-align: -3px;}

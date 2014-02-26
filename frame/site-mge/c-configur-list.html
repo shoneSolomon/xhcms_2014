@@ -97,7 +97,7 @@
 	</form>
 </script>
 
-<script src="js/frame.js"></script>
+<script src="../js/frame.js"></script>
 <script>
 (function($){
 	var URL = $.initFrame('clmConfigur').URL;
@@ -331,7 +331,7 @@
 				},function(result){
 					if(result ){
 						$.ajax({
-							url : "json/success.json",
+							url : "../json/success.json",
 							type:"post",
 							data : obj,
 							dataType : "json",
@@ -374,7 +374,7 @@
 				},function(result){
 					if(result ){
 						$.ajax({
-							url : "json/success.json",
+							url : "../json/success.json",
 							type : "post",
 							data : obj,
 							dataType : "json",

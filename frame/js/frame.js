@@ -19,16 +19,16 @@ var conf =
 	},
 	"clmConfigur":{
  		URL : (isLocal ? {
- 				clmConfigur: "json/list-collocate.json",
+ 				clmConfigur: "../json/site-mge/list-collocate.json",
 	 		}:{
-	 			clmConfigur: "json/list-collocate.json"
+	 			clmConfigur: "../json/site-mge/list-collocate.json"
 	 		})
 	},
 	"siteConfigur":{
  		URL : (isLocal ? {
- 				siteConfigur: "json/list-sites.json",
+ 				siteConfigur: "json/site-mge/list-sites.json",
 	 		}:{
-	 			siteConfigur: "json/list-sites.json"
+	 			siteConfigur: "json/site-mge/list-sites.json"
 	 		})
 	},
 	'newClassify':{
