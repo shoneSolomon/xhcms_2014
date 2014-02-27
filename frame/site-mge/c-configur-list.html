@@ -41,8 +41,6 @@
 			</tr>
 			{{/each}}
 		</table>
-		<span class="currentPage">{{currentPage}}</span>
-		<span class="totalPage">{{{division totalCount pageSize }}}</span>
 	</script>
 </div>
 
@@ -201,6 +199,7 @@
 						jAlert('<h2 class="title"></h2> <p class="delete_content">已经置顶</p>');
 					}
 					else if(newNu==1&&index>0){	
+						dataidup=contentform.find(".ids").eq(index-1).val();
 						T.refresh({
 								tmpl:"#md-list-sites",
 								sourceUrl:URL.clmConfigur,
@@ -209,7 +208,8 @@
 								},
 								sourceData:function(){
 									return {
-										deleteIds:dataid
+										deleteIds:dataid,
+										Idto:dataidup
 									};
 								}
 							});
@@ -220,7 +220,8 @@
 					if(newNu==1&&index==contentlength-1){
 						jAlert('<h2 class="title"></h2> <p class="delete_content">已经置底</p>');
 					}
-					else if(newNu==1&&index<contentlength){	
+					else if(newNu==1&&index<contentlength-1){
+						dataiddown=contentform.find(".ids").eq(index+1).val();	
 						T.refresh({
 								tmpl:"#md-list-sites",
 								sourceUrl:URL.clmConfigur,
@@ -229,7 +230,8 @@
 								},
 								sourceData:function(){
 									return {
-										deleteIds:dataid
+										deleteIds:dataid,
+										Idto:dataiddown
 									};
 								}
 							});

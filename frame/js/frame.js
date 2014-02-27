@@ -19,39 +19,63 @@ var conf =
 	},
 	"clmConfigur":{
  		URL : (isLocal ? {
- 				clmConfigur: "../json/site-mge/list-collocate.json",
+ 				clmConfigur: "json/list-collocate.json",
 	 		}:{
-	 			clmConfigur: "../json/site-mge/list-collocate.json"
+	 			clmConfigur: "json/list-collocate.json"
 	 		})
 	},
 	"siteConfigur":{
  		URL : (isLocal ? {
- 				siteConfigur: "json/site-mge/list-sites.json",
+ 				siteConfigur: "json/list-sites.json",
 	 		}:{
-	 			siteConfigur: "json/site-mge/list-sites.json"
+	 			siteConfigur: "json/list-sites.json"
 	 		})
 	},
-	'newClassify':{
+	'newsClassify':{        //start
 		URL : (isLocal ? {
-				newClassify : "json/site-config.json"
+				newsClassify : "json/site-config.json"
+				// newsDelete : "json/site-config.json",
+				// newsMoveUp : "json/site-config.json",
+				// newsMoveDown : "json/site-config.json",
+				// newsTop : "json/site-config.json"
 			} : {
-				newClassify : "json/site-config.json"
+				newsClassify : "json/site-config.json"
+				// newsDelete : "json/site-config.json",
+				// newsMoveUp : "json/site-config.json",
+				// newsMoveDown : "json/site-config.json",
+				// newsTop : "json/site-config.json"
 			})
 	},
-	'conClassifyConf':{
+	'conClassifyConf':{      
 		URL : (isLocal ? {
 				conClassifyConf : "json/site-config.json"
+				// conDelete : "json/site-config.json",
+				// conMoveUp : "json/site-config.json",
+				// conMoveDown : "json/site-config.json",
+				// conTop : "json/site-config.json"
 			} : {
 				conClassifyConf : "json/site-config.json"
+				// conDelete : "json/site-config.json",
+				// conMoveUp : "json/site-config.json",
+				// conMoveDown : "json/site-config.json",
+				// conTop : "json/site-config.json"
 			})
 	},
 	'columnModelConf':{
 		URL : (isLocal ? {
-				columnModelConf : "json/list-model.json"
+				columnModelConf : "json/list-model.json",
+				columnDelete : "json/list-model.json",
+				columnMoveUp : "json/list-model.json",
+				columnMoveDown : "json/list-model.json",
+				columnTop : "json/list-model.json"
 			} : {
-				columnModelConf : "json/list-model.json"
+				columnModelConf : "json/list-model.json",
+				columnDelete : "json/list-model.json",
+				columnMoveUp : "json/list-model.json",
+				columnMoveDown : "json/list-model.json",
+				columnTop : "json/list-model.json"
 			})
-	}
+	}              //end
 
 };
 

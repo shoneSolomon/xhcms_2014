@@ -96,11 +96,17 @@ define(function(require, exports, module) {
                     target.append( $('<div class="list-wait">等待中...</div>') );
                 }
             }
-            $[type](o.sourceUrl, $.extend({
-                t:new Date().getTime(),
-                toPage : o.toPage||"",
-                pageSize: 15
-            }, o.sourceData() ),function(data){
+
+            var _d = {};    //参数处理
+            if("get" === type){
+                _d.t = new Date().getTime()
+            }
+            if(o.pagination){
+                _d.toPage = o.toPage||"";
+                _d.pageSize = 10
+            }
+
+            $[type](o.sourceUrl, $.extend(_d, o.sourceData() ),function(data){
 
                 if(data.code && data.code != 200){
                     target.html( o.nonResult );

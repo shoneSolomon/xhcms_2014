@@ -17,8 +17,10 @@ paths = {
 	highcharts: "highcharts/highcharts",
 	"template-init": "module/template-init.min",
 	morris:"morris/morris.min",
+	queryparam: "module/queryparam",
 	dateUtil: "module/date-util",
-	numberUtil: "module/number-util"
+	numberUtil: "module/number-util",
+	formUtil: "module/form-util"
 },
 ui = [
 "accordion",

@@ -89,7 +89,7 @@
 				<div class="pager-line">
 					<p id="pager_receive_lists" class="fm-pager"></p>
 				</div>
-				<script type="html/template" id="temp_receive_lists" data-target=".receive_lists" data-pagination="#pager_receive_lists" >
+				<script type="html/template" id="temp_receive_lists" data-target=".receive_lists" data-pagination="#pager_receive_lists" data-method="post">
 					<table>
 					{{#each list}}
 						<tr class="{{#if readed}}have_read{{else}}{{/if}}">
@@ -111,7 +111,7 @@
 		<form id="recycle_bin" onsubmit="" method="">
 			<div class="form_recycle">
 				<div class="form_recycletop clearfix">
-					<select name="transferTo"  class="select2" value=1>
+					<select name="transferTo"  class="select2" id="moveTo" value=1>
 						<option value="1">转移至</option>
 						<option value="2">收件箱</option>
 						<option value="3">发件箱</option>
@@ -122,7 +122,7 @@
 				<div class="pager-line">
 					<p id="pager_recycle_lists" class="fm-pager"></p>
 				</div>
-				<script type="html/template" id="temp_recycle_lists" data-target=".recycle_lists" data-pagination="#pager_recycle_lists">
+				<script type="html/template" id="temp_recycle_lists" data-target=".recycle_lists" data-pagination="#pager_recycle_lists" data-method="post">
 					<table>
 					{{#each list}}
 						<tr class="">
@@ -197,6 +197,40 @@
 	});
 
 	require(["template-init","alerts","tabs","draggable"],function(T){
+		$("#moveTo").on("change",function(){
+			var arr=[];
+			var checkboxs=$("#recycle_bin").find(".checkbox");
+			for(i=0; i<checkboxs.length;i++){
+				if(checkboxs.eq(i).is(":checked")==true){
+					arr.push(checkboxs[i].id);
+				}
+			};
+			if(arr[0]){
+				
+				T.refresh({
+					tmpl:"#temp_recycle_lists",
+					type:"post",
+					sourceUrl:URL.send_lists,
+					callback:function(){
+						$(".checkbox").toCheckbox();	
+					},
+					sourceData:function(){
+						if(this.value=="2"){
+							return {
+								idT:"2",
+								deleteIds:arr.join(",")
+							};
+						}else{
+							return {
+								idTo:"3",
+								deleteIds:arr.join(",")
+							};
+						}
+					}
+				});
+			}
+			
+		});
 
 		$("#tabs").tabs();
 		
@@ -230,41 +264,50 @@
 						});
 					}
 				});	
+			}
+			if(arr[0]&&arr[1]){
+					$(".delete_content").html("是否删除多条信息");
 			}else{
+			
 				jAlert("请选择要删除的数据");
 			}	
 		})
 		
 		$("#receive_mail").find(".btn-delete").on("click",function(){
+			var checkboxs=$("#receive_mail").find(".checkbox");	
 			var arr=[];
-			var checkboxs=$("#receive_mail").find(".checkbox");						
 			for(i=0; i<checkboxs.length;i++){
 				if(checkboxs.eq(i).is(":checked")==true){
 					arr.push(checkboxs[i].id);
 				}
 			}
 			if(arr[0]){
-				 ('<h2 class="title"></h2> <p>是否删除该条信息</p> ',"",{
+				 jConfirm('<h2 class="title"></h2> <p>是否删除该条信息</p> ',"",{
 					okButton : "是",
 					cancelButton : "否"
 				},function(result){
 					if(result ){
-						for(i=0;i<arr.length;i++){
-							$("#"+arr[i]).parent().parent().parent().remove()			
-						}
-						$.ajax({
-							type:"get",
-							url:"url",
-							data:arr,
-							success: function(msg) {
-								for(i=0;i<arr.length;i++){
-									$("#"+arr[i]).parent().parent().parent().remove()			
-								}
+						T.refresh({
+							tmpl:"#temp_receive_lists",
+							sourceUrl:URL.send_lists,
+							callback:function(){
+								$(".checkbox").toCheckbox();	
+							},
+							sourceData:function(){
+								return {
+									deleteIds:arr.join(",")
+								};
 							}
-						})
+						});
 					}
 				});	
-			}	
+			}
+			if(arr[0]&&arr[1]){
+					$(".delete_content").html("是否删除多条信息");
+			}else{
+			
+				jAlert("请选择要删除的数据");
+			}		
 		})
 		
 		$("#recycle_bin").find(".btn-delete").on("click",function(){
@@ -281,22 +324,27 @@
 					cancelButton : "否"
 				},function(result){
 					if(result ){
-						for(i=0;i<arr.length;i++){
-							$("#"+arr[i]).parent().parent().parent().remove()			
-						}
-						$.ajax({
-							type:"get",
-							url:"url",
-							data:arr,
-							success: function(msg) {
-								for(i=0;i<arr.length;i++){
-									$("#"+arr[i]).parent().parent().parent().remove()			
-								}
+						T.refresh({
+							tmpl:"#temp_recycle_lists",
+							sourceUrl:URL.send_lists,
+							callback:function(){
+								$(".checkbox").toCheckbox();	
+							},
+							sourceData:function(){
+								return {
+									deleteIds:arr.join(",")
+								};
 							}
-						})
+						});
 					}
 				});	
-			}	
+			}
+			if(arr[0]&&arr[1]){
+					$(".delete_content").html("是否删除多条信息");
+			}else{
+			
+				jAlert("请选择要删除的数据");
+			}		
 		})
 	});
 })();

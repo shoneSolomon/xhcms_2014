@@ -194,7 +194,7 @@
                             "priority": 1,
                             "treeLinkUrl": "",
                             "type": "link",
-                            "url": "../frame/siteMge/SiteSettings/global-conf.html"
+                            "url": "../frame/site-mge/global-conf.html"
                         }
                     ],
                     "id": 17,
@@ -236,7 +236,7 @@
                             "priority": 2,
                             "treeLinkUrl": "",
                             "type": "link",
-                            "url": "../frame/siteMge/SiteSettings/column-model-conf.html"
+                            "url": "../frame/site-mge/column-model-conf.html"
                         },
                         {
                             "childMenus": [
@@ -258,7 +258,7 @@
                                     "priority": 2,
                                     "treeLinkUrl": "",
                                     "type": "sub-nav",
-                                    "url": "../frame/siteMge/news_manage/template-conf.html"
+                                    "url": "../frame/site-mge/template-conf.html"
                                 }
                             ],
                             "id": 39,
@@ -277,7 +277,7 @@
                             "priority": 4,
                             "treeLinkUrl": "",
                             "type": "link",
-                            "url": "../frame/siteMge/news_manage/con-classify-conf.html"
+                            "url": "../frame/site-mge/con-classify-conf.html"
                         }
                     ],
                     "id": 18,
@@ -371,7 +371,7 @@
                             "priority": 1,
                             "treeLinkUrl": "",
                             "type": "link",
-                            "url": "../frame/siteMge/news_manage/new-classify.html"
+                            "url": "../frame/site-mge/new-classify.html"
                         },
                         {
                             "childMenus": [
@@ -421,7 +421,7 @@
                     "priority": 4,
                     "treeLinkUrl": "",
                     "type": "sub-nav",
-                    "url": "../frame/siteMge/news_manage/new-classify.html"
+                    "url": "../frame/site-mge/new-classify.html"
                 },
                 {
                     "childMenus": [

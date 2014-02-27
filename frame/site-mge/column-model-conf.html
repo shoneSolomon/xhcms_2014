@@ -3,11 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>栏目模型配置</title>
-	<link rel="stylesheet" href="../../../css/jqueryui/jquery-ui.css">
-	<link rel="stylesheet" href="../../../css/form.css">
-	<script src="../../../js/jquery.min.js"></script>
-	<script src="../../../js/require.js"></script>
-	<script src="../../../js/require-config.js"></script>
+	<link rel="stylesheet" href="../../css/jqueryui/jquery-ui.css">
+	<link rel="stylesheet" href="../../css/form.css">
+	<script src="../../js/jquery.min.js"></script>
+	<script src="../../js/require.js"></script>
+	<script src="../../js/require-config.js"></script>
 </head>
 <body class="outter-frame">
 	<h1>栏目模型配置</h1>
@@ -54,7 +54,7 @@
 	<span class="currentPage">{{currentPage}}</span>
 	<span class="totalPage">{{{division totalCount pageSize }}}</span>
 </script>
-<script type="text/javascript" src="../../js/frame.js"></script>
+<script type="text/javascript" src="../js/frame.js"></script>
 <script>
 (function($){
 	
@@ -83,6 +83,19 @@
 			sourceUrl:URL.columnModelConf,
 			callback:function(){
 				$("#list-sites").find(".ids").toCheckbox();
+				$("#list-sites").find(".checkbox").toCheckbox();
+				$("#list-sites").find(".switch").toSwitch();
+			}
+		});
+
+		//栏目模型配置更新列表
+		T.refresh({
+			tmpl:"#md-list-sites",
+			sourceUrl:URL.columnModelConf,
+			callback:function(){
+				$("#list-sites").find(".ids").toCheckbox();
+				$("#list-sites").find(".checkbox").toCheckbox();
+				$("#list-sites").find(".switch").toSwitch();
 			}
 		});
 

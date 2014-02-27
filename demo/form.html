@@ -25,13 +25,13 @@
 			<a href="#">链接 <br>字体：宋体</a>
 		</p>
 		<p class="text-tip">提示 <br>字体：宋体    字号：12px  </p>
-		<p>
+		<p id="radio-line">
 			<strong>性别：</strong>
 			<input type="radio" class="radio" name="radio" id="radio0" value="0"> <label for="radio0">男</label>
 			<input type="radio" class="radio" name="radio" id="radio1" value="1"> <label for="radio1">女</label>
 			<input type="radio" class="radio" name="radio" id="radio2" value="2"> <label for="radio2">？</label>
 		</p>
-		<p>
+		<p id="checkbox-line">
 			<strong>爱好：</strong>
 			<input type="checkbox" name="checkbox" class="checkbox" id="checkbox0" value="0"> <label for="checkbox0">篮球</label>
 			<input type="checkbox" name="checkbox" class="checkbox" id="checkbox1" value="1"> <label for="checkbox1">音乐</label>
@@ -258,6 +258,16 @@
 		alert( "IE6 or older browser is not supported!" );
 		return ;
 	}
+
+	require(['formUtil'],function(F){
+		$("#checkbox-line").on('click',function(){
+			console.log( F.checkedVal('checkbox',this).join(",") );
+		});
+		$("#radio-line").on('click',function(){
+			console.log( $(':radio[name="radio"]',this).filter(":checked").val() );
+		});
+	});
+
 	require(["form-style","alerts","tabs","draggable"],function(){
 
 		$(".radio").toRadio();

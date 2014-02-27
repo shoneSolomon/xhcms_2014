@@ -148,16 +148,19 @@
 					dataType:"json",
 					success: function(data){
 						if(data.result){
-							 $("#count-receiving").html(data.count).css({
+							 var re = $("#count-receiving").html(data.count).css({
 							 	visibility: (data.count > 0 ? "visible" : "hidden")
+							 }).parent().attr({
+							 	href : (data.count ? "../frame/msg.html#tabs-3" : "../frame/msg.html")
 							 });
+
 							 if( data.count > 0  ){
 							 	jConfirm('<h2 class="title">你有新的站内信</h2><p>'+(data.info||"[无法展示详情信息]")+'</p>',"站内信",{
 									okButton : "查看",
 									cancelButton : "忽略"
 								},function(result){
 									if(result ){
-									 	
+									 	re[0].click();
 									}
 								});
 							 }
@@ -173,7 +176,7 @@
 			};
 			fn();
 			return fn;		
-		})(),1000*30);
+		})(),1000*60);
 	});
 
 	//异步加载导航和菜单
@@ -286,7 +289,7 @@
 				});
 
 				
-				require(["module/queryparam"],function(queryparam){
+				require(["queryparam"],function(queryparam){
 					var id = queryparam("id") || 1;
 					var t = $("#top-nav-"+id)[0];
 					t ? t.click() : alert("wrong id:"+id);

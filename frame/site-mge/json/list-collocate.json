@@ -61,8 +61,5 @@
 			"contTimeVal":"2014-12-12",
 			"contAmountVal":"0"
 		}
-	],
-	"currentPage": 1,
-	"totalCount" : 50,
-	"pageSize"	 : 10
+	]
 }
