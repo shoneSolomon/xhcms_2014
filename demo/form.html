@@ -38,6 +38,7 @@
 			<input type="checkbox" name="checkbox" class="checkbox" id="checkbox2" value="2"> <label for="checkbox2">书法</label>
 			<input type="checkbox" name="checkbox" class="checkbox" id="checkbox3" value="3"> <label for="checkbox3">读书</label>
 			<input type="checkbox" name="checkbox" class="checkbox" id="checkbox4" value="4"> <label for="checkbox4">聊天</label>
+			<input type="checkbox" name="checkAll" class="checkall" id="_checkAll" value=" "> <label for="_checkAll">全选</label>
 		</p>
 		<p>
 			<strong>婚否：</strong>
@@ -266,13 +267,17 @@
 		$("#radio-line").on('click',function(){
 			console.log( $(':radio[name="radio"]',this).filter(":checked").val() );
 		});
+		F.selectAll({
+			handle : "#_checkAll",
+			checkList : "#checkbox-line .checkbox"
+		});
 	});
 
 	require(["form-style","alerts","tabs","draggable"],function(){
 
 		$(".radio").toRadio();
 
-		$(".checkbox").toCheckbox();
+		$(".checkbox, .checkall").toCheckbox();
 
 		$(".switch").toSwitch();
 

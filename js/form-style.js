@@ -27,7 +27,7 @@
 				if( _this.data("checkbox-init") ) return;
 				_this.after( holder );
 				_this.on("click checked",function(){ 
-					_this.parent().toggleClass("checked") 
+					_this.parent()[this.checked?'addClass':'removeClass']("checked");
 				});
 				return _this.data("checkbox-init",true).appendTo(holder);	
 			}).filter(":checked").trigger("checked");
@@ -38,7 +38,7 @@
 				if( _this.data("switch-init") ) return;
 				_this.after( holder );
 				_this.on("click checked",function(){ 
-					_this.parent().toggleClass("checked") 
+					_this.parent()[this.checked?'addClass':'removeClass']("checked") 
 				});
 				return _this.data("switch-init",true).appendTo(holder);	
 			}).filter(":checked").trigger("checked");
