@@ -155,14 +155,14 @@
 			tmpl:"#group-options",
 			sourceUrl:URL.groups,
 			callback:function(){
-				if(window.top.transpond&&window.top.reply_read){
-					$(".select1").toSelect();
-					$(".radio").toRadio();
-				}else{
+				$(".select1").toSelect();
+				$(".radio").toRadio();
+				if(window.top.transpond||window.top.reply_read){
 					$.ajax({
 						url:letterURL.letterContent,
 						dataType:"json",
 						success:function(data){
+							var groupSelect;
 							if(window.top.transpond){
 								$("input[name='theme']").val(data["letter"]["theme"]);
 								$("textarea[name='details']").val(data["letter"]["content"]);
@@ -171,19 +171,12 @@
 								if(data["letter"]["personage"]){
 									$("#radio0").attr("checked","checked");
 									$("input[name='personage']").val(data["letter"]["personage"]);
-								}else if(data["letter"]["group"]){
+								}else if(groupSelect=data["letter"]["group"]){
 									$("#radio1").attr("checked","checked");
-									$(".select1").attr("value",data["letter"]["group"]);
-									for(i=0;i<$(".select1").find("option").length; i++){
-										if($(".select1").find("option").eq(i).attr("value")==data["letter"]["group"]){
-											$(".select1").find("option")[i].selected=true;
-										}
-									}
+									$(".select1").val(groupSelect).trigger('selectVal');
 								}
 								delete window.top.reply_read;
 							}
-							$(".select1").toSelect();
-							$(".radio").toRadio();
 						}
 					});
 				}
@@ -300,13 +293,12 @@
 						});
 					}
 				});	
-			}
-			if(arr[0]&&arr[1]){
+			}else if(arr[1]){
 					$(".delete_content").html("是否删除多条信息");
-			}else{
+			}else if(!arr[0]){
 			
 				jAlert("请选择要删除的数据");
-			}	
+			}			
 		})
 		
 		$("#receive_mail").find(".btn-delete").on("click",function(){
@@ -337,13 +329,12 @@
 						});
 					}
 				});	
-			}
-			if(arr[0]&&arr[1]){
+			}else if(arr[1]){
 					$(".delete_content").html("是否删除多条信息");
-			}else{
+			}else if(!arr[0]){
 			
 				jAlert("请选择要删除的数据");
-			}		
+			}			
 		})
 		
 		$("#recycle_bin").find(".btn-delete").on("click",function(){
@@ -374,10 +365,9 @@
 						});
 					}
 				});	
-			}
-			if(arr[0]&&arr[1]){
+			}else if(arr[1]){
 					$(".delete_content").html("是否删除多条信息");
-			}else{
+			}else if(!arr[0]){
 			
 				jAlert("请选择要删除的数据");
 			}		

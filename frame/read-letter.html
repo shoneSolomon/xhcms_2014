@@ -15,7 +15,7 @@
 				<a href="#">首页</a><a> &gt; </a><span class="text-normal">站内信</span>
 		</div>-->
 		<div class="mainCenter see_mainCenter">
-			<a class="fm-button" href="3站内信.html">返回列表</a>
+			<a class="fm-button back_list" href="msg.html?#tabs-3">返回列表</a>
 			<form id="later_content">
 
 			</form>
@@ -42,7 +42,7 @@
 					<div class="bt_lists">
 						<a class="fm-button replyRead">回复</a>
 						<a class="fm-button transpond" href="msg.html?id={{id}}">转发</a>
-						<a class="fm-button" href="#">删除</a>
+						<a class="fm-button deleteLetter" href="#">删除</a>
 					</div>
 					{{/letter}}
 			</script>
@@ -53,7 +53,7 @@
 <script>
 var URL=$.initFrame('letterContent').URL;
 (function($){
-	require(["template-init","queryparam"],function(T,Q){
+	require(["template-init","queryparam","requestAFrame","alerts"],function(T,Q,R){
 		var id = Q("id");
 		T.init({
 			tmpl:"#temp_send_lists",
@@ -66,6 +66,24 @@ var URL=$.initFrame('letterContent').URL;
 				$(".transpond").on("click",function(){
 					window.location.href="msg.html?id="+id;
 					window.top.transpond=true;
+				});
+				$(".deleteLetter").on("click",function(){
+					$.ajax({
+						url:"json/success.json",
+						data:id,
+						success:function(data){
+							jTip( '删除成功', 2000 );
+
+							R.addTimeout("back_list",function(){
+								var fn = function(){
+									$(".back_list")[0].click();
+								}
+								fn();
+								return fn;
+							},1000*3,1);
+							
+						}
+					})
 				})	
 			},
 			sourceData:function(){
