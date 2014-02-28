@@ -58,6 +58,14 @@
 (function($){
 	
 	var URL = $.initFrame('conClassifyConf').URL;
+	/* 全选（2） */
+	require(['formUtil'],function(F){
+		F.selectAll({
+			handle : "#all",
+			checkList : "#list-sites .ids",
+			checkListHolder : "#list-sites"
+		});
+	});
 
 	require(["template-init","form-style","alerts","draggable","template"],function(T){
 		var template = Handlebars.compile($("#md-list-sites").html()); //创建模板编译器
@@ -97,7 +105,7 @@
 		});
 
 
-		/*全选*/
+		/*全选（1）
 		$(".station_menu").find(".checkbox").on("click",function(){
 			var _this = $(this);
 			$("#list-sites").find(".checkbox").each(function(){
@@ -105,7 +113,7 @@
 					$(this).trigger('click')
 				}
 			});
-		});
+		});*/
 
 		/*menu删除*/
 		$(".station_menu").find(".btn-delete").on("click",function(){

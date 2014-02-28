@@ -75,7 +75,14 @@ var conf =
 				columnMoveDown : "json/list-model.json",
 				columnTop : "json/list-model.json"
 			})
-	}              //end
+	},
+	'letterContent':{
+		URL:(isLocal?{
+			letterContent:"json/letter-cont.json",
+		}:{
+			letterContent:"json/letter-cont.json",
+		})
+	}             //end
 
 };
 

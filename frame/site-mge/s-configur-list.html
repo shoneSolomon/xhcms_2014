@@ -13,8 +13,8 @@
 <div class="mainRight">
 	<h1>站点配置</h1>
 	<div class="station_menu">
-		<input type="checkbox" name="checkbox" class="checkbox" id="all" value="0"> <label for="all">全选</label>
-		<a class="fm-button btn-add round" href="#">添加站点</a>
+		<input type="checkbox" name="checkbox" class="checkall" id="_checkAll" value="0"> <label for="_checkAll">全选</label>
+		<a class="fm-button btn-add round" href="addstatic.html">添加站点</a>
 		<a class="fm-button btn-edit round" href="#">编辑</a>
 		<a class="fm-button btn-delete round" href="#">删除</a>
 	</div>
@@ -54,42 +54,36 @@
 (function($){
 	var URL = $.initFrame('siteConfigur').URL;
 
-	require(["template-init","form-style"],function(T){
-		$(".checkbox").toCheckbox();
-		
+	require(["template-init","formUtil","form-style"],function(T,F){
+		$(".checkall").toCheckbox();
 		//栏目列表加载和美化
 		T.init({
 			tmpl:"#md-list-sites",
 			sourceUrl:URL.siteConfigur,
 			callback:function(){
-				$("#list-sites").find(".checkbox").toCheckbox();
+				$("#list-sites").find("input[name='checkbox']").toCheckbox();
 			}
+		});
+	});
+	require(["formUtil"],function(F){
+		F.selectAll({
+			handle : "#_checkAll",
+			checkList : "#list-sites .checkbox"
 		});
 	});
 
 
 	require(["template-init","form-style","alerts"],function(T){
 
-		/*全选*/
-		$(".station_menu").find(".checkbox").on("click",function(){
-			var _this = $(this);
-			$("#list-sites").find(".checkbox").each(function(){
-				if( $(this).is(":checked") !== _this.is(":checked") ){
-					$(this).trigger('click')
-				}
-			});
-		});
-
-		
 		/*menu删除*/
 		$(".station_menu").find(".btn-delete").on("click",function(){
-			var deLists=$(".station_table").find(".checkbox");
+			var deLists=$(".station_table").find("input[name='checkbox']");
 			var len=deLists.length;
 			if(len!==0){
 				var arr=[];
 				for(i=0; i<len; i++){
 					if(deLists[i].checked){
-						arr.push($(".station_table").find(".checkbox")[i].value)			
+						arr.push($(".station_table").find("input[name='checkbox']")[i].value)			
 					}
 				}
 				if(arr[0]){
@@ -102,7 +96,7 @@
 								tmpl:"#md-list-sites",
 								sourceUrl:URL.siteConfigur,
 								callback:function(){
-									$("#list-sites").find(".checkbox").toCheckbox();
+									$("#list-sites").find("input[name='checkbox']").toCheckbox();
 								},
 								sourceData:function(){
 									return {
@@ -125,13 +119,13 @@
 
 		/*menu编辑*/
 		$(".station_menu").find(".btn-edit").on("click",function(){
-			var deLists=$(".station_table").find(".checkbox");
+			var deLists=$(".station_table").find("input[name='checkbox']");
 			var len=deLists.length;
 			if(len!==0){
 				var arr=[];
 				for(i=0; i<len; i++){
 					if(deLists[i].checked){
-						arr.push($(".station_table").find(".checkbox")[i].value)			
+						arr.push($(".station_table").find("input[name='checkbox']")[i].value)			
 					}
 				};
 				var sub=arr.join();
@@ -167,11 +161,11 @@
 						tmpl:"#md-list-sites",
 						sourceUrl:URL.siteConfigur,
 						callback:function(){
-							$("#list-sites").find(".checkbox").toCheckbox();
+							$("#list-sites").find("input[name='checkbox']").toCheckbox();
 						},
 						sourceData:function(){
 							return {
-								deleteIds:ID
+								deleteId:ID
 							};
 						}
 					});

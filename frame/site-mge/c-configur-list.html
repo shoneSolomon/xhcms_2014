@@ -13,7 +13,7 @@
 <div class="mainRight">
 	<h1>栏目配置</h1>
 	<div class="station_menu">
-		<input type="checkbox" name="checkbox" class="checkbox" id="all" value="0"> <label for="all">全选</label>
+		<input type="checkbox" name="checkbox" class="checkall" id="_checkAll" value="0"> <label for="_checkAll">全选</label>
 		<a class="fm-button btn-add round" href="#">添加分站</a>
 		<a class="fm-button btn-delete round" href="#">删除</a>
 		<a class="list-move"><span class="list-move-up">上移</span> <span class="list-move-down">下移</span></a>
@@ -33,7 +33,7 @@
 			</tr>
 			{{#each list}}
 			<tr data-clmCludeVal="{{clmCludeVal}}" data-clmProduceVal="{{clmProduceVal}}" data-contTimeVal="{{contTimeVal}}" data-contAmountVal="{{contAmountVal}}">
-				<td><input type="checkbox" name="checkbox" class="checkbox ids" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
+				<td><input type="checkbox" name="checkbox" class="checkbox" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
 				<td style="color:#2cac93;">{{name}}</td>
 				<td>{{url}}</td>
 				<td>{{show}}</td>
@@ -100,46 +100,39 @@
 (function($){
 	var URL = $.initFrame('clmConfigur').URL;
 
-	require(["template-init","form-style"],function(T){
-		$(".checkbox").toCheckbox();
-		
+	require(["template-init","formUtil","form-style"],function(T,F){
+		$(".checkall").toCheckbox();
 		//栏目列表加载和美化
 		T.init({
 			tmpl:"#md-list-sites",
 			sourceUrl:URL.clmConfigur,
 			callback:function(){
-				$("#list-sites").find(".ids").toCheckbox();
+				$("#list-sites").find("input[name='checkbox']").toCheckbox();
 			}
 		});
 	});
-	require(["template-init","form-style","alerts","WdatePicker"],function(T){
-		
-
-		/*全选*/
-		$(".station_menu").find(".checkbox").on("click",function(){
-			var _this = $(this);
-			$("#list-sites").find(".ids").each(function(){
-				if( $(this).is(":checked") !== _this.is(":checked") ){
-					$(this).trigger('click')
-				}
-			});
+	require(["formUtil"],function(F){
+		F.selectAll({
+			handle : "#_checkAll",
+			checkList : "#list-sites .checkbox"
 		});
+	});
 
-
+	require(["template-init","form-style","alerts","WdatePicker"],function(T){
 		
 		/*menu删除*/
 		$(".station_menu").find(".btn-delete").on("click",function(){
-			var deLists=$(".station_table").find(".ids");
+			var deLists=$(".station_table").find("input[name='checkbox']");
 			var len=deLists.length;
 			if(len!==0){
 				var arr=[];
 				for(i=0; i<len; i++){
 					if(deLists[i].checked){
-						arr.push($(".station_table").find(".ids")[i].value)			
+						arr.push($(".station_table").find("input[name='checkbox']")[i].value)			
 					}
 				}
 				if(arr[0]){
-					jConfirm('<h2 class="title"></h2> <p class="delete_content">是否删除该条信息</p> ',"",{
+					jConfirm('<p class="delete_content">是否删除该条信息</p> ',"",{
 						okButton : "是",
 						cancelButton : "否"
 					},function(result){
@@ -148,7 +141,7 @@
 								tmpl:"#md-list-sites",
 								sourceUrl:URL.clmConfigur,
 								callback:function(){
-									$("#list-sites").find(".ids").toCheckbox();
+									$("#list-sites").find("input[name='checkbox']").toCheckbox();
 								},
 								sourceData:function(){
 									return {
@@ -163,7 +156,7 @@
 					$(".delete_content").html("是否删除多条信息");
 				};
 				if(!arr[0])	{
-					jAlert('<h2 class="title"></h2> <p class="delete_content">请选择删除项</p>');
+					jAlert('<p class="delete_content">请选择删除项</p>');
 				}
 			}
 		});
@@ -176,39 +169,39 @@
 			var index;
 			var dataid;
 			var contentform=$("#list-sites").find(".station_table");
-			var contentlength=contentform.find(".ids").length;
+			var contentlength=contentform.find("input[name='checkbox']").length;
 			if(contentlength>0){
 				function newmo(){
 					for(var i=0;i<contentlength;i++){
-						if(contentform.find(".ids")[i].checked==true){
+						if(contentform.find("input[name='checkbox']")[i].checked==true){
 							newNu+=1;
 							index=i;
-							dataid=contentform.find(".ids").eq(i).val();
+							dataid=contentform.find("input[name='checkbox']").eq(i).val();
 						}
 					}
 					if(newNu>1){
-						jAlert('<h2 class="title"></h2> <p class="delete_content">抱歉，只能选择一项</p>');
+						jAlert('<p class="delete_content">抱歉，只能选择一项</p>');
 					}else if(newNu==0){
-						jAlert('<h2 class="title"></h2> <p class="delete_content">请选择一项</p>');
+						jAlert('<p class="delete_content">请选择一项</p>');
 
 					}
 				}			
 				if($(this).index()==0){
 					newmo();
 					if(newNu==1&&index==0){
-						jAlert('<h2 class="title"></h2> <p class="delete_content">已经置顶</p>');
+						jAlert('<p class="delete_content">已经置顶</p>');
 					}
 					else if(newNu==1&&index>0){	
-						dataidup=contentform.find(".ids").eq(index-1).val();
+						dataidup=contentform.find("input[name='checkbox']").eq(index-1).val();
 						T.refresh({
 								tmpl:"#md-list-sites",
 								sourceUrl:URL.clmConfigur,
 								callback:function(){
-									$("#list-sites").find(".ids").toCheckbox();
+									$("#list-sites").find("input[name='checkbox']").toCheckbox();
 								},
 								sourceData:function(){
 									return {
-										deleteIds:dataid,
+										thisId:dataid,
 										Idto:dataidup
 									};
 								}
@@ -218,19 +211,19 @@
 				if($(this).index()==1){
 					newmo();
 					if(newNu==1&&index==contentlength-1){
-						jAlert('<h2 class="title"></h2> <p class="delete_content">已经置底</p>');
+						jAlert('<p class="delete_content">已经置底</p>');
 					}
 					else if(newNu==1&&index<contentlength-1){
-						dataiddown=contentform.find(".ids").eq(index+1).val();	
+						dataiddown=contentform.find("input[name='checkbox']").eq(index+1).val();	
 						T.refresh({
 								tmpl:"#md-list-sites",
 								sourceUrl:URL.clmConfigur,
 								callback:function(){
-									$("#list-sites").find(".ids").toCheckbox();
+									$("#list-sites").find("input[name='checkbox']").toCheckbox();
 								},
 								sourceData:function(){
 									return {
-										deleteIds:dataid,
+										thisId:dataid,
 										Idto:dataiddown
 									};
 								}
@@ -243,34 +236,39 @@
 
 		/*menu顶置*/
 		$(".station_menu").find(".btn-top").on("click",function(){
-			var deLists=$(".station_table").find(".ids");
+			var deLists=$(".station_table").find("input[name='checkbox']");
 			var len=deLists.length;
 			if(len!==0){
 				var arr=[];
+				var index;
 				for(i=0; i<len; i++){
 					if(deLists[i].checked){
-						arr.push($(".station_table").find(".ids")[i].value)			
+						arr.push($(".station_table").find("input[name='checkbox']")[i].value)	
+						index=i;		
 					}
 				};
 				if(arr[0]&&!arr[1]){
-					T.refresh({
+					if(index==0){
+						jAlert('<p class="delete_content">已经置顶</p>');
+					}else{T.refresh({
 								tmpl:"#md-list-sites",
 								sourceUrl:URL.clmConfigur,
 								callback:function(){
-									$("#list-sites").find(".ids").toCheckbox();
+									$("#list-sites").find("input[name='checkbox']").toCheckbox();
 								},
 								sourceData:function(){
 									return {
-										deleteIds:arr.join()
+										idTop:arr.join()
 									};
 								}
 							});
+					}
 				};
 				if(!arr[0]){
-					jAlert('<h2 class="title"></h2> <p class="delete_content">请选择一项</p>');
+					jAlert('<p class="delete_content">请选择一项</p>');
 				}
 				if(arr[1]){
-					jAlert('<h2 class="title"></h2> <p class="delete_content">只能选择一项</p>');
+					jAlert('<p class="delete_content">只能选择一项</p>');
 				}
 			}
 		});
@@ -279,7 +277,7 @@
 		$("#list-sites").on("click",".delete",function(){
 			var newIndex=$(".station_table").find(".delete").index(this);
 			var ID=$(".station_table").find(".delete").eq(newIndex).attr("data-id");
-			jConfirm('<h2 class="title"></h2> <p class="delete_content">是否删除该条信息</p> ',"",{
+			jConfirm('<p class="delete_content">是否删除该条信息</p> ',"",{
 				okButton : "是",
 				cancelButton : "否"
 			},function(result){
@@ -293,7 +291,7 @@
 					// 			tmpl:"#md-list-sites",
 					// 			sourceUrl:URL.clmConfigur,
 					// 			callback:function(){
-					// 				$("#list-sites").find(".ids").toCheckbox();
+					// 				$("#list-sites").find("input[name='checkbox']").toCheckbox();
 					// 			}
 					// 		});
 					// 	}
@@ -302,11 +300,11 @@
 								tmpl:"#md-list-sites",
 								sourceUrl:URL.clmConfigur,
 								callback:function(){
-									$("#list-sites").find(".ids").toCheckbox();
+									$("#list-sites").find("input[name='checkbox']").toCheckbox();
 								},
 								sourceData:function(){
 									return {
-										deleteIds:ID
+										deleteId:ID
 									};
 								}
 							});

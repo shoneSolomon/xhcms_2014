@@ -64,13 +64,18 @@
 
 				vh.html( selected.html() );
 				var list = _this.html().replace(/<option(.*?)>(.*?)<\/option>/gi,"<a$1>$2</a>") ;
-				oh.html( list ).on('click','a',function(e){
-					var t = $(e.target);
+				oh.html( list ).on('click','a',function(){
+					var t = $(this);
 					_this.val( t.attr("value") ).trigger("change");
 					vh.html( t.html() );
 				});
 				holder.on("click",function(){
 					$(this).toggleClass("selecting")
+				});
+				_this.on('selectVal',function(e,val){
+					val && $(this).val(val);
+					oh.find('a[value="'+(this.value)+'"]').trigger('click');
+					holder.removeClass("selecting");
 				});
 				return _this.data("select-init",true).appendTo(holder);	
 			});

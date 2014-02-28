@@ -23,9 +23,9 @@
 				<div class="item clearfix">
 					<span class="lable">收件人:</span>
 					<div class="text">
-						<input type="radio" class="radio" name="radio" id="radio0" value="0"> <label for="radio0">个人</label>
+						<input type="radio" class="radio" name="senderType" id="radio0" value="0"> <label for="radio0">个人</label>
 						<input type="text" name="personage" placeholder="个人姓名"/>
-						<input type="radio" class="radio" name="radio" id="radio1" value="1"> <label for="radio1">会员组</label>
+						<input type="radio" class="radio" name="senderType" id="radio1" value="1"> <label for="radio1">会员组</label>
 						<select name="group" class="select1">
 							<option value="-1">请选择</option>
 						</select>
@@ -95,7 +95,7 @@
 						<tr class="{{#if readed}}have_read{{else}}{{/if}}">
 							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb2-{{id}}" value="0"></td>
 							<td class="from_name">{{from_name}}</td>
-							<td>{{title}}</td>
+							<td><a href="read-letter.html?id={{id}}">{{title}}</a></td>
 							<td>{{content}}</td>
 							<td class="send_time">{{date}}</td>
 						</tr>
@@ -145,20 +145,48 @@
 <script src="js/frame.js"></script>
 <script>
 (function(){
+	var letterURL=$.initFrame('letterContent').URL;
 	var URL = $.initFrame('msg').URL;
 
 	require(["template-init","form-style"],function(T){
-
-		$(".radio").toRadio();
-
-		$(".select2").toSelect();
 
 		//会员组加载和美化
 		T.init({
 			tmpl:"#group-options",
 			sourceUrl:URL.groups,
 			callback:function(){
-				$(".select1").toSelect();	
+				if(window.top.transpond&&window.top.reply_read){
+					$(".select1").toSelect();
+					$(".radio").toRadio();
+				}else{
+					$.ajax({
+						url:letterURL.letterContent,
+						dataType:"json",
+						success:function(data){
+							if(window.top.transpond){
+								$("input[name='theme']").val(data["letter"]["theme"]);
+								$("textarea[name='details']").val(data["letter"]["content"]);
+								delete window.top.transpond;
+							}else if(window.top.reply_read){
+								if(data["letter"]["personage"]){
+									$("#radio0").attr("checked","checked");
+									$("input[name='personage']").val(data["letter"]["personage"]);
+								}else if(data["letter"]["group"]){
+									$("#radio1").attr("checked","checked");
+									$(".select1").attr("value",data["letter"]["group"]);
+									for(i=0;i<$(".select1").find("option").length; i++){
+										if($(".select1").find("option").eq(i).attr("value")==data["letter"]["group"]){
+											$(".select1").find("option")[i].selected=true;
+										}
+									}
+								}
+								delete window.top.reply_read;
+							}
+							$(".select1").toSelect();
+							$(".radio").toRadio();
+						}
+					});
+				}
 			}
 		});
 
@@ -193,10 +221,18 @@
 				$(".checkbox").toCheckbox();	
 			}
 		});
+		
+		$(".select2").toSelect();
+		
 
 	});
+	require(["tabs"],function(){
+		$("#tabs").tabs();
+	})
 
-	require(["template-init","alerts","tabs","draggable"],function(T){
+	require(["template-init","alerts"],function(T){
+		
+
 		$("#moveTo").on("change",function(){
 			var arr=[];
 			var checkboxs=$("#recycle_bin").find(".checkbox");
@@ -232,7 +268,7 @@
 			
 		});
 
-		$("#tabs").tabs();
+		
 		
 		$("#send_mail").find(".btn-delete").on("click",function(){
 
