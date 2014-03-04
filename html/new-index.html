@@ -111,17 +111,24 @@
 	});
 
 	$("#targetFrame").on("load",function(){	
-		var _this = $(this), doc = _this.contents()[0];
+		var _this = $(this); 
 		_this.next().remove();
 
 		if(window.reHeight){
 			window.reHeight();
 		}
 
-		var loading = $('<div class="loading"></div>');
-		doc.body.onbeforeunload = function(){
-			_this.after( loading );
+		try{
+			var doc = _this.contents()[0];
+			var loading = $('<div class="loading"></div>');
+			doc.body.onbeforeunload = function(){
+				_this.after( loading );
+			}
+		}catch(e){
+			//console.log("xx:"+e);
+			//IE下面对于404页面同样进行操作, jQuery会抛出异常。搜集一下。
 		}
+			
 	});
 
 	$.ajax({		//获取登录用户信息

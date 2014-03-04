@@ -86,9 +86,8 @@ var conf =
 
 };
 
-var css = document.createElement("style");
-	css.id = "css-style-switch";
-	$(css).appendTo( $('body') );
+$('<style id="css-style-switch"></div>').appendTo( $('body') );
+
 $.initFrame = function(key){
 	var _this = conf[key];
 	if( _this ){
@@ -107,7 +106,10 @@ if( window.top != window ){
 			//如果父标签的自定义样式没有加载成功，继续监听
 		},200,Infinity,function(){
 			var cssTxt = $("#css-style-switch",top.document).html();
-			$(css).html( cssTxt );
+			if( !!cssTxt ){
+				var css = $('<style id="css-style-switch">'+ cssTxt + '</div>');
+				$('#css-style-switch').replaceWith(css);
+			}
 			return !!cssTxt;
 		});
 	});	

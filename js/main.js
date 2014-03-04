@@ -5,18 +5,19 @@
 	});
 
 	require(["style-switch","cookie","alerts"],function(SW,CK){
-		var css = document.createElement("style");
-		css.id = "css-style-switch";
-		$(css).appendTo( $('body') );
+		$('<style id="css-style-switch"></div>').appendTo( $('body') );
+
 		$.ajax({
 			url: "../css/style-switch.css?v=1.0.1",
 			dataType:"html",
 			success:function(cssTxt){
 				window.themeId = CK.get('themeId') || 'default';
 				var theme = SW[window.themeId], radios = "";
-				$(css).html( cssTxt.replace(/\{\{(\w+)\}\}/g,function(match,key){
+				var css = $('<style id="css-style-switch">'+ ( cssTxt.replace(/\{\{(\w+)\}\}/g,function(match,key){
 					return theme[key];
-				}));
+				})) + '</div>');
+
+				$('#css-style-switch').replaceWith(css);
 
 				for(var k in SW){
 					radios += '<input type="radio" name="color" id="theme-'+k+'" value="'+k+'" onclick="window.themeId=\''+k+'\'"/><label for="theme-'+k+'">'+k+'</label>'
@@ -26,9 +27,11 @@
 					jAlert('<div id="color-select">'+radios+'</div>',"选择主题",function(){
 								CK.set('themeId',window.themeId,365);
 								var theme = SW[window.themeId];
-								$(css).html( cssTxt.replace(/\{\{(\w+)\}\}/g,function(match,key){
+								var css = $('<style id="css-style-switch">'+ ( cssTxt.replace(/\{\{(\w+)\}\}/g,function(match,key){
 									return theme[key];
-								}));
+								})) + '</div>');
+								$('#css-style-switch').replaceWith(css);
+
 								window.frames[0].location.reload(); // 修改样式表刷新子页面
 							});
 				});	
