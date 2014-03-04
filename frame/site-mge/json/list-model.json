@@ -5,48 +5,48 @@
 			"name" : "政治",
 			"p-column" : "api.hong.com",
 			"p_content" : "api.hong.cn",
-			"default":"checked",
-			"enabled":"checked"
+			"defaults":true,
+			"enabled":true
 		},
 		{
 			"id" : "3032",
 			"name" : "政治",
 			"p-column" : "api.hong.com",
 			"p_content" : "api.hong.cn",
-			"default": "",
-			"enabled":"checked"
+			"defaults": false,
+			"enabled":true
 		},
 		{
 			"id" : "3033",
 			"name" : "政治",
 			"p-column" : "api.hong.com",
 			"p_content" : "api.hong.cn",
-			"default": "",
-			"enabled":"checked"
+			"defaults": false,
+			"enabled":true
 		},
 		{
 			"id" : "3034",
 			"name" : "政治",
 			"p-column" : "api.hong.com",
 			"p_content" : "api.hong.cn",
-			"default": "",
-			"enabled":"checked"
+			"defaults": false,
+			"enabled":true
 		},
 		{
 			"id" : "3035",
 			"name" : "政治",
 			"p-column" : "api.hong.com",
 			"p_content" : "api.hong.cn",
-			"default": "",
-			"enabled":""
+			"defaults": false,
+			"enabled":false
 		},
 		{
 			"id" : "3036",
 			"name" : "政治",
 			"p-column" : "api.hong.com",
 			"p_content" : "api.hong.cn",
-			"default": "",
-			"enabled":"checked"
+			"defaults": false,
+			"enabled":false
 		}
 	],
 	"currentPage": 1,

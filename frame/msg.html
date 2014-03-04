@@ -64,7 +64,7 @@
 					<p id="pager_send_lists" class="fm-pager"></p>
 				</div>
 				<script type="html/template" id="temp_send_lists" data-target=".send_lists" data-pagination="#pager_send_lists" data-method="post">
-					<table>
+					<table class="table">
 					{{#each list}}
 						<tr class="">
 							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb1-{{id}}" value="0"></td>
@@ -90,7 +90,7 @@
 					<p id="pager_receive_lists" class="fm-pager"></p>
 				</div>
 				<script type="html/template" id="temp_receive_lists" data-target=".receive_lists" data-pagination="#pager_receive_lists" data-method="post">
-					<table>
+					<table class="table">
 					{{#each list}}
 						<tr class="{{#if readed}}have_read{{else}}{{/if}}">
 							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb2-{{id}}" value="0"></td>
@@ -123,7 +123,7 @@
 					<p id="pager_recycle_lists" class="fm-pager"></p>
 				</div>
 				<script type="html/template" id="temp_recycle_lists" data-target=".recycle_lists" data-pagination="#pager_recycle_lists" data-method="post">
-					<table>
+					<table class="table">
 					{{#each list}}
 						<tr class="">
 							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb3-{{id}}" value="0"></td>

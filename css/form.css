@@ -68,18 +68,17 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .form_write .text_radio label{padding-right:35px;}
 .ui-widget-content .fm-button{color:#fff;}
 .fm-button.btn-remove{background-position:-2px -301px; padding-right:20px;}
+
 .msg_lists{ margin-top:20px;}
-.msg_lists table{width:100%;}
-.msg_lists table tr:hover{background: #c0ebe3;}
-.msg_lists table tr td{height:38px; border-bottom:1px solid #d4d4d4;}
-.msg_lists table .first_tr td{border-top:1px solid #d4d4d4;}
-.msg_lists table{border-top:1px solid #d4d4d4;}
-.msg_lists table tr .checked_bt{width:40px; text-align:center}
-.msg_lists table tr .send_time{text-align:right; padding-right:3.5%; color:#9a9a9a;}
-.receive_lists table tr td{font-weight:bold;}
-.receive_lists table tr .from_name{ background:url("../images/letter_icon.png") no-repeat center left; padding-left:27px;}
-.receive_lists table .have_read td{font-weight:normal;}
-.receive_lists table .have_read .from_name{background:none;}
+.msg_lists .table{border-top:1px solid #d4d4d4; }
+.msg_lists .table tr .checked_bt{width:40px; text-align:center;}
+.msg_lists .table td{border-left:0;border-right: 0;}
+.msg_lists .table tr .send_time{text-align:right; padding-right:3.5%; color:#9a9a9a;}
+
+.receive_lists .table tr td{font-weight:bold;}
+.receive_lists .table tr .from_name{ background:url("../images/letter_icon.png") no-repeat center left; padding-left:27px;}
+.receive_lists .table .have_read td{font-weight:normal;}
+.receive_lists .table .have_read .from_name{background:none;}
 .form_write .text i.fm-radio {float:left; margin:3px 2px 0px 0px;}
 .form_write .item{clear:both; line-height:28px;}
 
@@ -94,7 +93,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 
 /*head-头部--by王彩凤*/
 .head{width:100%; margin-bottom: 20px; background:url("../images/head_bg.png") repeat-x;}
-.head_top{margin:auto;width:90%; height:29px; line-height:30px; padding:10px 0px;  background:#332d2d;}
+.head_top{margin:auto;width:90%; height:29px; line-height:30px; padding:10px 0px;}
 .headIcon{background:url("../images/head_icon.png") no-repeat 4px -2px;cursor: pointer;}
 .skin_peeler{float:left;background-position:-4px 0px; padding-left:30px;padding-right: 66px; color: #fff; }
 .head .sizeOn{float:right;margin-right:26px;min-width:24px;}
@@ -104,7 +103,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .head_receiving{background-position:-4px -33px; line-height: normal;}
 .head_receiving i{display:inline-block;margin-bottom: 8px; margin-left: 12px; padding:0px 3px; height: 14px;border-radius:6px;background:#ea7857; line-height: 14px; font-size: 12px; font-style: normal; color: #fff;}
 .login_name{padding-right:26px;}
-.head_top{ position: relative; }
+.head_top{ position: relative; background-color: #332d2d;}
 .head_top span{color: #fff; display: inline-block; float: left;}
 .head_top .login_name{ float:right;}
 .head_top .t-handle{
@@ -132,7 +131,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .head .nav ul li:hover a{color: #2cac93;}
 .head .nav ul li .Tmenu{display:none; position:absolute; top:40px; left:0px; padding: 18px 0 0 0; width:100%; background:#5ed0ba;}
 .head .nav ul li:hover .Tmenu{display:block; z-index: 9;}
-.head .nav ul li .Tmenu a{display:block; padding: 0px 34px 0px 8px; width:100%;height: 30px; background:#5ed0ba; line-height: 30px; color:#fff;}
+.head .nav ul li .Tmenu a{display:block; padding: 0px 34px 0px 8px; width:100%;height: 30px; background:#5ed0ba; line-height: 30px; color:#fff !important;}
 .head .nav ul li .Tmenu a:hover{background:#2cac93;}
 
 /*tree-nav by shiyangyang*/
@@ -183,8 +182,6 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .global_cont{position: relative;width: 92%; }
 .global_form{padding: 18px 0px 90px 10px; border: 1px solid #d4d4d4;}
 .global_form .lable{width: 94px;}
-.form_setup .lable i{display: inline-block; padding-right: 7px; background: url("../images/required_icon.png") no-repeat 0px 10px;}
-.global_form font{ display: inline-block;; padding-left: 16px; color: #a8a8a8; font-size:12px; }
 .info_bt{ float: right; margin: 25px 0px;}
 .info_bt input{ margin-left: 16px;}
 
@@ -243,8 +240,8 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .set_column-model .table tr td .fm-select{ display: block; margin: auto; font-size: 12px;color: #737373;max-width:90px; }
 .set_column-model .table tr td .fm-select .value-holder{display: block; height: 20px; }
 .widthMin{min-width: 1680px; *min-width: 1800px;}
-.add_field{ width: 100%; height: 50px; line-height: 50px; text-align:center;  margin: 20px 0px 5px 0px; background: #5ed0ba;}
-.add_field a{ cursor: pointer; font-size: 14px; color:#fff;}
+/*.add_field{ width: 100%; height: 50px; line-height: 50px; text-align:center;  margin: 20px 0px 5px 0px; background: #5ed0ba;}
+.add_field a{ cursor: pointer; font-size: 14px; color:#fff;}*/
 .set_column-model #tabs-2 .selsectMin{min-width: 40px; width: 44px;}
 #tabs .ui-widget{font-size:14px;}
 .set_column-model .table tr td .requireKey{border-color: #000;}

@@ -72,12 +72,28 @@
 		refreshList();
 		$(".checkbox").toCheckbox();
 		
-		//新闻分类管理加载列表
+		//新闻分类管理加载列表数据
 		T.init({
 			tmpl:"#md-list-sites",
 			sourceUrl:URL.newsClassify,
 			callback:function(){
 				$("#list-sites").find(".ids").toCheckbox();
+
+				//table tr拖拽
+				require(['sortable'],function(){
+					var index = null;
+					//获取tr的父级进行sortable操作，因为浏览器会为table添加tbody。
+					$('#list-sites tr').parent().sortable({
+						start:function(e,ui){
+							index = ui.item.index();
+						},
+						stop:function(e,ui){
+							var n = ui.item.index() - index;
+							if(!n)return; //没有移动, 直接返回
+							jAlert( "向<span style='color:green'>"+(n>0?'后':'前')+"</span>移动了 <span style='color:red'>" + Math.abs(n) + "</span> 个" );
+						}
+					});
+				});
 			}
 		});
 

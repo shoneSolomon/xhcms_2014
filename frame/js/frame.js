@@ -1,5 +1,5 @@
 (function($){
-window.isLocal = !( location.host && /news\.cn/.test(location.host) );
+window.isLocal = !( location.host && /(news\.cn)|(66\.(11)|(12))/.test(location.host) );
 
 var conf = 	
 {
@@ -19,14 +19,14 @@ var conf =
 	},
 	"clmConfigur":{
  		URL : (isLocal ? {
- 				clmConfigur: "json/list-collocate.json",
+ 				clmConfigur: "json/list-collocate.json"
 	 		}:{
 	 			clmConfigur: "json/list-collocate.json"
 	 		})
 	},
 	"siteConfigur":{
  		URL : (isLocal ? {
- 				siteConfigur: "json/list-sites.json",
+ 				siteConfigur: "json/list-sites.json"
 	 		}:{
 	 			siteConfigur: "json/list-sites.json"
 	 		})
@@ -78,23 +78,28 @@ var conf =
 	},
 	'letterContent':{
 		URL:(isLocal?{
-			letterContent:"json/letter-cont.json",
+			letterContent:"json/letter-cont.json"
 		}:{
-			letterContent:"json/letter-cont.json",
+			letterContent:"json/letter-cont.json"
 		})
 	}             //end
 
 };
 
+var css = document.createElement("style");
+	css.id = "css-style-switch";
+	$(css).appendTo( $('body') );
 $.initFrame = function(key){
 	var _this = conf[key];
 	if( _this ){
-		if( window.top != window && _this.navLine ){
-			$(".mainHead",top.document).html( _this.navLine );
+		if( window.top != window ){
+			if( _this.navLine ) {
+				$(".mainHead",top.document).html( _this.navLine );
+			}
+			$(css).html( $("#css-style-switch",top.document).html() );
 		}
 	}
 	return _this;
 };
-
 
 })(jQuery);

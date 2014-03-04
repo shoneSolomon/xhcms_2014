@@ -4,10 +4,37 @@
 		new IEAlert();
 	});
 
-	require(["alerts"],function(){
-		$(".skin_peeler").on('click',function(){
-			jAlert("切换皮肤功能开发中... 敬请关注!");
+	require(["style-switch","cookie","alerts"],function(SW,CK){
+		var css = document.createElement("style");
+		css.id = "css-style-switch";
+		$(css).appendTo( $('body') );
+		$.ajax({
+			url: "../css/style-switch.css?t="+new Date().getTime(),
+			dataType:"html",
+			success:function(cssTxt){
+				window.themeId = CK.get('themeId') || 'default';
+				var theme = SW[window.themeId], radios = "";
+				$(css).html( cssTxt.replace(/\{\{(\w+)\}\}/g,function(match,key){
+					return theme[key];
+				}));
+
+				for(var k in SW){
+					radios += '<input type="radio" name="color" id="theme-'+k+'" value="'+k+'" onclick="window.themeId=\''+k+'\'"/><label for="theme-'+k+'">'+k+'</label>'
+				}
+
+				$(".skin_peeler").on('click',function(){
+					jAlert('<div id="color-select">'+radios+'</div>',"选择主题",function(){
+								CK.set('themeId',window.themeId,365);
+								var theme = SW[window.themeId];
+								$(css).html( cssTxt.replace(/\{\{(\w+)\}\}/g,function(match,key){
+									return theme[key];
+								}));
+								window.frames[0].location.reload(); // 修改样式表刷新子页面
+							});
+				});	
+			}
 		});
+			
 	});
 
 	var tree = $("#tree-nav"), treeHolder = $("#tree-module"), rightTarget = $("#tree-target");

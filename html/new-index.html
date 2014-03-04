@@ -85,13 +85,12 @@
 	{{/each}}
 </script>
 
-	
 <script>
 (function($){
-	var isLocal = !( location.host && /news\.cn/.test(location.host) );
+	var isLocal = !( location.host && /(news\.cn)|(66\.(11)|(12))/.test(location.host) );
 
 	if( isLocal ){
-		alert("如果域名不是以news.cn结尾, 将使用代理JSON数据");
+		//alert("如果域名不是以news.cn结尾, 将使用代理JSON数据");
 	}
 
 	var CONF = isLocal ? {

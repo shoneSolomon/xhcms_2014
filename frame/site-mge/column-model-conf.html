@@ -12,8 +12,8 @@
 <body class="outter-frame">
 	<h1>栏目模型配置</h1>
 	<div class="station_menu">
-		<input type="checkbox" name="checkbox" class="checkbox" id="all" value="0"> <label for="all">全选</label>
-		<a class="fm-button btn-add round" href="#">添加分站</a>
+		<input type="checkbox" name="checkbox" class="checkAll" id="all" value="0"> <label for="all">全选</label>
+		<a class="fm-button btn-add round" href="column-model-edit.html">添加分站</a>
 		<a class="fm-button btn-edit round" href="#">编辑</a>
 		<a class="fm-button btn-delete round" href="#">删除</a>
 		<a class="list-move"><span class="list-move-up">上移</span> <span class="list-move-down">下移</span></a>
@@ -28,7 +28,7 @@
 	</div>
 </div>
 
-<script type="template/html" id="md-list-sites" data-target="#list-sites" data-pagination="#pager">
+<script type="template/html" id="md-list-sites" data-target="#list-sites" data-pagination="#pager" data-method="post">
 	<table class="table station_table">
 		<tr>
 			<th width="8%">ID</th>
@@ -41,12 +41,12 @@
 		</tr>
 		{{#each list}}
 		<tr>
-			<td><input type="checkbox" name="checkbox" class="checkbox ids" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
+			<td><input type="checkbox" name="checkbox" class="ids" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
 			<td style="color:#2cac93;">{{name}}</td>
 			<td>{{p-column}}</td>
 			<td>{{p_content}}</td>
-			<td><input type="checkbox" name="defId" class="checkbox"  {{default}} value="{{id}}"></td>
-			<td><input type="checkbox" name="enabled" class="switch switchIds" {{enabled}} value="{{id}}"></td>
+			<td class="defIdTd"><input type="checkbox" name="defId" class="checkbox"  {{#if defaults}}checked{{/if}} value="{{id}}"></td>
+			<td class="enabledTd"><input type="checkbox" name="enabled" class="switch switchIds" {{#if enabled}}checked{{/if}}  value="{{id}}"></td>
 			<td style="color:#2cac93;"><a href="v_edit.do?id={{id}}"  data-id="{{id}}">基本信息</a> | <a href="../item/v_list.do?modelId={{id}}&isChannel=true" data-id="{{id}}" >栏目模型</a> | <a  href="../item/v_list.do?modelId=15&isChannel=false" data-id="{{id}}">内容模型</a> | <a class="delete" href="#" data-id="{{id}}">删除</a> </td>
 		</tr>
 		{{/each}}
@@ -57,34 +57,10 @@
 <script type="text/javascript" src="../js/frame.js"></script>
 <script>
 (function($){
-	
+	/* 加载（获取）列表数据 */
 	var URL = $.initFrame('columnModelConf').URL;
-	require(['formUtil'],function(F){
-		F.selectAll({
-			handle : "#all",
-			checkList : "#list-sites .ids",
-			checkListHolder : "#list-sites"
-		});
-	});
-
-	require(["template-init","form-style","alerts","draggable","template","WdatePicker"],function(T){
-		var template = Handlebars.compile($("#md-list-sites").html()); //创建模板编译器
-
-		var refreshList = function(){
-			$.ajax({
-				url : "json/list-model.json",
-				dataType : "json",
-				success: function(data){
-					$(".tableForm").html( template(data) );
-					$(".tableForm").find(".checkbox").toCheckbox();
-					$(".switchIds").toSwitch();
-				} 
-			});
-		};
-		refreshList();
-		$(".checkbox").toCheckbox();
-
-		//栏目模型配置加载列表
+	require(['template-init','form-style'],function(T){
+		$('.checkAll').toCheckbox();
 		T.init({
 			tmpl:"#md-list-sites",
 			sourceUrl:URL.columnModelConf,
@@ -93,30 +69,20 @@
 				$("#list-sites").find(".checkbox").toCheckbox();
 				$("#list-sites").find(".switch").toSwitch();
 			}
-		});
+		})
+	})
 
-		//栏目模型配置更新列表
-		T.refresh({
-			tmpl:"#md-list-sites",
-			sourceUrl:URL.columnModelConf,
-			callback:function(){
-				$("#list-sites").find(".ids").toCheckbox();
-				$("#list-sites").find(".checkbox").toCheckbox();
-				$("#list-sites").find(".switch").toSwitch();
-			}
+	/* 全选（2） */
+	require(['formUtil'],function(F){
+		F.selectAll({
+			handle : "#all",
+			checkList : "#list-sites .ids",
+			checkListHolder : "#list-sites"
 		});
+	});
 
-		/*全选*/
-		$(".station_menu").find(".checkbox").on("click",function(){
-			var _this = $(this);
-			$("#list-sites").find(".ids").each(function(){
-				if( $(this).is(":checked") !== _this.is(":checked") ){
-					$(this).trigger('click')
-				}
-			});
-		});
+	require(["template-init","form-style","alerts"],function(T){
 		
-
 		/*menu删除*/
 		$(".station_menu").find(".btn-delete").on("click",function(){
 			var deLists=$(".station_table").find(".ids");
@@ -125,7 +91,7 @@
 				var arr=[];
 				for(i=0; i<len; i++){
 					if(deLists[i].checked){
-						arr.push($(".station_table").find(".ids").eq(i))			
+						arr.push($(".station_table").find(".ids").eq(i).val())			
 					}
 				}
 				if(arr[0]){
@@ -134,9 +100,22 @@
 						cancelButton : "否"
 					},function(result){
 						if(result ){
-							for(i=0; i<arr.length;i++){
-								arr[i].parent().parent().parent().remove();
-							}
+							T.refresh({
+								tmpl:"#md-list-sites",
+								sourceUrl:URL.columnModelConf,
+								callback:function(){
+									$("#list-sites").find(".ids").toCheckbox();
+									$("#list-sites").find(".checkbox").toCheckbox();
+									$("#list-sites").find(".switch").toSwitch();
+
+								},
+								sourceData:function(){
+									return {
+										deleteIds:arr.join(",")
+									};
+								}
+
+							})
 						}
 					});	
 				};
@@ -164,7 +143,7 @@
 				var sub=arr.join();
 				if(arr[0]&&!arr[1]){
 					$.ajax({
-						url : "json/list-model.json",
+						url : "../json/success.json",
 						data:sub,
 						dataType : "json",
 						success: function(data){
@@ -186,6 +165,7 @@
 		$(".station_menu").find(".list-move").on("click","span",function(){
 			var newNu=0;
 			var index;
+			var dataid;
 			var contentform=$("#list-sites").find(".station_table");
 			var contentlength=contentform.find(".ids").length;
 			if(contentlength>0){
@@ -194,6 +174,7 @@
 						if(contentform.find(".ids")[i].checked==true){
 							newNu+=1;
 							index=i;
+							dataid=contentform.find("input[name='checkbox']").eq(i).val();
 						}
 					}
 					if(newNu>1){
@@ -209,9 +190,23 @@
 						jAlert('<h2 class="title"></h2> <p class="delete_content">已经置顶</p>');
 					}
 					else if(newNu==1&&index>0){	
-						var onthis=$("#list-sites").find(".station_table").find("tr").eq(index+1);
-						var getup=onthis.prev();
-						getup.before(onthis);
+						dataidup=contentform.find("input[name='checkbox']").eq(index-1).val();
+						T.refresh({
+							tmpl:"#md-list-sites",
+							sourceUrl:URL.columnModelConf,
+							callback:function(){
+								$("#list-sites").find(".ids").toCheckbox();
+								$("#list-sites").find(".checkbox").toCheckbox();
+								$("#list-sites").find(".switch").toSwitch();
+
+							},
+							sourceData:function(){
+								return {
+									thisId:dataid,
+									Idto:dataidup
+								};
+							}
+						})
 					}
 				}
 				if($(this).index()==1){
@@ -220,9 +215,24 @@
 						jAlert('<h2 class="title"></h2> <p class="delete_content">已经置底</p>');
 					}
 					else if(newNu==1&&index<contentlength){	
-						var onthis=$("#list-sites").find(".station_table").find("tr").eq(index+1);
-						var getdown=onthis.next();
-						getdown.after(onthis);
+						dataiddowm=contentform.find("input[name='checkbox']").eq(index+1).val();
+						T.refresh({
+							tmpl:"#md-list-sites",
+							sourceUrl:URL.columnModelConf,
+							callback:function(){
+								$("#list-sites").find(".ids").toCheckbox();
+								$("#list-sites").find(".checkbox").toCheckbox();
+								$("#list-sites").find(".switch").toSwitch();
+
+							},
+							sourceData:function(){
+								return {
+									thisId:dataid,
+									Idto:dataiddowm
+								};
+							}
+						})
+						
 					}
 				}
 			}
@@ -244,9 +254,21 @@
 				};
 				var sub=arr.join();
 				if(arr[0]&&!arr[1]){
-					var onthis=$("#list-sites").find(".station_table").find("tr").eq(index+1);
-					var getup=$("#list-sites").find(".station_table").find("tr").eq(1);
-					getup.before(onthis);
+					T.refresh({
+						tmpl:"#md-list-sites",
+						sourceUrl:URL.columnModelConf,
+						callback:function(){
+							$("#list-sites").find(".ids").toCheckbox();
+							$("#list-sites").find(".checkbox").toCheckbox();
+							$("#list-sites").find(".switch").toSwitch();
+
+						},
+						sourceData:function(){
+							return {
+								idTop:arr.join(",")
+							};
+						}
+					})
 				};
 				if(!arr[0]){
 					jAlert('<h2 class="title"></h2> <p class="delete_content">请选择一项</p>');
@@ -260,27 +282,74 @@
 
 		/*table  delete*/
 		$("#list-sites").on("click",".delete",function(){
-			var newIndex=$(".station_table").find(".delete").index(this);
-			var ID=$(".station_table").find(".delete").eq(newIndex).attr("data-id");
+			var ID=$(this).attr("data-id");
 			jConfirm('<h2 class="title"></h2> <p class="delete_content">是否删除该条信息</p> ',"",{
 				okButton : "是",
 				cancelButton : "否"
 			},function(result){
 				if(result ){
-					$("#list-sites").find(".station_table").find("tr").eq(newIndex+1).remove();
+					T.refresh({
+						tmpl:"#md-list-sites",
+						sourceUrl:URL.columnModelConf,
+						callback:function(){
+							$("#list-sites").find(".ids").toCheckbox();
+							$("#list-sites").find(".checkbox").toCheckbox();
+							$("#list-sites").find(".switch").toSwitch();
+
+						},
+						sourceData:function(){
+							return {
+								deleteId:ID
+							};
+						}
+
+					})
 				}
 			});	
 		});
 
-
-		/*分页*/
-		$("#pager").toPager({
-			totalPage : 20,
-			currentPage: 6,
-			'switch':function(eve,e){
-				//jAlert( "你翻到了第 <span style='color:red;'>"+e.toPage+"</span> 页","提示" );
+		$("#list-sites").on("click",".defIdTd i",function(){
+			var defIdData={};
+			var Ini=$(this).find("input[name='defId']");
+			defIdData.id=Ini.val();
+			if(Ini[0].checked){
+				defIdData.defId=true;
+			}else{
+				defIdData.defId=false;
 			}
-		}); 
+
+			$.ajax({
+				url : "../json/success.json",
+				type:"post",
+				data:defIdData,
+				dataType : "json",
+				success: function(data){
+					
+				}
+			})
+		})
+
+		$("#list-sites").on("click",".enabledTd i",function(){
+			var enabledData={};
+			var Ini=$(this).find("input[name='enabled']");
+			enabledData.id=Ini.val();
+			if(Ini[0].checked){
+				enabledData.enabled=true;
+			}else{
+				enabledData.enabled=false;
+			}
+
+			$.ajax({
+				url : "../json/success.json",
+				type:"post",
+				data:enabledData,
+				dataType : "json",
+				success: function(data){
+					
+				}
+			})
+		})
+
 	});
 })(jQuery);
 </script>

@@ -54,7 +54,7 @@
 (function($){
 	var URL = $.initFrame('siteConfigur').URL;
 
-	require(["template-init","formUtil","form-style"],function(T,F){
+	require(["template-init","form-style"],function(T){
 		$(".checkall").toCheckbox();
 		//栏目列表加载和美化
 		T.init({
@@ -151,8 +151,7 @@
 
 		/*table  delete*/
 		$("#list-sites").on("click",".delete",function(){
-			var newIndex=$(".station_table").find(".delete").index(this);
-			var ID=$(".station_table").find(".delete").eq(newIndex).attr("data-id");
+			var ID=$(this).attr("data-id");
 			jConfirm('<h2 class="title"></h2> <p class="delete_content">是否删除该条信息</p> ',"",{
 				okButton : "是",
 				cancelButton : "否"

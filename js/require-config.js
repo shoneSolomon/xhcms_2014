@@ -20,7 +20,8 @@ paths = {
 	queryparam: "module/queryparam",
 	dateUtil: "module/date-util",
 	numberUtil: "module/number-util",
-	formUtil: "module/form-util"
+	formUtil: "module/form-util",
+	cookie: "module/cookie"
 },
 ui = [
 "accordion",
@@ -94,6 +95,9 @@ require.config({
 
 		draggable:{
 			deps: ["mouse"]
+		},
+		sortable:{
+			deps: ["draggable"]
 		},
 		alerts:{
 			deps: ["dialog"]

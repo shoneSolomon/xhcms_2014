@@ -165,7 +165,7 @@
 					<th>操作</th>
 				</tr>
 				
-				<tr>
+				<tr data-id="M0001">
 					<td>文化频道第三季度</td>
 					<td style="color:#808080;">2013-07-24 10:04:18</td>
 					<td>30万</td>
@@ -174,7 +174,7 @@
 					<td style="text-align:center;"><strong><a class="btn-handle pay-now" href="?id={{id}}">立即付款</a></strong></td>
 				</tr>
 				
-				<tr>
+				<tr data-id="M0002">
 					<td>文化频道第三季度</td>
 					<td style="color:#808080;">2013-07-24 10:04:18</td>
 					<td>30万</td>
@@ -183,7 +183,7 @@
 					<td style="text-align:center;"><strong></strong></td>
 				</tr>
 				
-				<tr>
+				<tr data-id="M0003">
 					<td>文化频道第三季度</td>
 					<td style="color:#808080;">2013-07-24 10:04:18</td>
 					<td>30万</td>
@@ -192,7 +192,7 @@
 					<td style="text-align:center;"><strong><a class="btn-handle crt-ad" href="?id={{id}}">创建广告</a></strong></td>
 				</tr>
 				
-				<tr>
+				<tr data-id="M0004">
 					<td>文化频道第三季度</td>
 					<td style="color:#808080;">2013-07-24 10:04:18</td>
 					<td>30万</td>
@@ -200,7 +200,7 @@
 					<td><strong>竞拍成功</strong></td>
 					<td style="text-align:center;"><strong><span style="color:#659bd8;">审核中</span></strong></td>
 				</tr>
-				<tr>
+				<tr data-id="M0005">
 					<td>文化频道第三季度</td>
 					<td style="color:#808080;">2013-07-24 10:04:18</td>
 					<td>30万</td>
@@ -208,7 +208,7 @@
 					<td><strong>竞拍成功</strong></td>
 					<td style="text-align:center;"><strong><span style="color:#659bd8;">审核中</span></strong></td>
 				</tr>
-				<tr>
+				<tr data-id="M0006">
 					<td>文化频道第三季度</td>
 					<td style="color:#808080;">2013-07-24 10:04:18</td>
 					<td>30万</td>
@@ -216,7 +216,7 @@
 					<td><strong>竞拍成功</strong></td>
 					<td style="text-align:center;"><strong><span style="color:#659bd8;">审核中</span></strong></td>
 				</tr>
-				<tr>
+				<tr data-id="M0007">
 					<td>文化频道第三季度</td>
 					<td style="color:#808080;">2013-07-24 10:04:18</td>
 					<td>30万</td>
@@ -224,7 +224,7 @@
 					<td><strong>竞拍成功</strong></td>
 					<td style="text-align:center;"><strong><span style="color:#659bd8;">审核中</span></strong></td>
 				</tr>
-				<tr>
+				<tr data-id="M0008">
 					<td>文化频道第三季度</td>
 					<td style="color:#808080;">2013-07-24 10:04:18</td>
 					<td>30万</td>
@@ -232,7 +232,7 @@
 					<td><strong>竞拍成功</strong></td>
 					<td style="text-align:center;"><strong><span style="color:#659bd8;">审核中</span></strong></td>
 				</tr>
-				<tr>
+				<tr data-id="M0009">
 					<td>文化频道第三季度</td>
 					<td style="color:#808080;">2013-07-24 10:04:18</td>
 					<td>30万</td>
@@ -336,6 +336,22 @@
 
 			'switch':function(eve,e){
 				jAlert( "你翻到了第 <span style='color:red;'>"+e.toPage+"</span> 页","提示" );
+			}
+		});
+	});
+	
+	//@see Demo on http://jqueryui.com/sortable/ & http://api.jqueryui.com/sortable/
+	require(['sortable','alerts'],function(){
+		var index = null;
+		//获取tr的父级进行sortable操作，因为浏览器会为table添加tbody。
+		$('table tr').parent().sortable({
+			start:function(e,ui){
+				index = ui.item.index();
+			},
+			stop:function(e,ui){
+				var n = ui.item.index() - index;
+				if(!n)return; //没有移动, 直接返回
+				jAlert( "向<span style='color:green'>"+(n>0?'后':'前')+"</span>移动了 <span style='color:red'>" + Math.abs(n) + "</span> 个" );
 			}
 		});
 	});

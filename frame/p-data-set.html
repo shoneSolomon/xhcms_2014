@@ -98,11 +98,11 @@
 				<div class="item clearfix">
 					<span class="lable">头像:</span>
 					<div class="text">
-						<input type="hidden" id="zoomWidth1" value="162" size="5" /> <input
-							type="hidden" id="zoomHeight1" value="162" size="5" /> <input
-							type="hidden" id="uploadImgPath1" name="uploadImgPath1" /> <input
-							type="hidden" id="middlePath1" name="middlePath1" /> <input type="text"
-							id="originalPath1" class="upload-sma" name="smallImage" />
+						<input type="hidden" id="zoomWidth1" value="162" size="5" /> 
+						<input type="hidden" id="zoomHeight1" value="162" size="5" />
+						<input type="hidden" id="uploadImgPath1" name="uploadImgPath1"/>
+						<input type="hidden" id="middlePath1" name="middlePath1" />
+						<input type="text" id="originalPath1" class="upload-sma" name="smallImage" value="" />
 					</div>
 					<div class="Upload_bt">
 						<input type="button" class="fm-button" value="浏览" onclick="selectFile(1)" />
@@ -124,16 +124,20 @@
 <script>
 (function(){
 	$(".disabled").val( $(".login_name",parent.document).html());
-	require(["form-style","alerts","tabs","requestAFrame"],function(){
+	require(["requestAFrame","form-style","alerts","tabs"],function(r){
 		$(".radio").toRadio();
 		$("#tabs").tabs();
 		var originalPath1 = "";
-		$.addTimeout("listen-val", function(){
-			if ($("#originalPath1").val() != originalPath1) {
-				$(".head_img").find('img').attr("src", "http://tpic.home.news.cn/xhCloudNewsPic/"+$("#originalPath1").val());
-				originalPath1 = $("#originalPath1").val();
-			}
-		});
+		r.addTimeout("listen-val", (function(){
+			var fn = function(){
+				if ($("#originalPath1").val() != originalPath1) {
+					$(".head_img").find('img').attr("src", "http://tpic.home.news.cn/xhCloudNewsPic/"+$("#originalPath1").val());
+					originalPath1 = $("#originalPath1").val();
+				}
+			};
+			fn();
+			return fn;	
+		})());
 	});
 })();
 </script>
