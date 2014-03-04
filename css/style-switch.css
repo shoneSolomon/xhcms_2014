@@ -22,13 +22,13 @@
 .list-move{ border-color: {{list_move_color}};}
 .list-move span{ background: {{list_move_color}};}
 
-.fm-select.colorful .option-holder a:hover {background-color: {{style_lighter}};}
-.ui-tabs .ui-tabs-nav li.ui-tabs-active {background: {{style_lighter}};}
+.fm-select.colorful .option-holder a:hover, .ui-tabs .ui-tabs-nav li.ui-tabs-active, table.table tr:hover, table.table tr.hover {background-color: {{style_lighter}};}
 
 a,.ui-tabs .ui-tabs-nav li a,.head .nav ul li:hover a{color:{{style_normal}};}
 .fm-button{background-color: {{style_normal}}; border-color:{{style_normal}};}
 .fm-select.colorful .option-holder,.fm-label-item label,#popup_title{background-color: {{style_normal}};}
 .fm-pager .pagination-curr,.fm-pager a:hover {background-color: {{style_normal}};}
+
 .ui-tabs .ui-tabs-nav {border-left: 1px solid {{style_normal}}; border-bottom: 1px solid {{style_normal}};}
 .ui-tabs .ui-tabs-nav li {border: 1px solid {{style_normal}}; border-left: 0;border-bottom: 0;}
 
