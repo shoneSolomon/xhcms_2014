@@ -96,10 +96,21 @@ $.initFrame = function(key){
 			if( _this.navLine ) {
 				$(".mainHead",top.document).html( _this.navLine );
 			}
-			$(css).html( $("#css-style-switch",top.document).html() );
 		}
 	}
 	return _this;
 };
+
+if( window.top != window ){
+	require(['requestAFrame'],function(R){
+		R.addTimeout('css-style',function(){
+			//如果父标签的自定义样式没有加载成功，继续监听
+		},200,Infinity,function(){
+			var cssTxt = $("#css-style-switch",top.document).html();
+			$(css).html( cssTxt );
+			return !!cssTxt;
+		});
+	});	
+}
 
 })(jQuery);

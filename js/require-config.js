@@ -108,9 +108,6 @@ require.config({
 		cloudMap:{
 			deps: ["raphael"]
 		},
-		'form-style':{
-			deps: ["css!../css/form-style.min.css"]
-		},
 		zTree:{
 			deps: ["css!../js/zTree/zTreeStyle/zTreeStyle.css","css!../css/new-tree.css"]
 		},

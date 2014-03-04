@@ -9,7 +9,7 @@
 		css.id = "css-style-switch";
 		$(css).appendTo( $('body') );
 		$.ajax({
-			url: "../css/style-switch.css?t="+new Date().getTime(),
+			url: "../css/style-switch.css?v=1.0.1",
 			dataType:"html",
 			success:function(cssTxt){
 				window.themeId = CK.get('themeId') || 'default';

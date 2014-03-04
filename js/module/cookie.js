@@ -1,6 +1,4 @@
 define(function(require, exports, module) {
-	var $ = jQuery;
-
 	return {
 			set:function(c_name,value,expiredays){
 				var finalValue = escape(value);

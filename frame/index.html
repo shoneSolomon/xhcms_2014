@@ -16,13 +16,13 @@
 		.headleft{margin-left:240px; width: 730px; }
 		.headmessage{ height: 158px; padding-top:23px;  border-bottom:1px dotted #c3c3c3;}
 		.index-main h2{ height: 76px; line-height: 76px; color:#515151; font-size: 18px; font-family: "微软雅黑"; font-weight: normal; color:#515151;}
-		.index-main .headmessage h2{ float: left; font-size: 18px; color:#2cac93; font-family: "微软雅黑"; font-weight: normal; height: 20px; line-height: 20px; }
+		.index-main .headmessage h2{ float: left; font-size: 18px; font-family: "微软雅黑"; font-weight: normal; height: 20px; line-height: 20px; }
 		.index-main .headmessage h3{ float: left; margin-left: 10px; font-size: 14px; color:#515151; font-family: "微软雅黑"; font-weight: normal; height: 20px; line-height: 20px;}
 		.headmessage p{height:24px; line-height:24px; color: #aaaaaa; font-size: 12px;}
 		.headmessage p span{padding-left: 8px;color: #5d5d5d;}
 		.headmessage p.headreceive{height: 35px; padding-left:32px;  background: url(../images/head_icon.png) -4px -128px no-repeat;line-height: 35px;}
 		.headmessage p.headreceive a{ font-family: "微软雅黑"; font-size: 18px; color:#ff815c; padding: 0px 4px; margin-top: 10px;}
-		.headmessage .headicon{ display: block; float: right; margin-left: 20px; width: 86px; height: 32px; background: #2cac93; line-height: 32px; text-align:center; color:#fff; cursor: pointer; }
+		.headmessage .headicon{ display: block; float: right; margin-left: 20px; height: 32px; line-height: 32px; }
 		.cont_entrance{ height: 202px;  border-bottom:1px dotted #c3c3c3; }
 		.cont_entrance a,.workload a{display: block; float: left; margin-top: 10px; margin-right: 32px; width: 170px; height: 70px;  text-align: center;  color: #FFF;cursor: pointer;}
 		.cont_entrance .entrance{line-height: 70px;background:#2cac93;}
@@ -76,10 +76,10 @@
 		<div class="headwelcome"><img src="../images/welcome.png"></div>
 		<div class="headleft">
 			<div class="headmessage">
-				<h2><span class="data-hole">realname</span></h2>
+				<h2><a><span class="data-hole">realname</span></a></h2>
 				<h3><span class="data-hole">role</span></h3>
-				<a class="headicon head_quit" href="../../xhadmin/logout.do?returnUrl=/xhcms_2014/html/index.html" onclick="return confirm('您确定退出吗？')">退出</a>
-				<a class="headicon head_modified" onclick="window.parent.document.getElementById('personal-settings').click();">修改资料</a>
+				<a class="fm-button headicon head_quit" href="../../xhadmin/logout.do?returnUrl=/xhcms_2014/html/index.html" onclick="return confirm('您确定退出吗？')">退出</a>
+				<a class="fm-button headicon head_modified" href="#" onclick="window.parent.document.getElementById('personal-settings').click();">修改资料</a>
 				<div style="clear:both"></div>
 				<p>本次登录地点:<span><span class="data-hole">ip</span></span></p>
 				<p>上次登录时间:<span><span class="data-hole">lastLoginTime</span></span></p>

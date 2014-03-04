@@ -32,6 +32,7 @@ input:focus {
 }
 .fm-button {
   display: inline-block;
+  text-align: center;
   border: 1px solid #2cac93;
   color: #ffffff;
   height: 28px;
