@@ -100,8 +100,19 @@
 				(function(){
 					require(["form-style"],function(){
 						$("#tabs").find(".switch").toSwitch();
+						if(window.top.modelId){
+							$.ajax({
+									url : "json/add-columnModel.json",
+									data:window.top.modelId,
+									dataType : "json",
+									type:"post",
+									success: function(data){
+										$("#write_form").find("input[name='ids']").val(data["content"]["id"]);
+									}
+								})
+						}
 					})
-				})
+				})()
 
 				</script>
 			</div>

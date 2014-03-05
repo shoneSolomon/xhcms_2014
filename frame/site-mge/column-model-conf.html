@@ -13,7 +13,7 @@
 	<h1>栏目模型配置</h1>
 	<div class="station_menu">
 		<input type="checkbox" name="checkbox" class="checkAll" id="all" value="0"> <label for="all">全选</label>
-		<a class="fm-button btn-add round" href="column-model-edit.html">添加分站</a>
+		<a class="fm-button btn-add round" href="column-model-edit.html">添加</a>
 		<a class="fm-button btn-edit round" href="#">编辑</a>
 		<a class="fm-button btn-delete round" href="#">删除</a>
 		<a class="list-move"><span class="list-move-up">上移</span> <span class="list-move-down">下移</span></a>
@@ -147,7 +147,8 @@
 						data:sub,
 						dataType : "json",
 						success: function(data){
-							
+							window.top.modelId=sub;
+							window.location.href="column-model-edit.html"
 						}
 					})
 				};

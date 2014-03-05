@@ -5,7 +5,7 @@
 	});
 
 	require(["style-switch","cookie","alerts"],function(SW,CK){
-		$('<style id="css-style-switch"></div>').appendTo( $('body') );
+		$('<style id="css-style-switch"></style>').appendTo( $('body') );
 
 		$.ajax({
 			url: "../css/style-switch.css?v=1.0.1",
@@ -15,7 +15,7 @@
 				var theme = SW[window.themeId], radios = "";
 				var css = $('<style id="css-style-switch">'+ ( cssTxt.replace(/\{\{(\w+)\}\}/g,function(match,key){
 					return theme[key];
-				})) + '</div>');
+				})) + '</style>');
 
 				$('#css-style-switch').replaceWith(css);
 
@@ -29,7 +29,7 @@
 								var theme = SW[window.themeId];
 								var css = $('<style id="css-style-switch">'+ ( cssTxt.replace(/\{\{(\w+)\}\}/g,function(match,key){
 									return theme[key];
-								})) + '</div>');
+								})) + '</style>');
 								$('#css-style-switch').replaceWith(css);
 
 								var cs = window.frames[0].cssSwitch;

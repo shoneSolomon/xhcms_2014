@@ -318,7 +318,6 @@
 		/*table  static*/
 		$("#list-sites").on("click",".optstaticChannel, .optstaticContent",function(){
 			if($(this).hasClass("optstaticChannel")){
-				var newIndex=$(".station_table").find(".optstaticChannel").index(this);
 				var ID = $(this).attr("data-id"), tr = $(this).parents('tr');
 				var dialogcont = $('#list-sites-static').html();
 				var data = {
@@ -363,7 +362,6 @@
 					obj["data-clmProduceVal"]=$("#select1").val();
 				}).trigger("change");
 			}else if($(this).hasClass("optstaticContent")){
-				var newIndex=$(".station_table").find(".optstaticContent").index(this);
 				var ID=$(this).attr("data-id"), tr=$(this).parents('tr');
 				var dialogcont=$("#list-cont-static").html();
 				var data = {

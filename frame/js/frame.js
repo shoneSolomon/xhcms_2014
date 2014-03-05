@@ -86,7 +86,7 @@ var conf =
 
 };
 
-$('<style id="css-style-switch"></div>').appendTo( $('body') );
+$('<style id="css-style-switch"></style>').appendTo( $('body') );
 
 $.initFrame = function(key){
 	var _this = conf[key];
@@ -103,7 +103,7 @@ $.initFrame = function(key){
 window.cssSwitch = function(){
 	var cssTxt = $("#css-style-switch",top.document).html();
 	if( !!cssTxt ){
-		var css = $('<style id="css-style-switch">'+ cssTxt + '</div>');
+		var css = $('<style id="css-style-switch">'+ cssTxt + '</style>');
 		$('#css-style-switch').replaceWith(css);
 	}
 	return !!cssTxt;
