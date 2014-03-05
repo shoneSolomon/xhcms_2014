@@ -23,7 +23,7 @@
 					radios += '<input type="radio" name="color" id="theme-'+k+'" value="'+k+'" onclick="window.themeId=\''+k+'\'"/><label for="theme-'+k+'">'+k+'</label>'
 				}
 
-				$(".skin_peeler").on('click',function(){
+				$(".skin_peeler").on('click',function(e){
 					jAlert('<div id="color-select">'+radios+'</div>',"选择主题",function(){
 								CK.set('themeId',window.themeId,365);
 								var theme = SW[window.themeId];
@@ -35,6 +35,7 @@
 								var cs = window.frames[0].cssSwitch;
 								typeof cs === 'function' ? cs() : ""; // 修改样式表刷新子页面
 							});
+					e.preventDefault(); //点击切换主题:IE9一下浏览器居然会触发iframe的onbeforeunload事件,很奇葩,先阻止默认事件
 				});	
 			}
 		});
