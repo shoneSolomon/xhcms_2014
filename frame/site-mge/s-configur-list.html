@@ -36,13 +36,13 @@
 			{{#each list}}
 			<tr>
 				<td><input type="checkbox" name="checkbox" class="checkbox" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
-				<td style="color:#2cac93;">{{name}}</td>
+				<td class="nameColor">{{name}}</td>
 				<td>{{domain}}</td>
 				<td>{{url}}</td>
 				<td>{{d_suffix}}</td>
 				<td>{{s_suffix}}</td>
 				<td>{{fe_suffix}}</td>
-				<td style="color:#2cac93;"><a href="#" data-id="{{id}}" >编辑</a> | <a class="delete" href="#" data-id="{{id}}">删除</a></td>
+				<td class="nameColor"><a href="#" data-id="{{id}}" >编辑</a> | <a class="delete" href="#" data-id="{{id}}">删除</a></td>
 			</tr>
 			{{/each}}
 		</table>

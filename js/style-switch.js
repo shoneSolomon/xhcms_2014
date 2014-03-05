@@ -14,7 +14,8 @@ define(function(require, exports, module) {
 			list_move_color:"#33c2a6",
 			style_lighter:"#5ed0ba",
 			style_normal:"#2cac93",
-			form_icons: 	base+"/images/form.png"
+			form_icons: 	base+"/images/form.png",
+			nameColor:"#2cac93"
 		},
 		'd60':{
 			head_bg: 	base+"/images/head_bg-d60.png",
@@ -28,7 +29,8 @@ define(function(require, exports, module) {
 			list_move_color:"#f07206",
 			style_lighter:"#fa8011",
 			style_normal:"#dd6600",
-			form_icons: 	base+"/images/form.png"
+			form_icons: 	base+"/images/form.png",
+			nameColor:"#dd6600"
 		},
 		'f00':{
 			head_bg: 	base+"/images/head_bg-d60.png",
@@ -42,7 +44,8 @@ define(function(require, exports, module) {
 			list_move_color:"#f00",
 			style_lighter:"#f00",
 			style_normal:"#f00",
-			form_icons: 	base+"/images/form.png"
+			form_icons: 	base+"/images/form.png",
+			nameColor:"#f00"
 		}
 	};
 

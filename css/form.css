@@ -251,7 +251,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 #tabs .ui-widget{font-size:14px;}
 .set_column-model .table tr td .requireKey{border-color: #000;}
 .set_column-model .table tr.last{ display: none;} 
-
+.nameColor{color:#2cac93;}
 
 
 /*4站点管理 - 2栏目配置 - 3模板配置 --by郭慧丹*/

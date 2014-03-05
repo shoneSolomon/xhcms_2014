@@ -34,10 +34,10 @@
 			{{#each list}}
 			<tr data-clmCludeVal="{{clmCludeVal}}" data-clmProduceVal="{{clmProduceVal}}" data-contTimeVal="{{contTimeVal}}" data-contAmountVal="{{contAmountVal}}">
 				<td><input type="checkbox" name="checkbox" class="checkbox" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
-				<td style="color:#2cac93;">{{name}}</td>
+				<td class="nameColor">{{name}}</td>
 				<td>{{url}}</td>
 				<td>{{show}}</td>
-				<td style="color:#2cac93;"><a href="#" data-id="{{id}}" >修改</a> | <a class="delete" href="#" data-id="{{id}}">删除</a>  |  <a class="optstaticChannel" href="#" data-id="{{id}}" >栏目静态化</a> | <a class="optstaticContent" href="#" data-id="{{id}}">内容静态化</a></td>
+				<td class="nameColor"><a href="#" data-id="{{id}}" >修改</a> | <a class="delete" href="#" data-id="{{id}}">删除</a>  |  <a class="optstaticChannel" href="#" data-id="{{id}}" >栏目静态化</a> | <a class="optstaticContent" href="#" data-id="{{id}}">内容静态化</a></td>
 			</tr>
 			{{/each}}
 		</table>

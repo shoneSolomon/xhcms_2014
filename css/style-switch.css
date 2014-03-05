@@ -36,4 +36,4 @@ a,.ui-tabs .ui-tabs-nav li a,.head .nav ul li:hover a{color:{{style_normal}};}
 
 .fm-select.colorful{ background-color: {{tree_select}}; }
 
-
+.nameColor{color:{{nameColor}};}

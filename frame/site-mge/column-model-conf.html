@@ -42,12 +42,12 @@
 		{{#each list}}
 		<tr>
 			<td><input type="checkbox" name="checkbox" class="ids" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
-			<td style="color:#2cac93;">{{name}}</td>
+			<td class="nameColor">{{name}}</td>
 			<td>{{p-column}}</td>
 			<td>{{p_content}}</td>
 			<td class="defIdTd"><input type="checkbox" name="defId" class="checkbox"  {{#if defaults}}checked{{/if}} value="{{id}}"></td>
 			<td class="enabledTd"><input type="checkbox" name="enabled" class="switch switchIds" {{#if enabled}}checked{{/if}}  value="{{id}}"></td>
-			<td style="color:#2cac93;"><a href="v_edit.do?id={{id}}"  data-id="{{id}}">基本信息</a> | <a href="../item/v_list.do?modelId={{id}}&isChannel=true" data-id="{{id}}" >栏目模型</a> | <a  href="../item/v_list.do?modelId=15&isChannel=false" data-id="{{id}}">内容模型</a> | <a class="delete" href="#" data-id="{{id}}">删除</a> </td>
+			<td class="nameColor"><a href="v_edit.do?id={{id}}"  data-id="{{id}}">基本信息</a> | <a href="../item/v_list.do?modelId={{id}}&isChannel=true" data-id="{{id}}" >栏目模型</a> | <a  href="../item/v_list.do?modelId=15&isChannel=false" data-id="{{id}}">内容模型</a> | <a class="delete" href="#" data-id="{{id}}">删除</a> </td>
 		</tr>
 		{{/each}}
 	</table>
@@ -68,6 +68,23 @@
 				$("#list-sites").find(".ids").toCheckbox();
 				$("#list-sites").find(".checkbox").toCheckbox();
 				$("#list-sites").find(".switch").toSwitch();
+
+				//table tr拖拽
+				require(['sortable'],function(){
+					var index = null;
+					//获取tr的父级进行sortable操作，因为浏览器会为table添加tbody。
+					$('#list-sites tr').parent().sortable({
+						start:function(e,ui){
+							index = ui.item.index();
+						},
+						stop:function(e,ui){
+							var n = ui.item.index() - index;
+							if(!n)return; //没有移动, 直接返回
+							jAlert( "向<span style='color:green'>"+(n>0?'后':'前')+"</span>移动了 <span style='color:red'>" + Math.abs(n) + "</span> 个" );
+						}
+					});
+				});
+				
 			}
 		})
 	})
