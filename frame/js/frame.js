@@ -100,18 +100,20 @@ $.initFrame = function(key){
 	return _this;
 };
 
+window.cssSwitch = function(){
+	var cssTxt = $("#css-style-switch",top.document).html();
+	if( !!cssTxt ){
+		var css = $('<style id="css-style-switch">'+ cssTxt + '</div>');
+		$('#css-style-switch').replaceWith(css);
+	}
+	return !!cssTxt;
+};
+
 if( window.top != window ){
 	require(['requestAFrame'],function(R){
 		R.addTimeout('css-style',function(){
 			//如果父标签的自定义样式没有加载成功，继续监听
-		},200,Infinity,function(){
-			var cssTxt = $("#css-style-switch",top.document).html();
-			if( !!cssTxt ){
-				var css = $('<style id="css-style-switch">'+ cssTxt + '</div>');
-				$('#css-style-switch').replaceWith(css);
-			}
-			return !!cssTxt;
-		});
+		},200,Infinity,cssSwitch);
 	});	
 }
 

@@ -32,7 +32,8 @@
 								})) + '</div>');
 								$('#css-style-switch').replaceWith(css);
 
-								window.frames[0].location.reload(); // 修改样式表刷新子页面
+								var cs = window.frames[0].cssSwitch;
+								typeof cs === 'function' ? cs() : ""; // 修改样式表刷新子页面
 							});
 				});	
 			}
