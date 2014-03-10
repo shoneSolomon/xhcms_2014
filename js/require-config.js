@@ -21,7 +21,8 @@ paths = {
 	dateUtil: "module/date-util",
 	numberUtil: "module/number-util",
 	formUtil: "module/form-util",
-	cookie: "module/cookie"
+	cookie: "module/cookie",
+	qrcode: "module/qrcode/qrcode.min"
 },
 ui = [
 "accordion",

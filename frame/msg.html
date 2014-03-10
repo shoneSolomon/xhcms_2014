@@ -164,14 +164,14 @@
 						success:function(data){
 							var groupSelect;
 							if(window.top.transpond){
-								$("input[name='theme']").val(data["letter"]["theme"]);
-								$("textarea[name='details']").val(data["letter"]["content"]);
+								$("input[name='theme']").val(data.letter.theme);
+								$("textarea[name='details']").val(data.letter.content);
 								delete window.top.transpond;
 							}else if(window.top.reply_read){
-								if(data["letter"]["personage"]){
+								if(data.letter.personage){
 									$("#radio0").attr("checked","checked");
-									$("input[name='personage']").val(data["letter"]["personage"]);
-								}else if(groupSelect=data["letter"]["group"]){
+									$("input[name='personage']").val(data.letter.personage);
+								}else if(groupSelect=data.letter.group){
 									$("#radio1").attr("checked","checked");
 									$(".select1").val(groupSelect).trigger('selectVal');
 								}

@@ -76,6 +76,27 @@ var conf =
 				columnTop : "json/list-model.json"
 			})
 	},
+	'addColumnModel':{
+		URL : (isLocal ? {
+				addColumnModel : "json/add-columnModel.json",
+			} : {
+				addColumnModel : "json/add-columnModel.json",
+			})
+	},
+	'listColumnModel':{
+		URL : (isLocal ? {
+				listColumnModel : "json/list-columnModel.json",
+			} : {
+				listColumnModel : "json/list-columnModel.json",
+			})
+	},
+	'listContModel':{
+		URL : (isLocal ? {
+				listContModel : "json/list-columnModel.json",
+			} : {
+				listContModel : "json/list-columnModel.json",
+			})
+	},
 	'letterContent':{
 		URL:(isLocal?{
 			letterContent:"json/letter-cont.json"

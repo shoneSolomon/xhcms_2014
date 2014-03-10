@@ -39,12 +39,12 @@
 		{{#each news}}
 		<tr>
 			<td><input type="checkbox" name="checkbox" class="checkbox ids" id="cb-{{id}}" value="{{id}}"> <label for="cb-{{id}}">{{id}}</label></td>
-			<td style="color:#2cac93;">{{name}}</td>
+			<td class="nameColor">{{name}}</td>
 			<td>{{classify}}</td>
 			<td>{{community}}</td>
 			<td>{{visit}}</td>
 			<td>{{account}}</td>
-			<td style="color:#2cac93;"><a href="#" data-id="{{id}}" >修改</a> | <a class="delete" href="#" data-id="{{id}}">删除</a></td>
+			<td class="nameColor"><a href="#" data-id="{{id}}" >修改</a> | <a class="delete" href="#" data-id="{{id}}">删除</a></td>
 		</tr>
 		{{/each}}
 	</table>
@@ -98,45 +98,69 @@
 		});
 
 		/*全选*/
-		$(".station_menu").find(".checkbox").on("click",function(){
-			var _this = $(this);
-			$("#list-sites").find(".ids").each(function(){
-				if( $(this).is(":checked") !== _this.is(":checked") ){
-					$(this).trigger('click')
-				}
-			});
-		});
+		// $(".station_menu").find(".checkbox").on("click",function(){
+		// 	var _this = $(this);
+		// 	$("#list-sites").find(".ids").each(function(){
+		// 		if( $(this).is(":checked") !== _this.is(":checked") ){
+		// 			$(this).trigger('click')
+		// 		}
+		// 	});
+		// });
 
 		/*table  delete*/
+		// $("#list-sites").on("click",".delete",function(){
+		// 	var newIndex=$(".station_table").find(".delete").index(this);
+		// 	var ID=$(".station_table").find(".delete").eq(newIndex).attr("data-id");
+		// 	jConfirm('<h2 class="title"></h2> <p class="delete_content">是否删除该条信息</p> ',"",{
+		// 		okButton : "是",
+		// 		cancelButton : "否"
+		// 	},function(result){
+		// 		if(result ){
+		// 			$.ajax({
+		// 				url : "json/site-config.json",
+		// 				data : ID,
+		// 				dataType : "json",
+		// 				success: function(data){
+		// 					refreshList();
+		// 				}
+		// 			})
+		// 		}
+		// 	});	
+		// });
+
+		/*table  delete(2)*/
 		$("#list-sites").on("click",".delete",function(){
-			var newIndex=$(".station_table").find(".delete").index(this);
-			var ID=$(".station_table").find(".delete").eq(newIndex).attr("data-id");
+			var ID=$(this).attr("data-id");
 			jConfirm('<h2 class="title"></h2> <p class="delete_content">是否删除该条信息</p> ',"",{
 				okButton : "是",
 				cancelButton : "否"
 			},function(result){
 				if(result ){
-					$.ajax({
-						url : "json/site-config.json",
-						data : ID,
-						dataType : "json",
-						success: function(data){
-							refreshList();
+					T.refresh({
+						tmpl:"#md-list-sites",
+						sourceUrl:URL.newsClassify,
+						callback:function(){
+							$("#list-sites").find("input[name='checkbox']").toCheckbox();
+						},
+						sourceData:function(){
+							return {
+								deleteId:ID
+							};
 						}
-					})
+					});
 				}
 			});	
 		});
 		
 
 		/*paging*/
-		$("#pager").toPager({
-			totalPage : 6,
-			currentPage: 2,
-			'switch':function(eve,e){
-				//jAlert( "你翻到了第 <span style='color:red;'>"+e.toPage+"</span> 页","提示" );
-			}
-		});
+		// $("#pager").toPager({
+		// 	totalPage : 6,
+		// 	currentPage: 2,
+		// 	'switch':function(eve,e){
+		// 		//jAlert( "你翻到了第 <span style='color:red;'>"+e.toPage+"</span> 页","提示" );
+		// 	}
+		// });
 	});
 })(jQuery);
 </script>

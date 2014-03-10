@@ -13,11 +13,11 @@
 	<h1>栏目模型配置</h1>
 	<div class="station_menu">
 		<input type="checkbox" name="checkbox" class="checkAll" id="all" value="0"> <label for="all">全选</label>
-		<a class="fm-button btn-add round" href="column-model-edit.html">添加</a>
-		<a class="fm-button btn-edit round" href="#">编辑</a>
-		<a class="fm-button btn-delete round" href="#">删除</a>
+		<a class="fm-button btn-add round">添加栏目模型</a>
+		<a class="fm-button btn-edit round">编辑</a>
+		<a class="fm-button btn-delete round">删除</a>
 		<a class="list-move"><span class="list-move-up">上移</span> <span class="list-move-down">下移</span></a>
-		<a class="fm-button btn-top round" href="#">置顶</a>
+		<a class="fm-button btn-top round">置顶</a>
 		<input type="submit" class="fm-button round" style="height:30px; vertical-align: top; border:none;" action="o_delete.do" value="保存">
 	</div>
 	<div id="list-sites">
@@ -65,9 +65,10 @@
 			tmpl:"#md-list-sites",
 			sourceUrl:URL.columnModelConf,
 			callback:function(){
-				$("#list-sites").find(".ids").toCheckbox();
-				$("#list-sites").find(".checkbox").toCheckbox();
-				$("#list-sites").find(".switch").toSwitch();
+				var listSites=$("#list-sites")
+				$(".ids",listSites).toCheckbox();
+				$(".checkbox",listSites).toCheckbox();
+				$(".switch",listSites).toSwitch();
 
 				//table tr拖拽
 				require(['sortable'],function(){
@@ -101,14 +102,13 @@
 	require(["template-init","form-style","alerts"],function(T){
 		
 		/*menu删除*/
-		$(".station_menu").find(".btn-delete").on("click",function(){
-			var deLists=$(".station_table").find(".ids");
-			var len=deLists.length;
+		$(".station_menu .btn-delete").on("click",function(){
+			var deLists=$(".station_table .ids"), len=deLists.length;
 			if(len!==0){
 				var arr=[];
 				for(i=0; i<len; i++){
 					if(deLists[i].checked){
-						arr.push($(".station_table").find(".ids").eq(i).val())			
+						arr.push($(".station_table .ids").eq(i).val())			
 					}
 				}
 				if(arr[0]){
@@ -121,9 +121,10 @@
 								tmpl:"#md-list-sites",
 								sourceUrl:URL.columnModelConf,
 								callback:function(){
-									$("#list-sites").find(".ids").toCheckbox();
-									$("#list-sites").find(".checkbox").toCheckbox();
-									$("#list-sites").find(".switch").toSwitch();
+									var listSites=$("#list-sites")
+									$(".ids",listSites).toCheckbox();
+									$(".checkbox",listSites).toCheckbox();
+									$(".switch",listSites).toSwitch();
 
 								},
 								sourceData:function(){
@@ -144,17 +145,21 @@
 				}
 			}
 		});
-
+	
+		/*menu添加*/
+		$(".station_menu .btn-add").on("click",function(){
+			window.location.href="column-model-edit.html";
+			delete window.top.modelId;
+		})
 
 		/*menu编辑*/
-		$(".station_menu").find(".btn-edit").on("click",function(){
-			var deLists=$(".station_table").find(".ids");
-			var len=deLists.length;
+		$(".station_menu .btn-edit").on("click",function(){
+			var deLists=$(".station_table .ids"), len=deLists.length;
 			if(len!==0){
 				var arr=[];
 				for(i=0; i<len; i++){
 					if(deLists[i].checked){
-						arr.push($(".station_table").find(".ids")[i].value)			
+						arr.push($(".station_table .ids")[i].value)			
 					}
 				};
 				var sub=arr.join();
@@ -181,15 +186,11 @@
 
 		/*menu上下移动*/
 		$(".station_menu").find(".list-move").on("click","span",function(){
-			var newNu=0;
-			var index;
-			var dataid;
-			var contentform=$("#list-sites").find(".station_table");
-			var contentlength=contentform.find(".ids").length;
+			var contentform=$("#list-sites .station_table"), contentlength=$(".ids",contentform).length, newNu=0, index, dataid;
 			if(contentlength>0){
 				function newmo(){
 					for(var i=0;i<contentlength;i++){
-						if(contentform.find(".ids")[i].checked==true){
+						if($(".ids",contentform)[i].checked==true){
 							newNu+=1;
 							index=i;
 							dataid=contentform.find("input[name='checkbox']").eq(i).val();
@@ -208,15 +209,15 @@
 						jAlert('<h2 class="title"></h2> <p class="delete_content">已经置顶</p>');
 					}
 					else if(newNu==1&&index>0){	
-						dataidup=contentform.find("input[name='checkbox']").eq(index-1).val();
+						dataidup=$("input[name='checkbox']",contentform).eq(index-1).val();
 						T.refresh({
 							tmpl:"#md-list-sites",
 							sourceUrl:URL.columnModelConf,
 							callback:function(){
-								$("#list-sites").find(".ids").toCheckbox();
-								$("#list-sites").find(".checkbox").toCheckbox();
-								$("#list-sites").find(".switch").toSwitch();
-
+								var listSites=$("#list-sites");
+								$(".ids",listSites).toCheckbox();
+								$(".checkbox",listSites).toCheckbox();
+								$(".switch",listSites).toSwitch();
 							},
 							sourceData:function(){
 								return {
@@ -233,14 +234,15 @@
 						jAlert('<h2 class="title"></h2> <p class="delete_content">已经置底</p>');
 					}
 					else if(newNu==1&&index<contentlength){	
-						dataiddowm=contentform.find("input[name='checkbox']").eq(index+1).val();
+						dataiddowm=$("input[name='checkbox']",contentform).eq(index+1).val();
 						T.refresh({
 							tmpl:"#md-list-sites",
 							sourceUrl:URL.columnModelConf,
 							callback:function(){
-								$("#list-sites").find(".ids").toCheckbox();
-								$("#list-sites").find(".checkbox").toCheckbox();
-								$("#list-sites").find(".switch").toSwitch();
+								var listSites=$("#list-sites");
+								$(".ids",listSites).toCheckbox();
+								$(".checkbox",listSites).toCheckbox();
+								$(".switch",listSites).toSwitch();
 
 							},
 							sourceData:function(){
@@ -258,15 +260,13 @@
 
 
 		/*menu顶置*/
-		$(".station_menu").find(".btn-top").on("click",function(){
-			var deLists=$(".station_table").find(".ids");
-			var len=deLists.length;
-			var index;
+		$(".station_menu .btn-top").on("click",function(){
+			var deLists=$(".station_table,.ids"), len=deLists.length, index;
 			if(len!==0){
 				var arr=[];
 				for(i=0; i<len; i++){
 					if(deLists[i].checked){
-						arr.push($(".station_table").find(".ids")[i].value);
+						arr.push($(".station_table .ids")[i].value);
 						index=i;			
 					}
 				};
@@ -276,9 +276,10 @@
 						tmpl:"#md-list-sites",
 						sourceUrl:URL.columnModelConf,
 						callback:function(){
-							$("#list-sites").find(".ids").toCheckbox();
-							$("#list-sites").find(".checkbox").toCheckbox();
-							$("#list-sites").find(".switch").toSwitch();
+							var listSites=$("#list-sites");
+							$(".ids",listSites).toCheckbox();
+							$(".checkbox",listSites).toCheckbox();
+							$(".switch",listSites).toSwitch();
 
 						},
 						sourceData:function(){
@@ -310,9 +311,10 @@
 						tmpl:"#md-list-sites",
 						sourceUrl:URL.columnModelConf,
 						callback:function(){
-							$("#list-sites").find(".ids").toCheckbox();
-							$("#list-sites").find(".checkbox").toCheckbox();
-							$("#list-sites").find(".switch").toSwitch();
+							var listSites=$("#list-sites");
+							$(".ids",listSites).toCheckbox();
+							$(".checkbox",listSites).toCheckbox();
+							$(".switch",listSites).toSwitch();
 
 						},
 						sourceData:function(){
@@ -327,8 +329,7 @@
 		});
 
 		$("#list-sites").on("click",".defIdTd i",function(){
-			var defIdData={};
-			var Ini=$(this).find("input[name='defId']");
+			var Ini=$(this).find("input[name='defId']"), defIdData={};
 			defIdData.id=Ini.val();
 			if(Ini[0].checked){
 				defIdData.defId=true;
@@ -348,8 +349,7 @@
 		})
 
 		$("#list-sites").on("click",".enabledTd i",function(){
-			var enabledData={};
-			var Ini=$(this).find("input[name='enabled']");
+			var Ini=$(this).find("input[name='enabled']"), enabledData={};
 			enabledData.id=Ini.val();
 			if(Ini[0].checked){
 				enabledData.enabled=true;

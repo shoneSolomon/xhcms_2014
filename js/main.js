@@ -160,6 +160,7 @@
 					//加载zTree菜单
 					$.fn.zTree.init($("#ztree-inner"), {
 						async: {
+							type:'get',
 							enable: true,
 							url:_this.attr("href"),
 							autoParam:["id", "name=n", "level=lv"],

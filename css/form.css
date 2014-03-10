@@ -188,6 +188,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .global_form{padding: 18px 0px 90px 10px; border: 1px solid #d4d4d4;}
 .global_form .lable{width: 94px;}
 .info_bt{ float: right; margin: 25px 0px;}
+.info_bt-edit{ position: absolute; margin: 0px; bottom: -50px; right: 0px;}
 .info_bt input{ margin-left: 16px;}
 
 
@@ -214,8 +215,8 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 
 /*栏目配置--by王彩凤*/
 .list-move{ display: inline-block; margin-left: 12px;  height: 28px; line-height: 28px; border: 1px solid #33c2a6;}
-.list-move span{display:inline-block; height: 28px;width:44px;text-align: center;line-height: 28px;cursor: pointer;background: #33c2a6;color: #fff; font-size: 14px;}
-.list-move-up{ margin-right: -6px;}
+.list-move span{display:inline-block; height: 28px;width:44px;text-align: center;line-height: 28px;cursor: pointer;background: #33c2a6;color: #fff; font-size: 14px; vertical-align: top;}
+.list-move-up{ margin-right: -3px;}
 .list-move span:hover{ background: #fff; color: #000;}
 .mainRight .pager-line{ text-align: center; margin-top: 35px;}
 .form_chdialog .lable{ width: 102px;}
@@ -224,8 +225,9 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 
 /*栏目模型设置--by王彩风*/
 .set_column-model{width:95%;}
-.set_column-model  #tabs-1{ margin-top: 30px; width: 86%; border: 1px solid #d4d4d4; padding: 10px 7% 130px 7%; }
+.set_column-model  #tabs-1{ margin-top: 30px; padding: 0px;}
 .set_column-model #tabs-1 .model-left,#tabs-1 .model-right{ float: left;}
+.set_column-model #write_form{ position: relative;  width: 91%; border: 1px solid #d4d4d4; padding: 10px 7% 130px 7%; margin-bottom:100px;}
 .set_column-model #tabs-1 .model-left{ width: 50%; min-width: 420px}
 .set_column-model #tabs-1 .model-right{ width: 36%; min-width: 400px}
 .set_column-model #tabs-1 .lable{display:block;float:left;padding-right:12px; width:100px;text-align:right;line-height:28px; }
@@ -242,6 +244,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .set_column-model .table tr td{ border: none;}}
 .set_column-model table.table tr:hover {background:#fff;/* #c0ebe3;*/}
 .set_column-model .table tr td input{height: 28px;line-height:28px; border: 1px solid #d8d8d8; padding-left:10%;    color: #737373;}
+.set_column-model .table tr td .ids{ border: none;}
 .set_column-model .table tr td .fm-select{ display: block; margin: auto; font-size: 12px;color: #737373;max-width:90px; }
 .set_column-model .table tr td .fm-select .value-holder{display: block; height: 20px; }
 .widthMin{min-width: 1680px; *min-width: 1800px;}
@@ -252,6 +255,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .set_column-model .table tr td .requireKey{border-color: #000;}
 .set_column-model .table tr.last{ display: none;} 
 .nameColor{color:#2cac93;}
+.column_table td input[type="text"], .content_table td input[type="text"]{ width: 80%;}
 
 
 /*4站点管理 - 2栏目配置 - 3模板配置 --by郭慧丹*/
@@ -336,6 +340,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .outter-frame{width:94%; margin: 0 auto;}
 
 .pager-line{ padding: 10px 0; }
+.fm-button{ cursor: pointer;}
 
 
 
