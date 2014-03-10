@@ -63,20 +63,22 @@
 				<div class="pager-line">
 					<p id="pager_send_lists" class="fm-pager"></p>
 				</div>
-				<script type="html/template" id="temp_send_lists" data-target=".send_lists" data-pagination="#pager_send_lists" data-method="post">
+				<script type="html/template" id="temp_send_lists" data-target=".send_lists" data-pagination="#pager_send_lists" data-method="get">
+					{{#with page}}
 					<table class="table">
-					{{#each list}}
+					{{#each content}}
 						<tr class="">
 							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb1-{{id}}" value="0"></td>
-							<td class="from_name">{{from_name}}</td>
-							<td>{{title}}</td>
-							<td>{{content}}</td>
-							<td class="send_time">{{date}}</td>
+							<td class="from_name">{{sendUser/username}}</td>
+							<td>{{text/title}}</td>
+							<td>{{text/body}}</td>
+							<td class="send_time">{{{Date text/createDate}}}</td>
 						</tr>
 					{{/each}}
 					</table>
 					<span class="currentPage">{{currentPage}}</span>
-					<span class="totalPage">{{{division totalCount pageSize }}}</span>
+					<span class="totalPage">{{totalPages}}</span>
+					{{/with}}
 				</script>
 			</div>
 		</form>
@@ -89,20 +91,22 @@
 				<div class="pager-line">
 					<p id="pager_receive_lists" class="fm-pager"></p>
 				</div>
-				<script type="html/template" id="temp_receive_lists" data-target=".receive_lists" data-pagination="#pager_receive_lists" data-method="post">
+				<script type="html/template" id="temp_receive_lists" data-target=".receive_lists" data-pagination="#pager_receive_lists" data-method="get">
+					{{#with page}}
 					<table class="table">
-					{{#each list}}
-						<tr class="{{#if readed}}have_read{{else}}{{/if}}">
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb2-{{id}}" value="0"></td>
-							<td class="from_name">{{from_name}}</td>
-							<td><a href="read-letter.html?id={{id}}">{{title}}</a></td>
-							<td>{{content}}</td>
-							<td class="send_time">{{date}}</td>
+					{{#each content}}
+						<tr class="{{#if text/new}}{{else}}have_read{{/if}}">
+							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb1-{{id}}" value="0"></td>
+							<td class="from_name">{{sendUser/username}}</td>
+							<td><a href="read-letter.html?id={{id}}">{{text/title}}</a></td>
+							<td>{{text/body}}</td>
+							<td class="send_time">{{{Date text/createDate}}}</td>
 						</tr>
 					{{/each}}
 					</table>
 					<span class="currentPage">{{currentPage}}</span>
-					<span class="totalPage">{{{division totalCount pageSize }}}</span>
+					<span class="totalPage">{{totalPages}}</span>
+					{{/with}}
 				</script>
 			</div>
 		</form>
@@ -122,20 +126,22 @@
 				<div class="pager-line">
 					<p id="pager_recycle_lists" class="fm-pager"></p>
 				</div>
-				<script type="html/template" id="temp_recycle_lists" data-target=".recycle_lists" data-pagination="#pager_recycle_lists" data-method="post">
+				<script type="html/template" id="temp_recycle_lists" data-target=".recycle_lists" data-pagination="#pager_recycle_lists" data-method="get">
+					{{#with page}}
 					<table class="table">
-					{{#each list}}
+					{{#each content}}
 						<tr class="">
-							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb3-{{id}}" value="0"></td>
-							<td class="from_name">{{from_name}}</td>
-							<td>{{title}}</td>
-							<td>{{content}}</td>
-							<td class="send_time">{{date}}</td>
+							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb1-{{id}}" value="0"></td>
+							<td class="from_name">{{sendUser/username}}</td>
+							<td>{{text/title}}</td>
+							<td>{{text/body}}</td>
+							<td class="send_time">{{{Date text/createDate}}}</td>
 						</tr>
 					{{/each}}
 					</table>
 					<span class="currentPage">{{currentPage}}</span>
-					<span class="totalPage">{{{division totalCount pageSize }}}</span>
+					<span class="totalPage">{{totalPages}}</span>
+					{{/with}}
 				</script>
 
 			</div>
@@ -148,7 +154,12 @@
 	var letterURL=$.initFrame('letterContent').URL;
 	var URL = $.initFrame('msg').URL;
 
-	require(["template-init","form-style"],function(T){
+	require(["template-init","form-style","dateUtil"],function(T,f,DateUtil){
+
+		Handlebars.registerHelper('Date', function(t) {
+			var d = new Date(); d.setTime(t);
+	        return DateUtil.format(d,"yy-MM-dd hh:mm:ss");
+	    });
 
 		//会员组加载和美化
 		T.init({

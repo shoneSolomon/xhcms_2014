@@ -102,8 +102,8 @@ define(function(require, exports, module) {
                 _d.t = new Date().getTime()
             }
             if(o.pagination){
-                _d.toPage = o.toPage||"";
-                _d.pageSize = 10
+                _d["page.pn"] = o.toPage||"";
+                _d["page.size"] = 10
             }
 
             $[type](o.sourceUrl, $.extend(_d, o.sourceData() ),function(data){

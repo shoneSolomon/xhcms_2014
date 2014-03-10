@@ -12,9 +12,9 @@ var conf =
 				recycle_lists: "json/msgList.json"
 			} : {
 				groups : "json/groups.json",
-				send_lists: "json/msgList.json",
-				receive_lists: "json/msgList.json",
-				recycle_lists: "json/msgList.json"
+				send_lists: "/web/admin/msg/user/send/list.json?",
+				receive_lists: "/web/admin/msg/user/all/list.json?",
+				recycle_lists: "/web/admin/msg/user/recycle/list.json?"
 			})
 	},
 	"clmConfigur":{
@@ -117,6 +117,14 @@ $.initFrame = function(key){
 				$(".mainHead",top.document).html( _this.navLine );
 			}
 		}
+
+		//测试时候使用
+		if( !window.isLocal ){
+			for (var k in _this.URL) {
+				_this.URL[k] = _this.URL[k].replace("/web/admin","/agent?http://172.18.11.80:889/web/admin");
+			};
+		}
+			
 	}
 	return _this;
 };
