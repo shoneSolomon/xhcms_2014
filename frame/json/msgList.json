@@ -20,6 +20,7 @@
                     "username": "admin"
                 },
                 "sendStatus": "send",
+                "status" : "read",
                 "sendUser": {
                     "admin": true,
                     "createDate": 1392186890000,
@@ -63,6 +64,7 @@
                     "username": "admin"
                 },
                 "sendStatus": "send",
+                "status" : "unread",
                 "sendUser": {
                     "admin": true,
                     "createDate": 1392186890000,
@@ -106,6 +108,7 @@
                     "username": "admin"
                 },
                 "sendStatus": "send",
+                "status" : "read",
                 "sendUser": {
                     "admin": true,
                     "createDate": 1392186890000,
@@ -149,6 +152,7 @@
                     "username": "admin"
                 },
                 "sendStatus": "send",
+                "status" : "read",
                 "sendUser": {
                     "admin": true,
                     "createDate": 1392186890000,
@@ -192,6 +196,7 @@
                     "username": "admin"
                 },
                 "sendStatus": "send",
+                "status" : "unread",
                 "sendUser": {
                     "admin": true,
                     "createDate": 1392186890000,

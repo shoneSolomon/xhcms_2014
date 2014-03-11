@@ -95,10 +95,10 @@
 					{{#with page}}
 					<table class="table">
 					{{#each content}}
-						<tr class="{{#if text/new}}{{else}}have_read{{/if}}">
+						<tr class="{{{Switch status}}}">
 							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb1-{{id}}" value="0"></td>
 							<td class="from_name">{{sendUser/username}}</td>
-							<td><a href="read-letter.html?id={{id}}">{{text/title}}</a></td>
+							<td><a href="read-letter.html?id={{text/id}}">{{text/title}}</a></td>
 							<td>{{text/body}}</td>
 							<td class="send_time">{{{Date text/createDate}}}</td>
 						</tr>
@@ -157,8 +157,16 @@
 	require(["template-init","form-style","dateUtil"],function(T,f,DateUtil){
 
 		Handlebars.registerHelper('Date', function(t) {
+			if( !t ) return t;
 			var d = new Date(); d.setTime(t);
 	        return DateUtil.format(d,"yy-MM-dd hh:mm:ss");
+	    });
+
+	    Handlebars.registerHelper('Switch', function(key) {
+			switch(key){
+				case "unread": return "unread";
+				default: return "";
+			}
 	    });
 
 		//会员组加载和美化
@@ -209,11 +217,8 @@
 			sourceUrl:URL.receive_lists,
 			callback:function(data){
 				$(".checkbox").toCheckbox();	
-				require(['underscore'],function(){
-					var list = data.source.list;
-					var unread = _.filter(list,function(d){return !d.readed;}).length;
-					$("#unread-msg").html(unread)[ unread ? "show" : "hide" ]();
-				});
+				var unread = $(".receive_lists .unread").length;
+				$("#unread-msg").html(unread)[ unread ? "show" : "hide" ]();
 			}
 		});
 

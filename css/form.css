@@ -80,10 +80,10 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .msg_lists .table td{border-left:0;border-right: 0;}
 .msg_lists .table tr .send_time{text-align:right; padding-right:3.5%; color:#9a9a9a;}
 
-.receive_lists .table tr td{font-weight:bold;}
-.receive_lists .table tr .from_name{ background:url("../images/letter_icon.png") no-repeat center left; padding-left:27px;}
-.receive_lists .table .have_read td{font-weight:normal;}
-.receive_lists .table .have_read .from_name{background:none;}
+.receive_lists .table tr td{font-weight:normal;}
+.receive_lists .table .unread .from_name{ background:url("../images/letter_icon.png") no-repeat center left; padding-left:27px;}
+.receive_lists .table .unread td{font-weight:bold;}
+.receive_lists .table tr .from_name{background:none;}
 .form_write .text i.fm-radio {float:left; margin:3px 2px 0px 0px;}
 .form_write .item{clear:both; line-height:28px;}
 
