@@ -121,7 +121,7 @@ $.initFrame = function(key){
 		//测试时候使用
 		if( !window.isLocal ){
 			for (var k in _this.URL) {
-				_this.URL[k] = _this.URL[k].replace("/web/admin","/agent?http://172.18.11.80:889/web/admin");
+				_this.URL[k] = _this.URL[k].replace("/web/admin","/agent?http://172.18.11.80:901/web/admin");
 			};
 		}
 			

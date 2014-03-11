@@ -39,13 +39,13 @@
 				<div class="item clearfix">
 					<span class="lable">主题:</span>
 					<div class="text">
-						<input type="text" name="theme" class="theme"/>
+						<input type="text" name="title" class="theme"/>
 					</div>
 				</div>
 				<div class="item item_details clearfix" >
 					<span class="lable">内容:</span>
 					<div class="text">
-						<textarea type="text" name="details"/></textarea>
+						<textarea type="text" name="body"/></textarea>
 					</div>
 				</div>
 				<div class="info_submit">
@@ -181,18 +181,17 @@
 						url:letterURL.letterContent,
 						dataType:"json",
 						success:function(data){
-							var groupSelect;
 							if(window.top.transpond){
-								$("input[name='theme']").val(data.letter.theme);
-								$("textarea[name='details']").val(data.letter.content);
+								$("input[name='title']").val(data.m.text.title);
+								$("textarea[name='body']").val(data.m.text.body);
 								delete window.top.transpond;
 							}else if(window.top.reply_read){
-								if(data.letter.personage){
-									$("#radio0").attr("checked","checked");
-									$("input[name='personage']").val(data.letter.personage);
-								}else if(groupSelect=data.letter.group){
-									$("#radio1").attr("checked","checked");
-									$(".select1").val(groupSelect).trigger('selectVal');
+								if(data.m.sendUser.admin){
+									$("#radio0").trigger("click");
+									$("input[name='personage']").val(data.m.sendUser.username);
+								}else{
+									$("#radio1").trigger("click");
+									$(".select1").val(data.m.sendUser.username).trigger('selectVal');
 								}
 								delete window.top.reply_read;
 							}

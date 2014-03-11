@@ -21,22 +21,22 @@
 			</form>
 			<script type="template/html" id="temp_send_lists" data-target="#later_content">
 					<ul class="content_lists">
-						{{#letter}}
+						{{#m}}
 						<li>
 							<strong>发件人:</strong>
-							<span>{{personage}}</span>
+							<span>{{sendUser/username}}</span>
 						</li>
 						<li>
 							<strong>发件时间:</strong>
-							<span>{{sendTime}}</span>
+							<span>{{{Date text/createDate}}}</span>
 						</li>
 						<li>
 							<strong>主题:</strong>
-							<span>{{theme}}</span>
+							<span>{{text/title}}</span>
 						</li>
 						<li>
 							<strong>内容:</strong>
-							<span>{{content}}</span>
+							<span>{{text/body}}</span>
 						</li>
 					</ul>
 					<div class="bt_lists">
@@ -44,7 +44,7 @@
 						<a class="fm-button transpond" href="msg.html?id={{id}}">转发</a>
 						<a class="fm-button deleteLetter" href="#">删除</a>
 					</div>
-					{{/letter}}
+					{{/m}}
 			</script>
 			
 		</div>
@@ -53,7 +53,12 @@
 <script>
 var URL=$.initFrame('letterContent').URL;
 (function($){
-	require(["template-init","queryparam","requestAFrame","alerts"],function(T,Q,R){
+	require(["template-init","queryparam","requestAFrame","dateUtil","alerts"],function(T,Q,R,DateUtil){
+		Handlebars.registerHelper('Date', function(t) {
+			if( !t ) return t;
+			var d = new Date(); d.setTime(t);
+	        return DateUtil.format(d,"yy-MM-dd hh:mm:ss");
+	    });
 		var id = Q("id");
 		T.init({
 			tmpl:"#temp_send_lists",
@@ -84,7 +89,7 @@ var URL=$.initFrame('letterContent').URL;
 							
 						}
 					})
-				})	
+				});
 			},
 			sourceData:function(){
 				return {
@@ -92,6 +97,7 @@ var URL=$.initFrame('letterContent').URL;
 				};
 			}
 		});	
+
 
 	});
 })(jQuery);

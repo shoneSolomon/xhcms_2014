@@ -26,7 +26,7 @@ define(function(require, exports, module) {
 	};
 		
 	exports.format = function(date,format,rule){
-		if( jQuery ){
+		if( window.jQuery ){
 			rule = jQuery.extend({},_,rule); //如果引入jQuery了, 支持修改对应规则
 		}
 		return format.replace(_.reg,function(match,key){
