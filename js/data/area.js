@@ -4203,3 +4203,31 @@ window.Area = {
         "萨摩亚": "882"
     }
 };
+
+window.ChinaAreaMap = (function(chinaArea){
+    var map = {};
+    /**
+     * 递归创建值索引表valueMap和 下拉选项索引表optionMap
+     */
+    var _reverseMap = function (o,prefix,valueMap){
+        var prefix = prefix || "",
+        valueMap = valueMap || {};
+        for(i in o){
+            if(typeof o[i] === 'string' || typeof o[i] === 'number'){
+                valueMap[o[i]] = (prefix+'-'+i).substring(1);
+            }else{
+                var t = i;
+                var split = i.split('_');
+                if(split.length === 2){
+                    valueMap[split[1]] = (prefix+'-'+split[0]).substring(1);
+                    t = split[0];
+                }else{
+
+                }
+                _reverseMap(o[i],prefix+'-'+t,valueMap);
+            }
+        }
+    };
+    _reverseMap(chinaArea,"",map);
+    return map;
+})(window.Area["亚洲_1"]["中国_156"]);

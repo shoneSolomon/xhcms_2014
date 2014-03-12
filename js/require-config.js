@@ -6,17 +6,22 @@ paths = {
 	alerts: "jqueryui/jquery.alerts",
 	raphael: "raphael.min",
 	template: "template/handlebars.min",
-	cloudMap: "cloudspectrum.min",
+	cloudMap: "cloudspectrum/cloudspectrum.min",
 	css: "css.min",
-	underscore: "underscore.min",
+	underscore: "underscore/underscore.min",
 	zTree: "zTree/jquery.ztree.all-3.5.min",
 	WdatePicker: "My97DatePicker/WdatePicker",
-	"form-style": "form-style.min",
+	morris:"morris/morris.min",
+	
+	"form-style": "jquery-form/form-style.min",
+	formValid: "jquery-form/form-valid.min",
+	"idCard-valid": "jquery-form/idCard-valid.min",
+	selectors: "jquery-form/selectors.min",
+	area: "data/area.min",
+
 	iealert : "module/iealert/index",
 	requestAFrame : "module/requestAFrame",
-	highcharts: "highcharts/highcharts",
 	"template-init": "module/template-init.min",
-	morris:"morris/morris.min",
 	queryparam: "module/queryparam",
 	dateUtil: "module/date-util",
 	numberUtil: "module/number-util",
@@ -120,7 +125,11 @@ require.config({
 		},
 		morris :{
 			deps: ["raphael","css!../js/morris/morris.css"]
+		},
+		"idCard-valid":{
+			deps: ["formValid"]
 		}
+
 	}
 });
 

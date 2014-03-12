@@ -18,14 +18,14 @@
 		<li><a href="#tabs-4">回收站</a></li>
 	</ul>
 	<div id="tabs-1">
-		<form id="write_form" onsubmit="" method="">
+		<form id="write_form">
 			<div class="form_write">
 				<div class="item clearfix">
 					<span class="lable">收件人:</span>
 					<div class="text">
-						<input type="radio" class="radio" name="senderType" id="radio0" value="0"> <label for="radio0">个人</label>
+						<input type="radio" class="radio" name="type" id="radio0" value="user"> <label for="radio0">个人</label>
 						<input type="text" name="personage" placeholder="个人姓名"/>
-						<input type="radio" class="radio" name="senderType" id="radio1" value="1"> <label for="radio1">会员组</label>
+						<input type="radio" class="radio" name="type" id="radio1" value="sys"> <label for="radio1">会员组</label>
 						<select name="group" class="select1">
 							<option value="-1">请选择</option>
 						</select>
@@ -34,6 +34,7 @@
 							<option value="{{code}}">{{name}}</option>
 							{{/each}}
 						</script>
+						<input type="hidden" name="username">
 					</div>
 				</div>
 				<div class="item clearfix">
@@ -49,7 +50,7 @@
 					</div>
 				</div>
 				<div class="info_submit">
-					<input type="button" class="fm-button" value="提交">
+					<input type="submit" class="fm-button" value="提交">
 				</div>
 			
 			</div>
@@ -153,8 +154,9 @@
 (function(){
 	var letterURL=$.initFrame('letterContent').URL;
 	var URL = $.initFrame('msg').URL;
+	var writeForm=$("#write_form");
 
-	require(["template-init","form-style","dateUtil"],function(T,f,DateUtil){
+	require(["template-init","form-style","dateUtil","alerts"],function(T,f,DateUtil){
 
 		Handlebars.registerHelper('Date', function(t) {
 			if( !t ) return t;
@@ -174,32 +176,74 @@
 			tmpl:"#group-options",
 			sourceUrl:URL.groups,
 			callback:function(){
-				$(".select1").toSelect();
-				$(".radio").toRadio();
+				$(".select1", writeForm).toSelect();
+				$(".radio", writeForm).toRadio();
 				if(window.top.transpond||window.top.reply_read){
 					$.ajax({
 						url:letterURL.letterContent,
 						dataType:"json",
 						success:function(data){
 							if(window.top.transpond){
-								$("input[name='title']").val(data.m.text.title);
-								$("textarea[name='body']").val(data.m.text.body);
+								$("input[name='title']", writeForm).val(data.m.text.title);
+								$("textarea[name='body']", writeForm).val(data.m.text.body);
 								delete window.top.transpond;
 							}else if(window.top.reply_read){
 								if(data.m.sendUser.admin){
-									$("#radio0").trigger("click");
-									$("input[name='personage']").val(data.m.sendUser.username);
+									$("#radio0", writeForm).trigger("click");
+									$("input[name='personage']", writeForm).val(data.m.sendUser.username);
 								}else{
-									$("#radio1").trigger("click");
-									$(".select1").val(data.m.sendUser.username).trigger('selectVal');
+									$("#radio1", writeForm).trigger("click");
+									$(".select1", writeForm).val(data.m.sendUser.username).trigger('selectVal');
 								}
 								delete window.top.reply_read;
+								$("input[name='username']", writeForm).val(data.m.sendUser.username);
 							}
 						}
 					});
 				}
+
+				$("#radio0").on("click",function(){
+					if($("#radio0").is(":checked")){
+						$("input[name='username']", writeForm).val($("input[name='personage']").val());
+					}
+				})
+				$("#radio1").on("click",function(){
+					if($("#radio1").is(":checked")){
+						$("input[name='username']", writeForm).val($(".select1", writeForm).val());
+					}
+				})
+				$("input[name='personage']").on("keyup",function(){
+					if($("#radio0", writeForm).is(":checked")){
+						$("input[name='username']", writeForm).val($(this).val());
+					}
+				});
+				$(".select1", writeForm).on("change",function(){
+					if($("#radio1", writeForm).is(":checked")){
+						$("input[name='username']", writeForm).val($(this).val());
+					}
+				});
+				
 			}
 		});
+
+		$("#write_form").on("submit",function(e){
+			var usernameVal=$("input[name='username']", writeForm).val();
+			if(usernameVal==""||usernameVal=="-1"){
+				jAlert('<p class="delete_content">请填写收件人</p>');
+				return false;
+			}else{
+				$.ajax({
+					url:"json/success.json",
+	          		data:$(this).serializeArray(),
+	          		type:"post",
+	          		success:function(){
+
+	          		}
+				})
+			}
+			e.preventDefault(); 
+		})
+		
 
 		//发信箱列表加载
 		T.init({
