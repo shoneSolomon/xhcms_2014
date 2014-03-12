@@ -15,7 +15,7 @@ paths = {
 	
 	"form-style": "jquery-form/form-style.min",
 	formValid: "jquery-form/form-valid.min",
-	"idCard-valid": "jquery-form/idCard-valid.min",
+	"idCard-valid": "jquery-form/idcard-valid.min",
 	selectors: "jquery-form/selectors.min",
 	area: "data/area.min",
 
