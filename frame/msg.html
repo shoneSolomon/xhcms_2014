@@ -8,6 +8,18 @@
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/require.js"></script>
 	<script src="../js/require-config.js"></script>
+	<style>
+		.tip-error{
+			font-size: 12px;
+			padding-left: 8px;
+			color: #c00;
+		}
+		.tip-default{
+			font-size: 12px;
+			padding-left: 8px;
+			color: #666;
+		}
+	</style>
 </head>
 <body class="inner-frame">
 	<div id="tabs">
@@ -23,30 +35,33 @@
 				<div class="item clearfix">
 					<span class="lable">收件人:</span>
 					<div class="text">
-						<input type="radio" class="radio" name="type" id="radio0" value="user"> <label for="radio0">个人</label>
-						<input type="text" name="personage" placeholder="个人姓名"/>
+						<input type="radio" class="radio" name="type" id="radio0" value="user" checked="checked"> <label for="radio0">个人</label>
+						<input type="text" name="personage" placeholder="个人姓名" id="to-person"/>
 						<input type="radio" class="radio" name="type" id="radio1" value="sys"> <label for="radio1">会员组</label>
-						<select name="group" class="select1">
-							<option value="-1">请选择</option>
+						<select name="group" class="select1" id="to-group">
+							<option value="">请选择</option>
 						</select>
 						<script type="html/template" id="group-options" data-target=".select1" data-append="true">
 							{{#each content}}
 							<option value="{{code}}">{{name}}</option>
 							{{/each}}
 						</script>
-						<input type="hidden" name="username">
+						<input type="hidden" name="username" id="user_name">
+						<span class='tip tip-default'></span>
 					</div>
 				</div>
 				<div class="item clearfix">
 					<span class="lable">主题:</span>
 					<div class="text">
-						<input type="text" name="title" class="theme"/>
+						<input type="text" name="title" class="theme" id="txt-title"/>
+						<span class='tip tip-default'></span>
 					</div>
 				</div>
 				<div class="item item_details clearfix" >
 					<span class="lable">内容:</span>
 					<div class="text">
-						<textarea type="text" name="body"/></textarea>
+						<textarea type="text" name="body" id="txt-body"></textarea>
+						<span class='tip tip-default'></span>
 					</div>
 				</div>
 				<div class="info_submit">
@@ -176,7 +191,13 @@
 			tmpl:"#group-options",
 			sourceUrl:URL.groups,
 			callback:function(){
-				$(".select1", writeForm).toSelect();
+				var user_name = $("#user_name"), 
+					person = $("#to-person"), 
+					group = $("#to-group"),
+					radio0 = $("#radio0"),
+					radio1 = $("#radio1");
+
+				group.toSelect();
 				$(".radio", writeForm).toRadio();
 				if(window.top.transpond||window.top.reply_read){
 					$.ajax({
@@ -189,61 +210,91 @@
 								delete window.top.transpond;
 							}else if(window.top.reply_read){
 								if(data.m.sendUser.admin){
-									$("#radio0", writeForm).trigger("click");
-									$("input[name='personage']", writeForm).val(data.m.sendUser.username);
+									radio0.trigger("click");
+									person.val(data.m.sendUser.username);
 								}else{
-									$("#radio1", writeForm).trigger("click");
-									$(".select1", writeForm).val(data.m.sendUser.username).trigger('selectVal');
+									radio1.trigger("click");
+									group.val(data.m.sendUser.username).trigger('selectVal');
 								}
 								delete window.top.reply_read;
-								$("input[name='username']", writeForm).val(data.m.sendUser.username);
+								user_name.val(data.m.sendUser.username);
 							}
 						}
 					});
 				}
 
-				$("#radio0").on("click",function(){
-					if($("#radio0").is(":checked")){
-						$("input[name='username']", writeForm).val($("input[name='personage']").val());
-					}
-				})
-				$("#radio1").on("click",function(){
-					if($("#radio1").is(":checked")){
-						$("input[name='username']", writeForm).val($(".select1", writeForm).val());
-					}
-				})
-				$("input[name='personage']").on("keyup",function(){
-					if($("#radio0", writeForm).is(":checked")){
-						$("input[name='username']", writeForm).val($(this).val());
-					}
+				radio0.on("click",function(){
+					user_name.val(person.val());
+				}).trigger('click');
+				radio1.on("click",function(){
+					user_name.val(group.val());
 				});
-				$(".select1", writeForm).on("change",function(){
-					if($("#radio1", writeForm).is(":checked")){
-						$("input[name='username']", writeForm).val($(this).val());
-					}
+				person.on("keyup change",function(){
+					if(radio0.is(":checked"))user_name.val( this.value );
+				});
+				group.on("change",function(){
+					if(radio1.is(":checked"))user_name.val( this.value );
 				});
 				
 			}
 		});
-
-		$("#write_form").on("submit",function(e){
-			var usernameVal=$("input[name='username']", writeForm).val();
-			if(usernameVal==""||usernameVal=="-1"){
-				jAlert('<p class="delete_content">请填写收件人</p>');
-				return false;
-			}else{
-				$.ajax({
-					url:"json/success.json",
-	          		data:$(this).serializeArray(),
-	          		type:"post",
-	          		success:function(){
-
-	          		}
-				})
-			}
-			e.preventDefault(); 
-		})
 		
+		require(["formValid","alerts"],function(){
+			//初始化验证效果
+			$.form.settings = {
+				initTip:function(input,defaultTip){
+					input.parents(".text").children('.tip').html(defaultTip || "");
+					input.on('focus',function(){
+						input.parents(".text").children('.tip').removeClass('tip-error').addClass("tip-default").html(defaultTip || "");
+					});
+				},
+				validTip : function(input,errorInfo, defaultTip){
+					if(errorInfo){
+						input.parents(".text").children('.tip').removeClass('tip-default').addClass("tip-error").html(errorInfo);
+					}else{
+						input.parents(".text").children('.tip').removeClass('tip-error').addClass("tip-default").html(defaultTip || "");
+					}
+				}
+			};
+
+			$.form.render({
+				"#user_name":{
+					requiredTip : "请填写收件人信息"
+				},
+				"#txt-title":{
+					requiredTip : "站内信标题需要填写",
+					defaultTip: "请填写站内信标题",
+					maxlen: 30,
+					lenTip: "站内信标题过长",
+					regexp: /^[^+~!@#$%\^&*"{};'<>]+$/,
+					errorTip : "标题不能含有( +~!@#$%^&*\"{};'<>] ) 等字符。"
+				},
+				"#txt-body":{
+					requiredTip : "内容需要填写",
+					defaultTip: "填写站内信"
+				}
+			},{
+				required: true,
+				option:"change blur"
+			});
+
+			$("#write_form").on('submit',function(e){
+				if( $(this).formValid() ){
+					$.ajax({
+						url: URL.submit_form,
+						data: $(this).serialize(),
+						dataType: "json",
+						success: function(data){
+							jAlert("提交成功","信息");
+						}
+					})
+				}else{
+					//jAlert("验证失败");
+				}
+				e.preventDefault();
+			});
+		});
+
 
 		//发信箱列表加载
 		T.init({
