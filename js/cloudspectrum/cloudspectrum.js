@@ -2,21 +2,19 @@
  * @version 1.4
  * 
  * @update by ds in 2013-8-1
- * @增加云谱图高宽自适应
+ * @增加新闻云谱高宽自适应
  * @解决IE下不能拖动问题
- * @增加云谱图svg拖拽 
- * @修改云谱图超出给定范围框BUG，限制云谱图超出给定的范围框
- * @修改云谱图图斑拖拽时，只能放在文字上拖拽问题
  * 
  * @update by ds in 2013-9-16
  * @支持对IE低版本的兼容
  * @修改编辑和查看视图切换死循环BUG
  * @优化点击问号时的用户体验
  * 
- * @update by ds in 2013-9-18
- * @解决云谱图效果显示时容易造成浏览器崩溃问题
+ * update by ds in 2013-9-18
+ * 解决新闻云谱效果显示时容易造成浏览器崩溃问题
  */
 var _uuid = 0, _instance;
+
 function CloudSpectrum(opt) {
 	'use strict';
 	var _DEFAULT = {
@@ -38,6 +36,7 @@ function CloudSpectrum(opt) {
 	};
 	this._init();
 }
+
 CloudSpectrum.prototype = {
 	constructor: CloudSpectrum,
 	_init: function(){
@@ -47,6 +46,7 @@ CloudSpectrum.prototype = {
 		node.height(h);
 		
 		var divId = 'cloudSpectrum-'+self._guid(), containerId = 'uic-container-'+self._guid();
+
 		if(cfg.mode == 'edit'){
 			node.css('position', 'relative');
 			node.html('<div id="'+containerId+'" class="ui-cloudSpectrum" style="width:'+w+'px; height:'+h+'px; overflow:hidden;position:relative"><div id="'+divId+'"></div></div><div id="cp-preview-panel"></div><div id="cp-preview-btn">预览</div>');
@@ -56,6 +56,7 @@ CloudSpectrum.prototype = {
 			var uic = self.dom().query('#'+containerId);
 			uic.get(0).scrollTop = h/2;
 			uic.get(0).scrollLeft = w/2;
+
 			self.paper.rect(w/2, h/2, w, h, 10).attr({'stroke': "#666"});
 		}else{
 			node.html('<div id="'+containerId+'" class="ui-cloudSpectrum" style="width:'+w+'px; height:'+h+'px; overflow:hidden"><div id="'+divId+'"></div></div>');
@@ -100,6 +101,7 @@ CloudSpectrum.prototype = {
 				};
 			}
 		};
+
 		if(cfg.mode == 'edit'){
 			var display = 1;
 			var btn = self.dom().query('#cp-preview-btn');
@@ -123,6 +125,7 @@ CloudSpectrum.prototype = {
 			});
 		}
 	},
+
 	render: function(data){
 		var self = this, cfg = self.cfg, dom = self.dom(), r = self.paper;
 		self.connections = [],
@@ -132,12 +135,16 @@ CloudSpectrum.prototype = {
         
         self.cache.w = cfg.width;  //画布宽
         self.cache.h = cfg.height;  //画布高
+
         self.objects = {}; //所有元素缓存
+
 		var shapes = self.shapes, cache = self.cache,
 			objs = self.objects, flatData = self.flatData;
+
 		//样式
 		var CENTER_STYLE = {'fill': '#5782C2', 'stroke': '#5782C2'},
 			TEXT_STYLE = {'fill': '#fff', 'font-size': '14px', 'font-weight': '400'};
+
 		//极径
 		var min = Math.round(Math.max(cache.w, cache.h)/6), circleRadius = Math.round(min/4);
 		self.circleRadius = circleRadius;
@@ -165,16 +172,20 @@ CloudSpectrum.prototype = {
 			if(ms){
 				var finalx = mar.cox + dx, finaly = mar.coy + dy, att;
 				if(!delay){
+
 					finaly<circleRadius+cache.h/2 && (finaly=circleRadius+cache.h/2+5);
 					finaly>(cache.h*2-circleRadius-cache.h/2) && (finaly=cache.h*2-circleRadius-cache.h/2-5);
 					finalx<circleRadius+cache.w/2 && (finalx=circleRadius+cache.w/2+5);
 					finalx>(cache.w*2-circleRadius-cache.w/2) && (finalx=cache.w*2-circleRadius-cache.w/2-5);
+
 					att = {'x': finalx, 'y': finaly, 'cx': finalx, 'cy': finaly};
 					tar.attr(att);
 					tardata.theta = Raphael.rad(Raphael.angle(finalx, finaly, cache.center.x, cache.center.y));
 					tardata.radius = self._computeLength(cache.center.x, cache.center.y, finalx, finaly);
+
 					delay = true;
 					
+
 					setTimeout(function(){
 						delay = false;
 					}, 40);
@@ -205,6 +216,7 @@ CloudSpectrum.prototype = {
 				}).mouseout(function () {
 					sha.attr({opacity: "1"});
 				});
+
 				if(cfg.mode == 'view'){
 					sha.click(function(e){
 						var di = this.data('dataIndex');
@@ -243,16 +255,18 @@ CloudSpectrum.prototype = {
         connect(data, data.childNodes);
         function connect(parent, children, pc){
         	var pobj = objs[parent.id];
-        	if(children.length > 0){
+        	if(children&&children.length){
         		for(var i=0; i<children.length; i++){
         			if(children[i]){
 	        			var child = children[i], id = child.id, obj = objs[id];
 	        			connections.push(r.connection(shapes[pobj.index], shapes[obj.index], {pid: parent.id, pname: parent.name, id:id, name: child.name}));
+
 	        			connect(child, child.childNodes);
         			}
         		}
         	}
         }
+
         for (var i = 0, ii = connections.length; i < ii; i++) {
 			var cs = connections[i];
 			(function(cln){
@@ -274,6 +288,7 @@ CloudSpectrum.prototype = {
 				}
 			})(cs);
 		}
+
 		/**
 		 * 遍历绘制节点
 		 *@param 栈(先进后出)
@@ -291,7 +306,7 @@ CloudSpectrum.prototype = {
 						var sha = drawShape(node.shape+'', [x, y], circleRadius*1.2);
 						getBound([x, y],circleRadius*1.2);
 						sha.attr({'fill': node.color, 'stroke': node.color}).data('setIndex', idx);
-						shapes.push(r.set().push(sha, r.text(x, y, node.name).attr(TEXT_STYLE).attr({"title":node.name}).data('setIndex', idx).data('dataIndex', idx)));
+						shapes.push(r.set().push(sha, r.text(x, y, node.name).attr(TEXT_STYLE).attr({"title":node.name,"font-size":(node.name.length>3?"10px":"14px")}).data('setIndex', idx).data('dataIndex', idx)));
 						objs[node.id] = {'x': x, 'y': y, 'theta':0, 'index':0};
 						node.theta = 0;
 						node.radius = 0;
@@ -316,7 +331,7 @@ CloudSpectrum.prototype = {
 							if(levelStack[1]){
 								levelStack[1] = levelStack[1] + node.childNodes.length;
 							}else{
-								levelStack[1] = node.childNodes.length;
+								node.childNodes&&(levelStack[1] = node.childNodes.length);
 							}
 						}
 						drawChildNode(pos, node.childNodes);
@@ -326,6 +341,7 @@ CloudSpectrum.prototype = {
 				}
 			}
 		}
+
 		/**
 		 * 绘制子节点
 		 *@param pos 父节点位置对象,x,y坐标和极角
@@ -333,7 +349,7 @@ CloudSpectrum.prototype = {
 		 *@param angle 极角
 		 */
 		function drawChildNode(pos, children){
-			if(!children.length){
+			if(!(children&&children.length)){
 				return;
 			}
 			var len = children.length, averWeight = self._getAverageWeight(children);
@@ -341,6 +357,7 @@ CloudSpectrum.prototype = {
 				//var averAngle = Math.atan(circleRadius*2.2/polarRadius);
 				//var averAngle = Math.PI/6;
 				//var a0 = Math.PI/2 - averAngle*(len-1)/2 - pos.theta;
+
 				var averAngle = Math.PI/len;
 				if(level == 2){
 					averAngle = Math.PI/10;
@@ -365,6 +382,7 @@ CloudSpectrum.prototype = {
 				}
 			}
 		}
+
 		/**
 		 * 绘制单个节点
 		 *@param pos 父节点位置对象
@@ -382,16 +400,17 @@ CloudSpectrum.prototype = {
 			}else{
 				p = self._polarToXY(pos, rad, angle);
 			}
+
 			var nodeShape,radius;
 			if(cfg.mode == 'edit'){
-				/*防止生成云谱图的时候出界*/
+				/*防止生成新闻云谱的时候出界*/
 				p[1]<circleRadius+cache.h/2 && (p[1]=circleRadius+cache.h/2+5);
 				p[1]>(cache.h*2-circleRadius-cache.h/2) && (p[1]=cache.h*2-circleRadius-cache.h/2-5);
 				p[0]<circleRadius+cache.w/2 && (p[0]=circleRadius+cache.w/2+5);
 				p[0]>(cache.w*2-circleRadius-cache.w/2) && (p[0]=cache.w*2-circleRadius-cache.w/2-5);   
 				nodeShape = drawShape('3', p, circleRadius).attr({'fill': node.color, 'stroke': node.color}).data('setIndex', idx);
 			}else{
-				/*防止生成云谱图的时候出界*/
+				/*防止生成新闻云谱的时候出界*/
 				p[1]<circleRadius&&(p[1]=circleRadius);
 				p[1]>(cache.h-circleRadius) && (p[1]=cache.h-circleRadius);
 				p[0]<circleRadius && (p[0]=circleRadius);
@@ -401,13 +420,14 @@ CloudSpectrum.prototype = {
 		    getBound(p,circleRadius);
 			angle = Raphael.rad(Raphael.angle(p[0], p[1], cache.center.x, cache.center.y));
 			radius = self._computeLength(cache.center.x, cache.center.y, p[0], p[1]);
-			shapes.push(r.set().push(nodeShape, r.text(p[0], p[1], node.name).attr(TEXT_STYLE)).attr({"title":node.name}).data('setIndex', idx).data('dataIndex', index));
+			shapes.push(r.set().push(nodeShape, r.text(p[0], p[1], node.name).attr(TEXT_STYLE)).attr({"title":node.name,"font-size":(node.name.length>3?"10px":"14px")}).data('setIndex', idx).data('dataIndex', index));
 			objs[node.id] = {'x': p[0], 'y': p[1], 'theta': angle, 'index': idx};
 			node.theta = angle;
 			//node.radius = rad/circleRadius;
 			node.radius = radius;
 			flatData.push(self.clone(node));
 		}
+
 		function drawShape(shapeType, p, circleRadius){
 			var shape;
 			switch(shapeType){
@@ -481,6 +501,7 @@ CloudSpectrum.prototype = {
 			return r.path(path);
 		}
 	},
+
 	save: function(){
 		var self = this, result=[];
 		for(var i=self.flatData.length-1; i>=0; i--){
@@ -489,6 +510,7 @@ CloudSpectrum.prototype = {
 		}
 		return result;
 	},
+
 	preview: function(){
 		var self = this, data=self.data, flatData=self.flatData;
 		
@@ -516,27 +538,32 @@ CloudSpectrum.prototype = {
 		this._DEFAULT=this.cfg=this.eventHandlers=this.cache =null;
 		this.paper.remove();
 	},
+
 	_publish: function(type, data){
 		var self = this, handlers = self.eventHandlers;
 		if(handlers[type]){
 			handlers[type].call(self.dom().query(self.cfg.node).elements[0], data);
 		}
 	},
+
 	//generate global unique id
 	_guid: function(){
 		return ++_uuid;
 	},
+
 	//极坐标转直角坐标
 	_polarToXY: function(pos, rad, angle){
 		var self = this, cfg = self.cfg, cache = self.cache, radis = self.circleRadius;
 		//var a = Raphael.angle(x, y, pos.x+radis*Math.cos(angle), pos.y+radis*Math.sin(angle))*Math.PI/180;
 		return [cache.center.x+rad*Math.cos(angle), cache.center.y+rad*Math.sin(angle)];
 	},
+
 	//计算长度
 	_computeLength: function(x1, y1, x2, y2){
 		var self = this, radis = self.circleRadius;
 		return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2))/radis;
 	},
+
 	//取得平均权值
 	_getAverageWeight: function(arr){
 		if(!arr.length) return 0;
@@ -546,6 +573,7 @@ CloudSpectrum.prototype = {
 		}
 		return sum/arr.length
 	},
+
 	//最简单的对象合并，只支持简单对象，且只merge对象第一级
 	merge: function(obj1, obj2){
 		for(var key in obj2){
@@ -553,6 +581,7 @@ CloudSpectrum.prototype = {
 		}
 		return obj1;
 	},
+
 	clone: function(obj){
 		var objClone = new Object();
 		for(var key in obj){
@@ -564,6 +593,7 @@ CloudSpectrum.prototype = {
         }
         return objClone;
     },
+
 	util: {
 		substitute: function(str, obj){
 			if (!(Object.prototype.toString.call(str) === '[object String]')) {
@@ -579,6 +609,7 @@ CloudSpectrum.prototype = {
     		});
 		}
 	},
+
 	//dom封装
 	dom: function(){
 		var self = this;
@@ -738,6 +769,7 @@ CloudSpectrum.prototype = {
 		}
 		EventTarget.prototype = {
 			constructor: EventTarget, 
+
 			on: function(type, handler){ 
 				this.handlers[type] = []; 
 			},
@@ -766,4 +798,5 @@ CloudSpectrum.prototype = {
 		};
 		return new Dom();
 	}
+
 };

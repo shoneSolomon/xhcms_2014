@@ -94,8 +94,17 @@
 <script>
 (function($){
 	require(["area","selectors"],function(){
-		$("#from").selectors({o:window.Area["亚洲_1"]["中国_156"]});
-		$("#birth").selectors({ beginDate : new Date("1900/1/1") });
+		$("#from").selectors({
+			o:window.Area["亚洲_1"]["中国_156"],
+			chainSpliter: ',',
+			hiddenEmpty: false
+		});
+		$("#birth").selectors({ 
+			beginDate : new Date("1900/1/1") 
+		});
+
+		var ChinaAreaMap = window.ChinaAreaMap;
+		delete window.ChinaAreaMap	//清除 ChinaAreaMap 后 idCard-valid将使用籍贯的非严格验证, 防止部分身份证查询不到数据
 
 		require(["formValid","idCard-valid"],function(){
 
@@ -120,7 +129,8 @@
 				"#name":{
 					defaultTip: "请输入真实姓名",
 					type:'chinese',
-					option: 'blur'
+					option: 'blur',
+					stringCtoh : true
 				},
 				"#idCard":{
 					option: 'blur',
@@ -128,8 +138,8 @@
 					type: 'IdCard',
 					success: function(input,validReturn){
 						$( '.sex' ).filter('[value="' + validReturn.sex + '"]').attr({checked:true}).change();
-						$( '#from' ).selectValue() || $( '#from' ).selectValue( input.val().substring(0,6) ).change();
-						$( '#birth' ).selectValue() || $( '#birth' ).selectValue( validReturn.birth.year+"-"+validReturn.birth.month+"-"+validReturn.birth.day  ).change();
+						$( '#from' ).selectValue( input.val().substring(0,6) ).change();
+						$( '#birth' ).selectValue( validReturn.birth.year+"-"+validReturn.birth.month+"-"+validReturn.birth.day  ).change();
 					}
 				},
 				".sex":{
@@ -142,6 +152,7 @@
 					option:'change'
 				}
 			},{
+				option: "blur change",
 				required: true
 			});
 
