@@ -16,8 +16,10 @@ paths = {
 	"form-style": "jquery-form/form-style.min",
 	formValid: "jquery-form/form-valid.min",
 	"idCard-valid": "jquery-form/idcard-valid.min",
-	selectors: "jquery-form/selectors.min",
+	selectors: "jquery-form/selectors",
 	area: "data/area.min",
+
+	imageAreaSelector: "jquery.imgareaselect/js/index.min",
 
 	iealert : "module/iealert/index",
 	requestAFrame : "module/requestAFrame",
@@ -128,6 +130,9 @@ require.config({
 		},
 		"idCard-valid":{
 			deps: ["formValid"]
+		},
+		imageAreaSelector : {
+			deps: ["css!jquery.imgareaselect/css/animated.css"]
 		}
 
 	}
