@@ -130,7 +130,7 @@
 		
 		_create : function(options,element){
 			var $this = this,
-				config = $.extend( {},$this.options,options) ,
+				config = $.extend($this.options,options) ,
 				withDefault = config.withDefault,
 				chainSpliter = config.chainSpliter,
 				hiddenEmpty = config.hiddenEmpty,
