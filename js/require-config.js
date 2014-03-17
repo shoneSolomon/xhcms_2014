@@ -29,7 +29,8 @@ paths = {
 	numberUtil: "module/number-util",
 	formUtil: "module/form-util",
 	cookie: "module/cookie",
-	qrcode: "module/qrcode/qrcode.min"
+	qrcode: "module/qrcode/qrcode.min",
+	frameUpload : "module/frame-upload/index"
 },
 ui = [
 "accordion",
