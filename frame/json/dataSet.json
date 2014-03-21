@@ -1,5 +1,9 @@
 {
-    "currentUser": {
+    "booleanList": [
+        "TRUE",
+        "FALSE"
+    ],
+    "m": {
         "admin": true,
         "blogUrl": "http://blogUrl",
         "createDate": 1392186890000,
@@ -16,5 +20,10 @@
         "status": "normal",
         "username": "admin",
         "weiboUrl": "http://weiboUrl"
-    }
+    },
+    "op": "查看",
+    "statusList": [
+        "normal",
+        "blocked"
+    ]
 }

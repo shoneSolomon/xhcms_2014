@@ -17,49 +17,49 @@
 		<li><a href="#tabs-3">修改头像</a></li>
 	</ul>
 	<div id="tabs-1">
-		<form id="write_form" name="basicinfor" onsubmit="" method="">
+		<form id="data_form" name="basicinfor" onsubmit="" method="">
 			<div class="form_setup">
 				<div class="item clearfix">
 					<span class="lable">用户名:</span>
 					<div class="text">
-						<input type="text" class="disabled" name="userName" style="border:none" value="username" disabled="disabled"/>
+						<input type="text" class="disabled" name="username" style="border:none" value="username" readonly="readonly" onfocus="this.blur()" id="username"/>
 					</div>
 				</div>
 				<div class="item clearfix">
 					<span class="lable">姓名:</span>
 					<div class="text">
-						<input type="text" name="name"/>
+						<input type="text" name="realname" id="realname"/>
 					</div>
 				</div>
 				<div class="item clearfix">
 					<span class="lable">性别:</span>
 					<div class="text text_radio">
-						<input type="radio" class="radio" name="radio" id="radio0" value="0"> <label for="radio0">男</label>
-						<input type="radio" class="radio" name="radio" id="radio1" value="1"> <label for="radio1">女</label>
-						<input type="radio" class="radio" name="radio" id="radio2" value="2"> <label for="radio2">保密</label>
+						<input type="radio" class="radio" name="sex" id="radio0" value="male"> <label for="radio0">男</label>
+						<input type="radio" class="radio" name="sex" id="radio1" value="female"> <label for="radio1">女</label>
+						<input type="radio" class="radio" name="sex" id="radio2" value="other"> <label for="radio2">保密</label>
 					</div>
 				</div>
 				<div class="item clearfix">
 					<span class="lable">联系邮箱:</span>
 					<div class="text">
-						<input type="text" name="mail"/>
+						<input type="text" name="email" id="email"/>
 					</div>
 				</div>
 				<div class="item clearfix">
 					<span class="lable">好友账号:</span>
 					<div class="text">
-						<input type="text" name="friendAccount"/>
+						<input type="text" name="weiboUrl" id="weiboUrl"/>
 					</div>
 					<span class="text-tip">用于关注</span>
 				</div>
 				<div class="item clearfix">
 					<span class="lable">外链地址:</span>
 					<div class="text">
-						<input type="text" name="directLink"/>
+						<input type="text" name="blogUrl" id="blogUrl"/>
 					</div>
 				</div>
 				<div class="info_submit">
-					<input type="button" class="fm-button" value="提交">
+					<input type="submit" class="fm-button" value="提交">
 				</div>
 			
 			</div>
@@ -71,23 +71,23 @@
 				<div class="item clearfix">
 					<span class="lable">原密码:</span>
 					<div class="text">
-						<input type="password" name="pass">
+						<input type="password" name="pass" id="pass">
 					</div>
 				</div>
 				<div class="item clearfix">
 					<span class="lable">新密码:</span>
 					<div class="text">
-						<input type="text" name="pass1" />
+						<input type="password" name="pass1" id="pass1" />
 					</div>
 				</div>
 				<div class="item clearfix">
 					<span class="lable">确认密码:</span>
 					<div class="text">
-						<input type="text" name="pass2"/>
+						<input type="password" name="pass2" id="pass2"/>
 					</div>
 				</div>
 				<div class="info_submit">
-					<input type="button" class="fm-button" value="提交">
+					<input type="submit" class="fm-button" value="提交">
 				</div>
 			</div>
 		</form>
@@ -114,19 +114,67 @@
 					<img class="img3" src="../images/img.png"/>
 				</div>
 				<div class="info_submit">
-					<input type="button" class="fm-button" value="提交">
+					<input type="submit" class="fm-button" value="提交">
 				</div>
 			</div>
 		</form>
 	</div>
 </div>
 
+<script src="js/frame.js"></script>
 <script>
 (function(){
-	$(".disabled").val( $(".login_name",parent.document).html());
+	var dataSetURL=$.initFrame('dataSet').URL;
 	require(["requestAFrame","form-style","alerts","tabs"],function(r){
 		$(".radio").toRadio();
 		$("#tabs").tabs();
+		$.ajax({
+			url:dataSetURL.dataSet+window.top.id+".json",
+			dataType:'json',
+			success:function(data){
+				id=data.m.id;
+				$("#username").val(data.m.username);
+				$("#realname").val(data.m.realname);
+				switch(data.m.sex){
+					case "male":
+						$("#radio0").trigger("click");
+						 break;
+					case "female":
+						$("#radio1").trigger("click");
+						 break;
+					default:
+						$("radio2").trigger("click");
+						 break;
+				};
+				$("#email").val(data.m.email);
+				$("#weiboUrl").val(data.m.weiboUrl);
+				$("#blogUrl").val(data.m.blogUrl);
+			}
+		});
+		$("#data_form").on("submit",function(e){
+			$.ajax({
+				url:dataSetURL.dataUp+window.top.id+"/update.json",
+				data: $(this).serialize(),
+				dataType:"json",
+				type:"post",
+				success:function(data){
+					jAlert("提交成功","信息");
+				}
+			});
+			e.preventDefault();
+		});
+		$("#change_password").on("submit",function(e){
+			if($("#pass1").val()==$("#pass2").val()){
+
+			}else{
+				jAlert("两次输入密码不一致","信息");
+				return false;
+			};
+			e.preventDefault();
+		});
+	});
+
+	require(["requestAFrame"],function(r){
 		var originalPath1 = "";
 		r.addTimeout("listen-val", (function(){
 			var fn = function(){

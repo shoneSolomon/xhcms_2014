@@ -61,7 +61,7 @@ define(function(require, exports, module){
     			var input = doc.getElementById('upload');
     			if(input && !input.getAttribute('ajax-init') ){
 
-    				input.onchange = opt.onchange;
+                      
     				
     				var form = input.parentNode;
     				form.action = opt.action;
@@ -84,7 +84,15 @@ define(function(require, exports, module){
 
     					form.submit();
     				};
-    				input.setAttribute('ajax-init','true')
+
+                    input.submit = _this.submit;
+                    for(var e in opt){  //事件绑定,所有on开始的key都绑定到input上面
+                        if( 0 === e.indexOf("on") && typeof opt[e] === 'function' ){
+                            input[e] = opt[e];
+                        }
+                    } 
+
+    				input.setAttribute('ajax-init','true');
     			}
     		});
 

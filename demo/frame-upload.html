@@ -46,9 +46,10 @@
 		var frameUpload0 = new FrameUpload({
 			el: up0[0],
 			src: "json/iframe-upload.html",
-			action: "/upload?uploadUrl=/temp&target=/demo/json/success.html",
+			action: "/upload?uploadUrl=/demo/php/temp&target=/demo/json/success.html",
 			onchange: function(){
 				show0.html( this.value.match(/[^\\\/]+$/) );
+				this.submit();
 			},
 			afterUpload: function(data){
 				if(data.status){
@@ -61,7 +62,7 @@
 
 		var frameUpload1 = new FrameUpload({
 			el: up1[0],
-			action: "/upload?uploadUrl=/temp&target=/demo/json/success.html",
+			action: "/upload?uploadUrl=/demo/php/temp&target=/demo/json/success.html",
 			onchange: function(){
 				show1.html( this.value.match(/[^\\\/]+$/) );
 			},
@@ -75,13 +76,17 @@
 		});
 
 		$("#submit").on('click',function(){
+			var sum = 0;
 			try{
-				frameUpload0.submit();
-				frameUpload1.submit();
+				frameUpload0.submit(); sum++;
 				up0.html("上传中...");
+			}catch(e){};
+			try{
+				frameUpload1.submit(); sum++;
 				up1.html("上传中...");
-			}catch(e){
-				alert('请选择文件');
+			}catch(e){};
+			if( !sum ){
+				alert("需要选择文件");
 			}
 				
 		});

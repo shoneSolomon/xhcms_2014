@@ -3,6 +3,16 @@ window.isLocal = !( location.host && /(news\.cn)|(66\.(11)|(12))/.test(location.
 
 var conf = 	
 {
+
+	'dataSet':{
+		URL :(isLocal ? {
+			dataSet:"/web/admin/sys/user/",
+			dataUp:"/web/admin/sys/user/"
+		}:{
+			dataSet:"/web/admin/sys/user/",
+			dataUp:"/web/admin/sys/user/"
+		})
+	},
 	'msg':{
 		navLine: '<a href="javascript:void(0);">站内信</a>',
 		URL : (isLocal ? {
@@ -121,9 +131,9 @@ $.initFrame = function(key){
 		}
 
 		//测试时候使用
-		if( !window.isLocal ){
+		if( true || !window.isLocal ){
 			for (var k in _this.URL) {
-				_this.URL[k] = _this.URL[k].replace("/web/admin","/agent?http://172.18.11.80:901/web/admin");
+				_this.URL[k] = _this.URL[k].replace("/web/admin","http://172.18.11.80/web/admin");
 			};
 		}
 			

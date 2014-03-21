@@ -94,15 +94,29 @@
 	}
 
 	var CONF = isLocal ? {
-		userInfo : "json/getCurrentUser.json",
+		userInfo : "http://172.18.11.80/web/current/user.json",
 		msgCount : "json/v_countUnreadMsg.json",
 		menu 	 : "json/getMenu.json"
 	} : {
-		userInfo : "json/getCurrentUser.json",
+		userInfo : "http://172.18.11.80/web/current/user.json",
 		msgCount : "json/v_countUnreadMsg.json",
 		menu 	 : "json/getMenu.json"
 	};
+	/*for(var key in CONF){
+		var _this = CONF[key];
+		if( true || !window.isLocal ){
+			_this = _this.replace("/web/current","http://172.18.11.80/web/current");
+		}
+	};
+	$.ajax({
+		url:"http://172.18.11.80/web/current/user.json",
+		dataType:"json", 
+		type:"get",
+		success:function(){
+			console.log("hello")
+		}
 
+	})*/
 	$("#site-select").on('change',function(){
 		switch( this.value ){
 			case '2': window.location.href="../../xhadmin/index.do?_site_id_param=2";
@@ -136,9 +150,10 @@
 		type:"post",
 		dataType:"json",
 		success: function(data){
-			if(data.success){
-				$(".login_name").html(data.content.username);
-			}
+			
+				$(".login_name").html(data.currentUser.username);
+				window.id=data.currentUser.id;
+			
 		},
 		error: function(){
 			window.top.location.href = "../../xhadmin/login.do?returnUrl=/xhcms_2014/html/index.html";
