@@ -61,8 +61,6 @@ define(function(require, exports, module){
     			var input = doc.getElementById('upload');
     			if(input && !input.getAttribute('ajax-init') ){
 
-                      
-    				
     				var form = input.parentNode;
     				form.action = opt.action;
     				_this.submit = function(){
@@ -93,6 +91,7 @@ define(function(require, exports, module){
                     } 
 
     				input.setAttribute('ajax-init','true');
+                    (typeof opt.ready === 'function') && opt.ready.call(input)
     			}
     		});
 
