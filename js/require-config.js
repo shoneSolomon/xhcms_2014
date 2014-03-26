@@ -6,7 +6,10 @@ paths = {
 	alerts: "jqueryui/jquery.alerts",
 	raphael: "raphael.min",
 	template: "template/handlebars.min",
+	
 	cloudMap: "cloudspectrum/cloudspectrum.min",
+	timeline: "timeline/storyjs-embed.min",
+
 	css: "css.min",
 	underscore: "underscore/underscore.min",
 	zTree: "zTree/jquery.ztree.all-3.5.min",

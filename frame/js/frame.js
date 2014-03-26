@@ -6,27 +6,33 @@ var conf =
 
 	'dataSet':{
 		URL :(isLocal ? {
-			dataSet:"/web/admin/sys/user/",
-			dataUp:"/web/admin/sys/user/"
+			dataSet:"json/dataSet.json",
+			dataUp:"json/dataUp.json",
+			changePassword:"json/changePassword.json"
 		}:{
-			dataSet:"/web/admin/sys/user/",
-			dataUp:"/web/admin/sys/user/"
+			dataSet:"/web/current/user.json",
+			dataUp:"/web/current/user/update.json",
+			changePassword:"/web/current/user/changePassword.json"
 		})
 	},
 	'msg':{
 		navLine: '<a href="javascript:void(0);">站内信</a>',
 		URL : (isLocal ? {
 				groups : "json/groups.json",
-				submit_form: "json/success.json",
-				send_lists: "json/msgList.json",
-				receive_lists: "json/msgList.json",
-				recycle_lists: "json/msgList.json"
+				submit_form: "json/createMsg.json",
+				send_lists: "json/msgSendList.json",
+				receive_lists: "json/msgReceiveList.json",
+				recycle_lists: "json/msgRecycleList.json",
+				deleteMsg:"json/success.json",
+				deleteRecycle:"json/success.json"
 			} : {
 				groups : "json/groups.json",
-				submit_form: "json/success.json",
-				send_lists: "/web/admin/msg/user/send/list.json?",
-				receive_lists: "/web/admin/msg/user/all/list.json?",
-				recycle_lists: "/web/admin/msg/user/recycle/list.json?"
+				submit_form: "/web/admin/msg/create.json",
+				send_lists: "/web/admin/msg/all/send/list.json?",
+				receive_lists: "/web/admin/msg/all/all/list.json?",
+				recycle_lists: "/web/admin/msg/user/recycle/list.json?",
+				deleteMsg:"/web/admin/msg/{{id}}/deleted.json",
+				deleteRecycle:"/web/admin/msg/{{id}}/recycle.json"
 			})
 	},
 	"clmConfigur":{
@@ -113,7 +119,7 @@ var conf =
 		URL:(isLocal?{
 			letterContent:"json/letter-cont.json"
 		}:{
-			letterContent:"json/letter-cont.json"
+			letterContent:"/web/admin/msg/{{id}}.json"
 		})
 	}             //end
 
@@ -134,6 +140,7 @@ $.initFrame = function(key){
 		if( true || !window.isLocal ){
 			for (var k in _this.URL) {
 				_this.URL[k] = _this.URL[k].replace("/web/admin","http://172.18.11.80/web/admin");
+				_this.URL[k] = _this.URL[k].replace("/web/current","http://172.18.11.80/web/current");
 			};
 		}
 			

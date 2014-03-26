@@ -2,21 +2,26 @@
     "m": {
         "id": 2,
         "new": false,
-        "sendStatus": "send",
-        "sendUser": {
-            "admin": true,
-            "createDate": 1392186890000,
+        "receiveUser": {
+            "admin": false,
+            "blogUrl": "xxxxx",
             "deleted": false,
             "displayOrganizationJobs": {},
-            "email": "admin@sishuok.com",
+            "email": "xxxxx@xxxx.comx",
             "id": 1,
-            "mobilePhoneNumber": "13412345671",
             "new": false,
             "organizationJobs": [],
             "password": "ec21fa1738f39d5312c6df46002d403d",
+            "realname": "xxx",
             "salt": "yDd1956wn1",
+            "sex": "male",
             "status": "normal",
-            "username": "admin"
+            "username": "admin",
+            "weiboUrl": "w"
+        },
+        "sendStatus": "send",
+        "sendUser": {
+            "$ref": "$.m.receiveUser"
         },
         "status": "unread",
         "text": {

@@ -147,16 +147,15 @@
 
 	$.ajax({		//获取登录用户信息
 		url: CONF.userInfo,
-		type:"post",
+		type:"GET",
 		dataType:"json",
 		success: function(data){
 			
-				$(".login_name").html(data.currentUser.username);
-				window.id=data.currentUser.id;
+				$(".login_name").html(data.user.username);
 			
 		},
 		error: function(){
-			window.top.location.href = "../../xhadmin/login.do?returnUrl=/xhcms_2014/html/index.html";
+			//window.top.location.href = "../../xhadmin/login.do?returnUrl=/xhcms_2014/html/index.html";
 		}
 	});
 

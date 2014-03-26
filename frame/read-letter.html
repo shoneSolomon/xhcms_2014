@@ -62,7 +62,7 @@ var URL=$.initFrame('letterContent').URL;
 		var id = Q("id");
 		T.init({
 			tmpl:"#temp_send_lists",
-			sourceUrl:URL.letterContent,
+			sourceUrl:URL.letterContent.replace("{{id}}",id),
 			callback:function(){
 				$(".replyRead").on("click",function(){
 					 window.location.href="msg.html?id="+id;
@@ -74,7 +74,7 @@ var URL=$.initFrame('letterContent').URL;
 				});
 				$(".deleteLetter").on("click",function(){
 					$.ajax({
-						url:"json/success.json",
+						url:URL.deleteMsg.replace("{{id}}",id),
 						data:id,
 						success:function(data){
 							jTip( '删除成功', 2000 );
@@ -93,7 +93,7 @@ var URL=$.initFrame('letterContent').URL;
 			},
 			sourceData:function(){
 				return {
-					Ids:id
+					id:id
 				};
 			}
 		});	

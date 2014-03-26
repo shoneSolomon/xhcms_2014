@@ -36,7 +36,7 @@
 					<div class="text text_radio">
 						<input type="radio" class="radio" name="sex" id="radio0" value="male"> <label for="radio0">男</label>
 						<input type="radio" class="radio" name="sex" id="radio1" value="female"> <label for="radio1">女</label>
-						<input type="radio" class="radio" name="sex" id="radio2" value="other"> <label for="radio2">保密</label>
+						<input type="radio" class="radio" name="sex" id="radio2" value="confidential"> <label for="radio2">保密</label>
 					</div>
 				</div>
 				<div class="item clearfix">
@@ -129,34 +129,34 @@
 		$(".radio").toRadio();
 		$("#tabs").tabs();
 		$.ajax({
-			url:dataSetURL.dataSet+window.top.id+".json",
+			url:dataSetURL.dataSet,
 			dataType:'json',
+			type:"Get",
 			success:function(data){
-				id=data.m.id;
-				$("#username").val(data.m.username);
-				$("#realname").val(data.m.realname);
-				switch(data.m.sex){
+				$("#username").val(data.user.username);
+				$("#realname").val(data.user.realname);
+				switch(data.user.sex){
 					case "male":
 						$("#radio0").trigger("click");
 						 break;
 					case "female":
 						$("#radio1").trigger("click");
 						 break;
-					default:
+					case "confidential":
 						$("radio2").trigger("click");
 						 break;
 				};
-				$("#email").val(data.m.email);
-				$("#weiboUrl").val(data.m.weiboUrl);
-				$("#blogUrl").val(data.m.blogUrl);
+				$("#email").val(data.user.email);
+				$("#weiboUrl").val(data.user.weiboUrl);
+				$("#blogUrl").val(data.user.blogUrl);
 			}
 		});
 		$("#data_form").on("submit",function(e){
 			$.ajax({
-				url:dataSetURL.dataUp+window.top.id+"/update.json",
+				url:dataSetURL.dataUp,
+				type:"Post",
 				data: $(this).serialize(),
 				dataType:"json",
-				type:"post",
 				success:function(data){
 					jAlert("提交成功","信息");
 				}
@@ -164,13 +164,38 @@
 			e.preventDefault();
 		});
 		$("#change_password").on("submit",function(e){
-			if($("#pass1").val()==$("#pass2").val()){
-
-			}else{
-				jAlert("两次输入密码不一致","信息");
+			var tip=$("<span id='tipafter'></span>")
+			$("#tipafter").remove();
+			if($("#pass").val()==""){
+				tip.html("请填写原密码");
+				$("#pass").after(tip);
+				return false;	
+			};
+			if($("#pass1").val()==""){
+				tip.html("请填写新密码");
+				$("#pass1").after(tip);
+				return false;
+			};
+			if($("#pass2").val()==""){
+				tip.html("请填确认新密码");
+				$("#pass2").after(tip);
+				return false;
+			};
+			if($("#pass1").val()!==$("#pass2").val()){
+				tip.html("两次填写的密码不一致");
+				$("#pass2").after(tip);
 				return false;
 			};
 			e.preventDefault();
+			$.ajax({
+				url:dataSetURL.changePassword,
+				type:"Get",
+				data:$(this).serialize(),
+				dataType:"json",
+				success:function(){
+					jAlert("提交成功","信息");
+				}
+			})
 		});
 	});
 

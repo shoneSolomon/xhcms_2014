@@ -207,12 +207,10 @@
 	});
 
 	$.ajax({
-		url : isLocal ? "http://172.18.11.80/web/current/system.json" : "../../xhadmin/basic/getInfo.do",
+		url : isLocal ? "../html/json/system.json" : "http://172.18.11.80/web/current/system.json",
 		dataType: "json",
 		success: function(data){
 			var o = data.systemInfo;
-			console.log(data);
-
 			function get( key ){
 				var keys = key.split("/");
 				switch( keys.length ){

@@ -85,7 +85,7 @@
 					{{#each content}}
 						<tr class="">
 							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb1-{{id}}" value="0"></td>
-							<td class="from_name">{{sendUser/username}}</td>
+							<td class="from_name">{{receiveUser/username}}</td>
 							<td>{{text/title}}</td>
 							<td>{{text/body}}</td>
 							<td class="send_time">{{{Date text/createDate}}}</td>
@@ -113,8 +113,8 @@
 					{{#each content}}
 						<tr class="{{{Switch status}}}">
 							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb1-{{id}}" value="0"></td>
-							<td class="from_name">{{sendUser/username}}</td>
-							<td><a href="read-letter.html?id={{text/id}}">{{text/title}}</a></td>
+							<td class="from_name">{{receiveUser/username}}</td>
+							<td><a href="read-letter.html?id={{id}}">{{text/title}}</a></td>
 							<td>{{text/body}}</td>
 							<td class="send_time">{{{Date text/createDate}}}</td>
 						</tr>
@@ -148,7 +148,7 @@
 					{{#each content}}
 						<tr class="">
 							<td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb1-{{id}}" value="0"></td>
-							<td class="from_name">{{sendUser/username}}</td>
+							<td class="from_name">{{receiveUser/username}}</td>
 							<td>{{text/title}}</td>
 							<td>{{text/body}}</td>
 							<td class="send_time">{{{Date text/createDate}}}</td>
@@ -171,7 +171,7 @@
 	var URL = $.initFrame('msg').URL;
 	var writeForm=$("#write_form");
 
-	require(["template-init","form-style","dateUtil","alerts"],function(T,f,DateUtil){
+	require(["template-init","form-style","dateUtil","queryparam","alerts"],function(T,f,DateUtil,Q){
 
 		Handlebars.registerHelper('Date', function(t) {
 			if( !t ) return t;
@@ -200,8 +200,9 @@
 				group.toSelect();
 				$(".radio", writeForm).toRadio();
 				if(window.top.transpond||window.top.reply_read){
+					var id = Q("id");
 					$.ajax({
-						url:letterURL.letterContent,
+						url:letterURL.letterContent.replace("{{id}}",id),
 						dataType:"json",
 						success:function(data){
 							if(window.top.transpond){
@@ -282,6 +283,7 @@
 				if( $(this).formValid() ){
 					$.ajax({
 						url: URL.submit_form,
+						type:"get",
 						data: $(this).serialize(),
 						dataType: "json",
 						success: function(data){
@@ -333,7 +335,7 @@
 		$("#tabs").tabs();
 	})
 
-	require(["template-init","alerts"],function(T){
+	require(["template-init","alerts","form-style"],function(T){
 		
 
 		$("#moveTo").on("change",function(){
@@ -349,20 +351,20 @@
 				T.refresh({
 					tmpl:"#temp_recycle_lists",
 					type:"post",
-					sourceUrl:URL.send_lists,
+					sourceUrl:URL.recycle_lists,
 					callback:function(){
 						$(".checkbox").toCheckbox();	
 					},
 					sourceData:function(){
 						if(this.value=="2"){
 							return {
-								idT:"2",
-								deleteIds:arr.join(",")
+								idTo:"2",
+								Ids:arr.join(",")
 							};
 						}else{
 							return {
 								idTo:"3",
-								deleteIds:arr.join(",")
+								Ids:arr.join(",")
 							};
 						}
 					}
@@ -372,7 +374,7 @@
 		});
 
 		
-		
+		/*发信箱列表删除*/
 		$("#send_mail").find(".btn-delete").on("click",function(){
 
 			var checkboxs=$("#send_mail").find(".checkbox");
@@ -382,25 +384,26 @@
 					arr.push(checkboxs[i].id);
 				}
 			}
-			if(arr[0]){
+			if(arr[0]&&!arr[1]){
 				jConfirm('<h2 class="title"></h2> <p>是否删除该条信息</p> ',"",{
 					okButton : "是",
 					cancelButton : "否"
 				},function(result){
 					if(result ){
-						//发信箱列表删除
-						T.refresh({
-							tmpl:"#temp_send_lists",
-							sourceUrl:URL.send_lists,
-							callback:function(){
-								$(".checkbox").toCheckbox();	
-							},
-							sourceData:function(){
-								return {
-									deleteIds:arr.join(",")
-								};
+						var id=arr[0].substring(4);
+						$.ajax({
+							url:URL.deleteMsg.replace("{{id}}",id),
+							type:"post",
+							success:function(){
+								T.init({
+									tmpl:"#temp_send_lists",
+									sourceUrl:URL.send_lists,
+									callback:function(){
+										$(".checkbox").toCheckbox();	
+									}
+								});
 							}
-						});
+						})
 					}
 				});	
 			}else if(arr[1]){
@@ -411,6 +414,8 @@
 			}			
 		})
 		
+
+		/*收件箱删除*/
 		$("#receive_mail").find(".btn-delete").on("click",function(){
 			var checkboxs=$("#receive_mail").find(".checkbox");	
 			var arr=[];
@@ -419,24 +424,27 @@
 					arr.push(checkboxs[i].id);
 				}
 			}
-			if(arr[0]){
+			if(arr[0]&&!arr[1]){
 				 jConfirm('<h2 class="title"></h2> <p>是否删除该条信息</p> ',"",{
 					okButton : "是",
 					cancelButton : "否"
 				},function(result){
+					var id=arr[0];
 					if(result ){
-						T.refresh({
-							tmpl:"#temp_receive_lists",
-							sourceUrl:URL.send_lists,
-							callback:function(){
-								$(".checkbox").toCheckbox();	
-							},
-							sourceData:function(){
-								return {
-									deleteIds:arr.join(",")
-								};
+						var id=arr[0].substring(4);
+						$.ajax({
+							url:URL.deleteMsg.replace("{{id}}",id),
+							type:"post",
+							success:function(){
+								T.init({
+									tmpl:"#temp_send_lists",
+									sourceUrl:URL.receive_lists,
+									callback:function(){
+										$(".checkbox").toCheckbox();	
+									}
+								});
 							}
-						});
+						})
 					}
 				});	
 			}else if(arr[1]){
@@ -455,24 +463,26 @@
 					arr.push(checkboxs[i].id);
 				}
 			}
-			if(arr[0]){
+			if(arr[0]&&!arr[1]){
 				jConfirm('<h2 class="title"></h2> <p>是否删除该条信息</p> ',"",{
 					okButton : "是",
 					cancelButton : "否"
 				},function(result){
 					if(result ){
-						T.refresh({
-							tmpl:"#temp_recycle_lists",
-							sourceUrl:URL.send_lists,
-							callback:function(){
-								$(".checkbox").toCheckbox();	
-							},
-							sourceData:function(){
-								return {
-									deleteIds:arr.join(",")
-								};
+						var id=arr[0].substring(4);
+						$.ajax({
+							url:URL.deleteRecycle.replace("{{id}}",id),
+							type:"post",
+							success:function(){
+								T.init({
+									tmpl:"#temp_send_lists",
+									sourceUrl:URL.recycle_lists,
+									callback:function(){
+										$(".checkbox").toCheckbox();	
+									}
+								});
 							}
-						});
+						})
 					}
 				});	
 			}else if(arr[1]){

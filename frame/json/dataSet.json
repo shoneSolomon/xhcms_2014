@@ -1,29 +1,28 @@
 {
     "booleanList": [
-        "TRUE",
+        "TRUE", 
         "FALSE"
-    ],
-    "m": {
-        "admin": true,
-        "blogUrl": "http://blogUrl",
-        "createDate": 1392186890000,
-        "deleted": false,
-        "displayOrganizationJobs": {},
-        "email": "admin@sishuok.com",
-        "id": 1,
-        "mobilePhoneNumber": "13412345671",
-        "new": false,
-        "organizationJobs": [],
-        "realname": "某管理员",
-        "salt": "yDd1956wn1",
-        "sex": "male",
-        "status": "normal",
-        "username": "admin",
-        "weiboUrl": "http://weiboUrl"
-    },
-    "op": "查看",
+    ], 
+    "op": "查看个人资料", 
     "statusList": [
-        "normal",
+        "normal", 
         "blocked"
-    ]
+    ], 
+    "user": {
+        "admin": false, 
+        "blogUrl": "xxxxx", 
+        "deleted": false, 
+        "displayOrganizationJobs": { }, 
+        "email": "xxxxx@xxxx.com", 
+        "id": 1, 
+        "new": false, 
+        "organizationJobs": [ ], 
+        "password": "ec21fa1738f39d5312c6df46002d403d", 
+        "realname": "xxx", 
+        "salt": "yDd1956wn1", 
+        "sex": "male", 
+        "status": "normal", 
+        "username": "admin", 
+        "weiboUrl": "web"
+    }
 }
