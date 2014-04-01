@@ -24,15 +24,19 @@ var conf =
 				receive_lists: "json/msgReceiveList.json",
 				recycle_lists: "json/msgRecycleList.json",
 				deleteMsg:"json/success.json",
-				deleteRecycle:"json/success.json"
+				deleteMsgs:"json/success.json",
+				deleteRecycle:"json/success.json",
+				deleteRecycles:"json/success.json"
 			} : {
 				groups : "json/groups.json",
 				submit_form: "/web/admin/msg/create.json",
 				send_lists: "/web/admin/msg/all/send/list.json?",
 				receive_lists: "/web/admin/msg/all/all/list.json?",
 				recycle_lists: "/web/admin/msg/user/recycle/list.json?",
-				deleteMsg:"/web/admin/msg/{{id}}/deleted.json",
-				deleteRecycle:"/web/admin/msg/{{id}}/recycle.json"
+				deleteMsg:"/web/admin/msg/{{id}}/recycle.json",
+				deleteMsgs:"/web/admin/msg/batch/recycle.json",
+				deleteRecycle:"/web/admin/msg/{{id}}/delete.json",
+				deleteRecycles:"/web/admin/msg/batch/delete.json"
 			})
 	},
 	"clmConfigur":{

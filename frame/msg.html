@@ -8,18 +8,6 @@
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/require.js"></script>
 	<script src="../js/require-config.js"></script>
-	<style>
-		.tip-error{
-			font-size: 12px;
-			padding-left: 8px;
-			color: #c00;
-		}
-		.tip-default{
-			font-size: 12px;
-			padding-left: 8px;
-			color: #666;
-		}
-	</style>
 </head>
 <body class="inner-frame">
 	<div id="tabs">
@@ -35,9 +23,9 @@
 				<div class="item clearfix">
 					<span class="lable">收件人:</span>
 					<div class="text">
-						<input type="radio" class="radio" name="type" id="radio0" value="user" checked="checked"> <label for="radio0">个人</label>
-						<input type="text" name="personage" placeholder="个人姓名" id="to-person"/>
-						<input type="radio" class="radio" name="type" id="radio1" value="sys"> <label for="radio1">会员组</label>
+						<input type="radio" class="radio" name="typeReceive" id="radio0" value="user" checked="checked"> <label for="radio0">个人</label>
+						<input type="text" placeholder="个人姓名" id="to-person" name="name0"/>
+						<input type="radio" class="radio" name="typeReceive" id="radio1" value="sys"> <label for="radio1">会员组</label>
 						<select name="group" class="select1" id="to-group">
 							<option value="">请选择</option>
 						</select>
@@ -46,24 +34,26 @@
 							<option value="{{code}}">{{name}}</option>
 							{{/each}}
 						</script>
-						<input type="hidden" name="username" id="user_name">
+						<input type="hidden" name="receiveUsername" id="user_name">
+						<input type="hidden" name="receiveUser" id="receiveUser">
 						<span class='tip tip-default'></span>
 					</div>
 				</div>
 				<div class="item clearfix">
 					<span class="lable">主题:</span>
 					<div class="text">
-						<input type="text" name="title" class="theme" id="txt-title"/>
+						<input type="text" name="text.title" class="theme" id="txt-title"/>
 						<span class='tip tip-default'></span>
 					</div>
 				</div>
 				<div class="item item_details clearfix" >
 					<span class="lable">内容:</span>
 					<div class="text">
-						<textarea type="text" name="body" id="txt-body"></textarea>
+						<textarea type="text" name="text.body" id="txt-body"></textarea>
 						<span class='tip tip-default'></span>
 					</div>
 				</div>
+				<input type="hidden" name="type" value="user">
 				<div class="info_submit">
 					<input type="submit" class="fm-button" value="提交">
 				</div>
@@ -170,6 +160,7 @@
 	var letterURL=$.initFrame('letterContent').URL;
 	var URL = $.initFrame('msg').URL;
 	var writeForm=$("#write_form");
+	var receiveUser;
 
 	require(["template-init","form-style","dateUtil","queryparam","alerts"],function(T,f,DateUtil,Q){
 
@@ -230,9 +221,19 @@
 				radio1.on("click",function(){
 					user_name.val(group.val());
 				});
-				person.on("keyup change",function(){
-					if(radio0.is(":checked"))user_name.val( this.value );
-				});
+				// person.on("blur change",function(){
+				// 	if(radio0.is(":checked"))user_name.val( this.value );
+				// 	$.ajax({
+				// 		url:"http://172.18.11.80/web/admin/validate/user/admin.json",
+				// 		data:this.value,
+				// 		type:"GET",
+				// 		success:function(data){
+				// 			if(data["m"]["admin"]){
+
+				// 			}
+				// 		}
+				// 	})
+				// });
 				group.on("change",function(){
 					if(radio1.is(":checked"))user_name.val( this.value );
 				});
@@ -259,6 +260,32 @@
 			};
 
 			$.form.render({
+				"#to-person":{
+					option:"change",
+					validFun:function(value){
+						var v = {errorInfo:""};
+						if( $("#radio0").is(":checked") ){
+							$("#user_name").val( value );
+							$.ajax({
+								url:"http://172.18.11.80/web/admin/validate/user/"+value+".json",
+								type:"GET",
+								async: false,
+								success:function(data){
+									if(!data["m"]){
+										v.errorInfo = "收件人不存在";
+									}else{
+										$("#receiveUser").val(data["m"]["id"]);
+									}
+
+								},
+								error:function(){
+									v.errorInfo = "服务数据异常";
+								}
+							});
+						}
+						return v;
+					}
+				},
 				"#user_name":{
 					requiredTip : "请填写收件人信息"
 				},
@@ -280,10 +307,10 @@
 			});
 
 			$("#write_form").on('submit',function(e){
-				if( $(this).formValid() ){
+				if( $(this).formValid('input',{interrupt:true}) ){
 					$.ajax({
 						url: URL.submit_form,
-						type:"get",
+						type:"POST",
 						data: $(this).serialize(),
 						dataType: "json",
 						success: function(data){
@@ -390,10 +417,10 @@
 					cancelButton : "否"
 				},function(result){
 					if(result ){
-						var id=arr[0].substring(4);
+						var id=arr.join(",").replace(/cb1-/g,"").split(",")
 						$.ajax({
 							url:URL.deleteMsg.replace("{{id}}",id),
-							type:"post",
+							type:"POST",
 							success:function(){
 								T.init({
 									tmpl:"#temp_send_lists",
@@ -407,7 +434,28 @@
 					}
 				});	
 			}else if(arr[1]){
-					$(".delete_content").html("是否删除多条信息");
+					jConfirm('<h2 class="title"></h2> <p>是否删除多条信息</p> ',"",{
+					okButton : "是",
+					cancelButton : "否"
+				},function(result){
+					if(result ){
+						var id=arr.join(",").replace(/cb1-/g,"").split(",");
+						$.ajax({
+							url:URL.deleteMsgs,
+							type:"POST",
+							data:"ids"+id,
+							success:function(){
+								T.init({
+									tmpl:"#temp_send_lists",
+									sourceUrl:URL.send_lists,
+									callback:function(){
+										$(".checkbox").toCheckbox();	
+									}
+								});
+							}
+						})
+					}
+				});	
 			}else if(!arr[0]){
 			
 				jAlert("请选择要删除的数据");
@@ -431,13 +479,13 @@
 				},function(result){
 					var id=arr[0];
 					if(result ){
-						var id=arr[0].substring(4);
+						var id=arr.join(",").replace(/cb1-/g,"").split(",");
 						$.ajax({
 							url:URL.deleteMsg.replace("{{id}}",id),
-							type:"post",
+							type:"POST",
 							success:function(){
 								T.init({
-									tmpl:"#temp_send_lists",
+									tmpl:"#temp_receive_lists",
 									sourceUrl:URL.receive_lists,
 									callback:function(){
 										$(".checkbox").toCheckbox();	
@@ -448,13 +496,36 @@
 					}
 				});	
 			}else if(arr[1]){
-					$(".delete_content").html("是否删除多条信息");
+					jConfirm('<h2 class="title"></h2> <p>是否删除多条信息</p> ',"",{
+					okButton : "是",
+					cancelButton : "否"
+				},function(result){
+					if(result ){
+						var id=arr.join(",").replace(/cb1-/g,"").split(",");
+						$.ajax({
+							url:URL.deleteMsgs,
+							type:"POST",
+							data:"ids="+id,
+							success:function(){
+								T.init({
+									tmpl:"#temp_receive_lists",
+									sourceUrl:URL.receive_lists,
+									callback:function(){
+										$(".checkbox").toCheckbox();	
+									}
+								});
+							}
+						})
+					}
+				});	
 			}else if(!arr[0]){
 			
 				jAlert("请选择要删除的数据");
 			}			
 		})
 		
+
+		/*回收站删除*/
 		$("#recycle_bin").find(".btn-delete").on("click",function(){
 			var arr=[];
 			var checkboxs=$("#recycle_bin").find(".checkbox");
@@ -472,10 +543,10 @@
 						var id=arr[0].substring(4);
 						$.ajax({
 							url:URL.deleteRecycle.replace("{{id}}",id),
-							type:"post",
+							type:"POST",
 							success:function(){
 								T.init({
-									tmpl:"#temp_send_lists",
+									tmpl:"#temp_recycle_lists",
 									sourceUrl:URL.recycle_lists,
 									callback:function(){
 										$(".checkbox").toCheckbox();	
@@ -486,7 +557,28 @@
 					}
 				});	
 			}else if(arr[1]){
-					$(".delete_content").html("是否删除多条信息");
+				jConfirm('<h2 class="title"></h2> <p>是否删除多条信息</p> ',"",{
+					okButton : "是",
+					cancelButton : "否"
+				},function(result){
+					if(result ){
+						var id=arr.join(",").replace(/cb1-/g,"").split(",");
+						$.ajax({
+							url:URL.deleteMsgs,
+							type:"POST",
+							data:"ids="+id,
+							success:function(){
+								T.init({
+									tmpl:"#temp_recycle_lists",
+									sourceUrl:URL.recycle_lists,
+									callback:function(){
+										$(".checkbox").toCheckbox();	
+									}
+								});
+							}
+						})
+					}
+				});	
 			}else if(!arr[0]){
 			
 				jAlert("请选择要删除的数据");

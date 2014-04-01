@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,8 +22,6 @@
 		new IEAlert();
 	});
 	
-	require(['WdatePicker']);
-
 
 	/**
 	 * 时间轴
@@ -42,25 +41,24 @@
   //      });
 
 		$.ajax({
-			url: 'json/timeline.json',
+			url: 'json/jquery.timeline.json',
 			dataType: 'json',
 			success: function(data){
 
-				data.timeline.date.sort(function(a,b){
-					return a.startDate < b.startDate;
-				});
+				// data.timeline.date.sort(function(a,b){
+				// 	return a.startDate < b.startDate;
+				// });
 
 				createStoryJS({
 		            type:       'timeline',
 		            width:      '100%',
 		            height:     '720',
 		            start_at_slide: 0,
-				 	start_zoom_adjust:  3,
+				 	start_zoom_adjust:  8,
 				 	lang:"zh-cn",
-		            source:     data,
-		            embed_id:   'my-timeline',
-		            start_at_end : true
-		        });
+		            source:     null,
+		            embed_id:   'my-timeline'
+		        },data.content[0]);
 			}
 		});
 

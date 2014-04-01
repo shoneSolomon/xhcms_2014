@@ -7,6 +7,41 @@ function getEmbedScriptPath(e) {
     return n.split("?")[0].split("/").slice(0, -1).join("/") + r
 }
 function createStoryJS(e, t) {
+    if( t && t.timelineContent instanceof Array ){  //jquery.timeline.json 转 timeline.json
+        t.timeline = {
+            headline : t.name,
+            type: "default",
+            text: t.name,
+            date:[],
+            asset: t.asset || {}
+        };
+
+        for (var i = 0; i < t.timelineContent.length; i++) {
+            var data = t.timelineContent[i].data;
+            t.timeline.date = t.timeline.date.concat(data);
+        };
+
+        for (var i = 0; i < t.timeline.date.length; i++) {
+            var d = t.timeline.date[i];
+            // 日期只需要精确到分钟
+            d.date = d.date.replace(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})\D+(\d{1,2})\D+(\d{1,2}).+/,'$1,$2,$3, $4,$5'); 
+            d.startDate = d.endDate = d.date;
+            t.timeline = t.timeline || d.date; //加载首次时间
+            d.headline = d.title;
+            d.text = d.text || d.title + ' <a href="' + (t.basePath||"") + d.url + '" target="_blank" >详情</a>';
+            
+            t.timeline.date[i] = {
+                startDate : d.date,
+                endDate : d.date,
+                headline : d.title,
+                text : d.text || d.title + ' <a href="' + (t.basePath||"") + d.url + '" target="_blank" >详情</a>',
+                asset : d.asset || {}
+            }
+        }
+
+        t = {timeline:t.timeline};
+    }
+
     function g() {
         LoadLib.js(h.js, y)
     }

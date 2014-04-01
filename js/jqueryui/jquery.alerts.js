@@ -97,8 +97,7 @@
 			});
 			
 			$("#popup_title").text(title);
-			$("#popup_message").text(msg);
-			$("#popup_message").html( $("#popup_message").text() );
+			var messageHolder = $("#popup_message").html(msg);
 			
 			$("#popup_container").css({
 				minWidth: $("#popup_container").outerWidth(),
@@ -112,12 +111,12 @@
 			
 			switch( type ) {
 				case 'tip':
-					$("#popup_message").after('<div id="popup_panel" style="height:15px"></div>');
+					messageHolder.after('<div id="popup_panel" style="height:15px"></div>');
 					$("#popup_content").addClass('right');
 					callback(true);
 					break;
 				case 'alert':
-					$("#popup_message").after('<div id="popup_panel"><a id="popup_ok" class="fm-button">'+ $.alerts.returnButton + '</a></div>');
+					messageHolder.after('<div id="popup_panel"><a id="popup_ok" class="fm-button">'+ $.alerts.returnButton + '</a></div>');
 					title=='错误'?$("#popup_content").addClass('wrong'):$("#popup_content").addClass(type);
 					$("#popup_ok").click( function() {
 						$.alerts._hide();
@@ -131,15 +130,17 @@
 				case 'confirm':
 					var okButton = arg.okButton || $.alerts.okButton,
 						cancelButton = arg.cancelButton || $.alerts.cancelButton;
-					$("#popup_message").after('<div id="popup_panel"><a id="popup_cancel" class="fm-button btn-cancel">'+ cancelButton + '</a><a id="popup_ok" class="fm-button">'+ okButton + '</a></div>');
+					messageHolder.after('<div id="popup_panel"><a id="popup_cancel" class="fm-button btn-cancel">'+ cancelButton + '</a><a id="popup_ok" class="fm-button">'+ okButton + '</a></div>');
 					title=='错误'?$("#popup_content").addClass('wrong'):$("#popup_content").addClass(type);
 					$("#popup_ok").click( function() {
-						$.alerts._hide();
-						if( callback ) callback(true);
+						if( callback && false !== callback.call( messageHolder, true ) ){
+							$.alerts._hide();
+						}
 					});
 					$("#popup_cancel").click( function() {
-						$.alerts._hide();
-						if( callback ) callback(false);
+						if( callback && false !== callback.call( messageHolder, false ) ){
+							$.alerts._hide();
+						}
 					});
 					$("#popup_ok").focus();
 					$(document).one("keydown",function(e) {
@@ -149,7 +150,7 @@
 					});
 				break;
 				case 'prompt':
-					$("#popup_message").append('<br /><input type="text" size="30" id="popup_prompt" />').after('<div id="popup_panel"><input type="button" value="' + $.alerts.okButton + '" id="popup_ok" class="fm-button" /> <input type="button" value="' + $.alerts.cancelButton + '" id="popup_cancel" class="fm-button btn-cancel" /></div>');
+					messageHolder.append('<br /><input type="text" size="30" id="popup_prompt" />').after('<div id="popup_panel"><input type="button" value="' + $.alerts.okButton + '" id="popup_ok" class="fm-button" /> <input type="button" value="' + $.alerts.cancelButton + '" id="popup_cancel" class="fm-button btn-cancel" /></div>');
 					title=='错误'?$("#popup_content").addClass('wrong'):$("#popup_content").addClass(type);
 					$("#popup_prompt").width( $("#popup_message").width() );
 					$("#popup_ok").click( function() {
