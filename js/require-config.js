@@ -33,7 +33,8 @@ paths = {
 	formUtil: "module/form-util",
 	cookie: "module/cookie",
 	qrcode: "module/qrcode/qrcode.min",
-	frameUpload : "module/frame-upload/index"
+	frameUpload : "module/frame-upload/index",
+	"time-line" : "module/time-line/index"
 },
 ui = [
 "accordion",
@@ -137,6 +138,9 @@ require.config({
 		},
 		imageAreaSelector : {
 			deps: ["css!jquery.imgareaselect/css/animated.css"]
+		},
+		"time-line" : {
+			deps: ["template","css!module/time-line/time-line.css"]
 		}
 
 	}

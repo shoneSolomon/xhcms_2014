@@ -13,9 +13,10 @@
 	</style>
 </head>
 <body>
-	
-	<div id="my-timeline"></div>
+	<div id="story-timeline"></div>
 
+	<a href="javascript:void(0);" id="getAllIds" class="fm-button">获取时间轴数据ids</a>
+	<div id="my-timeline"></div>
 <script>
 
 	require(['iealert'],function(IEAlert){
@@ -27,7 +28,7 @@
 	 * 时间轴
 	 * @see https://github.com/NUKnightLab/TimelineJS
 	 */
-	require(['timeline'],function(){
+	require(['time-line','timeline','alerts'],function(TL){
 
 		// createStoryJS({
   //          type:       'timeline',
@@ -37,17 +38,13 @@
 		//  	start_zoom_adjust:  3,
 		//  	lang:"zh-cn",
   //          source:     'json/timeline.json',
-  //          embed_id:   'my-timeline'
+  //          embed_id:   'story-timeline'
   //      });
 
 		$.ajax({
 			url: 'json/jquery.timeline.json',
 			dataType: 'json',
 			success: function(data){
-
-				// data.timeline.date.sort(function(a,b){
-				// 	return a.startDate < b.startDate;
-				// });
 
 				createStoryJS({
 		            type:       'timeline',
@@ -57,8 +54,18 @@
 				 	start_zoom_adjust:  8,
 				 	lang:"zh-cn",
 		            source:     null,
-		            embed_id:   'my-timeline'
+		            embed_id:   'story-timeline'
 		        },data.content[0]);
+
+
+				//自主研发time-line
+				var t = TL({
+					embed : '#my-timeline'
+				},data.content[0]);
+
+				$('#getAllIds').on('click',function(){
+					jAlert( t.getAllIds().join(', ') );
+				});
 			}
 		});
 
