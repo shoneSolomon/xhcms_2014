@@ -158,7 +158,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .tree-module{line-height: 30px;padding:0;width: 0%;float: left;background-color: #2cac93;}
 
 .mainBody .tree-target{padding: 0;width: 42%; float: left; position: relative;}
-.mainBody .tree-target .loading{ 
+.mainBody .tree-target .loading, #loading{ 
 	opacity: .6;
 	filter: alpha(opacity=60);
  	background: url(../images/loading.gif) center no-repeat #fff; width: 100%;height: 100%; position: absolute; z-index: 2; left: 0; top: 0;

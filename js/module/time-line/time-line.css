@@ -18,8 +18,9 @@
 	background: url(img/timeline.png) 0 50px repeat-x;
 }
 .time-line .time-inner .time-region{
-	height:84px;
+	height:340px;
 	width: 100%;
+	position: relative;
 	overflow: hidden;
 }
 .time-line .time-inner .time-region ul.time-slider{

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AreaSelector</title>
+	<link rel="stylesheet" href="../css/jqueryui/jquery-ui.css">
+	<link rel="stylesheet" href="../css/form.css">
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/require.js"></script>
+	<script src="../js/require-config.js"></script>
+</head>
+<body>
+	
+	<input type="text" style="display:block; margin: 200px auto;" id="area-selector">
+
+
+<script>
+	require(['area-selector'],function(AreaSelector){
+
+		new AreaSelector({
+			el:'#area-selector'
+		});
+
+	});
+</script>
+</body>
+</html>

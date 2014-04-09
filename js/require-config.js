@@ -34,7 +34,8 @@ paths = {
 	cookie: "module/cookie",
 	qrcode: "module/qrcode/qrcode.min",
 	frameUpload : "module/frame-upload/index",
-	"time-line" : "module/time-line/index"
+	"time-line" : "module/time-line/index",
+	"area-selector" : "module/area-selector/index"
 },
 ui = [
 "accordion",
@@ -77,8 +78,9 @@ for (var i = 0; i < ui.length; i++) {
 	paths[ui[i]] = uiModule.replace( "{{module}}",ui[i] );
 };
 var scripts = document.getElementsByTagName('script') , _src = scripts[scripts.length-1].src;
+require.baseUrl = _src.replace( /\/[^\/]*$/,"" )
 require.config({
-	baseUrl: _src.replace( /\/[^\/]*$/,"" ),
+	baseUrl: require.baseUrl,
 	paths: paths,
 	shim :{
 		widget:{

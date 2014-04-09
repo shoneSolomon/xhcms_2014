@@ -87,11 +87,6 @@ define(function(require, exports, module){
 
 			});
 		});
-		//改变浏览器大小，重新计算定位
-		$(window).on('resize',function(){
-			holder.trigger('position');
-		});
-
 
 		//切换聚焦
 		holder.on('click','.time-ownner',function(){
