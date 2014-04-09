@@ -19,9 +19,11 @@ html,body{
 }
 #tabs .ui-corner-top{
 	width: 50%;
+	_width: 49.9%;
 	border: 0;
 	height: 26px;
 	line-height: 26px;
+	overflow: hidden;
 }
 #tabs .ui-corner-top a{
 	display: block;
