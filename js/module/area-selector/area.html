@@ -143,12 +143,31 @@
 
 <script type="html/template" id="tmp-item-list">
 	<ul>
-		{{#each children}}
+		{{#each groups}}
 		<li>
 			<h3 class="href-{{prefix}}">{{prefix}}</h3>
 			<div class="item-list">
 				{{#each list}}
 				<a href="javascript:;" data-id="{{id}}" title="{{name}}">{{name}}</a>
+				{{/each}}
+			</div>
+		</li>
+		{{/each}}
+	</ul>
+</script>
+<script type="html/template" id="tmp-item-list-2">
+	<ul>
+		{{#each groups}}
+		<li>
+			<h3 class="href-{{prefix}}">{{prefix}}</h3>
+			<div class="item-list-2">
+				{{#each list}}
+				<h4 data-id="{{id}}" {{#if children}}class="has-child"{{/if}}>{{name}}</h4>
+				<div class="item-list">
+					{{#each children}}
+					<a href="javascript:;" data-id="{{id}}" title="{{name}}">{{name}}</a>
+					{{/each}}
+				</div>
 				{{/each}}
 			</div>
 		</li>

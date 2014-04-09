@@ -1,5 +1,5 @@
 window.onData = window.parent.onAreaSelecter || function(node,isLeaf){
-	alert( "选中的ID:" + node.id + (isLeaf?" 是叶子节点":"") );
+	if(isLeaf)alert( "选中的ID:" + node.id + (isLeaf?" 是叶子节点":"") );
 };
 $("#tabs").tabs();
 
@@ -17,6 +17,13 @@ var WorldFactory = function(world){
 			prefix: t[3],
 			en: t[4],
 			children: (function(cld){
+				var t = [];
+				for (var i = 0; cld && i < cld.length; i++) {
+					t.push( _exec(cld[i]) );
+				};
+				return t.length ? t : null
+			})(w[1]),
+			groups: (function(cld){
 				var t = [];
 				for (var i = 0; cld && i < cld.length; i++) {
 					t.push( _exec(cld[i]) );
@@ -54,6 +61,7 @@ var factory = new WorldFactory(window.World);
 var china = factory.getArea(0);
 var foreign = factory.getArea(-1);
 var compile = Handlebars.compile( $("#tmp-item-list").html() ), 
+	compile2 = Handlebars.compile( $("#tmp-item-list-2").html() ), 
 	chinaPannel = $("#china .pannel").html( compile(china) ),
 	foreignPannel = $("#foreign .pannel").html( compile(foreign) );
 
@@ -64,7 +72,7 @@ function _attchEvent(Pannel,data){
 	Pannel.on("click","a",function(e){
 		var id = $(this).data("id"), detail = factory.getArea(id), isLeaf = detail && !detail.children;
 		if( !isLeaf ){
-			Pannel.html( compile(detail) ).scrollTop(0);
+			Pannel.html( compile2(detail) ).scrollTop(0);
 		}
 		window.onData( detail, isLeaf );
 		Pannel.siblings(".letter-select-2").slideDown(function(){
@@ -85,7 +93,16 @@ function _attchEvent(Pannel,data){
 		}
 		var t = (  $(keyClz,Pannel).offset().top + Pannel.scrollTop() - 38 );
 		Pannel.stop().animate({scrollTop: t });
+	});
 
+	Pannel.on("click","h4",function(e){
+		var _this = $(this), 
+			id = _this.data("id"), 
+			isLeaf = !_this.hasClass("has-child"), 
+			detail = factory.getArea(id);
+
+		window.onData( detail, isLeaf );
+		if(!isLeaf)$(this).toggleClass("expended").next().slideToggle();
 	});
 
 };

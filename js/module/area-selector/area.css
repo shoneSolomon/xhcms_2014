@@ -79,7 +79,7 @@ html,body{
 	padding: 8px 0 12px;
 	overflow: hidden;
 }
-#tabs .ui-tabs-panel .pannel a{
+#tabs .ui-tabs-panel .item-list a{
 	display: block;
 	float: left;
 	width: 80px;
@@ -89,6 +89,42 @@ html,body{
 	text-overflow: ellipsis;
 	text-indent: 4px;
 }
-#tabs .ui-tabs-panel .pannel a:hover{
+#tabs .ui-tabs-panel .item-list a:hover{
 	color: #2cac93;
+}
+
+.item-list-2 h4{
+	font: normal 12px/30px "宋体";
+	cursor: pointer;
+	text-indent: 4px;
+}
+h4.expended {
+	color: #fff;
+	background: #2cac93;
+}
+.item-list-2 h4.has-child:after{
+	float: right;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	margin-right: .5em;
+	content: ">>";
+	-webkit-transform:rotate(90deg);
+    	-moz-transform:rotate(90deg);
+    	-ms-transform:rotate(90deg);
+    	-o-transform:rotate(90deg);
+    	transform:rotate(90deg);
+    	filter: progid:DXImageTransform.Microsoft.BasicImage(Rotation=1);
+}
+h4.expended:after{
+	color: #fff;
+	-webkit-transform:rotate(-90deg);
+    	-moz-transform:rotate(-90deg);
+    	-ms-transform:rotate(-90deg);
+    	-o-transform:rotate(-90deg);
+    	transform:rotate(-90deg);
+    	filter: progid:DXImageTransform.Microsoft.BasicImage(Rotation=3);
+}
+.item-list-2 .item-list{
+	display: none;
 }
