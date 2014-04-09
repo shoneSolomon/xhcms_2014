@@ -116,7 +116,7 @@ h4.expended {
     	transform:rotate(90deg);
     	filter: progid:DXImageTransform.Microsoft.BasicImage(Rotation=1);
 }
-h4.expended:after{
+.item-list-2  h4.expended:after{
 	color: #fff;
 	-webkit-transform:rotate(-90deg);
     	-moz-transform:rotate(-90deg);
