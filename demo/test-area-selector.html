@@ -28,7 +28,14 @@
 	require(['area-selector'],function(AreaSelector){
 
 		new AreaSelector({
-			el:'#area-selector'
+			el:'#area-selector',
+			onData:function(node,isLeaf){
+				$('#area-selector').val(node.name);
+			}
+		});
+
+		$(document).on('mouseleave','#area-selector-holder',function(){
+			$(this).hide();
 		});
 
 	});

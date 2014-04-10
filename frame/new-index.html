@@ -150,25 +150,25 @@
 			<div class="system_py">
 				<h2>系统属性</h2>
 				<div class="properties">
-					<p><span>操作系统版本</span><a><span class="data-hole">props/os.name</span> <span class="data-hole">props/os.version</span></a></p>
-					<p><span>操作系统类型</span><a><span class="data-hole">props/os.arch</span></a></p>
+					<p><span>操作系统版本</span><a><span class="data-hole">systemInfo/os.name</span> <span class="data-hole">systemInfo/os.version</span></a></p>
+					<p><span>操作系统类型</span><a><span class="data-hole">systemInfo/os.arch</span></a></p>
 					<p><span>用户、目录、临时目录</span>
 						<a>
 							<span class="data-hole">username</span>, 
-							<span class="data-hole">props/user.dir</span>, 
-							<span class="data-hole">props/java.io.tmpdir</span>
+							<span class="data-hole">systemInfo/user.dir</span>, 
+							<span class="data-hole">systemInfo/java.io.tmpdir</span>
 						</a>
 					</p>
 					<p><span>java运行环境</span>
 						<a>
-							<span class="data-hole">props/java.runtime.name</span>  
-							<span class="data-hole">props/java.runtime.version</span>
+							<span class="data-hole">systemInfo/java.runtime.name</span>  
+							<span class="data-hole">systemInfo/java.runtime.version</span>
 						</a>
 					</p>
 					<p><span>java虚拟机</span>
 						<a>
-							<span class="data-hole">props/java.vm.name</span>  
-							<span class="data-hole">props/java.vm.version</span>
+							<span class="data-hole">systemInfo/java.vm.name</span>  
+							<span class="data-hole">systemInfo/java.vm.version</span>
 						</a>
 					</p>
 					<p><span>服务器ip</span> 
@@ -207,18 +207,17 @@
 	});
 
 	$.ajax({
-		url : isLocal ? "json/index.json" : "../../xhadmin/basic/getInfo.do",
+		url : isLocal ? "../html/json/system.json" : "http://172.18.11.80/web/current/system.json",
 		dataType: "json",
 		success: function(data){
-			var o = data.content;
-
+			var o = data.systemInfo;
 			function get( key ){
 				var keys = key.split("/");
 				switch( keys.length ){
 					case 1: return o[key];
-					case 2: return o[keys[0]][keys[1]];
-					case 3: return o[keys[0]][keys[1]][keys[2]];
-					case 4: return o[keys[0]][keys[1]][keys[2]][keys[3]];
+					case 2: return o[keys[1]];
+					case 3: return o[keys[1]][keys[2]];
+					case 4: return o[keys[1]][keys[2]][keys[3]];
 				}
 			}
 			require(["numberUtil"],function(NU){

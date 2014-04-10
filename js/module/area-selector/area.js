@@ -109,4 +109,6 @@ function _attchEvent(Pannel,data){
 _attchEvent( chinaPannel,china );
 _attchEvent( foreignPannel,foreign );
 
+
+
 $("#loading").remove();
