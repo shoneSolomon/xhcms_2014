@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>timeline-index</title>
+    <link rel="stylesheet" href="../../css/jqueryui/jquery-ui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/form.css"/>
+    <link rel="stylesheet" type="text/css" href="css/my-timeline.css"/>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script src="../../js/require.js"></script>
+    <script src="../../js/require-config.js"></script>
+    <script type="text/javascript" src="js/my-timeline.js"></script>
+  </head>
+  <body>
+  	<div class="wrapper">
+  		<div class="top">
+  			<p class="top_left">编辑时间轴</p>
+  			<p class="top_right"></p>
+  		</div>
+      <!--tabnum 点击换背景部分 开始-->
+  		<div class="tabnum">
+  			<dl class="addbg">
+  				<dt>
+  					<h4>搜索新闻</h4>
+					  <P>可指定时间段，输入关键词搜索新闻</P>  					
+  				</dt>
+  				<dd class="addbg2">1</dd>
+  			</dl>
+        <div class="arrow addbg3"></div>
+
+        <dl>
+          <dt>
+            <h4>设置时间轴</h4>
+            <P>调整、设置时间轴样式， 预览时间轴</P>           
+          </dt>
+          <dd>2</dd>
+        </dl>   
+  		</div><!--tabnum 点击换背景部分 结束-->
+
+      <!--发布起始时间 开始-->
+      <div class="select-all">
+        <div class="issue">
+          <label>发布起始时间：</label>
+          <div class="times">
+            <input type="text" class="Wdate" id="d412" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />&nbsp;至&nbsp;<input type="text" class="Wdate" id="d412" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+          </div>
+        </div>
+
+        <!--新闻类型 开始-->
+        <div class="news_type"> 
+            <label>新闻类型：</label>
+            <select name="sel" id="select1" class="select">
+              <option value="1">选项1</option>
+              <option value="2">选项2选项2</option>
+              <option value="3">选项3选项3选项3</option>
+              <option value="4" selected="selected">选项4</option>
+              <option value="5">选项5选项5选项5选项2</option>
+              <option value="6">选项6</option>
+              <option value="7">选项7</option>
+              <option value="8">选项8选项8选项8选项8选项8选项8</option>
+              <option value="9">选项9</option>
+            </select>
+         </div><!--新闻类型 结束-->
+
+        <div class="search">
+            <label>搜索关键词：</label><div class="txt" id="txt"><input type="text" id="txts" value="" /></div>
+            <span class="sou" id="sou"></span>
+        </div>
+      </div><!--发布起始时间 结束-->
+
+
+      <!--关键词 开始-->
+      <div class="keyword">
+        <label>关键词：</label>
+        <ul id="keyword">
+          <li><a href="#"><span></span>空气污染</a></li>
+          <li><a href="#"><span class="jian"></span>雾霾</a></li>
+          <li><a href="#"><span></span>PM2.5</a></li>
+        </ul>
+      </div>
+      <!--关键词 结束-->
+
+      <!--后台生成部分 开始-->
+      <div class="loading">
+        <p class="addnews" id="addnews">手动添加稿件</p>
+        <div class="load_left" id="load_left">
+          <div class="title">
+            <h4>新闻标题</h4><h4>发生时间</h4>
+          </div>
+          <ul>
+            <!-- <li><a href="#"><span class="time0">2014-03-09 12:35:11</span><i>国庆雾霾波及七省市：气象是诱因排放是根源</i><span class="right0"></span><span class="editing"></span></a></li> -->
+          </ul>
+        </div>
+        <div class="load_right">
+          <iframe id="show-frame" src="" border="0" width="100%" height="100%"></iframe>
+        </div>
+
+      </div>
+      <!--后台生成部分 结束-->
+
+      <div class="prev-next">
+        <a href="timeline2.html" style="margin-left:160px;" class="btn-next">下一步</a>
+      </div>
+
+
+  	</div>
+    <script>
+    require(["alerts","WdatePicker","draggable"],function(){
+      //新闻标题编辑
+      $("#load_left").on("click",".editing",function(){
+        var _this=$(this);
+          jConfirm('<div class="edit_url"><label>&nbsp;稿件Url：</label><input type="text" id="url" name="url" style="border:none;"        value="http://news.qq.com/zt2014/MH370/index.htm" readonly="readonly" onfocus="this.blur()" /></div> <div class="edit_title"><label>稿件标题：</label><input type="text" value="东北遭遇“史上最重雾霾”电能替代势在必行" /></div> <div class="edit_time"><label>发生时间：</label><input type="text" class="Wdate" id="d412" value="2013-12-30 13：34：43" onfocus="WdatePicker({dateFmt:\'yyyy-MM-dd HH:mm:ss\'});" /></div> <div class="edit_digest"><label>稿件摘要：</label><textarea>继京津冀、长三角、珠三角等区域饱受雾霾困受雾霾扰扰之后，10月21日，东北三省也深陷雾霾，航受雾霾扰空、铁路、道路交通等受其影响严重受阻。重受雾霾扰度雾霾笼罩下的哈尔滨市民惊呼，这是一场“受雾霾扰史上最重雾霾”。</textarea></div>',"编辑稿件",{
+                okButton : "确定",
+                cancelButton : "取消"
+              },function(result){
+                if(result){
+                  _this.parent().parent().find("i").html( $(".edit_title>input").val() );    //编辑标题内容
+                  _this.siblings(".time0").html( $(".edit_time>input").val() );
+                }
+                
+              });
+          $(".edit_title>input").val( $(this).parent().parent().find("i").html() );   //把网页标题的内容对应的显示到弹框里
+          $(".Wdate").val( $(this).siblings(".time0").html() );             //把时间对应的显示到弹框里
+        });
+        //手动添加稿件
+        $("#addnews").click(function(){
+            jConfirm('<div class="add_id"><label>&nbsp;&nbsp;稿件ID：</label><input type="text" value="" name="ids" /></div><div class="add_title"><label>稿件标题：</label><input type="text" id="url" name="url" style="border:none;" value="东北遭遇“史上最重雾霾”电能替代势在必行" readonly="readonly" onfocus="this.blur()" /></div><div class="add_time"><label>发生时间：</label><input type="text" id="url" name="url" style="border:none;" value="2014-01-23 12:23:22" readonly="readonly" onfocus="this.blur()" /></div>',"手动添加稿件",{
+                okButton : "确定",
+                cancelButton : "取消"
+              },function(result){
+                
+                //alert( "点击了" + result );
+              });
+
+        });
+
+         
+    });
+
+require(["form-style","alerts","tabs","draggable"],function(){
+
+    $("#select1").toSelect({
+      width: 290,
+      colorful: false
+    }).on('change',function(){
+      //jAlert( this.value, "你选择的值为：" );
+      //$(".select-result").html( "你选择的值为："+this.value );
+    }).trigger("change");
+
+
+
+
+  });
+    </script>
+  </body>
+</html>  
