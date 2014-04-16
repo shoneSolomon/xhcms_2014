@@ -60,7 +60,7 @@ define(function(require, exports, module) {
 				(function(o){
 					for(var k in o){
 						if(typeof o[k].$ref === 'string'){
-							o[k] = getRef(r,o[k].$ref)
+							o[k] = getRef(r,o[k].$ref.replace(/\[(\d+)\]/g,'.$1')); //有数组格式的数据要转化一下。
 						}else if(typeof o[k] === 'object'){
 							arguments.callee(o[k]);
 						}
