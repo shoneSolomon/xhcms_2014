@@ -96,7 +96,7 @@ paths = {
 	 * 基于jQuery-ajax & handlebars模板的可配置分页列表插件,KISSY改版
 	 * @see demo/template-init.html
 	 */
-	"template-init": "module/template-init.min",
+	"template-init": "module/template-init",
 	/**
 	 * location.search参数获取工具库
 	 * @see html/new-index.html
@@ -240,7 +240,7 @@ require.config({
 			deps: ["css!module/iealert/css/style.css"]
 		},
 		"template-init":{
-			deps: ["template","form-style"]
+			deps: ["template"]
 		},
 		morris :{
 			deps: ["raphael","css!../js/morris/morris.css"]

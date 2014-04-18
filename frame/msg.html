@@ -162,7 +162,7 @@
 	var writeForm=$("#write_form");
 	var receiveUser;
 
-	require(["template-init","form-style","dateUtil","queryparam","alerts"],function(T,f,DateUtil,Q){
+	require(["template-init","dateUtil","queryparam","alerts"],function(T,DateUtil,Q){
 
 		Handlebars.registerHelper('Date', function(t) {
 			if( !t ) return t;

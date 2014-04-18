@@ -64,22 +64,24 @@ define(function(require, exports, module) {
 
             var p = null;
             if( o.pagination ){
-                if( totalPage != "0" ){
-                    $(o.pagination).show();
-                }
-                o.url = location.href.replace(/([?])?[&]?toPage=\w*&?/,"$1");
-                p = $(o.pagination).toPager({
-                    currentPage: Math.floor(currentPage) || 1,    // 默认选中的页码
-                    totalPage: totalPage | 0      // 总页数
-                },!first);
-                
-                if( typeof o.callback === "function" ){
-                    o.callback.call(this,o,p,first);
-                }else if(p && first){
-                    p.on("switch",function(event,e){
-                        location.href = o.url + ( o.url.indexOf("?") > -1 ? ("&toPage=" + e.toPage) : ("?toPage=" + e.toPage) );
-                    });
-                }
+                require(['form-style'],function(){
+                    if( totalPage != "0" ){
+                        $(o.pagination).show();
+                    }
+                    o.url = location.href.replace(/([?])?[&]?toPage=\w*&?/,"$1");
+                    p = $(o.pagination).toPager({
+                        currentPage: Math.floor(currentPage) || 1,    // 默认选中的页码
+                        totalPage: totalPage | 0      // 总页数
+                    },!first);
+                    
+                    if( typeof o.callback === "function" ){
+                        o.callback.call(this,o,p,first);
+                    }else if(p && first){
+                        p.on("switch",function(event,e){
+                            location.href = o.url + ( o.url.indexOf("?") > -1 ? ("&toPage=" + e.toPage) : ("?toPage=" + e.toPage) );
+                        });
+                    }
+                });
             }
                 
         },
@@ -143,18 +145,19 @@ define(function(require, exports, module) {
                     if( totalPage != "0" ){
                         $(o.pagination).show();
                     }
-
-                    p = $(o.pagination).toPager({
-                        currentPage: Math.floor(currentPage) || 1,    // 默认选中的页码
-                        totalPage: totalPage | 0      // 总页数
-                    },!first);
-                    
-                    if(p && first){
-                        p.on("switch",function(event,e){
-                            o.toPage = e.toPage;
-                            _self.__ajax__(o);
-                        });
-                    }
+                    require(['form-style'],function(){
+                        p = $(o.pagination).toPager({
+                            currentPage: Math.floor(currentPage) || 1,    // 默认选中的页码
+                            totalPage: totalPage | 0      // 总页数
+                        },!first);
+                        
+                        if(p && first){
+                            p.on("switch",function(event,e){
+                                o.toPage = e.toPage;
+                                _self.__ajax__(o);
+                            });
+                        }
+                    });
                 }
                 if( typeof o.callback === "function" ){
                     o.callback.call(_self,o,p,first);
