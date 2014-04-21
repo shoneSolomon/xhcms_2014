@@ -28,6 +28,7 @@ define(function(require, exports, module) {
      * @param {JSON}   source 用于渲染的元数据
      * @param {String} sourceUrl 用于渲染的元数据(ajax)，【如果定义了，将使用异步渲染和分页】 |data-url|
      * @param {String} sourceMethod 获取元数据的ajax的type   |data-method|
+     * @param {String} dataType 获取元数据的ajax的dataType   |data-type| "jsonp"
      * @param {Function}  sourceData  获取元数据的ajax的data  返回值为普通json数据格式的function，确保动态调用
      * @param {String} target 目标填充标签或选择器[required]   |data-target|
      * @param {String} pagination 是否初始化分页,如果定义，将作为分页插件的选择器  |data-pagination|
@@ -162,7 +163,7 @@ define(function(require, exports, module) {
                 if( typeof o.callback === "function" ){
                     o.callback.call(_self,o,p,first);
                 }
-            },'json');
+            }, o.dataType || 'json');
         },
         __init__: function(options,first){
             var tpl = $(options.tmpl), _this = this;
@@ -174,7 +175,8 @@ define(function(require, exports, module) {
                         append : _t.attr("data-append"),
                         prepend: _t.attr("data-prepend"),
                         pagination : _t.attr("data-pagination"),
-                        sourceMethod : _t.attr("data-method")
+                        sourceMethod : _t.attr("data-method"),
+                        dataType: _t.attr("data-type")
                     },options);
 
                 if( o.sourceUrl ){

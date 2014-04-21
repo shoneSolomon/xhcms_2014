@@ -89,7 +89,7 @@
 </script>
 
 <h3>支持异步获取数据并分页：</h3>
-<script type="text/html" id="ajax-model" data-url="json/test.json">{{#each data}}{{name}}<br>{{/each}}<span class="currentPage">{{currentPage}}</span><span class="totalPage">{{{division totalCount pageSize }}}</span></script>
+<script type="text/html" id="ajax-model" data-url="json/test.js" data-type="jsonp">{{#each data}}{{name}}<br>{{/each}}<span class="currentPage">{{currentPage}}</span><span class="totalPage">{{{division totalCount pageSize }}}</span></script>
 <strong id="ajax-show">我是待填充标签【点击我开始填充】</strong>
 <div class="for-ajax-show pager">我是分页区域</div>
 
@@ -99,8 +99,7 @@
             T.init({
                 tmpl: "#ajax-model",    //模板标签选择器
                 target : "#ajax-show",      //待填充标签选择器
-                pagination : ".for-ajax-show",
-                sourceMethod: "post"
+                pagination : ".for-ajax-show"
             });
         });
     });
