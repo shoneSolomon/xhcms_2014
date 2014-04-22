@@ -7,9 +7,11 @@
 <body>
 <?php
 $uploadDir = 'temp/'; //file upload path
-$uploadFile = $uploadDir . $_FILES['upload']['name'];
+$name = $_FILES['upload']['name'] . '';
+$sExtension = substr($name, (strrpos($name, '.') + 1));	//找到扩展名
+$uploadFile = $uploadDir . date("YmdHis").rand(100, 200) . "." . $sExtension; 
 move_uploaded_file($_FILES['upload']['tmp_name'], $uploadFile);
-echo( '{"status":true}' )
+echo( '{"status":true,"url":"'.$uploadFile.'"}' )
 ?>
 </body>
 </html>

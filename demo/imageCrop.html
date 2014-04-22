@@ -25,8 +25,9 @@
 	</style>
 </head>
 <body>
-
+	
 	<img id="photo" src="../images/img.png" alt="image" width="720">
+	<a href="javascript:void(0);" class="fm-button" id="btn-upload">上传图片</a>
 
 	<div id="preview"><img src="../images/img.png" alt="image"></div>
 
@@ -54,6 +55,25 @@
 	        }
 	    });
 
+	});
+
+	require(['frameUpload'],function(FrameUpload){
+		var btn = document.getElementById('btn-upload'),
+			frameUpload = new FrameUpload({
+				el: btn,
+				src: "json/iframe-upload.html",
+				action: "../php/fileUp.php?dir=upload1",
+				onchange: function(){
+					btn.innerHTML = "图片上传中...";
+					this.submit();
+				},
+				afterUpload: function(data){
+					btn.innerHTML = "上传图片";
+					$('#photo,#preview img').attr({
+						src: "php/"+data.url
+					});
+				}
+			});
 	});
 </script>
 </body>
