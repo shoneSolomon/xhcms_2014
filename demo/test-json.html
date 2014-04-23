@@ -13,11 +13,22 @@
 	
 <script>
 	require(["module/json"], function(JSON){
-		var str = '{"booleanList":["TRUE","FALSE"],"m":{"id":1,"leaf":false,"name":"channel1","new":false,"parentId":0,"parentIds":"0/","root":true,"show":true,"site":[{"channels":[{"$ref":"$.m"}],"friendlinks":[{"id":1,"name":"friend1","new":false,"show":true,"site":[{"$ref":"$.m.site[0]"}],"weight":1}],"id":9,"new":false,"siteName":"abc"}],"weight":1},"op":"查看"}';
-		var json = JSON.parse(str,true); //支持 $ref 展开
+		var str = '{"m":{"id":1,"leaf":false,"name":"channel1","new":false,"parentId":0,"parentIds":"0/","root":true,"show":true,"site":[{"channels":[{"$ref":"$.m"}],"friendlinks":[{"id":1,"name":"friend1","new":false,"show":true,"site":[{"$ref":"$.m.site[0]"}],"weight":1}],"id":9,"new":false,"siteName":"abc"}],"weight":1},"op":"查看"}';
+		
+		var json = JSON.parse(str);						//兼容性JSON.parse
+		console.log( "JSON.parse([string]):\t" );
 		console.log( json );
-		var str = JSON.stringify(json);
-		document.write( str );
+
+		document.write( JSON.stringify(json) );			//兼容性JSON.stringify
+
+		console.log( "\nJSON.expend([json]):\t" );		//携带$ref展开效果
+		console.log( JSON.expend(JSON.parse(str)) );
+
+		var jsonExpend = JSON.expend(str);				//携带$ref展开效果JSON.parse
+		console.log( "\nJSON.expend([str]): \t" );
+		console.log( jsonExpend );
+
+		document.write( JSON.stringify(jsonExpend) );	//循环引用json的stringify 抛出异常: 已兼容
 	});
 </script>
 </body>

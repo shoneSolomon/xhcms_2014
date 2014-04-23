@@ -2,6 +2,29 @@ define(function(require, exports, module) {
 	function isArray(obj) { 
 		return ({}).toString.call(obj) === '[object Array]'; 
 	}
+	function expend(r) {
+		var getRef = function(o,$ref){	//获取$ref索引对象
+			var t = $ref.split(".");
+			if(t.length <= 1){
+				return o
+			}else{
+				var m = $ref.match(/^(.*?)\.([^.]+)$/);
+				return arguments.callee(o,m[1])[m[2]];
+			}
+		};
+
+		(function(o){
+			for(var k in o){
+				if(o[k] && typeof o[k].$ref === 'string'){
+					o[k] = getRef(r,o[k].$ref.replace(/\[(\d+)\]/g,'.$1')); //有数组格式的数据要转化一下。
+				}else if(typeof o[k] === 'object'){
+					arguments.callee(o[k]);
+				}
+			}
+		})(r);
+		return r;
+	}
+	
 	var objs = [];
 
 	var JSON = window.JSON || {
@@ -55,32 +78,17 @@ define(function(require, exports, module) {
 	};
 
 	return {
-		parse : function(jsonStr,with_ref){
-			var r = JSON.parse(jsonStr);
-
-			var getRef = function(o,$ref){	//获取$ref索引对象
-				var t = $ref.split(".");
-				if(t.length <= 1){
-					return o
-				}else{
-					var m = $ref.match(/^(.*?)\.([^.]+)$/);
-					return arguments.callee(o,m[1])[m[2]];
-				}
-			};
-
-			if(with_ref){
-				(function(o){
-					for(var k in o){
-						if(o[k] && typeof o[k].$ref === 'string'){
-							o[k] = getRef(r,o[k].$ref.replace(/\[(\d+)\]/g,'.$1')); //有数组格式的数据要转化一下。
-						}else if(typeof o[k] === 'object'){
-							arguments.callee(o[k]);
-						}
-					}
-				})(r);				
+		parse : JSON.parse,
+		stringify:JSON.stringify,
+		/**
+		 * 展开携带$ref的restful-json对象
+		 */
+		expend : function(arg){
+			if(typeof arg === 'string' && /\$ref/.test(arg) ){
+				return expend( JSON.parse(arg) );
+			}else{
+				return expend(arg);
 			}
-			return r;
-		},
-		stringify:JSON.stringify
+		}
 	};
 });
