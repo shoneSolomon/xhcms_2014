@@ -14,11 +14,12 @@
   </style>
   </head>
   <body>
+    <!--wrapper 开始-->
   	<div class="wrapper">
-  		<div class="top">
+  		<!-- <div class="top">
   			<p class="top_left">编辑时间轴</p>
   			<p class="top_right"></p>
-  		</div>
+  		</div> -->
       <!--tabnum 点击换背景部分 开始-->
   		<div class="tabnum">
   			<dl>
@@ -43,7 +44,7 @@
       <div class="select-all">
         <div class="time_name">
           <label>时间轴名称：</label>
-            <input type="text" placehoder="开始时间" />
+            <input type="text" placeholder="" name="" />
         </div>
 
         <!--排序方式 开始-->
@@ -51,16 +52,16 @@
           <div class="rank_l">
             <label>稿件排序方式：</label>
             <ul id="grank_rank">
-                <li><a href="#">按发生时间</a></li>
-                <li><a href="#">按发布时间</a></li>
+                <li><a href="javascript:void(0)">按发生时间</a></li>
+                <li><a href="javascript:void(0)">按发布时间</a></li>
             </ul>
             <input type="hidden" id="grank-result" name="grank">
          </div>
           <div class="rank_r">
             <label>默认时间位置：</label>
             <ul id="trank_rank">
-                <li><a href="#">定位到最新</a></li>
-                <li><a href="#">定位到最旧</a></li>
+                <li><a href="javascript:void(0)">定位到最新</a></li>
+                <li><a href="javascript:void(0)">定位到最旧</a></li>
             </ul>
             <input type="hidden" id="trank-result" name="trank">
           </div>
@@ -71,20 +72,20 @@
           <div class="timescale_l">
             <label>时间刻度：</label>
             <ul id="timel_rank">
-                <li><a href="#">年</a></li>
-                <li><a href="#">月</a></li>
-                <li><a href="#">日</a></li>
-                <li><a href="#">时</a></li>
-                <li><a href="#">分</a></li>
-                <li><a href="#">秒</a></li>
+                <li><a href="javascript:void(0)">年</a></li>
+                <li><a href="javascript:void(0)">月</a></li>
+                <li><a href="javascript:void(0)">日</a></li>
+                <li><a href="javascript:void(0)">时</a></li>
+                <li><a href="javascript:void(0)">分</a></li>
+                <li><a href="javascript:void(0)">秒</a></li>
             </ul>
             <input type="hidden" id="timel-result" name="tlrank">
          </div>
           <div class="timescale_r">
             <label>时间轴样式：</label>
             <ul id="timer_rank">
-                <li><a href="#">图文横轴式</a></li>
-                <li><a href="#">标题横轴式</a></li>
+                <li><a href="javascript:void(0)">图文横轴式</a></li>
+                <li><a href="javascript:void(0)">标题横轴式</a></li>
             </ul>
             <input type="hidden" id="timer-result" name="trrank">
           </div>
@@ -97,15 +98,17 @@
         <div id="story-timeline"></div>
       </div><!--时间轴切换 结束-->
 
-     
       <div class="prev-next">
-        <a href="#">上一步</a>
-        <a href="#" class="complete">完成</a>
-        <a href="#" class="cancel">取消</a>
+        <a href="timeline2.html">上一步</a>
+        <a href="javascript:void(0)" class="complete">完成</a>
+        <a href="javascript:void(0)" class="cancel">取消</a>
       </div>
       
-  	</div>
+  	</div> <!--wrapper 结束-->
   <script>
+  $(".select-all ul li").click(function(){      
+    $(this).addClass("cur").siblings("li").removeClass("cur");      ////加减背景色样式
+  });
   // require(['iealert'],function(IEAlert){
   //   new IEAlert();
   // });
@@ -125,7 +128,10 @@
         });
       }
     });
-  })
+  });
+
+
+
   </script>  
   </body>
 </html>  

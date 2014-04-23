@@ -10,11 +10,11 @@ a:hover{
 }
 body{
 	background: none;
+	min-width: 300px;
 }
 .wrapper{
-	width:1077px;
+	width:1070px;
 	margin: 0 auto;
-	border: 1px solid #c4c4c4;
 	border-top: none;
 	margin-bottom: 30px;
 	overflow: hidden;
@@ -265,7 +265,7 @@ body{
 	.load_left .title{
 		height: 38px;
 	}
-	.load_left .title h4{
+	.load_left .title h4,.load_right .title h4{
 		width: 253px;
 		text-align: center;
 		line-height: 38px;
@@ -275,20 +275,22 @@ body{
 	.load_left ul{
 		width: 518px;
 	}
-		.load_left ul li{
+		.load_left ul li,.load_right .topic-list ul li{
 			height: 42px;
 			line-height: 42px;
 			position: relative;
 			clear: both;
 			overflow: hidden;
 		}
-		.load_left ul li a{
+		.load_left ul li a,.load_right .topic-list ul li a{
 			display: block;
 		}
 		.load_left ul li a i{
 			display: block;
 			font-style: normal;
 			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		} 
 		.load_left ul li.addlisbg{
 			background: #e9f6ff;
@@ -336,7 +338,7 @@ body{
 			right: 35px;
 			bottom: 10px;
 		}
-		.load_left ul li a span.checked{    /*点击选择图标*/
+		.load_left ul li.checked a span.right0{    /*点击选择图标*/
 			width: 21px;
 			height: 21px;
 			background: url(../img/sprite1.png) no-repeat -32px -266px;
@@ -355,25 +357,43 @@ body{
 		}
 
 
-		.load_right{
-			width: 500px;
-			height: 545px;
+	.load_right{
+		width: 500px;
+		height: 545px;
+		float: right;
+		border: 1px solid #ddd;
+		position: relative;
+		background: #eeeeee;
+		/*overflow-y: scroll;*/
+	}
+		/*专题样式*/
+		/*.topic-list {
+			display: none;
+		}
+		.load_right .title{
+			height: 38px;
+		}
+		.load_right .title h4{
+			width: 247px;
+		}
+		.load_right .topic-list ul{
+			width: 480px;
+			padding: 5px 10px;
+		}
+		.load_right .topic-list ul a span{
+			color: #8e8e8e;
 			float: right;
-			border: 1px solid #ddd;
-			position: relative;
-			background: #eeeeee;
+			margin-right: 40px;
 		}
-		.load_right p{
+		.load_right .topic-list ul a span.editing{
+			width: 21px;
+			height: 21px;
+			background: url(../img/sprite1.png) no-repeat -64px -266px;
 			position: absolute;
-			width: 86px;
-			height: 27px;
-			line-height: 27px;
-			text-align: center;
-			color: #fff;
-			background: #00b6aa;
-			right: -1px;
-			top:-7px;
-		}
+			right: -30px;
+			bottom: 10px;
+		}*/
+		
 		.load_right iframe#show-frame{
 			border: none;
 		}
@@ -520,10 +540,11 @@ body{
 		line-height: 32px;
 	}*/
 	.time_name input{
-		width: 296px;
+		width: 290px;
 		height: 30px;
 		line-height: 30px;
 		border: 1px solid #d4d4d4;
+		padding: 0 3px;
 	}
 
 .rank_l,.rank_r,.timescale_l,.timescale_r {
