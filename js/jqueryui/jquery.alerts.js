@@ -61,7 +61,9 @@
 				arg = {};
 			}
 			$.alerts._show(title, message, null, 'confirm', function(result) {
-				if( callback ) callback(result);
+				if( callback ){
+					return callback(result);
+				}
 			}, arg);
 		},
 			
