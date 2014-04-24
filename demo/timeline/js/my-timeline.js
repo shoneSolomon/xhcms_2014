@@ -84,12 +84,12 @@ require(['alerts'],function(){
 					
 				}
 				//列表里没有内容的显示
-				// if($("#load_left>ul>li").length!=0){
-				// 	;
-				// }else{
-				// 	$("#load_left").html("<p class='no-result'>没有搜索结果，可更换关键词后重新搜索</p>");
-				// 	$(".btn-next").css({background:"#dadada"});
-				// }
+				if($("#load_left>ul>li").length!=0){
+					;
+				}else{
+					$("#load_left").html("<p class='no-result'>没有搜索结果，可更换关键词后重新搜索</p>");
+					$(".btn-next").css({background:"#dadada"});
+				}
 			},
 			error:function(){
 				jAlert('服务端异常');

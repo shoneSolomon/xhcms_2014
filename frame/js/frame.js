@@ -158,14 +158,11 @@ window.cssSwitch = function(){
 		var css = $('<style id="css-style-switch">'+ cssTxt + '</style>');
 		$('#css-style-switch').replaceWith(css);
 	}
-	return !!cssTxt;
+	return !cssTxt;
 };
 
 if( window.top != window ){
-	require(['requestAFrame'],function(R){
-		R.addTimeout('css-style',function(){
-			//如果父标签的自定义样式没有加载成功，继续监听
-		},200,Infinity,cssSwitch);
+	require(['requestAFrame'],cssSwitch);
 	});	
 }
 
