@@ -163,7 +163,6 @@ window.cssSwitch = function(){
 
 if( window.top != window ){
 	require(['requestAFrame'],cssSwitch);
-	});	
 }
 
 })(jQuery);

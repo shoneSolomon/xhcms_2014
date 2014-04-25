@@ -52,6 +52,7 @@
 <script src="js/frame.js"></script>
 <script>
 var URL=$.initFrame('letterContent').URL;
+var URLmsg=$.initFrame('msg').URL;
 (function($){
 	require(["template-init","queryparam","requestAFrame","dateUtil","alerts"],function(T,Q,R,DateUtil){
 		Handlebars.registerHelper('Date', function(t) {
@@ -74,19 +75,14 @@ var URL=$.initFrame('letterContent').URL;
 				});
 				$(".deleteLetter").on("click",function(){
 					$.ajax({
-						url:URL.deleteMsg.replace("{{id}}",id),
+						url:URLmsg.deleteMsg.replace("{{id}}",id),
 						data:id,
 						success:function(data){
 							jTip( '删除成功', 2000 );
-
-							R.addTimeout("back_list",function(){
-								var fn = function(){
-									$(".back_list")[0].click();
-								}
-								fn();
-								return fn;
-							},1000*3,1);
-							
+							var fn = function(){
+								$(".back_list")[0].click();
+							}
+							setTimeout(fn,3000);	
 						}
 					})
 				});
