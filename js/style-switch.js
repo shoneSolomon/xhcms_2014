@@ -1,5 +1,5 @@
 define(function(require, exports, module) {	
-	var base = module.uri.replace(/js[\/\\]style\-switch\.js$/,"");
+	var base = module.uri.replace(/js[\/\\]style\-switch\.js.*?$/,"");
 
 	var style = {
 		'default':{
