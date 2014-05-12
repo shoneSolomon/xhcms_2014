@@ -354,3 +354,58 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 	padding-left: 8px;
 	color: #666;
 }
+
+
+/*重构栏目配置页面--by王彩凤*/
+.collocate-cont{ margin:28px 0px 40px 1%;width:99%;height:auto;}
+.ropt .fm-select{ float: left; margin-right: 10px;}
+.collocate-left{ float:left; width:60%; height:auto;}
+.basis-collocate{padding-bottom:10px; width:99%; height:auto; border:#d1d1d1 1px solid;}
+.collocate-cont h2{ margin-bottom:8px;padding-left:18px; height:37px; background:#2CAC93; line-height:37px; font-size:14px; color:#ffffff; font-weight:bold; }
+.basis-left{ float:left; padding-left:2%; width:54%; height:auto;}
+.basis-about{ padding:5px 0px; width:100%x; height:auto;}
+.basis-about>span{ display:block; float:left; width: 15%; min-width:48px; height:32px; line-height:32px; font-size: 12px;}
+.basis-about>div{ float:left; width:85%; vertical-align:middle;}
+.basis-about div input{ width:97%; padding:7px 0px 7px 2%; height:16px; border:1px solid #cdcdcd;}
+.basis-about div select{padding:0px;width:96%; height:32px; padding:0px; vertical-align:middle;  border:1px solid #cdcdcd;}
+.basis-right{ float:left; padding-left:2%; width:42%; height:auto;}
+#ctrl_lists,#cont_ctrl_lists{margin-top:15px;padding:10px;width:88%; height:210px;background:#ffffff;border:1px solid #cecece;overflow:auto;white-space:nowrap;}
+#cont_ctrl_lists div,#ctrl_lists div{height:25px;line-height:25px;text-indent:8px;cursor: pointer;}
+#cont_ctrl_lists .on,#ctrl_lists .on{background-color: #b1f9f4;}
+.mtplChannel,.mtplContent{display:none;}
+.collocate-left .fm-select{ padding: 0 2% 0 1.5%; width:50%;}
+.details-collocate {margin-top: 18px;min-height: 401px;}
+.new-node,.new-branch{display:inline-block; margin-left:8px; width:23px; height:30px; background:url(../images/channel_add_sources.png) 0px 4px no-repeat; cursor:pointer;}
+.basis-about div #data-origin{ width: 85%}
+.basis-about .fm-select{ float:left;}
+.internal-node{height:auto;padding-left:15%; padding-top: 8px;width:auto;}
+.node-content-input{margin-top:5px; margin-bottom:12px;width:100%;height:60px; font-size:12px;}
+.internal-co-a,.internal-co-a:hover{color:#000;cursor:text;}
+.node-bottom-but{margin-top:10px;}
+.node-bottom-but input{ display:block; float:right; width:78px; height:26px;border-radius:3px;  border:0px;cursor:pointer; text-align:center; line-height:26px; font-size:14px; font-weight:bold;color:#fff;}
+.node-bottom-but .ensure{background:#00b6aa;margin-right:15px;}
+.node-bottom-but .calloff{background:#9e9e9e;}
+.internal-node-title{ position:relative; padding:7px 0px;}
+.node-but{position:relative;float:left; padding:4px 0px 4px 8px;width:92px; height:20px; line-height:20px;  background:#00B6AA; font-size:12px;}
+.node-but a,.node-but a:hover{color:#fff;cursor:text;}
+.node-but font{position:absolute; display:inline-block; right:10px; width:20px; height:20px;  background:#fff;text-align:center; color:#00B6AA; font-size:14px; font-weight:bold;cursor:pointer;-moz-user-select:none;}
+.link-file{ float:left; display:block; width:auto; padding:7px 0px; padding-left:6px; height:14px; vertical-align:middle;}
+.link-file input{vertical-align: middle;-moz-user-select:none;}
+.link-file span{ vertical-align: middle;padding-right:5px;-moz-user-select:none;}
+.node-edit{ position:absolute; top:15px; right:40px; color:#00B6AA; cursor:pointer;}
+.disNone{display:none;}
+.disN{display:none;}
+#internal-node .displayTi{display:none;}
+.ranking-list-detail{ margin:5px 0px;}
+.ranking-list-detail>span{display:block; float:left; line-height:32px;height:32px;width:15%;}
+.ranking-list-detail>.fm-select{ float: left;}
+#type-ranking-list .Grabfew{width:74px; height:28px;border: 1px solid #cdcdcd;text-align:center;}
+.collocate-right{ float:left; margin-left:1%;padding-bottom:178px; width:38%; height:auto; border:#d1d1d1 1px solid;}
+.collocate-right-cont{padding-left:5%;}
+.collocate-right h3{ display: block; float:left; width: 18%; line-height: 28px; font-size: 12px; font-weight: normal;}
+.collocate-right .fm-switch{ display:block; float:left;width:60px; cursor:pointer;}
+.on-off-set{ margin-top:13px; width:auto; height:26px; padding:7px 0px;}
+.new-amount{width:auto;height:32px; padding:7px 0px;}
+.new-amount span{ display:block; float:left; width:18%; height:32px; line-height:32px;}
+.new-amount input{ float:left; position:relative; width:70%; padding:7px; height:14px; border:1px solid #cdcdcd;}
+

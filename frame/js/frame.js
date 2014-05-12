@@ -125,7 +125,14 @@ var conf =
 		}:{
 			letterContent:"/web/admin/msg/{{id}}.json"
 		})
-	}             //end
+	},
+	'channelEdit':{
+		URL:(isLocal?{
+			dataSource:"json/channel-edit.json"
+		}:{
+			dataSource:"json/channel-edit.json"
+		})
+	}            //end
 
 };
 

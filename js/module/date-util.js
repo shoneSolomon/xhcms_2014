@@ -8,11 +8,10 @@ define(function(require, exports, module) {
 	
 	var _ = {
 		reg : /([yMdhms\$]{1,2})/g,
-		months : ["01","02","03","04","05","06","07","08","09","10","11","12"],
 		days :["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],
 		yy : function(d){return d.getFullYear()},
-		MM : function(d){return this.months[d.getMonth()]},
-		M  : function(d){return this.months[d.getMonth()]},
+		MM : function(d){return ++d.getMonth()},
+		M  : function(d){return fmt_num(++d.getMonth())},
 		d  : function(d){return d.getDate()},
 		dd : function(d){return fmt_num(d.getDate())},
 		h  : function(d){return d.getHours()},

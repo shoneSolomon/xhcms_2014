@@ -81,9 +81,9 @@ require(['alerts'],function(){
 					jAlert("没有搜索到数据");
 				}else{
 					renderList(data.content);
-					
 				}
-				//列表里没有内容的显示
+
+				//列表里没有内容显示时
 				if($("#load_left>ul>li").length!=0){
 					;
 				}else{

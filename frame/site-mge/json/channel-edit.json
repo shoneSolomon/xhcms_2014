@@ -1,0 +1,34 @@
+{
+	"code":200,
+	"content":{ 
+		"name":"新华网节点", 
+		"path":"www.baidu.com",
+		"parentId":"",
+		"modelId":"",
+		"priority":"",
+		"pubType":"",
+		"catelog":"",
+		"finalStep":"2",
+		"useFor":"",
+		"nodeId":"11103,11105,11107,",
+		"url":"http://www.baidu.com",
+		"rss":"",
+		"subject":"subject",
+		"rankIds":"rankIds",
+		"userDefined":"userDefined",
+		"use":["1","2","4","5"],
+		"datasourceLink":["3","6"],
+		"rankType":"3",
+		"rankCount":"15",
+		"channelList" :[
+			{"name":"www.baidu.com", "id":"1", "value":0},
+			{"name":"www.sina.com", "id":"2", "value":1},
+			{"name":"www.163.com", "id":"3", "value":0}
+		],
+		"contentList" :[
+			{"name":"www.baidu.com", "id":"1", "value":1},
+			{"name":"www.sina.com", "id":"2", "value":1},
+			{"name":"www.163.com", "id":"3", "value":0}
+		]
+	}	
+}

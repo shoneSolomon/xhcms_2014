@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>栏目配置页面</title>
+	<link rel="stylesheet" href="../../css/jqueryui/jquery-ui.css">
+	<link rel="stylesheet" href="../../css/form.css">
+	<script src="../../js/jquery.min.js"></script>
+	<script src="../../js/require.js"></script>
+	<script src="../../js/require-config.js"></script>
+</head>
+<body class="inner-frame">
+	<div class="collocate-cont clearfix">
+		<form class="ropt clearfix">
+			<input type="hidden" id="root" name="root"/>
+			<select class="select1" name="modelId" onchange="if(this.options[this.selectedIndex].value!=''){this.form.action='v_add.do';this.form.submit();}">
+				<option>--添加子栏目--</option>
+			</select>
+			<input class="fm-button" type="submit" value="返回列表" onclick="this.form.action='v_list.do';">
+			<script type="html/template" id="modelId-options" data-target=".select1" data-append="true">
+				{{#each content}}
+				<option value="{{code}}">{{name}}</option>
+				{{/each}}
+			</script>
+		</form>
+		<form id="jvForm" class="collocate-form clearfix" action="o_update.do" method="post">
+			<div class="collocate-left clearfix">
+				<div class="basis-collocate clearfix">
+					<h2>基本配置</h2>
+					<div class="basis-left">
+						<div class="basis-about clearfix">
+                            <span>栏目名称</span>
+                            <div><input type="text" value="" name="name" id="name"/></div>
+                        </div>
+                         <div class="basis-about clearfix">
+                            <span>访问路径</span>
+                            <div><input type="text" value="" name="path" id="path"/></div>
+                        </div>
+                         <div class="basis-about clearfix">
+                            <span>上级栏目</span>
+                            <div id="parentId_input">
+								<input type="text" class="collocate_up"  value="" />
+								<div id="parentId_cont"></div>
+								<input type="hidden" class="upcollocate" name="parentId" id="parentId" value="">
+							</div>
+                        </div>
+                        <div class="basis-about clearfix">
+                            <span>栏目模型</span>
+                            <div>
+								<select class="select2" name="modelId" id="modelId">
+									<option>添加子栏目</option>
+								</select>
+								<script type="html/template" id="addChannel-options" data-target=".select2" data-append="true">
+									{{#each content}}
+										<option value="{{code}}">{{name}}</option>
+									{{/each}}
+								</script>
+							</div>
+                        </div>
+                        <div class="basis-about clearfix">
+                            <span>排列顺序</span>
+                            <div><input type="text" value="" name="priority" id="priority"/></div>
+                        </div>
+                        <div class="basis-about clearfix">
+                            <span>更新方式</span>
+                            <div>
+                            	<select class="select3" name="pubType" id="pubType">
+  									
+								</select>
+								<script type="html/template" id="updateWay-options" data-target=".select3" data-append="true">
+									{{#each content}}
+										<option value="{{code}}">{{name}}</option>
+									{{/each}}
+								</script>
+                            </div>
+                        </div>
+                        <div class="basis-about clearfix">
+							<span>栏目分类</span>
+							<div id="category_input">
+								<input type="text"  class="category" value="" />
+								<div id="category_cont"></div>
+								<input name="catelog" id="catelog" value="" type="hidden" class="required">
+							</div>
+                        </div>
+					</div>
+					<div class="basis-right">
+                    	<div class="model-all">栏目模板（按住ctrl多选）</div>
+                    	<div id="ctrl_lists">
+						</div>
+						<script type="html/template" id="channelModel-divs" data-target="#ctrl_lists" data-append="true">
+							{{#each content/channelList}}
+								<div value="{{id}}">{{name}}</div>
+							{{/each}}
+						</script>
+						<select multiple="multiple" name="mtplChannel" class="mtplChannel">
+
+						</select>
+						<script type="html/template" id="channelModel-optins" data-target=".mtplChannel" data-append="true">
+							{{#each content/channelList}}
+								<option value="{{id}}" {{#if value}}selected="selected"{{/if}}>{{name}}</option>
+							{{/each}}
+						</script>
+                    </div>
+				</div>
+				<div class="basis-collocate details-collocate clearfix">
+					<h2>内容配置</h2>
+					<div class="basis-left">
+						 <div class="basis-about clearfix">
+                            <span>终审级别</span>
+                            <div>
+                            	<input type="text" name="finalStep" id="finalStep" value="">
+                            </div>
+                        </div>
+                        <div class="basis-about clearfix">
+                            <span>发布到</span>
+                            <div>
+                            	<select id="postTo"  name="useFor" id="useFor" class="select4">
+                                </select>
+                                <script type="html/template" id="useFor-optins" data-target="#postTo" data-append="true">
+									{{#each content}}
+										<option value="{{code}}">{{name}}</option>
+									{{/each}}
+								</script>
+                            </div>
+                        </div>
+                        <div class="basis-about clearfix">
+                            <span>数据来源</span>
+                            <div>
+                            	<select name="data-origin" id="data-origin" class="select5">
+									<option value="origin">请选择</option>
+                                	<option value="origin1">新华网节点</option>
+                                    <option value="origin2">URL</option>
+                                    <option value="origin3">RSS聚合</option>
+									<option value="origin4">主题词搜索</option>
+									<option value="origin5">排行榜</option>
+									<option value="origin6">自定义节点</option>
+                                </select>
+                                <i class="new-node"></i>
+                            </div>
+                        </div>
+                        <div  class="internal-node"></div>
+                        <script type="html/template" id="data-sources" data-target=".internal-node" data-append="true">
+                        	<div class='internal-node-con clearfix disNone'>
+							    <p class='internal-con-top'>
+							        <a class='internal-co-a'> 新华网节点</a>
+							        <span class='internal-co-span'>(逗号分离)</span>
+							    </p>
+							    <textarea class='node-content-input' id='id_open' type='text' name='nodeId' value="{{content.nodeId}}">{{content.nodeId}}</textarea>
+							    <div class='node-bottom-but clearfix'>
+							        <input type='button' class='calloff' value='取消'>
+							        <input type='button' class='ensure' value='确定'>
+							    </div>
+							</div>
+							<div name='title_name' class='internal-node-title clearfix'>
+							    <div class='node-but'>
+							        <a>新华网节点</a>
+							        <font>&mdash;</font>
+							    </div>
+							    <div class='link-file'>
+							        <input type='checkbox' id='nodeId-link-open' name="use" class="checkbox" data-type="1" data-id="{{content.use}}">
+							        <label for='nodeId-link-open'>
+							            <span>启用</span>
+							        </label>
+							        <input type='checkbox' id='nodeId-link-file' name="datasourceLink" class="checkbox" data-type="1" data-id="{{content.datasourceLink}}">
+							        <label for='nodeId-link-file'>
+							            <span>链接稿</span>
+							        </label>
+							    </div>
+							    <p class='node-edit'>编辑</p>
+							</div>
+							<div class='internal-node-con clearfix disNone'>
+							    <p class='internal-con-top'>
+							        <a class='internal-co-a'>URL</a>
+							        <span class='internal-co-span'>(逗号分离)</span>
+							    </p>
+							    <textarea class='node-content-input' type='text' name='url' value="{{content.url}}">{{content.url}}</textarea>
+							    <div class='node-bottom-but clearfix'>
+							        <input type='button' class='calloff' value='取消'>
+							        <input type='button' class='ensure' value='确定'>
+							    </div>
+							</div>
+							<div name='title_name' class='internal-node-title clearfix'>
+							    <div class='node-but'>
+							        <a>URL</a>
+							        <font>&mdash;</font>
+							    </div>
+							    <div class='link-file'>
+							        <input type='checkbox' id='url-link-open' name="use" class="checkbox" data-type="2" data-id="{{content.use}}">
+							        <label for='url-link-open'>
+							            <span>启用</span>
+							        </label>
+							        <input type='checkbox' id='url-link-file' name="datasourceLink" class="checkbox"  data-type="2" data-id="{{content.datasourceLink}}">
+							        <label for='url-link-file'>
+							            <span>链接稿</span>
+							        </label>
+							    </div>
+							    <p class='node-edit'>编辑</p>
+							</div>
+							<div class='internal-node-con clearfix disNone'>
+							    <p class='internal-con-top'>
+							        <a class='internal-co-a'>RSS聚合</a>
+							        <span class='internal-co-span'>(逗号分离)</span>
+							    </p>
+							    <textarea class='node-content-input clearfix' type='text' name='rss' value="{{content.rss}}">{{content.rss}}</textarea>
+							    <div class='node-bottom-but'>
+							        <input type='button' class='calloff' value='取消'>
+							        <input type='button' class='ensure' value='确定'>
+							    </div>
+							</div>
+							<div name='title_name' class='internal-node-title clearfix'>
+							    <div class='node-but'>
+							        <a>RSS聚合</a>
+							        <font>&mdash;</font>
+							    </div>
+							    <div class='link-file'>
+							        <input type='checkbox' id='rss-link-open' name="use" class="checkbox" data-type="3" data-id="{{content.use}}">
+							        <label for='rss-link-open'>
+							            <span>启用</span>
+							        </label>
+							        <input type='checkbox' id='rss-link-file' name="datasourceLink" class="checkbox" data-type="3" data-id="{{content.datasourceLink}}">
+							        <label for='rss-link-file'>
+							            <span>链接稿</span>
+							        </label>
+							    </div>
+							    <p class='node-edit'>编辑</p>
+							</div>
+							<div class='internal-node-con clearfix disNone'>
+							    <p class='internal-con-top'>
+							        <a class='internal-co-a'>主题词搜索</a>
+							        <span class='internal-co-span'>(逗号分离)</span>
+							    </p>
+							    <textarea class='node-content-input' type='text' name='subject' value="{{content.subject}}">{{content.subject}}</textarea>
+							    <div class='node-bottom-but clearfix'>
+							        <input type='button' class='calloff' value='取消'>
+							        <input type='button' class='ensure' value='确定'>
+							    </div>
+							</div>
+							<div name='title_name' class='internal-node-title clearfix'>
+							    <div class='node-but'>
+							        <a>主题词搜索</a>
+							        <font>&mdash;</font>
+							    </div>
+							    <div class='link-file'>
+							        <input type='checkbox' id='subject-link-open' name="use" class="checkbox" class="checkbox" data-type="4" data-id="{{content.use}}">
+							        <label for='subject-link-open'>
+							            <span>启用</span>
+							        </label>
+							        <input type='checkbox' id='subject-link-file' name="datasourceLink" class="checkbox" class="checkbox" data-type="4" data-id="{{content.datasourceLink}}">
+							        <label for='subject-link-file'>
+							            <span>链接稿</span>
+							        </label>
+							    </div>
+							    <p class='node-edit'>编辑</p>
+							</div>
+							<div class='internal-node-con clearfix disNone'>
+							    <p class='internal-con-top'>
+							        <a class='internal-co-a'>排行榜节点源</a>
+							        <span class='internal-co-span'>(逗号分离)</span>
+							    </p>
+							    <textarea type='text' class='node-content-input node-ranking-list' name='rankIds' value="{{content.rankIds}}">{{content.rankIds}}</textarea>
+							    <div id='type-ranking-list'>
+							        <div class='ranking-list-detail clearfix'>
+							            <span>榜单类型</span>
+							            <select class='type-select' name='rankType'>
+							                <option value='1'>综合</option>
+							                <option value='2'>新闻</option>
+							                <option value='3'>互动</option>
+							                <option value='4'>概览</option>
+							            </select>
+							        </div>
+							        <div class='ranking-list-detail clearfix'>
+							            <span>抓取条数：</span>
+							            <input type='text' class='Grabfew' name='rankCount' value=''>
+							            条
+							        </div>
+							        <div class='ranking-list-detail' style='display:none'>
+							            <span>抓取时间：</span>
+							            <input type='radio' name='Grabfewself' value='0' class='Grabfewradio'>
+							            <select class='timeGrabfew' name='rankTime'>
+							                <option value='2'>每2分钟</option>
+							                <option value='10'>每10分钟</option>
+							                <option value='30'>每半小时</option>
+							                <option value='60'>每小时</option>
+							                <option value='720'>每12小时</option>
+							                <option value='1440'>每24小时</option>
+							                <option value='2880'>每48小时</option>
+							            </select>
+							            <input type='radio' name='Grabfewself' value='1' class='Grabfewradio'>
+							            每
+							            <input type='text' name='rankTimeWrite' class='Grabfewwrite'>
+							            分钟
+							        </div>
+							    </div>
+							    <div class='node-bottom-but clearfix'>
+							        <input type='button' value='取消' class='calloff'>
+							        <input type='button' value='确定' class='ensure'>
+							    </div>
+							</div>
+							<div class='internal-node-title clearfix' name='title_name'>
+							    <div class='node-but'>
+							        <a>排行榜节点</a>
+							        <font class="mark-5-9">&mdash;</font>
+							    </div>
+							    <div class='link-file'>
+							        <input type='checkbox' id='rankTime-link-open' name="use" class="checkbox" class="checkbox" data-type="5" data-id="{{content.use}}">
+							        <label for='rankTime-link-open'>
+							            <span>启用</span>
+							        </label>
+							        <input type='checkbox' id='rankTime-link-file' name="datasourceLink" class="checkbox" class="checkbox" data-type="5" data-id="{{content.datasourceLink}}">
+							        <label for='rankTime-link-file'>
+							            <span>链接稿</span>
+							        </label>
+							    </div>
+							    <p class='node-edit'>编辑</p>
+							</div>
+							<div class='internal-node-con clearfix disNone'>
+							    <p class='internal-con-top'>
+							        <a class='internal-co-a'>自定义节点</a>
+							        <span class='internal-co-span'>(逗号分离)</span>
+							    </p>
+							    <textarea class='node-content-input' id='id_open' type='text' name='userDefined' value="{{content.userDefined}}">{{content.userDefined}}</textarea>
+							    <div class='node-bottom-but clearfix'>
+							        <input type='button' class='calloff' value='取消'>
+							        <input type='button' class='ensure' value='确定'>
+							    </div>
+							</div>
+							<div name='title_name' class='internal-node-title clearfix'>
+							    <div class='node-but'>
+							        <a>自定义节点</a>
+							        <font>&mdash;</font>
+							    </div>
+							    <div class='link-file'>
+							        <input type='checkbox' id='userDefined-link-open' name="use" class="checkbox" class="checkbox" data-type="6" data-id="{{content.use}}">
+							        <label for='userDefined-link-open'>
+							            <span>启用</span>
+							        </label>
+							        <input type='checkbox' id='userDefined-link-file' name="datasourceLink" class="checkbox" class="checkbox" data-type="6" data-id="{{content.datasourceLink}}">
+							        <label for='userDefined-link-file'>
+							            <span>链接稿</span>
+							        </label>
+							    </div>
+							    <p class='node-edit'>编辑</p>
+							</div>
+                        </script>
+					</div>
+					<div class="basis-right">
+                    	<div class="model-all">内容模板（按住ctrl多选）</div>
+                    	<div id="cont_ctrl_lists">
+						</div>
+						<script type="html/template" id="contModel-divs" data-target="#cont_ctrl_lists" data-append="true">
+							{{#each content/contentList}}
+								<div value="{{id}}">{{name}}</div>
+							{{/each}}
+						</script>
+						<select multiple="multiple" name="mtplContent" class="mtplContent">
+
+						</select>
+						<script type="html/template" id="contModel-optins" data-target=".mtplContent" data-append="true">
+							{{#each content/contentList}}
+								<option value="{{id}}" {{#if value}}selected="selected"{{/if}}>{{name}}</option>
+							{{/each}}
+						</script>
+                    </div>
+				</div>
+			</div>
+			<div class="collocate-right">
+				<h2>开关配置</h2>
+				<div class="collocate-right-cont clearfix">
+					<div class="on-off-set">
+						<h3>栏目开关</h3>
+						<input type="checkbox" id="display" name="display" onclick="$(this).val(this.checked);"/>
+					</div>
+					<div class="new-amount">
+						<span>链接栏目</span>
+						<input type="text" id="link" name="link"/>
+					</div>
+					<div class="column-setup clearfix">
+						<input type="checkbox" id="isTop" name="isTop" onclick="">
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript" src="../js/frame.js"></script>
+	<script>
+		(function(){
+			var URL=$.initFrame('channelEdit').URL;
+			$.ajax({
+				url:URL.dataSource,
+				success:function(data){
+					$("#name").val(data.content.name);
+					$("#path").val(data.content.path);
+					$("#parentId").val(data.content.parentId);
+					$("#modelId").val(data.content.modelId);
+					$("#priority").val(data.content.priority);
+					$("#pubType").val(data.content.pubType);
+					$("#catelog").val(data.content.catelog);
+					$("#finalStep").val(data.content.finalStep);
+					$("#useFor").val(data.content.useFor);
+				}
+			})
+			require(["template-init","form-style"],function(T){
+				$(".select1").toSelect({
+					width: 120,
+					colorful: false
+				});
+				$(".select2,.select3,.select4,.select5").toSelect({
+					colorful: false
+				});
+				$(".collocate-right-cont input[type=checkbox]").toSwitch();
+				T.init({
+					tmpl:"#channelModel-divs",
+					sourceUrl:URL.dataSource,
+					callback:function(){
+						T.init({
+							tmpl:"#channelModel-optins",
+							sourceUrl:URL.dataSource,
+							callback:function(){
+								var contList=$("#ctrl_lists div"), optList=$(".mtplChannel option"), mark="on";
+								ctrlList(contList,optList,mark);
+							}
+						});
+					}
+				});
+
+				T.init({
+					tmpl:"#contModel-divs",
+					sourceUrl:URL.dataSource,
+					callback:function(){
+						T.init({
+							tmpl:"#contModel-optins",
+							sourceUrl:URL.dataSource,
+							callback:function(){
+								var contList=$("#cont_ctrl_lists div"), optList=$(".mtplContent option"), mark="on";
+								ctrlList(contList,optList,mark);
+							}
+						});
+					}
+				});
+
+				/*模板多选*/
+				function ctrlList(contentList,optionList,mark){
+					for(j=0;j<optionList.length;j++){
+						if(optionList.eq(j).attr("selected")=="selected"){
+							contentList.eq(j).addClass(mark);			
+						}
+					};
+					contentList.each(function(){
+						$(this).on("click", function(){
+							$(this).toggleClass(mark);
+							for(i=0;i<contentList.length;i++){
+								console.log(contentList.eq(i).hasClass(mark));
+								if(contentList.eq(i).hasClass(mark)){
+									optionList.eq(i).attr("selected","selected")
+								}
+								else{
+									optionList.eq(i).removeAttr("selected")
+								}
+							}
+						})
+					})
+				}
+				/*模板多选*/
+
+				/*数据来源节点选择*/
+				T.init({
+					tmpl:"#data-sources",
+					sourceUrl:URL.dataSource,
+					callback:function(){
+						var textareaList=$(".internal-node textarea");
+						var nodeList=$(".internal-node .internal-node-con");
+						var nodeTitle=$(".internal-node .internal-node-title");
+						var optionList=$("#data-origin option");
+						$(".internal-node .checkbox").each(function(){
+							for(var key in $(this).attr("data-id")){
+								if($(this).attr("data-id")[key]==$(this).attr("data-type")){
+									this.checked=true;
+								}
+							}
+						});
+						$(".checkbox").toCheckbox();
+						$(".type-select").toSelect();
+
+						textareaList.each(function(){
+							if($(this).html()==""){
+								$(this).parent().next().addClass("disNone")
+							}
+						});
+
+						var that=this;
+						that.now_value = {};
+						for (i = 0; i <nodeList.length; i++) {
+							that.now_value[i] = textareaList.eq(i).val();
+						};
+
+						$(".internal-node .node-edit").each(function(){
+							$(this).on("click",function(){
+								var nub = 0;
+								for (j = 0; j < nodeList.length; j++) {
+									if (!nodeList.eq(j).hasClass("disNone")) {
+										nub += 1
+									}
+								};
+								if (nub == 0) {
+									$(".internal-node").children("div").addClass("disN");
+									$(this).parent().prev().removeClass("disNone");
+									$(this).parent().prev().removeClass("disN");
+								};
+							})
+						});
+						$(".internal-node .calloff").each(function(){
+							$(this).on("click",function(){
+								var index_de = $(".internal-node").find(".calloff").index(this);
+								$(this).parent().parent().addClass("disNone");
+								$(this).parent().parent().next().removeClass("disNone");
+								$(".internal-node").children("div").removeClass("disN");
+								$("textarea", $(this).parent().parent()).val(that.now_value[index_de]);
+							});
+						});
+
+						$(".internal-node .ensure").each(function(){
+							$(this).on("click", function(){
+								var index_de = $(".internal-node").find(".ensure").index(this);
+								$(this).parent().parent().addClass("disNone");
+								$(this).parent().parent().next().removeClass("disNone");
+								$(".internal-node").children("div").removeClass("disN");
+								for (i = 0; i <nodeList.length; i++) {
+									that.now_value[i] = textareaList.eq(i).val();
+								};
+							});
+						});
+
+						$("font", nodeTitle).each(function(){
+							$(this).on("click",function(){
+								var index_dele = $("font", nodeTitle).index(this);
+								$(this).parent().parent().addClass("disNone");
+								textareaList[index_dele].value = "";
+								if($(this).hasClass("mark-5-9")){
+									$(".internal-node .type-select").val("1").trigger('selectVal');
+									$(".internal-node .Grabfew").val("10");
+								}
+							})
+						});
+
+						$(".new-node").on("click",function(){
+							var dis = 0
+							for (i = 0; i < nodeList.length; i++) {
+								if (!nodeList.eq(i).hasClass("disNone")) {
+									dis += 1
+								}
+							}
+							for (i = 0; i < textareaList.length; i++) {
+								if (optionList[i + 1].selected&&nodeTitle.eq(i).is(":visible") == false && dis == 0) {
+									$(".internal-node").children("div").addClass("disN")
+									nodeList.eq(i).removeClass("disNone");
+									nodeList.eq(i).removeClass("disN");
+								}
+							}
+						})
+					}
+				})
+				/*数据来源节点选择*/
+
+			})
+		})()
+	</script>
+</body>
+</html>
