@@ -43,11 +43,11 @@
 		</p>
 		<p>
 			<strong>婚否：</strong>
-			<input type="checkbox" name="switch" id="switch" class="switch">
+			<input type="checkbox" name="switch" id="switch" class="switch" value="1">
 		</p>
 		<p style="height:30px;">
 			<strong>选项：</strong>
-			<select name="sel" id="select0" class="select">
+			<select name="sel1" id="select0" class="select">
 				<option value="1">选项1</option>
 				<option value="2">选项2选项2</option>
 				<option value="3">选项3选项2选项2</option>
@@ -62,7 +62,7 @@
 		</p>
 		<p style="height:30px;">
 			<strong>选项：</strong>
-			<select name="sel" id="select1" class="select">
+			<select name="sel2" id="select1" class="select">
 				<option value="1">选项1</option>
 				<option value="2">选项2选项2</option>
 				<option value="3">选项3选项2选项2</option>
@@ -262,11 +262,22 @@
 	}
 
 	require(['formUtil'],function(F){
+
+		$('.main').prepareFormData({
+			radio 	: 1,
+			'switch': 1,
+			checkbox: '0,2,3',
+			sel1 	: 5,
+			kw 		: '我是关键字'
+		});
+
+		//$("#checkbox-line").checkVal('checkbox','0,2,3');
+
 		$("#checkbox-line").on('click',function(){
-			console.log( F.checkedVal('checkbox',this).join(",") );
+			alert( $(this).checkVal('checkbox').join(",") );
 		});
 		$("#radio-line").on('click',function(){
-			console.log( $(':radio[name="radio"]',this).filter(":checked").val() );
+			alert( $(this).radioVal('radio') );
 		});
 		F.selectAll({
 			handle : "#_checkAll",

@@ -1,14 +1,38 @@
 define(function(require, exports, module) {
 	var $ = jQuery;
 
-	return {
-		checkedVal : function(name,form){
+	$.fn.extend({
+		checkVal : function(name,values){
 			var result = [];
-			$( ':checkbox[name="'+name+'"]', form ).filter(":checked").each(function(){
-				result.push( this.value );
+			$( ':checkbox[name="'+name+'"]', this ).each(function(){
+				if(this.checked){
+					result.push( this.value );
+				}
+				if(values){
+					var checked = !!(values+"").match( new RegExp('\\b'+this.value+'\\b') );
+					if(this.checked != checked){
+						this.click();
+					}
+				}
 			});
-			return result;
+			return values ? this : result;
 		},
+		radioVal : function(name, value){
+			return value ? $( ':radio[name="'+name+'"][value="'+value+'"]' ).attr({checked:true}) : $( ':radio[name="'+name+'"]:checked' ).val()
+		},
+		prepareFormData: function(data){
+			for(var name in data){
+				var el = $('[name="'+name+'"]',this);
+				switch( el[0].type ){
+					case 'radio': this.radioVal(name,data[name]);break;
+					case 'checkbox': this.checkVal(name,data[name]);break;
+					default: el.val( data[name] ) 
+				}
+			}
+		}
+	});
+
+	return {
 		selectAll : function(opt){
 			var o = $.extend({
 				handle : null,			//必须是页面已有标签
