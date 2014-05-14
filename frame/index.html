@@ -71,7 +71,7 @@
 <body>
 	<div class="index-main">
 		<div class="headimg">
-			<img src="../images/img.png">
+			<img id="userPic">
 		</div>
 		<div class="headwelcome"><img src="../images/welcome.png"></div>
 		<div class="headleft">
@@ -81,9 +81,9 @@
 				<a class="fm-button headicon head_quit" href="../../xhadmin/logout.do?returnUrl=/xhcms_2014/html/index.html" onclick="return confirm('您确定退出吗？')">退出</a>
 				<a class="fm-button headicon head_modified" href="javascript:void(0);" onclick="window.parent.document.getElementById('personal-settings').click();">修改资料</a>
 				<div style="clear:both"></div>
-				<p>本次登录地点:<span><span class="data-hole">ip</span></span></p>
-				<p>上次登录时间:<span><span class="data-hole">lastLoginTime</span></span></p>
-				<p>上次登录地点:<span><span class="data-hole">lastLoginAddress</span>  <span class="data-hole">lastLoginIp</span></span></p>
+				<p>本次登录地点:<span><span class="data-hole">loginLocation</span> <span class="data-hole">ip</span></span></p>
+				<p>上次登录时间:<span><span class="data-hole">lastLoginTime</span> </span></p>
+				<p>上次登录地点:<span><span class="data-hole">lastLoginLocation</span> <span class="data-hole">lastLoginIp</span></span></p>
 				<p class="headreceive" id="count-receiving"></p>
 			</div>
 			<div class="cont_entrance">
@@ -231,6 +231,10 @@
 
 					var tNode = document.createTextNode( result || "开发中..." );
 					$(this).before(tNode).remove();
+				});
+				$('#userPic').attr({
+					src: o.userPic || "../images/img.png",
+					title: o.realname
 				});
 			});
 		}	

@@ -23,10 +23,12 @@ define(function(require, exports, module) {
 		prepareFormData: function(data){
 			for(var name in data){
 				var el = $('[name="'+name+'"]',this);
-				switch( el[0].type ){
-					case 'radio': this.radioVal(name,data[name]);break;
-					case 'checkbox': this.checkVal(name,data[name]);break;
-					default: el.val( data[name] ) 
+				if(el[0]){
+					switch( el[0].type ){
+						case 'radio': this.radioVal(name,data[name]);break;
+						case 'checkbox': this.checkVal(name,data[name]);break;
+						default: el.val( data[name] ) 
+					}
 				}
 			}
 		}
