@@ -145,7 +145,12 @@ paths = {
 	 * 提供JSON的兼容性支持, 支持restful-json对于json对象引用$ref的解析
 	 * @see  demo/test-json.html
 	 */
-	json : "module/json"
+	json : "module/json",
+	/*
+	 * 对密码进行加密设置
+	 * @see  http://plugins.jquery.com/base64/
+	*/
+	base64:"jquery.base64.min"
 },
 ui = [
 "accordion",
@@ -198,6 +203,9 @@ require.config({
 			deps:["core"]
 		},
 		dialog:{
+			deps: ["widget"]
+		},
+		button:{
 			deps: ["widget"]
 		},
 		tabs:{

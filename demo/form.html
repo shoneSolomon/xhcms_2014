@@ -356,7 +356,7 @@
 	require(['sortable','alerts'],function(){
 		var index = null;
 		//获取tr的父级进行sortable操作，因为浏览器会为table添加tbody。
-		$('table tr').parent().sortable({
+		$('.table tr').parent().sortable({
 			start:function(e,ui){
 				index = ui.item.index();
 			},
@@ -371,5 +371,16 @@
 	
 
 </script>
+
+<script>
+	require(['module/txt-replace/index'],function(TXTReplace){
+
+		var replacer = new TXTReplace({
+
+		});
+
+	});
+</script>
+
 </body>
 </html>

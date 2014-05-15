@@ -64,7 +64,7 @@ require(['alerts'],function(){
 		});
 		$.ajax({
 			type:"get",
-			url:"json/list.json", 
+			url:"/agent?http://xuan.news.cn/xhCNS/search.htm?",          //json/list.json
 			data: {
 				from:$("#start-time").val(),        //开始时间   
 				to:$("#end-time").val(),            //结束时间
@@ -77,18 +77,19 @@ require(['alerts'],function(){
 			},
 			success:function( data ){
 				$("#load_left ul li:not('.checked')").remove();   //把列表中没有选中的列表项都删除
-				if(data.length==0){
-					jAlert("没有搜索到数据");
+				$(".btn-next").css({background:"#00b6aa"});    
+				if(data.content.length==0){
+					//jAlert("没有搜索到数据");
+					//列表里没有内容显示时
+					if($("#load_left>ul>li").length!=0){
+						;
+					}else{
+						$(".title").append("<p class='no-result'>没有搜索结果，可更换关键词后重新搜索</p>");
+						$(".btn-next").css({background:"#dadada"});
+					}
 				}else{
+					$(".title p").remove()
 					renderList(data.content);
-				}
-
-				//列表里没有内容显示时
-				if($("#load_left>ul>li").length!=0){
-					;
-				}else{
-					$("#load_left").html("<p class='no-result'>没有搜索结果，可更换关键词后重新搜索</p>");
-					$(".btn-next").css({background:"#dadada"});
 				}
 			},
 			error:function(){
@@ -114,7 +115,7 @@ require(['alerts'],function(){
 			alert( "输入标签内容过长" );
 			return;
 		}
-		if( /^[\w\u4e00-\u9fa5]+$/.test(v) ){   //如果输入的内容匹配正则表达式，可以查询
+		if( /^[\.\w\u4e00-\u9fa5]+$/.test(v) ){   //如果输入的内容匹配正则表达式，可以查询
 			$("#keyword").append('<li><a href="#"><span></span>'+$("#txts").val()+'</a></li>');
 			getResultList();
 		}else{
@@ -168,7 +169,7 @@ require(['alerts'],function(){
 			});
 		});
 		parent.timeLineFN.list.sort(function(a,b){                //时间排序
-			return a.time >= b.time;
+			return a.releaseDate > b.releaseDate ? 1 : -1;
 		});
 	});
 

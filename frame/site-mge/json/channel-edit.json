@@ -1,6 +1,7 @@
 {
 	"code":200,
 	"content":{ 
+		"root":"290",
 		"name":"新华网节点", 
 		"path":"www.baidu.com",
 		"parentId":"",
@@ -29,6 +30,27 @@
 			{"name":"www.baidu.com", "id":"1", "value":1},
 			{"name":"www.sina.com", "id":"2", "value":1},
 			{"name":"www.163.com", "id":"3", "value":0}
-		]
+		],
+		"display":true,
+		"link":"www.baidu.com",
+		"isTop":0,
+		"isSystem":1,
+		"isDefault":1,
+		"isSystem":1,
+		"free":true,
+		"allowUpdown":true,
+		"commentControl":3,
+		"hasTitleImg":true,
+		"titleImgWidth":75,
+		"titleImgHeight":220,
+		"hasContentImg":true,
+		"contentImgWidth":310,
+		"contentImgHeight":310,
+		"staticContent":false,
+		"contentRule":500,
+		"staticChannel":true,
+		"channelRule":500,
+		"totalCount":100,
+		"isBind":1
 	}	
 }

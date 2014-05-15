@@ -33,7 +33,9 @@ define(function(require, exports, module){
 	var compile = Handlebars.compile(template);
 	var opt = {
 		embed : 'body',
-		current : 0
+		current : 0,
+		onBeforeDel: function(){},
+		onDel: function(ids){}
 	};
 
 	/**
@@ -99,7 +101,9 @@ define(function(require, exports, module){
 			var rm = $(this).parent().parent();
 			var focus = rm.next().length ? rm.next() : rm.prev();
 			confirmHandle('确认删除数据组?',function(){
+				o.onBeforeDel.call(holder);
 				rm.remove();
+				o.onDel.call(holder);
 				focus.trigger('click');
 			},noConfirm);
 			e.stopPropagation();
