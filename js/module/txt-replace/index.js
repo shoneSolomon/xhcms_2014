@@ -81,7 +81,9 @@ define(function(require, exports, module){
 		});	//清除高亮展示
 	};
 
-
+	var alert = function(info){
+		window.jAlert ? window.jAlert(info) : window.alert( (""+info).replace(/<.*?>/g,'') );
+	};
 
 	return function(opt){
 		var o = $.extend({},base,opt);
@@ -132,9 +134,9 @@ define(function(require, exports, module){
 			var value = $.trim(keyword.val());
 			if( o.reg.test(value) ){
 				var nodes = getLeafNode(baseNode,value,highlighter);
-				(window.jAlert || window.alert)('一共查询到<span style="color:red;">'+nodes.length+'</span>条匹配结果！');
+				alert('一共查询到<span style="color:red;">'+nodes.length+'</span>条匹配结果！');
 			}else{
-				(window.jAlert || window.alert)('输入字符有误!');
+				alert('输入字符有误!');
 			}
 			
 		});
@@ -143,9 +145,9 @@ define(function(require, exports, module){
 			var value = $.trim(keyword.val());
 			if( o.reg.test(value) ){
 				var nodes = getLeafNode(baseNode,value,null,replacer.val());
-				(window.jAlert || window.alert)('一共替换了<span style="color:red;">'+nodes.length+'</span>条匹配结果！');
+				alert('一共替换了<span style="color:red;">'+nodes.length+'</span>条匹配结果！');
 			}else{
-				(window.jAlert || window.alert)('输入字符有误!');
+				alert('输入字符有误!');
 			}
 		});
 
