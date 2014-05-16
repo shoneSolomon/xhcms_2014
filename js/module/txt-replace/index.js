@@ -16,7 +16,7 @@ define(function(require, exports, module){
 				el: '#show-txt-replace',
 				option: 'click mouseover'
 			},
-			highlighter: '<i style="color:#c00;">$1</i>'
+			highlighter: '<i style="color:#c00;" class="txt-keyword-highlighter">$1</i>'
 		},
 		html = 	''+
 				'<div style="position:fixed;width:100%;z-index:99999;background:#d2d2d2;line-height:40px;bottom:0;left:0;padding:0;">'+
@@ -27,12 +27,12 @@ define(function(require, exports, module){
 				'			<colgroup style="width:10%"></colgroup>'+
 				'			<tr>'+
 				'				<td style="text-align:right;"><strong>查询关键字</strong></td>'+
-				'				<td><input type="text" style="width:98%;line-height:26px;" class="txt-keyword"></td>'+
+				'				<td><input type="text" style="width:98%;line-height:26px;padding:0;height:26px;" class="txt-keyword" tabindex="100"></td>'+
 				'				<td style="text-align:left;"><input type="submit" value="查询" class="fm-button"/></td>'+
 				'			</tr>'+
 				'			<tr>'+
 				'				<td style="text-align:right;"><strong>替换关键字</strong></td>'+
-				'				<td><input type="text" style="width:98%;line-height:26px;" class="txt-replacer"></td>'+
+				'				<td><input type="text" style="width:98%;line-height:26px;padding:0;height:26px;" class="txt-replacer" tabindex="101"></td>'+
 				'				<td style="text-align:left;"><a href="javascript:;" class="fm-button txt-replace">替换</a></td>'+
 				'			</tr>'+
 				'		</table>'+
@@ -52,25 +52,36 @@ define(function(require, exports, module){
 	 * @return {Array<NodeElement>} 数组
 	 */
 	var getLeafNode = function(baseNode,keyword,highlighter,change){
-		var result = [], elements = $('*',baseNode);
+		var result = [];
+		clearHighlighter(baseNode);
+		var elements = $('*',baseNode); //重新获取标签
 		keyword = keyword.replace(/\*+/g,'.*');
-		var keyword = new RegExp( (highlighter&&change) ? highlighter.replace('$1',keyword) : '('+keyword+')', 'g' ); 
+		keyword = new RegExp('('+keyword+')', 'g' ); 
 		
 		for (var i = 0; i < elements.length; i++) {
-			if( elements[i].innerHTML && !elements[i].children.length && keyword.test(elements[i].innerHTML) ){
+			(function(el){
+				console.log(el);
+				var m = el.innerHTML ? {attr:'innerHTML',value:el.innerHTML} : {attr:'value',value:el.value};
+				if( !el.children.length && m.value && keyword.test(m.value) ){
+					if( change ){	//需要替换
+						el[m.attr] = m.value.replace( keyword, change );
+					}else if( highlighter ){	//需要高亮
+						el[m.attr] = m.value.replace( keyword, highlighter );
+					}else{				//只是获取匹配数目
 
-				if( change ){	//需要替换
-					elements[i].innerHTML = elements[i].innerHTML.replace( keyword, change );
-				}else if( highlighter ){	//需要高亮
-					elements[i].innerHTML = elements[i].innerHTML.replace( keyword, highlighter );
-				}else{				//只是获取匹配数目
-
+					}
+					result.push(el);
 				}
-				result.push(elements[i]);
-			}
-		};
+			})(elements[i]);
+		}
+
 		return result;
+	}, clearHighlighter = function(baseNode){
+		$('.txt-keyword-highlighter',baseNode).each(function(){
+			$(this).replaceWith( $(this).html() );
+		});	//清除高亮展示
 	};
+
 
 
 	return function(opt){
@@ -87,6 +98,7 @@ define(function(require, exports, module){
 		 * 关闭事件
 		 */
 		panel.on('click','.fm-close',function(){
+			clearHighlighter(baseNode);
 			panel.slideUp();
 		});
 
@@ -98,13 +110,17 @@ define(function(require, exports, module){
 			keyChar = keys[1],
 			keyList = 'abcdefghijklmnopqrstuvwxyz';
 		$(o.eventNode).on('keypress',function(e){
-			if(e[fnKey] && ( keyList.charAt( e.keyCode-65) == keyChar || keyList.charAt( e.keyCode-97) == keyChar ) ){
-				panel.slideDown();
+			var code = e.charCode || e.keyCode;
+			// if(e[fnKey] && ( keyList.charAt( e.charCode-65) == keyChar || keyList.charAt( e.charCode-97) == keyChar ) ){
+			if(e[fnKey] && ( keyList.charAt( code-65) == keyChar || keyList.charAt( code-97) == keyChar ) ){
+				clearHighlighter(baseNode);
+				panel.slideToggle();
 			} 
 		});
 		if(button){
 			$(button.el).on(button.option||'click',function(){
-				panel.slideDown();
+				clearHighlighter(baseNode);
+				panel.slideToggle();
 			});
 		}
 
@@ -116,7 +132,7 @@ define(function(require, exports, module){
 
 			var value = $.trim(keyword.val());
 			if( o.reg.test(value) ){
-				var nodes = getLeafNode(baseNode,value);
+				var nodes = getLeafNode(baseNode,value,highlighter);
 				(window.jAlert || window.alert)('一共查询到<span style="color:red;">'+nodes.length+'</span>条匹配结果！');
 			}else{
 				(window.jAlert || window.alert)('输入字符有误!');

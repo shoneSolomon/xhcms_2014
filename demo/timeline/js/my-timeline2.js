@@ -1,33 +1,4 @@
 //2.设置时间轴页面
-
-
-
-  //时间轴tab切换
-  /*
-  require(['timeline'],function(){
-    $.ajax({
-      url: '../json/timeline.json',
-      dataType: 'json',
-      success: function(data){
-
-        createStoryJS({
-              type:       'timeline',
-              width:      '100%',
-              height:     '600',
-              start_at_slide: 0,
-              start_zoom_adjust: 3,
-              lang:"zh-cn",
-              // source:     data,
-              embed_id:   'my-timeline',
-              start_at_end : true,
-              maptype:'watercolor'
-          },data);
-      }
-    });
-
-  });
-*/
-
   require(['time-line','timeline','underscore','alerts'],function(Timeline){
     
     var list = [], timel;
@@ -65,16 +36,16 @@
         });
       }     
 
-      //生成时间轴
+      //生成时间轴 (标题横轴式/图文横轴式可切换)
       $('#my-timeline').html("");
       if( "title" == rank ){
         timel = Timeline({
           embed : '#my-timeline',
           onDel : function(){
             var listIds = this.getAllIds(),  //.join(','),   //删除之后的数组id（取得仅仅是id）（加join()的话就成字符串了）
-                oldList = parent.timeLineFN.list,        //列表中选中部分
-                newList = [], newList2 = [];                 //放入删除之后的id列表
-
+                oldList = parent.timeLineFN.list,            //列表中选中部分
+                newList = [],                                //放入删除之后的id列表
+                newList2 = [];                               //放入删除之后的id列表（对应list列表，相当于复制newList）
             for (var i = 0; i < oldList.length; i++) {
               if( _.indexOf(listIds,oldList[i].docId) !== -1 ){
                 newList.push(oldList[i]);
@@ -114,10 +85,9 @@
        
 
     //点击上一步时 获取删除后的结果
-    $('#back').on('click',function(){
+    // $('#back').on('click',function(){
       
-
-    });
+    // });
 
 
     //点击“完成”按钮
@@ -140,6 +110,8 @@
         }
       }); 
     });
+
+
 
   });
 

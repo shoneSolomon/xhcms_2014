@@ -247,8 +247,6 @@
 		<div class="pager-line">
 			<p id="pager" class="fm-pager"></p>
 		</div>
-
-		
 	</div>
 
 <!--[if  lte  IE  6]>
@@ -371,12 +369,16 @@
 	
 
 </script>
-
+<a href="javascript:void(0);" class="fm-button" style="position:fixed;right:0;bottom:100px;" id="open-to-replace">打开/关闭搜索框</a>
 <script>
 	require(['module/txt-replace/index'],function(TXTReplace){
 
 		var replacer = new TXTReplace({
-
+			baseNode : '.main',
+			button: {
+				el: '#open-to-replace',
+				option: 'click'
+			}
 		});
 
 	});
