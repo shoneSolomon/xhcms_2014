@@ -60,7 +60,6 @@ define(function(require, exports, module){
 		
 		for (var i = 0; i < elements.length; i++) {
 			(function(el){
-				console.log(el);
 				var m = el.innerHTML ? {attr:'innerHTML',value:el.innerHTML} : {attr:'value',value:el.value};
 				if( !el.children.length && m.value && keyword.test(m.value) ){
 					if( change ){	//需要替换
