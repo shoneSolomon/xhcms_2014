@@ -1,5 +1,5 @@
 (function($){
-window.isLocal = !( location.host && /(news\.cn)|(66\.(11)|(12))/.test(location.host) );
+window.isLocal = !( location.host && /news\.cn|65\.\d+/.test(location.host) );
 
 var conf = 	
 {
@@ -128,9 +128,9 @@ var conf =
 	},
 	'channelEdit':{
 		URL:(isLocal?{
-			dataSource:"json/channel-edit.json"
+			dataSource:"json/channel.json"
 		}:{
-			dataSource:"json/channel-edit.json"
+			dataSource:"json/channel.json"
 		})
 	}            //end
 

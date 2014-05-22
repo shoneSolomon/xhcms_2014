@@ -393,7 +393,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .link-file{ float:left; display:block; width:auto; padding:7px 0px; padding-left:6px; height:14px; vertical-align:middle;}
 .link-file input{vertical-align: middle;-moz-user-select:none;}
 .link-file span{ vertical-align: middle;padding-right:5px;-moz-user-select:none;}
-.node-edit{ position:absolute; top:15px; right:40px; color:#00B6AA; cursor:pointer;}
+.node-edit{ position:absolute; top:15px; right:8%; color:#00B6AA; cursor:pointer;}
 .disNone{display:none;}
 .disN{display:none;}
 #internal-node .displayTi{display:none;}

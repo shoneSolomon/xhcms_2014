@@ -13,8 +13,8 @@
     }); 
 
     function renderTimeline(){
-      var dd = $('#timel_rank').children('.cur').data('value'), d = 10; //时间密度
-      var rank = $('#timer_rank').children('.cur').data('value'); 
+      var dd = $('#timel_rank').children('.cur').data('value'), d = 10; //时间刻度
+      var rank = $('#timer_rank').children('.cur').data('value');       //时间轴样式
 
       switch(dd){
         case 'y': d = 4; break;
@@ -35,10 +35,9 @@
           data:_list[k]
         });
       }     
-
       //生成时间轴 (标题横轴式/图文横轴式可切换)
       $('#my-timeline').html("");
-      if( "title" == rank ){
+      if( rank == "title" ){
         timel = Timeline({
           embed : '#my-timeline',
           onDel : function(){
@@ -54,7 +53,6 @@
             };
 
             list = newList2; 
-            console.log( list );
             parent.timeLineFN.list = newList;
           }
         },data);

@@ -77,7 +77,7 @@ require(['alerts'],function(){
 			},
 			success:function( data ){
 				$("#load_left ul li:not('.checked')").remove();   //把列表中没有选中的列表项都删除
-				$(".btn-next").css({background:"#00b6aa"});    
+				$(".btn-next").css({background:"#00b6aa"}).attr({ href: "timeline2.html" });    
 				if(data.content.length==0){
 					//jAlert("没有搜索到数据");
 					//列表里没有内容显示时
@@ -85,7 +85,7 @@ require(['alerts'],function(){
 						;
 					}else{
 						$(".title").append("<p class='no-result'>没有搜索结果，可更换关键词后重新搜索</p>");
-						$(".btn-next").css({background:"#dadada"});
+						$(".btn-next").css({background:"#dadada"}).attr({ href: "javascript:void(0)" });
 					}
 				}else{
 					$(".title p").remove()
@@ -98,7 +98,14 @@ require(['alerts'],function(){
 		});
 	}
 	getResultList();
-    
+
+	//获取关键词
+	function getkeyword(){
+		for( var i=0;i<parent.timeLineFN.keyword.length;i++ ){
+			$("#keyword").append('<li><a href="#"><span></span>'+parent.timeLineFN.keyword[i]+'</a></li>');
+		}
+	}
+    getkeyword();
 
 	//点击搜索时 添加关键词
 	$("#sou").on('click',function(){
@@ -136,6 +143,7 @@ require(['alerts'],function(){
 	//点击关键词里的 "减" 时，去除关键字
 	$("#keyword").on("click","span",function(){
 		$(this).parent().parent("li").remove(); 
+		//$("#sou").trigger("click");
 	});
 	
 

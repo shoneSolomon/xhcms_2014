@@ -52,7 +52,7 @@ define(function(require, exports, module){
 	 * @return {Array<NodeElement>} 数组
 	 */
 	var getLeafNode = function(baseNode,keyword,highlighter,change){
-		var result = [];
+		var result = [],sum=0;
 		clearHighlighter(baseNode);
 		var elements = $('*',baseNode); //重新获取标签
 		keyword = keyword.replace(/\*+/g,'.*');
@@ -62,6 +62,7 @@ define(function(require, exports, module){
 			(function(el){
 				var m = el.innerHTML ? {attr:'innerHTML',value:el.innerHTML} : {attr:'value',value:el.value};
 				if( !el.children.length && m.value && keyword.test(m.value) ){
+					sum += m.value.match(keyword).length;
 					if( change ){	//需要替换
 						el[m.attr] = m.value.replace( keyword, change );
 					}else if( highlighter ){	//需要高亮
@@ -74,7 +75,7 @@ define(function(require, exports, module){
 			})(elements[i]);
 		}
 
-		return result;
+		return sum;
 	}, clearHighlighter = function(baseNode){
 		$('.txt-keyword-highlighter',baseNode).each(function(){
 			$(this).replaceWith( $(this).html() );
@@ -133,8 +134,8 @@ define(function(require, exports, module){
 
 			var value = $.trim(keyword.val());
 			if( o.reg.test(value) ){
-				var nodes = getLeafNode(baseNode,value,highlighter);
-				alert('一共查询到<span style="color:red;">'+nodes.length+'</span>条匹配结果！');
+				var sum = getLeafNode(baseNode,value,highlighter);
+				alert('一共查询到<span style="color:red;">'+sum+'</span>条匹配结果！');
 			}else{
 				alert('输入字符有误!');
 			}
@@ -144,8 +145,8 @@ define(function(require, exports, module){
 		replace.on('click',function(){
 			var value = $.trim(keyword.val());
 			if( o.reg.test(value) ){
-				var nodes = getLeafNode(baseNode,value,null,replacer.val());
-				alert('一共替换了<span style="color:red;">'+nodes.length+'</span>条匹配结果！');
+				var sum = getLeafNode(baseNode,value,null,replacer.val());
+				alert('一共替换了<span style="color:red;">'+sum+'</span>条匹配结果！');
 			}else{
 				alert('输入字符有误!');
 			}
