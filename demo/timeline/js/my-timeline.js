@@ -64,7 +64,7 @@ require(['alerts'],function(){
 		});
 		$.ajax({
 			type:"get",
-			url:"/agent?http://xuan.news.cn/xhCNS/search.htm?",          //json/list.json
+			url:top.xhconfig ? top.xhconfig.newsSearch : "/agent?http://xuan.news.cn/xhCNS/search.htm?",          //json/list.json
 			data: {
 				from:$("#start-time").val(),        //开始时间   
 				to:$("#end-time").val(),            //结束时间
@@ -99,13 +99,6 @@ require(['alerts'],function(){
 	}
 	getResultList();
 
-	//获取关键词
-	function getkeyword(){
-		for( var i=0;i<parent.timeLineFN.keyword.length;i++ ){
-			$("#keyword").append('<li><a href="#"><span></span>'+parent.timeLineFN.keyword[i]+'</a></li>');
-		}
-	}
-    getkeyword();
 
 	//点击搜索时 添加关键词
 	$("#sou").on('click',function(){
@@ -179,6 +172,12 @@ require(['alerts'],function(){
 		parent.timeLineFN.list.sort(function(a,b){                //时间排序
 			return a.releaseDate > b.releaseDate ? 1 : -1;
 		});
+		//把搜索的关键词添加到数组中【new】
+		parent.timeLineFN.keyword = [];
+		$("#keyword li").each(function(){
+			parent.timeLineFN.keyword.push( $(this).find("a").text() )
+		});
+		
 	});
 
 
@@ -186,6 +185,15 @@ require(['alerts'],function(){
 	if( parent.timeLineFN.list.length ){
 		renderList( parent.timeLineFN.list, true );
 	}
+
+	//回显（获取）关键词【new】
+	function getkeyword(){
+		for( var i=0;i<parent.timeLineFN.keyword.length;i++ ){
+			$("#keyword").append('<li><a href="#"><span></span>'+parent.timeLineFN.keyword[i]+'</a></li>');
+		}
+	}
+    getkeyword();
+
 
 
 

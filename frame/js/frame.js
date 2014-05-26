@@ -169,7 +169,9 @@ window.cssSwitch = function(){
 };
 
 if( window.top != window ){
-	require(['requestAFrame'],cssSwitch);
+	require(['requestAFrame'],function(R){
+		R.addTimeout('cssSwitch',cssSwitch);
+	});
 }
 
 })(jQuery);
