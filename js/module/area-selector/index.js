@@ -34,7 +34,7 @@ define(function(require, exports, module){
 				}
 			};
 			window.onAreaSelecter.ready = o.ready;
-			window.frames["area_selector"].document.write( html.replace(/\{\{base\}\}/g, module.uri.replace('/module/area-selector/index.js','')));
+			window.frames["area_selector"].document.write( html.replace(/\{\{base\}\}/g, module.uri.replace(/\/module\/area\-selector\/index\.js.*?$/,'')));
 		}
 			
 		el.on('click',function(){
