@@ -68,37 +68,43 @@
 </li>
 {{#each content}}
 	<li>
-		<div class="menu-line" data-id="{{id}}" data-parent="{{parentId}}" data-url="{{url}}" data-type="{{type}}">
+		<div class="menu-line" data-deepth="1" data-id="{{id}}" data-parent="{{parentId}}" data-url="{{url}}" data-type="{{type}}" data-treeurl="{{treeLinkUrl}}">
 			<span>{{name}}</span>
 			<a href="javascript:void(0);" class="fm-button btn-add">新增</a>
 			<a href="javascript:void(0);" class="fm-button btn-edit">编辑</a>
+			{{#if childMenus.length}}{{else}}
 			<a href="javascript:void(0);" class="fm-button btn-delete">删除</a>
+			{{/if}}
 		</div>
 		{{#if childMenus.length}}
 		<ul>
 		{{#each childMenus}}
 			<li>
-				<div class="menu-line" data-id="{{id}}" data-parent="{{parentId}}" data-url="{{url}}" data-type="{{type}}">
+				<div class="menu-line" data-deepth="2" data-id="{{id}}" data-parent="{{parentId}}" data-url="{{url}}" data-type="{{type}}" data-treeurl="{{treeLinkUrl}}">
 					<span>{{name}}</span>
 					<a href="javascript:void(0);" class="fm-button btn-add">新增</a>
 					<a href="javascript:void(0);" class="fm-button btn-edit">编辑</a>
+					{{#if childMenus.length}}{{else}}
 					<a href="javascript:void(0);" class="fm-button btn-delete">删除</a>
+					{{/if}}
 				</div>
 				{{#if childMenus.length}}
 				<ul>
 				{{#each childMenus}}
 					<li>
-						<div class="menu-line" data-id="{{id}}" data-parent="{{parentId}}" data-url="{{url}}" data-type="{{type}}">
+						<div class="menu-line" data-deepth="3" data-id="{{id}}" data-parent="{{parentId}}" data-url="{{url}}" data-type="{{type}}" data-treeurl="{{treeLinkUrl}}">
 							<span>{{name}}</span>
 							<a href="javascript:void(0);" class="fm-button btn-add">新增</a>
 							<a href="javascript:void(0);" class="fm-button btn-edit">编辑</a>
+							{{#if childMenus.length}}{{else}}
 							<a href="javascript:void(0);" class="fm-button btn-delete">删除</a>
+							{{/if}}
 						</div>
 						{{#if childMenus.length}}
 						<ul>
 						{{#each childMenus}}
 							<li>
-								<div class="menu-line" data-id="{{id}}" data-parent="{{parentId}}" data-url="{{url}}" data-type="{{type}}">
+								<div class="menu-line" data-deepth="4" data-id="{{id}}" data-parent="{{parentId}}" data-url="{{url}}" data-type="{{type}}" data-treeurl="{{treeLinkUrl}}">
 									<span>{{name}}</span>
 									<a href="javascript:void(0);" class="fm-button btn-add">新增</a>
 									<a href="javascript:void(0);" class="fm-button btn-edit">编辑</a>
@@ -123,15 +129,24 @@
 
 <script>
 var isLocal = !( location.host && /news\.cn|65\.\d{2}/.test(location.host) );
-require(['template-init','alerts','form-style'],function(TI){
+require(['template-init','alerts','form-style','underscore'],function(TI){
 	var menu_list = [], type_select = $('#menu-type-holder').html();
 	TI.init({
 		tmpl:'#tmpl-menu',
 		sourceUrl: isLocal ? 'js/getMenu.json' : '../../xhadmin/menu/v_list.do',
 		callback:function(o){
 			$('#menu-holder .menu-line').each(function(){
-				var _t = $(this);
-				menu_list.push('<option value="'+_t.data('id')+'">'+_t.children('span').html()+'</option>');
+				var _t = $(this), deepth = _t.data('deepth') | 0;
+				if( deepth < 4 ){
+					menu_list.push({
+						id:_t.data('id'),
+						name:_t.children('span').html(),
+						deepth:deepth,
+						toString:function(){
+							return '<option value="'+this.id+'">'+this.name+'</option>'
+						}
+					});
+				}	
 			});
 		}
 	});
@@ -163,9 +178,7 @@ require(['template-init','alerts','form-style'],function(TI){
 
 	$('#menu-holder').on('click','.btn-add',function(){
 		var el = $(this).parent();
-		jConfirm('<span class="fm-label-item"><label for="menu_type">链接类型:</label>'+
-				type_select.replace('$value','')+
-				'</span><span class="fm-label-item"><label for="menu-name">名称:</label><input type="text" placeholder="请输入名称" id="menu-name"></span><span class="fm-label-item"><label for="menu-url">URL:</label><input type="text" placeholder="请输入url" id="menu-url"></span>','新增“'+el.children('span').html()+'”下菜单',{
+		jConfirm('<span class="fm-label-item"><label for="menu-name">名称:</label><input type="text" placeholder="请输入名称" id="menu-name"></span><span class="fm-label-item"><label for="menu-url">URL:</label><input type="text" placeholder="请输入url" id="menu-url"></span>','新增“'+el.children('span').html()+'”下菜单',{
 			okButton : "添加",
 			cancelButton : "取消"
 		},function(r){
@@ -175,7 +188,7 @@ require(['template-init','alerts','form-style'],function(TI){
 					data:{
 						parentId:el.data('parent'),
 						url:$('#menu-url').val(),
-						type:$('#menu_type').val()
+						type:'link'
 					},
 					success:function(result){
 						if(result.success){
@@ -194,19 +207,37 @@ require(['template-init','alerts','form-style'],function(TI){
 		$('#menu_type').toSelect();
 	});
 
+	/**
+	 * 获取一组树形结构的最大深度
+	 */
+	function getDeepth(el){
+		var thisDep = el.data('deepth')|0, deepth = 0;
+		el.next().find('.menu-line').each(function(){
+			var tempDep = $(this).data('deepth') | 0;
+			if( deepth < tempDep ){	//每次找到一个更深的级别,deepth+1
+				deepth = tempDep;
+			}
+		});
+		return deepth - thisDep + 1;
+	};
+
 	$('#menu-holder').on('click','.btn-edit',function(){
-		var el = $(this).parent(), pid = el.data('parent'), type = el.data('type');
+		var el = $(this).parent(), pid = el.data('parent'), type = el.data('type'), deepth = getDeepth(el);
 		jConfirm('<span class="fm-label-item"><label for="menu_select">修改父节点:</label>'+
-				'<select id="menu_select" value="'+pid+'"><option value="">根目录</option>'+menu_list.join('').replace('value="'+pid+'"','value="'+pid+'" selected="selected"')+'</select>'+
+				'<select id="menu_select" value="'+pid+'"><option value="">根目录</option>'+
+				_.filter(menu_list,function(item){
+					return item.deepth + deepth < 5;
+				}).join('').replace('value="'+pid+'"','value="'+pid+'" selected="selected"')+
+				'</select>'+
 				'</span><span class="fm-label-item"><label for="menu_type">链接类型:</label>'+
 				type_select.replace('$value',type).replace('value="'+type+'"','value="'+type+'" selected="selected"')+
-				'</span><span class="fm-label-item"><label for="menu-name">名称:</label><input type="text" placeholder="请输入名称" id="menu-name" value="'+el.children('span').html()+'"></span><br><span class="fm-label-item"><label for="label-item1">URL:</label><input type="text" placeholder="请输入url" id="menu-add-url" value="'+el.data('url')+'"></span>','修改“'+el.children('span').html()+'”菜单',{
+				'</span><span class="fm-label-item"><label for="menu-name">名称:</label><input type="text" placeholder="请输入名称" id="menu-name" value="'+el.children('span').html()+'"></span><span class="fm-label-item hidden" ><label for="menu-tree-url">树形链接:</label><input type="text" placeholder="请输入treeurl" id="menu-tree-url" value="'+el.data('treeurl')+'"></span><span class="fm-label-item"><label for="menu-url">URL:</label><input type="text" placeholder="请输入url" id="menu-url" value="'+el.data('url')+'"></span>','修改“'+el.children('span').html()+'”菜单',{
 			okButton : "修改",
 			cancelButton : "取消"
 		},function(r){
 			if(r){
 				$.ajax({
-					url:"../../xhadmin/menu/change.do",
+					url:"../../xhadmin/menu/edit.do",
 					data:{
 						id:el.data('id'),
 						parentId:$('#menu_select').val(),
@@ -229,8 +260,12 @@ require(['template-init','alerts','form-style'],function(TI){
 			}
 		});
 		$('#popup_message select').toSelect();
+		$('#menu-tree-url').parent()[ $('#menu_type').val() == 'tree-link' ? 'removeClass' : 'addClass' ]('hidden');
 	});
 
+	$(document).on('click','.option-holder a',function(){
+		$('#menu-tree-url').parent()[ $('#menu_type').val() == 'tree-link' ? 'removeClass' : 'addClass' ]('hidden');
+	});
 
 });
 
