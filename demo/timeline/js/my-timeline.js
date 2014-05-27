@@ -48,8 +48,8 @@ require(['alerts'],function(){
 		var html="";
 		for( var i=0;i<list.length;i++ ){
 			//判断如果列表中没有相同的id就添加到列表中
-			if( !$('[data-id="'+list[i].docId+'"]','#load_left').length ){
-				html += '<li data-id="'+list[i].docId+'" '+(ifChecked?'class="checked addlisbg"':"")+'><a href="javascript:void(0)" data-href="'+list[i].docUrl+'"><span class="time0">'+list[i].releaseDate+'</span>'+'<i class="con">'+list[i].docName+'</i>'+'<span class="right0"></span><span class="editing"></span></a></li>';
+			if( !$('[data-id="'+list[i].cid+'"]','#load_left').length ){
+				html += '<li data-titleimg="'+(list[i].titleImg||'')+'" data-id="'+list[i].cid+'" '+(ifChecked?'class="checked addlisbg"':"")+'><a href="javascript:void(0)" data-href="'+list[i].url+'"><span class="time0">'+list[i].date+'</span>'+'<i class="con">'+list[i].title+'</i>'+'<span class="right0"></span><span class="editing"></span></a></li>';
 			}
 		}
 		$("#load_left ul").append( $(html) );      //把搜索内容添加到列表中
@@ -77,8 +77,9 @@ require(['alerts'],function(){
 			},
 			success:function( data ){
 				$("#load_left ul li:not('.checked')").remove();   //把列表中没有选中的列表项都删除
-				$(".btn-next").css({background:"#00b6aa"}).attr({ href: "timeline2.html" });    
-				if(data.content.length==0){
+				$(".btn-next").css({background:"#00b6aa"}).attr({ href: "timeline2.html" });  
+				var list = data.content, nlist = [];  
+				if(list.length==0){
 					//jAlert("没有搜索到数据");
 					//列表里没有内容显示时
 					if($("#load_left>ul>li").length!=0){
@@ -89,7 +90,16 @@ require(['alerts'],function(){
 					}
 				}else{
 					$(".title p").remove()
-					renderList(data.content);
+					for (var i = 0; i < list.length; i++) {
+						nlist.push({
+							cid:list[i].docId,   
+							title:list[i].docName,              
+							date:list[i].releaseDate,         
+							url:list[i].docUrl,         
+							titleImg:list[i].titleImgMiddle
+						});
+					};
+					renderList(nlist);
 				}
 			},
 			error:function(){
@@ -163,10 +173,11 @@ require(['alerts'],function(){
 		$("#load_left li.checked").each(function(){
 			var _this = $(this);
 			parent.timeLineFN.list.push({
-				docId:_this.data('id'),  // _this.attr('data-id'),   //选中列表项的id  
-				docName:_this.find(".con").html(),                  //新闻标题内容
-				releaseDate:_this.find(".time0").html(),            //日期
-				docUrl:_this.children("a").data('href')             //Url
+				cid:_this.data('id'),  // _this.attr('data-id'),   //选中列表项的id  
+				title:_this.find(".con").html(),                  //新闻标题内容
+				date:_this.find(".time0").html(),            //日期
+				url:_this.children("a").data('href'),             //Url
+				titleImg:_this.data('titleimg')
 			});
 		});
 		parent.timeLineFN.list.sort(function(a,b){                //时间排序

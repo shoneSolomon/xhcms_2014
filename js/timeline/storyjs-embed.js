@@ -35,7 +35,9 @@ function createStoryJS(e, t) {
                 endDate : date,
                 headline : d.title,
                 text : d.text || d.title + ' <a href="' + (t.basePath||"") + d.url + '" target="_blank" >详情</a>',
-                asset : d.asset || {}
+                asset : d.asset || {
+                    media:d.titleImg ? ( (t.basePicPath||'')+d.titleImg ) : undefined
+                }
             }
         }
 

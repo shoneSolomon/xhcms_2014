@@ -12,7 +12,7 @@ define(function(require, exports, module){
 	    '        	<ul class="time-slider">' +
 	    '        		{{#each timelineContent}}' +
 		'              	<li class="time-ownner">' +
-		'	                <h4>{{time}}<span class="del"></span></h4>' +
+		'	                <h4 title="{{time}}">{{time}}<span class="del"></span></h4>' +
 		'	                <a href="javascript:void(0);" class="pointer"></a>' +
 		'	                <div class="show-box">' +
 		'                  		<ul>' +

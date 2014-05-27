@@ -133,7 +133,7 @@ require(['template-init','alerts','form-style','underscore'],function(TI){
 	var menu_list = [], type_select = $('#menu-type-holder').html();
 	TI.init({
 		tmpl:'#tmpl-menu',
-		sourceUrl: isLocal ? 'json/getMenu.json' : '../../xhadmin/menu/v_list.do',
+		sourceUrl: '../../xhadmin/menu/v_list.do',
 		callback:function(o){
 			$('#menu-holder .menu-line').each(function(){
 				var _t = $(this), deepth = _t.data('deepth') | 0;
@@ -186,8 +186,9 @@ require(['template-init','alerts','form-style','underscore'],function(TI){
 				$.ajax({
 					url:"../../xhadmin/menu/add.do",
 					data:{
-						parentId:el.data('parent'),
+						parentId:el.data('id'),
 						url:$('#menu-url').val(),
+						name:$('#menu-name').val(),
 						type:'link'
 					},
 					success:function(result){
