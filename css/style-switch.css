@@ -2,7 +2,7 @@
 .headIcon{background-image:url("{{head_icon}}");}
 .head_nav{background-image:url("{{head_logo}}");}
 
-.head .nav ul li,.stage_volume .current .title{background-color:{{style_normal}};}
+.head .nav ul li,.headleft .cont_entrance .entrance,.stage_volume .current .title{background-color:{{style_normal}};}
 .head .nav ul li .Tmenu,.head .nav ul li .Tmenu a{ background-color:{{style_lighter}};}
 .head .nav ul li .Tmenu a:hover{background-color:{{style_normal}}; }
 
@@ -12,8 +12,8 @@
 .tree-nav dd a.selected,.tree-nav dd a:hover{background-color: {{tree_nav_hover}};}
 .tree-nav dt.without-sub a.selected{background-color: {{tree_nav_hover}};}
 .tree-module{background-color: {{tree_container}};}
-.tree-module .ztree li a.curSelectedNode{background-color: {{tree_nav_hover}};}
-.tree-module .ztree li a.curSelectedNode span{color: {{tree_select}};}
+.tree-module .ztree li a.curSelectedNode{background-color: {{treeNav}};}
+.tree-module .ztree li a.curSelectedNode span{color: {{treeSelect}};}
 
 
 .mainBody .tree-target .loading{background-image: url("{{loading_image}}")}
@@ -37,3 +37,12 @@ a,.ui-tabs .ui-tabs-nav li a,.head .nav ul li:hover a{color:{{style_normal}};}
 .fm-select.colorful{ background-color: {{tree_select}}; }
 
 .nameColor{color:{{nameColor}};}
+.tree-nav dd a.tree-link:after {
+    background:url("{{treelink}}") no-repeat 0 -60px
+}
+.tree-module .ztree > li span.button.center_open, .tree-module .ztree > li span.button.bottom_open, .tree-module .ztree > li span.button.root_open {
+    background:url("{{treelink}}") 0 -30px no-repeat
+}
+.tree-module .ztree > li span.button.center_close, .tree-module .ztree > li span.button.bottom_close, .tree-module .ztree > li span.button.root_close {
+    background:url("{{treelink}}") 0 0 no-repeat
+}

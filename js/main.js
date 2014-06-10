@@ -11,7 +11,7 @@
 			url: "../css/style-switch.css?v=1.0.1",
 			dataType:"html",
 			success:function(cssTxt){
-				window.themeId = CK.get('themeId') || 'default';
+			    window.themeId = CK.get('themeId') || '默认';
 				var theme = SW[window.themeId], radios = "";
 				var css = $('<style id="css-style-switch">'+ ( cssTxt.replace(/\{\{(\w+)\}\}/g,function(match,key){
 					return theme[key];

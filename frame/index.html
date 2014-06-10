@@ -92,12 +92,12 @@
 				<!-- <a class="entrance yyz_testStation">云月知测试站</a> -->
 			</div>
 			<div class="workload clearfix">
-				<h2>工作量</h2>
-				<a class="works daynews_amount"><span>今天发稿量</span><strong></strong>开发中...</a>
-				<a class="works weeknews_amount"><span>本周发稿量</span><strong></strong>开发中...</a>
+				<h2>工作量 <i style="font-size:12px;cursor:pointer">点击刷新发稿量</i></h2>
+				<a class="works daynews_amount"><span>今天发稿量</span><strong></strong></a>
+				<a class="works weeknews_amount"><span>本周发稿量</span><strong></strong></a>
 				<div style="clear:both"></div>
-				<a class="works monthnews_amount"><span>本月发稿量</span><strong></strong>开发中...</a>
-				<a class="works allnews_amount"><span>累积发稿量</span><strong></strong>开发中...</a>
+				<a class="works monthnews_amount"><span>本月发稿量</span><strong></strong></a>
+				<a class="works allnews_amount"><span>累积发稿量</span><strong></strong></a>
 			</div>
 			<div class="over_percent">
 				<h2>你的发稿量超过了</h2>
@@ -239,6 +239,56 @@
 			});
 		}	
 	});
+
+	require([],function(){
+		var day = $('.daynews_amount strong'),
+			week = $('.weeknews_amount strong'),
+			month = $('.monthnews_amount strong'),
+			all = $('.allnews_amount strong');
+
+		var fn = (function(){
+			$.ajax({
+				url: isLocal ? '' : '../../xhadmin/statistic_workload/v_list.do', 
+				data:{t:new Date().getTime()},
+				dataType:'json',
+				success:function(info){
+					if(info.code == '200'){
+						day.html( info.byDay );
+						week.html( info.byMonth );
+						month.html( info.byWeek );
+						all.html( info.total );
+
+						var per = parseFloat( info.percent, 10 ) / 100 || 0;
+
+						require(["morris"],function(){
+							$('#chart_percent').html('<span class="masker"></span>');
+							Morris.Donut({
+								element: 'chart_percent',
+								data: [
+									{label:"", value: 1-per},
+									{label:100*per + "%", value: per}
+								],
+								colors:["#fff","#2cac93"],
+								formatter:function(y,data){
+									return "的编辑";
+								}
+							}).select(1);
+						});
+					}
+				}
+			});
+		});
+		fn();
+
+		$('.workload > h2 > i').on('click',function(){
+			$.getJSON( '../../xhadmin/statistic_workload/v_list.do?refresh=true&t='+new Date().getTime(),function(){
+				fn();
+			});
+		});
+
+	});
+		
+
 	
 	$.ajax({
 		url: isLocal ? "../html/json/v_countUnreadMsg.json" : "../../xhadmin/message/v_countUnreadMsg.do",
@@ -286,18 +336,7 @@
 		});
 */
 
-		var per = .83;
-		Morris.Donut({
-			element: 'chart_percent',
-			data: [
-				{label:"", value: 1-per},
-				{label:100*per + "%", value: per}
-			],
-			colors:["#fff","#2cac93"],
-			formatter:function(y,data){
-				return "的编辑";
-			}
-		}).select(1);
+		
 
 
 	});

@@ -519,3 +519,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .collocate-but{position:absolute;bottom:-52px; right:0px; }
 .collocate-but .collocate-cancel{background:#9e9e9e;}
 .collocate-but .collocate-submit{margin-right:15px; background:#00b6aa;}
+
+#color-select label{
+	margin-right:25px;
+}

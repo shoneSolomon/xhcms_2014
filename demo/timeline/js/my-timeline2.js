@@ -89,14 +89,19 @@
     //点击“完成”按钮
     $("#complete").on('click',function(){
       var data = {
-          name : $("#time_name input").val(),                       //时间轴名称
-          grank_rank: $('#grank_rank li.cur').data("value"),           //稿件排序方式
-          trank_rank: $('#trank_rank li.cur').data("value"),           //默认时间位置
-          density: $('#timel_rank li.cur').data("value"),           //时间刻度
-          timer_rank: $('#timer_rank li.cur').data("value"),           //时间轴样式
-          refcids : timel.getAllIds()
+            name : $("#time_name input").val(),                       //时间轴名称
+            grank_rank: $('#grank_rank li.cur').data("value"),        //稿件排序方式
+            trank_rank: $('#trank_rank li.cur').data("value"),        //默认时间位置
+            density: $('#timel_rank li.cur').data("value"),           //时间刻度
+            timer_rank: $('#timer_rank li.cur').data("value"),        //时间轴样式
+            refcids : timel.getAllIds()
         };
-        parent.timeLineFN.complete(data);
+        //时间轴名称为空提示
+        if(!data.name){
+          jAlert("时间轴名称必须填写");
+        }else{
+          parent.timeLineFN.complete(data);
+        }
     });
 
     $('#cancel').on('click',function(){
