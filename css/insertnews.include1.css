@@ -96,6 +96,10 @@ a:hover{
 	border-bottom: 1px solid #c4c4c4;
 	padding-bottom: 20px;
 }
+.select-610{
+	border: none;
+	padding: 0px;
+}
 .select-526-left,.select-526-right{
 	float: left;
 	width: 520px;
@@ -133,8 +137,14 @@ a:hover{
 	margin-right: 20px;
 	background:url(../images/select_right.png) right no-repeat;
 }
-.tags-content{ float: left; width:308px; }
-.tags-content .tag-item{ float: left; margin:3px 15px 10px 0px; }
+.tags-content{
+	float: left;
+	width:826px; 
+}
+.tags-content .tag-item{ 
+	float: left; 
+	margin:3px 15px 10px 0px;
+}
 .select-526 .txt{
 	border: 1px solid #D4D4D4;
     border-radius: 3px;
@@ -151,7 +161,7 @@ a:hover{
 }
 #search{
 	float: right; 
-	width:40px; 
+	width:30px; 
 	height: 30px;
 	border: none;
 	filter:alpha(opacity=0); /*IE滤镜，透明度50%*/
@@ -291,7 +301,12 @@ a:hover{
 	margin-top: 5px;
 	margin-left: 24px;
 }
-.add-news{ width: 100%; border-bottom:1px solid #cdcdcd; margin-top: 25px; overflow: visible;}
+.add-news{
+	width: 100%;
+	border-bottom:1px solid #cdcdcd;
+	margin-top: 25px;
+	overflow: visible;
+}
 .add-news-button{
 	display: block;
 	clear: both;
@@ -368,7 +383,11 @@ a:hover{
 .warpper .nextBox:hover{color: #fff}
 .warpper .prevBox:hover{color: #fff}
 
-#gatherDoc_submit, #gatherDoc_cancel{ background-image: none; padding: 0px; float:left; border: none; }
+#gatherDoc_submit, #gatherDoc_cancel{ 
+	background-image: none;
+	padding: 0px; float:left;
+	border: none;
+}
 #gatherDoc_submit{ margin-left: 240px;}
  #gatherDoc_cancel{ background: #b6b6b6}
 .ui-dialog-buttonset .ui-state-default .ui-icon{ display: none;}
@@ -391,7 +410,10 @@ a:hover{
 	margin: 10px 5px 0px 5px;
 	background-position: 0px -18px;
 }
-.genre-list ul li .data-delete{margin: 10px 5px 0px 5px; background-position: 0px -36px;}
+.genre-list ul li .data-delete{
+	margin: 10px 5px 0px 5px;
+	background-position: 0px -36px;
+}
 .genre-list ul li:hover{background: #d7faf2;}
 .genre-list ul li:hover i{ display: block;}
 .warpper .ui-dialog .ui-widget-header {
@@ -418,27 +440,27 @@ a:hover{
 }
 #add-content{ width: 430px;}
 #add-content p{ padding: 7px 0px 7px 20px;}
-#add-content p span{ float: left; width: 60px; height: 30px; line-height: 30px;}
-#add-content p input{float: left; width: 260px; height: 28px; border:1px solid #CBCBCB;}
-#add-content p .necessary{float: left; display: block; height: 30px; line-height: 30px; padding-left: 8px; color: ##FF0000;}
+#add-content p span{ 
+	float: left;
+	width: 60px; height: 30px;
+	line-height: 30px;
+}
+#add-content p input{
+	float: left;
+	width: 260px;
+	height: 28px;
+	border:1px solid #CBCBCB;
+	line-height: 28px;
+}
+#add-content p .necessary{
+	float: left;
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	padding-left: 8px;
+	color: ##FF0000;
+}
 .no-move ul li:hover .data-up,.no-move ul li:hover .data-down{display: none;}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
  ::-webkit-scrollbar-track-piece{  

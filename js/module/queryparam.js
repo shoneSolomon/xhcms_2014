@@ -11,13 +11,13 @@ define(function(require, exports, module) {
 	        	ar.substring(1).replace( /([^&=]+)[=]([^&=]*)[&=\b]?/g,function(macth,k,v){
 	        		switch( typeof m[k] ){
 	                	case 'string': //如果是重复参数，包装成数组
-	                		m[k] = new Array( m[k], v );
+	                		m[k] = new Array( m[k], decodeURIComponent(v) );
 	                		break;
 	                	case 'object': //如果已经是数组，push
-	                		m[k].push( v );
+	                		m[k].push( decodeURIComponent(v) );
 	                		break; 
 	                	default: 	//第一次需要设置为字符串
-	                 		m[k] = v;
+	                 		m[k] = decodeURIComponent(v);
 	                }
 	        	} );
 	        }

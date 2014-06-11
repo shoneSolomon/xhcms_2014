@@ -21,7 +21,8 @@
 		.nqa-right{float:right;overflow-y:scroll;width:300px;height:760px;background:#e6e6e6;}
 		.nqa-right ul{padding:0 20px;}
 		.nqa-right ul li{position:relative;display:none;margin-bottom:10px;list-style:none;}
-		.nqa-delete{cursor:pointer;position:absolute;top:6px;right:0;display:block;width:20px;height:20px;background:red;}
+		.nqa-delete{cursor:pointer;position:absolute;top:6px;right:0;display:block;width:20px;height:20px;background:url(../images/form.png) -61px  -61px no-repeat #2cac93;
+			border-radius:3px;}
 		.nqa-question{display:block;padding:7px 30px 7px 2px;font-weight:bold;font-size:12px;line-height:18px;}
 		.nqa-answer{margin:0;padding:5px 10px;max-height:90px;overflow:auto;font-size:12px;line-height:18px;background:#fff;border:1px solid #ccc;}
 		.nqa-answer-full{height:auto;}
@@ -303,13 +304,13 @@
 			            "uuid": ""
 					};
 					res.question=$('#queVal').val();
-					if(!res.question){return false;}
+					if(!res.question){alert('请输入问题');return false;}
 					res.answerContentId=cid;
 					res.refContentId.push(cid);
 					if($('#radio0').get(0).checked){
 						res.type=0;
 						res.answer=selected.text().replace(/\s/g,"");
-						if(res.answer==""){return false;}
+						if(res.answer==""){alert('请添加答案');return false;}
 					}
 					if($('#radio1').get(0).checked){
 						res.type=1;

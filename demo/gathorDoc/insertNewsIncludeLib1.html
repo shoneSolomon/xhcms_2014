@@ -41,7 +41,7 @@
 				<div class="select-526-right clearfix">
 					<script id="contentList" type="text/x-handlebars-template">
 							<select id="attributes_genre" class="select3">
-								<option value=0>内容类型</option>
+								<option value=0>全部内容类型</option>
 								{{#each typeList}}
 								<option value="{{id}}">{{name}}</option>
 								{{/each}}
@@ -52,7 +52,7 @@
 					</div>
 				</div>
 				<div class="add_news clearfix">
-					<input class="add-news-button" id="add_news" value="手动添加稿件">
+					<!-- <input class="add-news-button" id="add_news" value="手动添加稿件"> -->
 					<div id="add-news"></div>
 				</div>
 				<div class="genre-list">
@@ -127,13 +127,6 @@
 
 		/*给数据添加体裁分类*/
 		var integrationArticles=window.parent.integrationArticles;
-		//console.log(integrationArticles);
-		// for (var i in window.parent.integrationArticles) {
-		// 	var j=parseInt(i);
-		// 	integrationArticles[i].genreId=j+10;
-		// 	integrationArticles[2].genreId=10;
-		// 	integrationArticles[i].genreName="新闻报道";
-		// };
 
 		/*整理数据*/
 		var len=integrationArticles.length;
@@ -143,7 +136,6 @@
 		for(var key in integrationArticles){
 			var item={};
 			item.name=integrationArticles[key][0].docCategory;
-			//item.id=integrationArticles[key][0].docCategory;
 			for(i=0;i<integrationArticles[key].length;i++){
 				integrationArticles[key][i].dataChoosed=parseInt(integrationArticles[key][i].dataChoosed);
 			}
@@ -152,9 +144,7 @@
 		}
 		genrenObj.len=len;
 
-		//console.log(genrenObj);
 		/*体裁左侧标题模板填充*/
-
 		function top_level(){
 			var id=1;
 			for (var i = 0; i < genrenObj.content.length; i++) {
