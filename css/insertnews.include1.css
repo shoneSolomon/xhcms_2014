@@ -458,9 +458,12 @@ a:hover{
 	height: 30px;
 	line-height: 30px;
 	padding-left: 8px;
-	color: ##FF0000;
+	color: #AC3B39;
 }
 .no-move ul li:hover .data-up,.no-move ul li:hover .data-down{display: none;}
+#add-content p #newName{border: none; background: #fff; text-align: left;}
+
+
 
 
  ::-webkit-scrollbar-track-piece{  

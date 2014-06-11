@@ -5,7 +5,7 @@ require(['alerts'],function(){
 	  //新闻标题编辑
 	  	$("#load_left").on("click",".editing",function(){
 	    	var _this=$(this);
-	        jConfirm('<div class="edit_url"><label>&nbsp;稿件Url：</label><input type="text" id="url" name="url" style="border:none;" value="http://news.qq.com/zt2014/MH370/index.htm" readonly="readonly" onfocus="this.blur()" /></div> <div class="edit_title"><label>稿件标题：</label><input type="text" value="东北遭遇“史上最重雾霾”电能替代势在必行" /></div> <div class="edit_time"><label>发生时间：</label><input type="text" class="Wdate" id="d412" value="2013-12-30 13：34：43" onfocus="WdatePicker({dateFmt:\'yyyy-MM-dd HH:mm:ss\'});" /></div> <div class="edit_digest"><label>稿件摘要：</label><textarea>继京津冀、长三角、珠三角等区域饱受雾霾困受雾霾扰扰之后，10月21日，东北三省也深陷雾霾，航受雾霾扰空、铁路、道路交通等受其影响严重受阻。重受雾霾扰度雾霾笼罩下的哈尔滨市民惊呼，这是一场“受雾霾扰史上最重雾霾”。</textarea></div>',"编辑稿件",{
+	        jConfirm('<div class="edit_url"><label>&nbsp;稿件Url：</label><input type="text" id="url" name="url" style="border:none;" value="" readonly="readonly" onfocus="this.blur()" /></div> <div class="edit_title"><label>稿件标题：</label><input type="text" value="" /></div> <div class="edit_time"><label>发生时间：</label><input type="text" class="Wdate" id="d412" value="2013-12-30 13：34：43" onfocus="WdatePicker({dateFmt:\'yyyy-MM-dd HH:mm:ss\'});" /></div> <div class="edit_digest"><label>稿件摘要：</label><textarea>继京津冀、长三角、珠三角等区域饱受雾霾困受雾霾扰扰之后，10月21日，东北三省也深陷雾霾，航受雾霾扰空、铁路、道路交通等受其影响严重受阻。重受雾霾扰度雾霾笼罩下的哈尔滨市民惊呼，这是一场“受雾霾扰史上最重雾霾”。</textarea></div>',"编辑稿件",{
 	            okButton : "确定",
 	            cancelButton : "取消"
 	        },function(result){
@@ -23,7 +23,7 @@ require(['alerts'],function(){
 	    //手动添加稿件
 	    $("#addnews").click(function(){
 	    	var canAdd = false, doc = null;
-	        jConfirm('<div class="add_id"><label>&nbsp;&nbsp;稿件ID：</label><input type="text" value="" name="ids" /></div><div class="add_title"><label>稿件标题：</label><input type="text" id="url" name="url" style="border:none;" value="东北遭遇“史上最重雾霾”电能替代势在必行" readonly="readonly" onfocus="this.blur()" /></div><div class="add_time"><label>发生时间：</label><input type="text" id="url" name="url" style="border:none;" value="2014-01-23 12:23:22" readonly="readonly" onfocus="this.blur()" /></div>',"手动添加稿件",{
+	        jConfirm('<div class="add_id"><label>&nbsp;&nbsp;稿件ID：</label><input type="text" value="" name="ids" /></div><div class="add_title"><label>稿件标题：</label><input type="text" id="url" name="url" style="border:none;" value="[ 输入稿件ID显示相应标题 ]" readonly="readonly" onfocus="this.blur()" /></div><div class="add_time"><label>发生时间：</label><input type="text" id="url" name="url" style="border:none;" value="[ 输入稿件ID显示相应时间 ]" readonly="readonly" onfocus="this.blur()" /></div>',"手动添加稿件",{
 	            okButton : "确定",
 	            cancelButton : "取消"
 	        },function(result){
@@ -37,6 +37,7 @@ require(['alerts'],function(){
 	        });
 	        //手动添加稿件blur
 		    $(".add_id input").on("blur",function(){
+		    	$(".necessry").remove();
 		    	var _this = $(this);
 		    	doc = null;
 		    	if( _this.val() ){
@@ -61,6 +62,9 @@ require(['alerts'],function(){
 			    				$(".add_time input").val(doc.date);
 			    			};
 			    			
+			    		},
+			    		error:function(){
+			    			$("<a class='necessry tips'>未搜索到稿件<a>").appendTo( $(".add_id") );
 			    		}
 			    	});
 		    	}

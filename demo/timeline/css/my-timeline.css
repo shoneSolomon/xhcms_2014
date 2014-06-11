@@ -311,7 +311,7 @@ body{
 		
              
 		.load_left ul li a{
-			display: block;
+			/*display: block;*/
 			padding-left: 10px;
 		}
 		.load_left ul li a:hover{
@@ -353,7 +353,7 @@ body{
 			position: absolute;
 			right: 10px;
 			bottom: 10px;
-			/*display: none;*/
+			display: none;
 		}
 
 
@@ -522,6 +522,13 @@ body{
 		color: #737373;
 		padding: 0px 5px;
 		margin-top: -3px;
+	}
+	.add_id input{
+		width: 220px;
+	}
+	.add_id .tips{
+		color: #f00;
+		padding-left: 8px;
 	}
 	.add_title input,.add_time input{
 		color: #343539;
