@@ -62,7 +62,7 @@
 					{{#each content}}
 					<ul class="clearfix">
 						{{#each this.group}}
-							<li data-id="{{dataId}}" data-choosed="{{dataChoosed}}" data-type="{{docCategory}}" id="{{id}}" data-score=0 data-origin="{{docType}}"><span {{#if dataChoosed}}class="ding"{{/if}}>顶</span><strong>{{genreName}}</strong><a href="{{url}}" target="_blank">{{dataName}}</a><i class="data-up"></i><i class="data-down"></i><i class="data-delete"></i></li>
+							<li data-id="{{dataId}}" data-choosed="{{dataChoosed}}" data-type="{{docCategory}}" id="{{id}}" data-score=0 data-origin="{{docType}}"><span {{#if dataChoosed}}class="ding"{{/if}}>顶</span><strong>{{docCategory}}</strong><a href="{{url}}" title="{{dataName}}" target="_blank">{{dataName}}</a><i class="data-up"></i><i class="data-down"></i><i class="data-delete"></i></li>
 						{{/each}}
 					</ul>
 					{{/each}}
@@ -75,7 +75,7 @@
 				    <span class="item-title">稿件ID：</span> <input id="newID" name="newID"  type="text"/>
 				</p>
 				<p class="clearfix">
-				    <span class="item-title">稿件标题：</span><input id="newName" name="newName" type="button"/>
+				    <span class="item-title">稿件标题：</span><input id="newName" name="newName" type="button" value="此处输入稿件ID显示稿件标题"/>
 				</p>
 			</form>
 		</script>
@@ -321,6 +321,7 @@
 			addObject=res;
 		})
 		var patt=/\S/;
+		var reg = /^\d{0,9}$/;
 		$("#add_news").on("click",function(){
 			var addContent={};
 			var resContent={};
@@ -336,16 +337,11 @@
 				modal: false,
 				showTitle:true,
 				autoOpen:true,
-				create:function(event, ui){
-					$("#add-content input").each(function(){
-						$(this).val("");
-					})
-				},
 				open: function( event, ui ) {
 					$("#newID").on("blur",function(){
 						$("#newName").val("");
 						$(".necessary").remove();
-						if(patt.test($("#newID").val())){
+						if(patt.test($("#newID").val())&&reg.test($("#newID").val())){
 							$.nGetJSON(url.addcontent,{contentId:$("#newID").val()},function(res){
 								if(res.success){
 									$("#newName").val(res.name);
@@ -357,8 +353,10 @@
 									$("#newID").after("<a class='necessary'>稿件不存在</a>")
 								}
 							})
-						}else{
+						}else if(!patt.test($("#newID").val())){
 							$("#newID").after("<a class='necessary'>请填写id</a>")
+						}else if(!reg.test($("#newID").val())){
+							$("#newID").after("<a class='necessary'>稿件不存在</a>")
 						}
 					})
 				},

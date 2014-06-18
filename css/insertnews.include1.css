@@ -329,16 +329,16 @@ a:hover{
 .genre-list ul li{
 	position: relative;
 	float: left;
-	width: 385px;
-	height: 30px;
-	line-height: 30px;
-	margin:0px 10px 0px 10px; 
+	width: 408px;
+	height: 40px;
+	line-height: 20px;
+	margin:5px 0px; 
 }
 .genre-list ul li span{
 	display: none;
 	position: absolute; 
 	left: 0px;
-	top:6px;
+	top:2px;
 	padding:1px;
 	height: 15px;
 	line-height: 15px;
@@ -353,17 +353,12 @@ a:hover{
 	margin: 0px 25px 0px 30px;
 }
 .genre-list ul li a{
-	padding-left: 20px;
+	padding-left: 0px;
 	display:inline-block; 
 	float: left;
- 	width: 186px;
+ 	width: 220px;
+ 	height: 40px;
 	overflow:hidden;
-	white-space:nowrap;
-	text-overflow:ellipsis;
-	text-overflow: ellipsis;/* IE/Safari */
-	-ms-text-overflow: ellipsis;
-	-o-text-overflow: ellipsis;/* Opera */
-	-moz-binding: url("ellipsis.xml#ellipsis");/*FireFox*/
 }
 .warpper .nextBox, #answerSet_cancel, #answerSet_submit, .warpper .prevBox , #gatherDoc_submit, #gatherDoc_cancel{
     background: none repeat scroll 0 0 #00B6AA;
@@ -403,15 +398,15 @@ a:hover{
 	cursor: pointer;	
 }
 .genre-list ul li .data-up{
-	margin: 10px 5px 0px 25px;
+	margin: 4px 5px 0px 15px;
 	background-position: 0px 0px;
 }
 .genre-list ul li .data-down{
-	margin: 10px 5px 0px 5px;
+	margin: 4px 5px 0px 5px;
 	background-position: 0px -18px;
 }
 .genre-list ul li .data-delete{
-	margin: 10px 5px 0px 5px;
+	margin: 4px 5px 0px 5px;
 	background-position: 0px -36px;
 }
 .genre-list ul li:hover{background: #d7faf2;}

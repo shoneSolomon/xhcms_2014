@@ -30,7 +30,7 @@
 
 		.nqa-original{margin:0 0 0 90px;width:500px;height:400px;padding:5px 20px;overflow:auto;font-size:12px;line-height:20px;border:1px solid #ccc;}
 		.nqa-original p{font-size:12px;line-height:20px;text-indent:2em;}
-		.nqa-selected{float:left;width:500px;height:120px;padding:5px 20px;overflow:auto;border:1px solid #ccc;background:#e8e8e8}
+		.nqa-selected{float:left;width:500px;height:96px;padding:5px 20px;overflow:auto;border:1px solid #ccc;background:#e8e8e8}
 		.nqa-selected span{padding:3px 0;font-size:12px;line-height:24px;}
 		.nqa-selected span:hover{background:#ccc;}
 		.nqa-selected b{padding:5px 12px;margin-right:5px;background:url(img/1.png) center no-repeat;cursor:pointer;}
@@ -45,10 +45,10 @@
 		.overshadow{display:none;position:absolute;width:542px;height:411px;top:127px;left:90px;
 			background:rgba(0,0,0,.3);
 		}
-		.selesection{overflow:hidden;width:100%;margin-top:10px;}
+		.selesection{overflow:hidden;clear:both;width:100%;margin-top:10px;}
 		.selesection strong{float:left;display:block;width:90px;text-align:right;}
 
-		.nqa-input{float:left;width:300px;padding:0 10px;margin:0 10px 0 0;height:26px;line-height:24px;border:1px solid #666;}
+		.nqa-input{float:left;width:300px;padding:0 10px;margin:0 10px 0 0;height:26px;line-height:24px;border:1px solid #999;}
 		.nqa-list{
 			float:left;width:520px;height:550px;
 			margin:0;padding:0;
@@ -66,6 +66,8 @@
 		.nqa-list .detailbox{clear:both;overflow:hidden;max-height:54px;padding-top:10px;}
 		.nqa-list p{line-height:18px;font-size:12px;padding:0;margin:0;text-indent:2em}
 		.nqa-list b{display:inline-block;margin:10px 0 0 380px;cursor:pointer;color:#4bc7af;}
+
+		.fm-radio input.radio{position:relative;top:4px;left:4px;}
 	</style>
 </head>
 <body>
@@ -81,7 +83,7 @@
 				<p class="input-line">
 					<strong class="input-title">问题：</strong>
 					<input type="text" placeholder="输入问题" id="queVal" class="nqa-input" />
-					<span style="flaot:left;line-height:26px;">30字以内</span>
+					<span style="flaot:left;line-height:26px;color:#666;">30字以内</span>
 				</p>
 				<p id="radio-line" class="input-line" style="padding-top:0;">
 					<strong  class="input-title">答案选择：</strong>
@@ -93,7 +95,7 @@
 					<!-- <p>内容</p> -->
 				</div></div>
 				<div class="overshadow"></div>
-				<div class="selesection">
+				<div class="selesection" id="nqaSelesection">
 					<strong>已选答案：</strong>
 					<div class="nqa-selected"></div>
 				</div>
@@ -132,6 +134,7 @@
 	</div>
 
 	<div class="nqa-right">
+		<h2 style="padding:10px 0;font-size:14px;line-height:24px;text-indent:20px;">已添加的问题</h2>
 		<ul>
 			<!-- <li>
 				<strong class="nqa-question">[文内]文章标题</strong>
@@ -283,9 +286,11 @@
 				$('#radio1').click(function(){
 					overshadow.show();
 					selected.html('');
+					$('#nqaSelesection').slideUp();
 				});
 				$('#radio0').click(function(){
 					overshadow.fadeOut();
+					$('#nqaSelesection').slideDown();
 				})
 				//重置已选内容
 				$('#resetanswer').click(function(){
@@ -326,7 +331,7 @@
 					var html='';
 					if(!val){return false;}
 					else{
-						searchList.html('正在查找');
+						searchList.html('');
 						$.ajax({
 							type:"post",
 							url:"../../xhadmin/quiz/search.do",
@@ -341,13 +346,14 @@
 							success:function(res){
 								if(res.content.length){
 									$.each(res.content,function(n,v){
-										html+=newsqa.result(v);
+										newsqa.result(v);
 									});
-									searchList.html(html);
-									searchList.find('li').each(function(){
-										$(this).data('thisData',res.content[$(this).index()])
-									});
+									// searchList.html(html);
+									// searchList.find('li').each(function(){
+									// 	$(this).data('thisData',res.content[$(this).index()])
+									// });
 									newsqa.contrastId();
+									newsqa.bclick();
 								}else{
 									searchList.html('无搜索结果');
 								}						
@@ -360,7 +366,18 @@
 					data.refContentId.push(cid);
 					newsqa.add(data);
 					$(this).hide().next().show();
-				})
+				});
+				searchList.delegate('b','click',function(){
+					var me=$(this);
+					var h=me.prev().height();
+					if(h==54){
+						me.prev().css({'max-height':'1000px'});
+						$(this).text('收起全部答案');
+					}else{
+						me.prev().css({'max-height':'54px'});
+						$(this).text('展开全部答案');
+					}
+				});
 			},
 			add:function(data){
 				var html,url='',title='',htmldom;
@@ -385,7 +402,7 @@
 						type: "get", 
 						url : "../../xhadmin/content/get.do", 
 						dataType:'json',
-						data: {'contentId':1365420},
+						data: {'contentId':data.answerContentId},
 						success: function(res){
 							htmldom.find('a').text(res.content.title).attr("href",res.content.origin_url);
 						} 
@@ -407,7 +424,7 @@
 				});
 			},
 			result:function(data){
-				var html;
+				var html,htmldom;
 				if(data.type==0){
 					html='<li>'
 							+'<h3>[文内]'+data.question+'</h3>'
@@ -420,13 +437,27 @@
 						+'</li>';
 				}else{
 					html='<li>'
-							+'<h3>[全文]<a href="">'+data.question+'</a></h3>'
+							+'<h3>[全文]<a href="" target="_blank">'+data.question+'</a></h3>'
 							+'<a href="javascript:void(0)" class="addlist">添加</a>'
 							+'<a href="javascript:void(0)" class="addyet">已添加</a>'
 							+'<div style="clear:both"></div>'
 						+'</li>';
 				};
-				return html;
+				htmldom=$(html);
+				searchList.append(htmldom);
+				htmldom.data('thisData',data);
+				if(data.type==1){
+					$.ajax({ 
+						type: "get", 
+						url : "../../xhadmin/content/get.do", 
+						dataType:'json',
+						data: {'contentId':data.answerContentId},
+						success: function(res){
+							htmldom.find('a').eq(0).attr("href",res.content.origin_url);
+						} 
+					});
+				}
+
 			},
 			contrastId:function(){
 				var aId=[];
@@ -456,6 +487,17 @@
 					$('.addyet').hide();
 				}
 				
+			},
+			bclick:function(){
+				searchList.find('.detailbox').each(function(){
+					var me=$(this);
+					var h=me.find('p').height();
+					if(h>54){
+						me.next().show();
+					}else{
+						$(this).next().remove();
+					}
+				});
 			}
 		}
 		$(function(){

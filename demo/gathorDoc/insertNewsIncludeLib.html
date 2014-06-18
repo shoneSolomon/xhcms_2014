@@ -88,14 +88,14 @@
 				<script id="choosedList" type="text/x-handlebars-template">
 					{{#each content}}
 						<div class="search-one searched" data-id="{{docId}}" data-choosed="{{topLevel}}" data-type="{{docCategory}}" data-score="{{docScore}}" data-origin="{{docType}}">
-							<a target="_blank" data-href="{{docUrl}}">{{docName}}</a><span class="chooseTag">取消选择</span><span class="news_tip_ding">{{ding}}</span>
+							<a target="_blank" title="{{docName}}" data-href="{{docUrl}}">{{docName}}</a><span class="chooseTag">取消选择</span><span class="news_tip_ding">{{ding}}</span>
 						</div>
 					{{/each}}
 				</script>
 				<script id="searchList" type="text/x-handlebars-template">
 					{{#each content}}
 						<div class="search-one" data-id="{{docId}}" data-choosed=0 data-type="{{docCategory}}" data-score="{{docScore}}" data-origin="{{docType}}">
-							<a target="_blank" data-href="{{docUrl}}">{{docName}}</a><span class="chooseTag">选择</span><span class="news_tip_ding">{{ding}}</span>
+							<a target="_blank" title="{{docName}}" data-href="{{docUrl}}">{{docName}}</a><span class="chooseTag">选择</span><span class="news_tip_ding">{{ding}}</span>
 						</div>
 					{{/each}}
 					<a id="loadMore" class="searchMore" style="display:none">加载更多...</a>
@@ -255,7 +255,13 @@
 					},function(res){
 						for(var i=0; i<res.content.length; i++){
 							res.content[i].docUrl=res.content[i].docUrl.replace(reg, strreg);
+							for(var j=0;j<$(".result-lists .searched").length; j++){
+								if(res.content[i].docId==$(".result-lists .searched").eq(j).attr("data-id")){
+									res.content.splice(i,1);
+								}
+							}
 						}
+						console.log(res);
 
 						var innerHtml="";
 						if(res.content){

@@ -77,6 +77,39 @@ define(function(require, exports, module) {
 		}
 	};
 
+	/**
+	 * 為jQuery-ajax中的get/post方法提供dataType:refJson支持
+	 */
+	if(window.jQuery){
+		jQuery.each( [ "get", "post" ], function( i, method ) {
+			jQuery[ method ] = function( url, data, callback, type ) {
+				// shift arguments if data argument was omitted
+				if ( jQuery.isFunction( data ) ) {
+					type = type || callback;
+					callback = data;
+					data = undefined;
+				}
+
+				var _callback = callback;
+				if ( type === 'refJson' && typeof callback === 'function' ){
+					type = 'json';
+					_callback = function(){
+						arguments[0] = expend(arguments[0]);
+						callback.apply(jQuery,arguments);
+					};
+				}
+
+				return jQuery.ajax({
+					url: url,
+					type: method,
+					dataType: type,
+					data: data,
+					success: _callback
+				});
+			};
+		});
+	}
+
 	return {
 		parse : JSON.parse,
 		stringify:JSON.stringify,

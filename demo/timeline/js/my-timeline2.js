@@ -14,8 +14,10 @@
     }); 
 
     function renderTimeline(){
-      var dd = $('#timel_rank').children('.cur').data('value') | 0, d = 10; //时间刻度
-      var rank = $('#timer_rank').children('.cur').data('value');       //时间轴样式
+      var dd = $('#timel_rank').children('.cur').data('value') | 0, d = 10;    //时间刻度
+      var rank = $('#timer_rank').children('.cur').data('value');              //时间轴样式
+      var trank = $('#trank_rank').children('.cur').data('value'),             //默认时间位置
+          newest = (trank == 'newest');      //(trank == 'newest')返回的是TRUE/FALSE，即newest是TRUE/FALSE
 
       switch(dd){
         case 0: d = 4; break;
@@ -38,7 +40,12 @@
       }     
       //生成时间轴 (标题横轴式/图文横轴式可切换)
       $('#my-timeline').html("");
-      if( rank == "title" ){
+      if( rank == "title" ){ 
+        //判断如果是《定位到最新》把分过组的数组顺序翻转
+        if( newest ){
+          data.timelineContent.reverse();
+        }
+
         timel = Timeline({
           embed : '#my-timeline',
           onDel : function(){
@@ -50,6 +57,7 @@
               if( _.indexOf(listIds,oldList[i].docId) !== -1 ){
                 newList.push(oldList[i]);
                 newList2.push(list[i]);
+                ids.push(list[i])
               }
             };
 
@@ -66,17 +74,18 @@
             start_zoom_adjust:  8,
             lang:"zh-cn",
             source:     null,
-            embed_id:   'my-timeline'
+            embed_id:   'my-timeline',
+            start_at_end: newest
         },data);
       }
-
     }
     
     $(".select-all ul li").click(function(){      
       if( $(this).hasClass('cur') ){
         return false;
       }
-      $(this).addClass("cur").siblings("li").removeClass("cur");      ////加减背景色样式
+      $(this).addClass("cur").siblings("li").removeClass("cur");      //加减背景色样式
+      window.allIds = timel.getAllIds();
       renderTimeline();
     });
 
@@ -88,20 +97,25 @@
     
     //点击“完成”按钮
     $("#complete").on('click',function(){
+      var ids = timel.getAllIds();
       var data = {
             name : $("#time_name input").val(),                       //时间轴名称
             grank_rank: $('#grank_rank li.cur').data("value"),        //稿件排序方式
             trank_rank: $('#trank_rank li.cur').data("value"),        //默认时间位置
             density: $('#timel_rank li.cur').data("value"),           //时间刻度
             timer_rank: $('#timer_rank li.cur').data("value"),        //时间轴样式
-            refcids : timel.getAllIds()
+            refcids : ids.length ? ids : window.allIds
         };
         //时间轴名称为空提示
         if(!data.name){
-          jAlert("时间轴名称必须填写");
+          jAlert("时间轴名称必须填写", "温馨提示", function() {
+            $(window).scrollTop(0);
+            $("#time_name input").focus();
+          });
         }else{
           parent.timeLineFN.complete(data);
         }
+
     });
 
     $('#cancel').on('click',function(){

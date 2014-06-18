@@ -254,8 +254,8 @@
 				success:function(info){
 					if(info.code == '200'){
 						day.html( info.byDay );
-						week.html( info.byMonth );
-						month.html( info.byWeek );
+						week.html( info.byWeek );
+						month.html( info.byMonth );
 						all.html( info.total );
 
 						var per = parseFloat( info.percent, 10 ) / 100 || 0;

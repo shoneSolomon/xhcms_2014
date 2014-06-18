@@ -53,7 +53,13 @@ body{
 	}
 	.tabnum dl.addbg{
 		background-color: #00b6aa;
-	}	
+	}
+	.tabnum dl.add-opa{
+		opacity: 0.5;
+		filter:alpha(opacity=50);  
+	    -moz-opacity:0.5;  
+	    -khtml-opacity: 0.5;  
+	}
 		.tabnum dl dt h4{
 			width: 168px;
 			text-align: center;
@@ -100,12 +106,12 @@ body{
 /*发布起始时间：部分*/
 .select-all{
 	width: 1040px;
-	height: 180px;
+	height: 150px;
 	border-bottom: 1px solid #c4c4c4;
 	margin: 0 auto;
 }
 .issue {
-	height: 58px;
+	height: 48px;
 }
 	.times{
 		height: 28px;
@@ -115,8 +121,8 @@ body{
 		width: 100px;
 		text-align: right;
 		float: left;
-		height: 32px;
-		line-height: 32px;
+		height: 30px;
+		line-height: 30px;
 	}
 	.times input{
 		width: 155px;
@@ -126,11 +132,11 @@ body{
 	}
 	.news_type{
 		float: left;
-		height: 32px;
-		line-height: 32px;
+		height: 30px;
+		line-height: 30px;
 		position: relative;
 		margin-right: 65px;
-		margin-bottom: 25px;
+		margin-bottom: 16px;
 	}
 	.news_type label{
 		float: left;
@@ -143,10 +149,11 @@ body{
 		border-radius: 0px;
 	}
 
-	.search{clear: both; position: relative;width: 440px;height: 26px;}
+	.search{clear: both; position: relative;width: 440px;height: 28px;}
 	.search .txt{
 		width: 328px;
-		height: 26px;
+		height: 28px;
+		line-height: 30px;
 		float: left;
 		padding-left: 5px;
 		border: 1px solid #d4d4d4;
@@ -164,7 +171,7 @@ body{
 	.search span.sou{
 		position: absolute;
 		right:4px;
-		top: 1px;
+		top: 2px;
 		display: inline-block;
 		width: 32px;
 		height:26px;
@@ -537,7 +544,7 @@ body{
 
 /** 设置时间轴 **/
 .time_name {
-	height: 58px;
+	height: 48px;
 }
 	/*.time_name label{
 		width: 87px;
@@ -548,14 +555,14 @@ body{
 	}*/
 	.time_name input{
 		width: 290px;
-		height: 30px;
-		line-height: 30px;
+		height: 28px;
+		line-height: 28px;
 		border: 1px solid #d4d4d4;
 		padding: 0 3px;
 	}
 
 .rank_l,.rank_r,.timescale_l,.timescale_r {
-	height: 58px;
+	height: 48px;
 	float: left;
 	width: 520px;
 }

@@ -1,7 +1,6 @@
 //1.搜索新闻页面
-require(['alerts'],function(){
+require(["alerts","WdatePicker","draggable","form-style"],function(){
 
-	require(["WdatePicker","draggable","form-style"],function(){
 	  //新闻标题编辑
 	  	$("#load_left").on("click",".editing",function(){
 	    	var _this=$(this);
@@ -37,10 +36,10 @@ require(['alerts'],function(){
 	        });
 	        //手动添加稿件blur
 		    $(".add_id input").on("blur",function(){
-		    	$(".necessry").remove();
+		    	$(".tips").remove();
 		    	var _this = $(this);
 		    	doc = null;
-		    	if( _this.val() ){
+		    	if( /^\d{1,9}$/.test(_this.val() ) ){
 		    		$.ajax({
 			    		type:"get",
 			    		url:"../../../xhadmin/content/get.do",
@@ -64,11 +63,13 @@ require(['alerts'],function(){
 			    			
 			    		},
 			    		error:function(){
-			    			$("<a class='necessry tips'>未搜索到稿件<a>").appendTo( $(".add_id") );
+			    			$("<a class='tips'>未搜索到稿件</a>").appendTo( $(".add_id") );
 			    		}
 			    	});
+		    	}else{
+		    		$("<a class='tips'>稿件不存在</a>").appendTo( $(".add_id") );
 		    	}
-		    })
+		    });
 	    });
 
 	    //下拉列表
@@ -76,7 +77,7 @@ require(['alerts'],function(){
 	        width: 290,
 	        colorful: false
 	    });
-	});
+
 
 	//搜索时排除重复的列表项后再添加到列表中
 	function renderList(list,ifChecked){
@@ -209,7 +210,7 @@ require(['alerts'],function(){
 			parent.timeLineFN.list.push({
 				cid:_this.data('id'),  // _this.attr('data-id'),   //选中列表项的id  
 				title:_this.find(".con").html(),                  //新闻标题内容
-				date:_this.find(".time0").html(),            //日期
+				date:_this.find(".time0").html(),                 //日期
 				url:_this.children("a").data('href'),             //Url
 				titleImg:_this.data('titleimg')
 			});
@@ -235,15 +236,20 @@ require(['alerts'],function(){
 	function getkeyword(){
 		for( var i=0;i<parent.timeLineFN.keyword.length;i++ ){
 			$("#keyword").append('<li><a href="#"><span></span>'+parent.timeLineFN.keyword[i]+'</a></li>');
-		}
+		};
+		if(parent.timeLineFN.keyword.length){
+	    	$("#sou").trigger("click");
+	    };
 	}
     getkeyword();
+
 
     //获取新闻类型数据
     function getconType(){
     	var optionhtml="";
 	    for(var i=0;i<parent.cacheDetail.typeList.length;i++){
-	    	optionhtml+='<option value="'+i+'">'+parent.cacheDetail.typeList[i].name+'</option>';
+	    	var typelist=parent.cacheDetail.typeList[i].name;
+	    	optionhtml+='<option value="'+typelist+'">'+typelist+'</option>';
 	    }
 	    $("#select1").append( $(optionhtml) );
     }
