@@ -36,7 +36,8 @@
 
 <script>
 	
-	require(['frameUpload'],function(FrameUpload){
+	require(['frameUpload','json','md5'],function(FrameUpload,JSON){
+
 		var $ = jQuery, 
 			up0 = $("#upload0"), show0 = up0.next(),
 			up1 = $("#upload1"), show1 = up1.next(),
@@ -68,6 +69,14 @@
 			action: "/upload?uploadUrl=/demo/php/temp&target=/demo/json/success.html",
 			onchange: function(){
 				show1.html( this.value.match(/[^\\\/]+$/) );
+				if( this.value && window.FileReader){
+					var reader = new FileReader();
+					reader.readAsBinaryString(this.files[0]);
+					reader.onload = function(){
+						console.log( MD5.hex_md5(this.result) );
+					};
+				}
+					
 			},
 			afterUpload: function(data){
 				if(data.status){
