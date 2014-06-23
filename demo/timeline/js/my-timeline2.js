@@ -41,7 +41,7 @@
       //生成时间轴 (标题横轴式/图文横轴式可切换)
       $('#my-timeline').html("");
       if( rank == "title" ){ 
-        //判断如果是《定位到最新》把分过组的数组顺序翻转
+        //判断如果是《定位到最新》把分过组的数组顺序翻转 注:("标题横轴式"的默认时间位置选择)
         if( newest ){
           data.timelineContent.reverse();
         }
@@ -75,7 +75,7 @@
             lang:"zh-cn",
             source:     null,
             embed_id:   'my-timeline',
-            start_at_end: newest
+            start_at_end: newest        //"图文横轴式"的默认时间位置选择
         },data);
       }
     }

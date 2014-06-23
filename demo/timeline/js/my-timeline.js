@@ -72,12 +72,23 @@ require(["alerts","WdatePicker","draggable","form-style"],function(){
 		    });
 	    });
 
-	    //下拉列表
-	    $("#select1").toSelect({
-	        width: 290,
-	        colorful: false
-	    });
-
+	    
+    //获取新闻类型数据
+    function getconType(){
+    	var optionhtml="";
+	    for(var i=0;i<parent.cacheDetail.typeList.length;i++){
+	    	var typelist=parent.cacheDetail.typeList[i].name;
+	    	optionhtml+='<option value="'+typelist+'">'+typelist+'</option>';
+	    }
+	    $("#select1").append( $(optionhtml) );
+    }
+    getconType();
+    
+	//下拉列表
+    $("#select1").toSelect({
+        width: 290,
+        colorful: false
+    });
 
 	//搜索时排除重复的列表项后再添加到列表中
 	function renderList(list,ifChecked){
@@ -216,7 +227,7 @@ require(["alerts","WdatePicker","draggable","form-style"],function(){
 			});
 		});
 		parent.timeLineFN.list.sort(function(a,b){                //时间排序
-			return a.releaseDate > b.releaseDate ? 1 : -1;
+			return a.date > b.date ? 1 : -1;
 		});
 		//把搜索的关键词添加到数组中【new】
 		parent.timeLineFN.keyword = [];
@@ -244,16 +255,7 @@ require(["alerts","WdatePicker","draggable","form-style"],function(){
     getkeyword();
 
 
-    //获取新闻类型数据
-    function getconType(){
-    	var optionhtml="";
-	    for(var i=0;i<parent.cacheDetail.typeList.length;i++){
-	    	var typelist=parent.cacheDetail.typeList[i].name;
-	    	optionhtml+='<option value="'+typelist+'">'+typelist+'</option>';
-	    }
-	    $("#select1").append( $(optionhtml) );
-    }
-    getconType();
+    
 
 
 

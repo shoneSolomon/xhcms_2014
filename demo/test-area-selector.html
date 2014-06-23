@@ -32,6 +32,8 @@
 		<input type="text" id="area-selector" placeholder="点击选择地区">
 		<a href="javascript:void(0);" class="fm-button" id="show-map">地图</a>
 		<span id="show-location"></span>
+		<br>
+		<input type="text" id="world-selector">
 	</div>
 
 	<div class="districtmap" >
@@ -119,6 +121,12 @@
 		});
 
 
+	});
+
+	require(['data/world-selector','selectors'],function(){
+		$('#world-selector').selectors({
+			o: window.Area
+		});
 	});
 </script>
 </body>

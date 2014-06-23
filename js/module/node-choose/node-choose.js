@@ -1,40 +1,42 @@
 ﻿define(function(require, exports, module) {
-	var dialogContent='<div class="dialog_content clearfix">'+
-		'	<div class="aready_choose clearfix">'+
-		'		<span class="choose_span">已选择节点：</span>'+
-		'		<div class="aready_choose_con">'+
-		'			<ul id="logs">'+
-		'			</ul>'+
-		'		</div>'+
-		'	</div>'+
-		'	<div id="stageContent" class="stageContent clearfix">'+
-		'		<span class="choose_span">选择节点：</span>'+
-		'		<div id="stage" class="stage">'+	
-		'	</div>'+
-		'</div>';
+	var _default = {
+		dialogContent:'',
+		width:540,
+		height:'auto',
+		node:'',
+		treeContainer:'',
+		url:'../html/json/tree.json',
+		title:'',
+		showIcon:false,
+		data:'',
+		callback:function(){},
+		unification:function(){},
+	};
 
-	exports.dialog=function(node,url,title,data){
-		$(node).empty();
+	var NodeChosse=function(opt){
+		var o = $.extend(_default,opt);
+		var obj=[];
+		var node=$(o.node);
+		node.empty();
 		var gotUp={};
-		var template=Handlebars.compile(dialogContent);
-		$(node).append(template(gotUp));
-
-		$(node).dialog({
+		var template=Handlebars.compile(o.dialogContent);
+		node.append(template(gotUp));
+		node.dialog({
 			appendTo:"body",
-			width:540,
-			height:'auto',
+			width:o.width,
+			height:o.height,
 			modal:false,
 			showTitle:true,
-			title:title,
+			title:o.title,
 			autoOpen:true,
 			open:function(event, ui){
-				$(node).addClass("ztree")
+				node.addClass("ztree")
 				var setting={
 					view: {
-						showIcon: false
+						showIcon: o.showIcon
 					},
 					async: {
-						url:url,
+						url:o.url,
 						enable: true,
 						autoParam: ["id"]
 					},
@@ -55,9 +57,9 @@
 					}
 
 				}
-				$.fn.zTree.init($("#stage"), setting);
-				//document.getElementById("node").style.width="510px";
+				$.fn.zTree.init($(o.treeContainer), setting);
 			},
+			close:function(){o.unification();},
 			buttons:[
 				{
 					text:'保存',
@@ -65,7 +67,11 @@
 					className:'button-submit',
 					id:'gatherDoc_submit',
 					click:function(){
-						$(node).dialog("close");
+						$("#logs li").each(function(){
+							obj.push($(this).attr("data-id"))
+						})
+						o.callback(obj);
+						node.dialog("close");
 					}
 				},
 				{
@@ -73,12 +79,18 @@
 					icons:{primary: "ui-cancel"},
 					className:'button-cancel',
 					id:'gatherDoc_cancel',
-					click:function(){$(node).dialog("close");}
+					click:function(){node.dialog("close");}
 				}
 			]
 		});
 		var logs = $("#logs");
 		var redo="<i>—</i>";
+		for(var k in o.data){
+			if(o.data[k]["id"]){
+				var re="<li"+" "+"data-id="+"'"+o.data[k]["id"]+"'>"+o.data[k]["name"]+"</li>";
+				logs.append(re);
+			}
+		}
 		logs.on("mouseenter","li",function(){
 			if($("this:has(i)").length==0){
 				$(this).append(redo);
@@ -91,5 +103,6 @@
 				$(this).find("i").remove();
 		});
 	}
+	return NodeChosse;
 
 })

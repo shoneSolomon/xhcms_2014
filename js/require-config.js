@@ -150,7 +150,12 @@ paths = {
 	 * 对密码进行加密设置
 	 * @see  http://plugins.jquery.com/base64/
 	*/
-	base64:"jquery.base64.min"
+	base64:"jquery.base64.min",
+	/*
+	*弹框节点选择器
+	*@see demo/node-choose.html
+	*/
+	"node-choose":"module/node-choose/node-choose"
 },
 ui = [
 "accordion",
@@ -262,6 +267,9 @@ require.config({
 		},
 		"time-line" : {
 			deps: ["template","css!module/time-line/time-line.css"]
+		},
+		"node-choose" : {
+			deps: ["template","zTree","button","dialog","position","css!module/node-choose/node-choose.css"]
 		}
 
 	}

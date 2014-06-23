@@ -54,34 +54,48 @@ define(function(require, exports, module){
 
     	dom.parentNode.appendChild( frame );	//将iframe添加到指定按钮父标签下。
 
-    	require(['requestAFrame'],function(R){
+        require(['requestAFrame'],function(R){
 
-    		R.addTimeout(frame.id,function(){
-    			var doc = frame.contentDocument || document.frames["ajaxFrame-"+_index].document;
-    			var input = doc.getElementById('upload');
-    			if(input && !input.getAttribute('ajax-init') ){
+            R.addTimeout(frame.id,function(){
+                var doc = frame.contentDocument || document.frames["ajaxFrame-"+_index].document;
+                var input = doc.getElementById('upload');
+                if(input && !input.getAttribute('ajax-init') ){
 
-    				var form = input.parentNode;
-    				form.action = opt.action;
-    				_this.submit = function(){
-    					if( !input.value ){
-    						throw new Error('需要选择文件');
-    					}
-    					frame.onload = function(){
-    						var doc_ = frame.contentDocument || document.frames["ajaxFrame-"+_index].document;
-    						if( typeof opt.afterUpload === 'function' ){
-    							try{
-    								opt.afterUpload.call(doc_, new Function("return "+doc_.body.innerHTML.replace(/[\r\n]+/,""))() );
-    							}catch(e){
-    								alert(e);
-    							}
-    						} 
-    						frame.onload = null;
-    						frame.src = uri;
-    					};
-
-    					form.submit();
-    				};
+                    var form = input.parentNode;
+                    form.action = opt.action;
+                    _this.submit = function(){
+                        if( !input.value ){
+                            throw new Error('需要选择文件');
+                        }
+                        var xhr;
+                        if( opt.ajax && (xhr = window.XMLHttpRequest ? new XMLHttpRequest() : {}).upload ){        //支持ajax2.0直接的文件上传带进度
+                            xhr.upload.addEventListener('progress',opt.onprocess); 
+                            xhr.onreadystatechange = function(e){
+                                if (xhr.readyState == 4){
+                                    opt.afterUpload.call(frame,JSON.parse(xhr.responseText),xhr);
+                                }    
+                            };
+                            var formdata = new FormData();
+                            formdata.append("upload", input.files[0]);
+                            xhr.open("POST", opt.action, true);
+                            xhr.send(formdata);
+                        }else{          //普通的表单文件上传需要刷新页面
+                            frame.onload = function(){
+                                var doc_ = frame.contentDocument || document.frames["ajaxFrame-"+_index].document;
+                                if( typeof opt.afterUpload === 'function' ){
+                                    try{
+                                        opt.afterUpload.call(frame, new Function("return "+doc_.body.innerHTML.replace(/[\r\n]+/,""))() );
+                                    }catch(e){
+                                        alert(e);
+                                    }
+                                } 
+                                frame.onload = null;
+                                frame.src = uri;
+                            };
+                            form.submit();
+                        }
+                            
+                    };
 
                     input.submit = _this.submit;
                     for(var e in opt){  //事件绑定,所有on开始的key都绑定到input上面
@@ -90,12 +104,11 @@ define(function(require, exports, module){
                         }
                     } 
 
-    				input.setAttribute('ajax-init','true');
+                    input.setAttribute('ajax-init','true');
                     (typeof opt.ready === 'function') && opt.ready.call(input)
-    			}
-    		});
-
-    	});
+                }
+            });
+        });
 
     };
 
