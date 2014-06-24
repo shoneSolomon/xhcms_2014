@@ -1,6 +1,7 @@
 //1.搜索新闻页面
-require(["alerts","WdatePicker","draggable","form-style"],function(){
-
+require(["alerts"],function(){
+	//弹框、日历、select美化
+	require(["WdatePicker","draggable","form-style"],function(){
 	  //新闻标题编辑
 	  	$("#load_left").on("click",".editing",function(){
 	    	var _this=$(this);
@@ -72,23 +73,13 @@ require(["alerts","WdatePicker","draggable","form-style"],function(){
 		    });
 	    });
 
-	    
-    //获取新闻类型数据
-    function getconType(){
-    	var optionhtml="";
-	    for(var i=0;i<parent.cacheDetail.typeList.length;i++){
-	    	var typelist=parent.cacheDetail.typeList[i].name;
-	    	optionhtml+='<option value="'+typelist+'">'+typelist+'</option>';
-	    }
-	    $("#select1").append( $(optionhtml) );
-    }
-    getconType();
-    
-	//下拉列表
-    $("#select1").toSelect({
-        width: 290,
-        colorful: false
-    });
+		//下拉列表
+	    $("#select1").toSelect({
+	        width: 290,
+	        colorful: false
+	    });
+
+	});
 
 	//搜索时排除重复的列表项后再添加到列表中
 	function renderList(list,ifChecked){
@@ -254,7 +245,17 @@ require(["alerts","WdatePicker","draggable","form-style"],function(){
 	}
     getkeyword();
 
-
+	    
+    //获取新闻类型数据
+    function getconType(){
+    	var optionhtml="";
+	    for(var i=0;i<parent.cacheDetail.typeList.length;i++){
+	    	var typelist=parent.cacheDetail.typeList[i].name;
+	    	optionhtml+='<option value="'+typelist+'">'+typelist+'</option>';
+	    }
+	    $("#select1").append( $(optionhtml) );
+    }
+    getconType();
     
 
 
