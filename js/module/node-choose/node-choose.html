@@ -52,12 +52,18 @@ require(['node-choose'],function(NodeChosse){
 				type:"get",
 				success:function(res){
 					$(".edit-overlay", top.document).remove();
+					$(".deputySection", top.document).each(function(){
+						if($(this).hasClass("current_grid")){
+							$(this).click();
+							
+						}
+					})
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown){
                     alert("服务器异常");
                     $(".edit-overlay", top.document).remove();
 				}
-			})
+			});
 		}
 	})
 })

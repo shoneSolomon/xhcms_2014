@@ -10,7 +10,7 @@
 	<script src="../js/require-config.js"></script>
 </head>
 <body>
-	
+	<textarea id="result" style="width:100%;height:800px;" spellcheck="false"></textarea>
 <script>
 	require(["json"], function(JSON){
 		/*
@@ -34,16 +34,20 @@
 		*/
 		$.get('json/ref.json',function(data0){		//修改ajax
 
-			console.log( data0 );
-			document.write( JSON.stringify(data0) );
+			
+			alert( JSON.format(data0,'--') );
+
+			$('#result').val( JSON.format(data0,'  ') );
+
+			$.get('json/ref.json?t='+new Date().getTime(),function(data1){		//修改ajax
+
+				window.console ? console.log( data1 ) : alert(data1);
+
+			},'refJson');
 
 		},'json');
 
-		$.get('json/ref.json',function(data1){		//修改ajax
-
-			console.log( data1 );
-
-		},'refJson');
+			
 
 	});
 </script>

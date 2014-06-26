@@ -266,7 +266,7 @@
 								element: 'chart_percent',
 								data: [
 									{label:"", value: 1-per},
-									{label:100*per + "%", value: per}
+									{label:(100*per).toFixed(2) + "%", value: per}
 								],
 								colors:["#fff","#2cac93"],
 								formatter:function(y,data){

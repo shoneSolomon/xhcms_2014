@@ -27,14 +27,14 @@ define(function(require, exports, module) {
 	
 	var objs = [];
 
-	var JSON = window.JSON || {
+	var _JSON = {
 		parse : function(jsonStr){
 			return new Function("return ("+jsonStr+")").call(this);
 		},
-		stringify : function(o){
+		stringify : function(o,format){
 			var tp = (null === o) ? 'undefined' : typeof o,
 				callee = arguments.callee;
-			
+
 			if( this.stringify === callee ){	//如果是第一次的非递归调用, 初始化objs
 				objs = [];
 			}
@@ -56,24 +56,23 @@ define(function(require, exports, module) {
 						return (function(o){
 							var res = [];
 							for(var k = 0; k < o.length; k++){
-								res.push( callee(o[k]) )
+								res.push( callee( o[k],format ) )
 							}
-							return '['+res.join(',')+']'
+							return format ? '[\n'+format+res.join(',\n').replace(/\n/g,'\n'+format)+'\n]' : '['+res.join(',')+']'
 						})(o);
 					}else{
 						return (function(o){
 							var res = [];
 							for(var k in o){
 								if( ({}).hasOwnProperty.call(o,k) ){
-									res.push( k + ":" + callee(o[k]) )
+									res.push( "\"" + k + "\":" + callee( o[k],format ) )
 								}
 							}
-							return '{'+res.join(',')+'}'
+							return format ? '{\n'+format+res.join(',\n').replace(/\n/g,'\n'+format)+'\n}' : '{'+res.join(',')+'}'
 						})(o);
 					}
 						
 			}
-				
 		}
 	};
 
@@ -111,14 +110,17 @@ define(function(require, exports, module) {
 	}
 
 	return {
-		parse : JSON.parse,
-		stringify:JSON.stringify,
+		parse : (window.JSON || _JSON).parse,
+		stringify : (window.JSON || _JSON).stringify,
+		format : function(json,format){
+			return _JSON.stringify(json,format||'\t');
+		},
 		/**
 		 * 展开携带$ref的restful-json对象
 		 */
 		expend : function(arg){
 			if(typeof arg === 'string' && /\$ref/.test(arg) ){
-				return expend( JSON.parse(arg) );
+				return expend( this.parse(arg) );
 			}else{
 				return expend(arg);
 			}
