@@ -194,14 +194,15 @@
         formValid: function(selector, commonValider, settings) {
             var info = "",
                 firstErr = null,
-                settings = settings || $.form.settings,
-                commonValider = commonValider || {};
+                settings = settings || $.form.settings;
+
+            commonValider = commonValider || {};
 
             this.find(selector || "[name]")
                 .each(function() {
                 if (commonValider.interrupt && firstErr) return;
                 var vReturn = $(this)
-                    .valid(commonValider);
+                    .valid(commonValider[this.name] || commonValider);
                 info += vReturn;
                 if (vReturn && !firstErr) {
                     firstErr = $(this);
