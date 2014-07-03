@@ -202,7 +202,7 @@
                 .each(function() {
                 if (commonValider.interrupt && firstErr) return;
                 var vReturn = $(this)
-                    .valid(commonValider[this.name] || commonValider);
+                    .valid(commonValider.get ? commonValider.get(this.name) : commonValider);
                 info += vReturn;
                 if (vReturn && !firstErr) {
                     firstErr = $(this);

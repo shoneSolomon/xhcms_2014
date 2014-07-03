@@ -72,11 +72,16 @@ define(function(require, exports, module){
                             xhr.upload.addEventListener('progress',opt.onprocess); 
                             xhr.onreadystatechange = function(e){
                                 if (xhr.readyState == 4){
-                                    opt.afterUpload.call(frame,JSON.parse(xhr.responseText),xhr);
+                                    var json;
+                                    try{
+                                        json = JSON.parse(xhr.responseText)
+                                    }catch(e){
+                                        // is not a JSON result       
+                                    }
+                                    opt.afterUpload.call(frame,json,xhr);
                                 }    
                             };
-                            var formdata = new FormData();
-                            formdata.append("upload", input.files[0]);
+                            var formdata = new FormData(form);
                             xhr.open("POST", opt.action, true);
                             xhr.send(formdata);
                         }else{          //普通的表单文件上传需要刷新页面
