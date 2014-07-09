@@ -93,7 +93,7 @@ define(function(require, exports, module) {
 	/**
 	 * 為jQuery-ajax中的get/post方法提供dataType:refJson支持
 	 */
-	if(window.jQuery){
+	if(this.jQuery){
 		jQuery.each( [ "get", "post" ], function( i, method ) {
 			jQuery[ method ] = function( url, data, callback, type ) {
 				// shift arguments if data argument was omitted
@@ -124,8 +124,8 @@ define(function(require, exports, module) {
 	}
 
 	return {
-		parse : (window.JSON || _JSON).parse,
-		stringify : (window.JSON || _JSON).stringify,
+		parse : (this.JSON || _JSON).parse,
+		stringify : (this.JSON || _JSON).stringify,
 		format : function(json,format,restful){
 			return _JSON.stringify(json,format||'\t',restful?'$':'');
 		},
