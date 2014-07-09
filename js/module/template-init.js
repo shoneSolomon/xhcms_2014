@@ -145,20 +145,18 @@ define(function(require, exports, module) {
 
                 var p = null;
                 if( o.pagination ){
-                    if( totalPage != "0" ){
-                        $(o.pagination).show();
-                    }
                     require(['form-style'],function(){
                         p = $(o.pagination).toPager({
                             currentPage: Math.floor(currentPage) || 1,    // 默认选中的页码
-                            totalPage: totalPage | 0      // 总页数
-                        },!first);
-                        
-                        if(p && first){
-                            p.on("switch",function(event,e){
+                            totalPage: totalPage | 0,      // 总页数
+                            "switch" :function(event,e){
                                 o.toPage = e.toPage;
+                                $(this).hide();
                                 _self.__ajax__(o);
-                            });
+                            }
+                        },!first);
+                        if( totalPage != "0" ){
+                            p.show();
                         }
                     });
                 }
