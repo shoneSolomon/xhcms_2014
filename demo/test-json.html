@@ -10,17 +10,18 @@
 	<script src="../js/require-config.js"></script>
 </head>
 <body>
-	<textarea id="result" style="width:100%;height:800px;" spellcheck="false"></textarea>
+	<div id="result1"></div>
+	<textarea id="result2" style="width:100%;height:800px;" spellcheck="false"></textarea>
 <script>
 	require(["json"], function(JSON){
-		/*
+		
 		var str = '{"m":{"id":1,"leaf":false,"name":"channel1","new":false,"parentId":0,"parentIds":"0/","root":true,"show":true,"site":[{"channels":[{"$ref":"$.m"}],"friendlinks":[{"id":1,"name":"friend1","new":false,"show":true,"site":[{"$ref":"$.m.site[0]"}],"weight":1}],"id":9,"new":false,"siteName":"abc"}],"weight":1},"op":"查看"}';
 		
 		var json = JSON.parse(str);						//兼容性JSON.parse
 		console.log( "JSON.parse([string]):\t" );
 		console.log( json );
 
-		document.write( JSON.stringify(json) );			//兼容性JSON.stringify
+		$('#result1').html( JSON.stringify(json) );			//兼容性JSON.stringify
 
 		console.log( "\nJSON.expend([json]):\t" );		//携带$ref展开效果
 		console.log( JSON.expend(JSON.parse(str)) );
@@ -29,9 +30,9 @@
 		console.log( "\nJSON.expend([str]): \t" );
 		console.log( jsonExpend );
 
-		document.write( JSON.stringify(jsonExpend) );	//循环引用json的stringify 抛出异常: 已兼容
+		$('#result2').val( JSON.format(jsonExpend,'  ',true) );	//循环引用json的stringify 抛出异常: 已兼容
 
-		*/
+		/*
 		$.get('json/ref.json',function(data0){		//修改ajax
 
 			
@@ -47,7 +48,7 @@
 
 		},'json');
 
-			
+		*/	
 
 	});
 </script>

@@ -12,6 +12,7 @@ define(function(require, exports, module) {
         sourceData : function(){
             return {};
         },
+        page:{size:'page.size',to:'page.pn'},
         nonResult : '<div class="no-content" style="padding-top: 150px;"><span class="nocon-bid"></span><span class="nocon-detail">暂无内容！</span></div>'
     };
 
@@ -37,6 +38,7 @@ define(function(require, exports, module) {
      * @param {Function} begin(o*数据源options*, data*渲染数据*,first*首次加载*) 数据准备完成，渲染开始前运行
      * @param {Function} callback(o*数据源options*, pager*分页对象*,first*首次加载*) 渲染结束以后运行
      * @param {String} nonResult 当totalPage为0时,  填充目标.
+     * @param {Object} page  @default {size:'page.size',to:'page.pn'}.
      */
     return {
         __simple__ : function(o,first){
@@ -69,7 +71,7 @@ define(function(require, exports, module) {
                     if( totalPage != "0" ){
                         $(o.pagination).show();
                     }
-                    o.url = location.href.replace(/([?])?[&]?toPage=\w*&?/,"$1");
+                    o.url = location.href.replace( new RegExp('([?])?[&]?'+o.page.to+'=\\w*&?'),"$1");
                     p = $(o.pagination).toPager({
                         currentPage: Math.floor(currentPage) || 1,    // 默认选中的页码
                         totalPage: totalPage | 0      // 总页数
@@ -79,7 +81,7 @@ define(function(require, exports, module) {
                         o.callback.call(this,o,p,first);
                     }else if(p && first){
                         p.on("switch",function(event,e){
-                            location.href = o.url + ( o.url.indexOf("?") > -1 ? ("&toPage=" + e.toPage) : ("?toPage=" + e.toPage) );
+                            location.href = o.url + ( o.url.indexOf("?") > -1 ? ("&"+o.page.to+"=" + e.toPage) : ("?"+o.page.to+"=" + e.toPage) );
                         });
                     }
                 });
@@ -105,8 +107,8 @@ define(function(require, exports, module) {
                 _d.t = new Date().getTime()
             }
             if(o.pagination){
-                _d["page.pn"] = o.toPage||"";
-                _d["page.size"] = 10
+                _d[o.page.to] = o.toPage||"";
+                _d[o.page.size] = 10
             }
 
             $[type](o.sourceUrl, $.extend(_d, o.sourceData() ),function(data){

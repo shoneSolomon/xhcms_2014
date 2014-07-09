@@ -25,20 +25,27 @@ define(function(require, exports, module) {
 		return r;
 	}
 	
-	var objs = [];
+	var objs = [], refs = [];
 
 	var _JSON = {
 		parse : function(jsonStr){
 			return new Function("return ("+jsonStr+")").call(this);
 		},
-		stringify : function(o,format){
+		/**
+		 * 自定义stringify方法
+		 * @param  {[JSON]} o       [源对象]
+		 * @param  {[String]} format  [格式化缩进]
+		 * @param  {[String]} restful [是否对循环引用对象使用festful转换]
+		 * @return {[String]}         []
+		 */
+		stringify : function(o,format,restful){
 			var tp = (null === o) ? 'undefined' : typeof o,
 				callee = arguments.callee;
 
 			if( this.stringify === callee ){	//如果是第一次的非递归调用, 初始化objs
 				objs = [];
+				refs = [];
 			}
-
 			switch(tp){
 				case 'undefined':
 				case 'number':
@@ -48,15 +55,22 @@ define(function(require, exports, module) {
 				case 'object':
 					// 跟原生的JSON.stringify一样,对于循环调用的JSON抛出异常
 					for (var i = 0; i < objs.length; i++) {		
-						if( objs[i] === o ) throw new Error("Converting circular structure to JSON");
+						if( objs[i] === o ){
+							if(!restful){
+								throw new Error("Converting circular structure to JSON");
+							}else{
+								return '{"$ref":"'+refs[i]+'"}';
+							}
+						}
 					}
 					objs.push(o);
+					refs.push(restful);
 				default : 
 					if( isArray(o) ){
 						return (function(o){
 							var res = [];
 							for(var k = 0; k < o.length; k++){
-								res.push( callee( o[k],format ) )
+								res.push( callee( o[k],format, restful ? (restful+'.'+k):'' ) )
 							}
 							return format ? '[\n'+format+res.join(',\n').replace(/\n/g,'\n'+format)+'\n]' : '['+res.join(',')+']'
 						})(o);
@@ -65,7 +79,7 @@ define(function(require, exports, module) {
 							var res = [];
 							for(var k in o){
 								if( ({}).hasOwnProperty.call(o,k) ){
-									res.push( "\"" + k + "\":" + callee( o[k],format ) )
+									res.push( "\"" + k + "\":" + callee( o[k],format, restful ? (restful+'.'+k):'' ) )
 								}
 							}
 							return format ? '{\n'+format+res.join(',\n').replace(/\n/g,'\n'+format)+'\n}' : '{'+res.join(',')+'}'
@@ -112,8 +126,8 @@ define(function(require, exports, module) {
 	return {
 		parse : (window.JSON || _JSON).parse,
 		stringify : (window.JSON || _JSON).stringify,
-		format : function(json,format){
-			return _JSON.stringify(json,format||'\t');
+		format : function(json,format,restful){
+			return _JSON.stringify(json,format||'\t',restful?'$':'');
 		},
 		/**
 		 * 展开携带$ref的restful-json对象
