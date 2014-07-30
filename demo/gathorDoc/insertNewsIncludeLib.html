@@ -236,8 +236,8 @@
 			/*搜索*/
 			var typeSelect = "",  //类型下拉框
 			    page = 1;
-			var reg = /(http.*?)cloudnews(.*?)\d+\/(.*)_c\.html/g;
-			var strreg = "$1cloudapi$2$3.htm?tpl=/red/content/cloudRead_share.html";  
+			//var reg = /(http.*?)cloudnews(.*?)\d+\/(.*)_c\.html/g;
+			//var strreg = "$1cloudapi$2$3.htm?tpl=/red/content/cloudRead_share.html";  
 			var getList = function(){
 				var type_id,
 				    sttr_name,
@@ -254,14 +254,13 @@
 					$.nGetJSON(url.search,{keyword:tags.join(),pageNo:page,pageSize:20,typeId:type_id,attrName:encodeURI(sttr_name)
 					},function(res){
 						for(var i=0; i<res.content.length; i++){
-							res.content[i].docUrl=res.content[i].docUrl.replace(reg, strreg);
+							//res.content[i].docUrl=res.content[i].docUrl.replace(reg, strreg);
 							for(var j=0;j<$(".result-lists .searched").length; j++){
 								if(res.content[i].docId==$(".result-lists .searched").eq(j).attr("data-id")){
 									res.content.splice(i,1);
 								}
 							}
 						}
-						console.log(res);
 
 						var innerHtml="";
 						if(res.content){

@@ -321,7 +321,7 @@
                                     "priority": 1,
                                     "treeLinkUrl": "",
                                     "type": "link",
-                                    "url": "/admin_global/v_list.do"
+                                    "url": "../frame/detail-data-set.html"
                                 },
                                 {
                                     "childMenus": [],

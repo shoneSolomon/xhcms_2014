@@ -3910,7 +3910,6 @@
 				</city>
 			</province>
 			<province code="1567100000" value="台湾省" isLeaf="false" level="3" parentCode="1560000000" old="710000" en=" " firstHead="t" cityId="" lon="120.663894553241" lat="23.697123622893">
-				<city code="1567100100" value="台湾省" isLeaf="true" level="4" parentCode="1567100000" old="710100" en="" firstHead="t" cityId="" lon="120.687043‎" lat="23.958842" />
 				<city code="1567100200" value="台北市" isLeaf="true" level="4" parentCode="1567100000" old="710200" en="" firstHead="t" cityId="101340102" lon="121.559204" lat="25.093372" />
 				<city code="1567100300" value="台南市" isLeaf="true" level="4" parentCode="1567100000" old="710300" en="" firstHead="t" cityId="101340301" lon="120.252013" lat="23.161826" />
 				<city code="1567100400" value="台中市" isLeaf="true" level="4" parentCode="1567100000" old="710400" en="" firstHead="t" cityId="101340401" lon="120.941513" lat="24.238199" />

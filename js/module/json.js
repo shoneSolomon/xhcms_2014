@@ -2,6 +2,10 @@ define(function(require, exports, module) {
 	function isArray(obj) { 
 		return ({}).toString.call(obj) === '[object Array]'; 
 	}
+	function isString(obj) { 
+		return ({}).toString.call(obj) === '[object String]'; 
+	}
+
 	function expend(r) {
 		var getRef = function(o,$ref){	//获取$ref索引对象
 			var t = $ref.split(".");
@@ -17,6 +21,22 @@ define(function(require, exports, module) {
 			for(var k in o){
 				if(o[k] && typeof o[k].$ref === 'string'){
 					o[k] = getRef(r,o[k].$ref.replace(/\[(\d+)\]/g,'.$1')); //有数组格式的数据要转化一下。
+				}else if(typeof o[k] === 'object'){
+					arguments.callee(o[k]);
+				}
+			}
+		})(r);
+		return r;
+	}
+	function toFunction(r){
+		(function(o){
+			for(var k in o){
+				var m;
+				if( isString(o[k]) ){
+					if( m = o[k].match( /javascript:function\s*\(\s*(.*?)\s*\)\s*\{(.*?)\}/ ) ){
+						m.shift();
+						o[k] = Function.apply(this,m);
+					}
 				}else if(typeof o[k] === 'object'){
 					arguments.callee(o[k]);
 				}
@@ -51,7 +71,7 @@ define(function(require, exports, module) {
 				case 'number':
 				case 'boolean': return o; 
 				case 'string': return '"' + o.replace(/\\/g,'\\\\').replace(/"/g,'\"') + '"'; 
-				case 'function': return '"[object Function]"';
+				case 'function': return '"javascript:'+o.toString().replace(/\"/,'\\"').replace(/[\n\r]+/,'') + '"';
 				case 'object':
 					// 跟原生的JSON.stringify一样,对于循环调用的JSON抛出异常
 					for (var i = 0; i < objs.length; i++) {		
@@ -128,6 +148,12 @@ define(function(require, exports, module) {
 		stringify : (this.JSON || _JSON).stringify,
 		format : function(json,format,restful){
 			return _JSON.stringify(json,format||'\t',restful?'$':'');
+		},
+		stringifyWithFunction : function(json){
+			return _JSON.stringify(json)
+		},
+		expendWithFunction : function(json){
+			return toFunction( json );
 		},
 		/**
 		 * 展开携带$ref的restful-json对象

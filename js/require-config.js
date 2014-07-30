@@ -201,7 +201,7 @@ var scripts = document.getElementsByTagName('script') , _src = scripts[scripts.l
 require.baseUrl = _src.replace( /\/[^\/]*$/,"" )
 require.config({
 	baseUrl: require.baseUrl,
-	urlArgs: 'v=1.0',
+	urlArgs: 'v=1.2',
 	paths: paths,
 	shim :{
 		widget:{

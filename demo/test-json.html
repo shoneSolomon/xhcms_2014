@@ -50,6 +50,12 @@
 
 		*/	
 
+		var t = {a:2,b: function(m) { alert(m) }};
+		var m = JSON.stringifyWithFunction(t);
+		console.log(m);
+		var t1 = JSON.expendWithFunction( JSON.parse(m) );
+		console.log(t1);
+		t1.b(123);
 	});
 </script>
 </body>
