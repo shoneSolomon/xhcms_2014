@@ -55,7 +55,7 @@
 		new AreaSelector({
 			el:'#area-selector',
 			onData:function(node,isLeaf){
-				$('#area-selector').val(node.name);
+				$(this).val(node.name);
 				var pos = World_location[node.id];
 				show.html(pos.replace(/^([^,]+)[,]([^,]+)$/," lon:$1, lat:$2"));
 			},

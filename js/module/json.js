@@ -30,7 +30,7 @@ define(function(require, exports, module) {
 			for(var k in o){
 				var m;
 				if( typeof o[k] === 'string' ){
-					if( m = o[k].match( /javascript:function\s*\(\s*(.*?)\s*\)\s*\{(.*?)\}/ ) ){
+					if( m = o[k].match(/javascript:function\s*\(\s*(.*?)\s*\)\s*\{([\s\S]*?)\}$/) ){
 						m.shift();
 						o[k] = Function.apply(this,m);
 					}
@@ -49,7 +49,7 @@ define(function(require, exports, module) {
 			return new Function("return ("+jsonStr+")").call(this);
 		},
 		/**
-		 * 自定义stringify方法
+		 * 自定义stringify方法, 默认会将function 转化成"javascript:function" 打头的字符串
 		 * @param  {[JSON]} o       [源对象]
 		 * @param  {[String]} format  [格式化缩进]
 		 * @param  {[String]} restful [是否对循环引用对象使用festful转换]
