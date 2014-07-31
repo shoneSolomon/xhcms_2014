@@ -2,9 +2,6 @@ define(function(require, exports, module) {
 	function isArray(obj) { 
 		return ({}).toString.call(obj) === '[object Array]'; 
 	}
-	function isString(obj) { 
-		return ({}).toString.call(obj) === '[object String]'; 
-	}
 
 	function expend(r) {
 		var getRef = function(o,$ref){	//获取$ref索引对象
@@ -32,7 +29,7 @@ define(function(require, exports, module) {
 		(function(o){
 			for(var k in o){
 				var m;
-				if( isString(o[k]) ){
+				if( typeof o[k] === 'string' ){
 					if( m = o[k].match( /javascript:function\s*\(\s*(.*?)\s*\)\s*\{(.*?)\}/ ) ){
 						m.shift();
 						o[k] = Function.apply(this,m);
