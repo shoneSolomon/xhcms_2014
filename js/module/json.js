@@ -68,7 +68,7 @@ define(function(require, exports, module) {
 				case 'number':
 				case 'boolean': return o; 
 				case 'string': return '"' + o.replace(/\\/g,'\\\\').replace(/"/g,'\"') + '"'; 
-				case 'function': return '"javascript:'+o.toString().replace(/\"/,'\\"').replace(/[\n\r]+/,'') + '"';
+				case 'function': return '"javascript:'+o.toString().replace(/\"/,'\\"').replace(/[\s\n\r]+/g,' ') + '"';
 				case 'object':
 					// 跟原生的JSON.stringify一样,对于循环调用的JSON抛出异常
 					for (var i = 0; i < objs.length; i++) {		
