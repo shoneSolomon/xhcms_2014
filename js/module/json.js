@@ -2,7 +2,19 @@ define(function(require, exports, module) {
 	function isArray(obj) { 
 		return ({}).toString.call(obj) === '[object Array]'; 
 	}
-
+	function contains(o,c){
+		var t = false;
+		for(var k in o){
+			if( typeof o[k] !== 'object' ){ 
+				continue
+			}else if( c === o[k] ){
+				t = true
+			}else{
+				t = t || contains(o[k],c) 
+			}
+		}
+		return t;
+	}
 	function expend(r) {
 		var getRef = function(o,$ref){	//获取$ref索引对象
 			var t = $ref.split(".");
@@ -72,7 +84,7 @@ define(function(require, exports, module) {
 				case 'object':
 					// 跟原生的JSON.stringify一样,对于循环调用的JSON抛出异常
 					for (var i = 0; i < objs.length; i++) {		
-						if( objs[i] === o ){
+						if( objs[i] === o && contains(objs[i],o) ){
 							if(!restful){
 								throw new Error("Converting circular structure to JSON");
 							}else{

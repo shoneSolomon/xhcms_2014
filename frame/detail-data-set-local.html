@@ -270,7 +270,7 @@
 			$("#historyBack").removeAttr("href");
 			limitUrl="../../xhadmin/admin_global/v_channels_edit.do?";
 			$.ajax({
-				url:"http://172.18.11.88:9999/cms-docs/admin/local_global/"+thisID+"/1/true/false/edit.json",
+				url:"http://172.18.11.88:9999/cms-docs/admin/local_global/"+thisID+"/1/true/true/edit.json",
 				//http://192.168.86.80:8083/cms-docs/admin/local_global/290/1/true/false/edit.json
 				type:"get",
 				async:false,
@@ -472,7 +472,7 @@
 
 			limitUrl="../../xhadmin/admin_global/v_channels_add.do?";
 			$.ajax({
-				url:"http://172.18.11.88:9999/cms-docs/admin/local_global/false/1/add.json",
+				url:"http://172.18.11.88:9999/cms-docs/admin/local_global/true/1/add.json",
 				type:"get",
 				async:false,
 				success:function(data){

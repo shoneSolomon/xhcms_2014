@@ -33,7 +33,7 @@
 		<a href="javascript:void(0);" class="fm-button" id="show-map">地图</a>
 		<span id="show-location"></span>
 		<br>
-		<input type="text" id="world-selector">
+		<input type="text" id="world-selector" value="1563200000">
 	</div>
 
 	<div class="districtmap" >
@@ -125,7 +125,9 @@
 
 	require(['data/world-selector','selectors'],function(){
 		$('#world-selector').selectors({
-			o: window.Area
+			o: window.Area,
+			hiddenEmpty: false,
+			brancheValue: true
 		});
 	});
 </script>

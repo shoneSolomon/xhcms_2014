@@ -15,6 +15,7 @@
 <script>
 	require(["json"], function(JSON){
 		
+		/*
 		var str = '{"m":{"id":1,"leaf":false,"name":"channel1","new":false,"parentId":0,"parentIds":"0/","root":true,"show":true,"site":[{"channels":[{"$ref":"$.m"}],"friendlinks":[{"id":1,"name":"friend1","new":false,"show":true,"site":[{"$ref":"$.m.site[0]"}],"weight":1}],"id":9,"new":false,"siteName":"abc"}],"weight":1},"op":"查看"}';
 		
 		var json = JSON.parse(str);						//兼容性JSON.parse
@@ -31,7 +32,8 @@
 		console.log( jsonExpend );
 
 		$('#result2').val( JSON.format(jsonExpend,'  ',true) );	//循环引用json的stringify 抛出异常: 已兼容
-
+		*/
+	
 		/*
 		$.get('json/ref.json',function(data0){		//修改ajax
 
@@ -50,7 +52,8 @@
 
 		*/	
 
-		var t = {a:2,b: function(m) { alert(m) }};
+		var t = {a:2,s:{m:2},b: function(m) { alert(m) },c:{}};
+		t.c.a = t.s;
 		var m = JSON.stringifyWithFunction(t);
 		console.log(m);
 		var t1 = JSON.expendWithFunction( JSON.parse(m) );
