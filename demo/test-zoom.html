@@ -8,6 +8,9 @@
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/require.js"></script>
 	<script src="../js/require-config.js"></script>
+	<style>
+	.img-handler img{cursor: none;}
+	</style>
 </head>
 <body>
 	
@@ -15,14 +18,12 @@
 
 <script>
 	
-	// http://odyniec.net/projects/imgareaselect/
-	
 	require(['module/zoom'],function(Zoom){
 		
-		var handle = new Zoom({
+		var handler = new Zoom({
 			el: '#photo'
 		});
-
+		handler.addClass('img-handler')
 	});
 </script>
 </body>

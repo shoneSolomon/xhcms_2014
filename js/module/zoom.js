@@ -21,7 +21,7 @@ define(function(require, exports, module) {
 	function withIn(off,area){
 		var x = off.left, y = off.top;
 		if(area){
-			return x >= area.left && x <= area.left+area.width && y >= area.top && y <= area.top+area.height  
+			return x >= area.left-1 && x <= area.left+area.width && y >= area.top && y <= area.top+area.height  
 		}else{
 			return false;
 		}
