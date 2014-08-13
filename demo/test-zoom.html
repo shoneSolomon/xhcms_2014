@@ -9,21 +9,26 @@
 	<script src="../js/require.js"></script>
 	<script src="../js/require-config.js"></script>
 	<style>
-	.img-handler img{cursor: none;}
+	#cimg{display:block; width:300px;margin:60px auto;}
+	img{cursor:none;}
 	</style>
 </head>
 <body>
 	
-	<img id="photo" src="../images/img.png" alt="image" style="margin:250px auto; display:block;">
+	<img id="cimg" src="http://sandbox.runjs.cn/uploads/rs/296/iehoqtsc/2010120215445612.gif">
 
 <script>
 	
 	require(['module/zoom'],function(Zoom){
 		
 		var handler = new Zoom({
-			el: '#photo'
+			el: '#cimg',
+			scale: 1.5,	//放大比例
+			style:{		//放大镜的样式
+				width:200,
+				height:160
+			}
 		});
-		handler.addClass('img-handler')
 	});
 </script>
 </body>

@@ -18,7 +18,7 @@ define(function(require, exports, module) {
 		}
 	};
 
-	var handler = $('<div style="position:absolute;z-index:99999;border-radius:50%;border:1px solid #d2d2d2;width:150px;height:150px; margin:-75px 0 0 -75px; box-shadow: 0px 0px 20px #333; overflow:hidden;display:none;"></div>').appendTo('body');
+	var handler = $('<div style="position:absolute;z-index:99999;border-radius:50%;border:1px solid #d2d2d2; box-shadow: 0px 0px 20px #333; overflow:hidden;display:none;"></div>').appendTo('body');
 	var currentArea = null;
 
 	function withIn(off,area){
@@ -32,6 +32,10 @@ define(function(require, exports, module) {
 
 	function Zoom(option){
 		var o = $.extend(true,{},defaults,option);
+
+		o.style.marginLeft = -o.style.width / 2;
+		o.style.marginTop = -o.style.height / 2;
+
 		$(document).on('mouseover',o.el,function(){
 			if( currentArea ) return;
 			var _t = $(this), src = o.src || _t.attr('src'), size = {width:_t.width()*o.scale,height:_t.height()*o.scale};
