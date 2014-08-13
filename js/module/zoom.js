@@ -12,7 +12,10 @@ define(function(require, exports, module) {
 		scale: 2,
 		el: null, //jQuery selector 
 		src: null,
-		style:{}
+		style:{
+			width:150,
+			height:150
+		}
 	};
 
 	var handler = $('<div style="position:absolute;z-index:99999;border-radius:50%;border:1px solid #d2d2d2;width:150px;height:150px; margin:-75px 0 0 -75px; box-shadow: 0px 0px 20px #333; overflow:hidden;display:none;"></div>').appendTo('body');
@@ -28,7 +31,7 @@ define(function(require, exports, module) {
 	}
 
 	function Zoom(option){
-		var o = $.extend({},defaults,option);
+		var o = $.extend(true,{},defaults,option);
 		$(document).on('mouseover',o.el,function(){
 			if( currentArea ) return;
 			var _t = $(this), src = o.src || _t.attr('src'), size = {width:_t.width()*o.scale,height:_t.height()*o.scale};
@@ -53,8 +56,8 @@ define(function(require, exports, module) {
 			if( withIn(off,currentArea) ){
 				handler.css(off);
 				handler.children().css({
-					left: -o.scale * (off.left-currentArea.left) + currentArea.width / o.scale,
-					top : -o.scale * (off.top -currentArea.top ) + currentArea.height / o.scale
+					left: -o.scale * (off.left-currentArea.left) + o.style.width / 2,
+					top : -o.scale * (off.top -currentArea.top ) + o.style.height / 2
 				});
 			}else{
 				handler.hide();
