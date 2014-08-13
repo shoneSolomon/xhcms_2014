@@ -84,7 +84,23 @@
 		<div class="p-message clearfix">
 			<div class="p-message-left">
 				<div class="p-message-item select-auto-item clearfix">
-
+					<!-- <strong>栏目权限:</strong>
+					<div class="site-limit">
+						<input type="checkbox" name="checkbox" class="checkbox" id="checkbox0"  value="0"> <label for="checkbox0">新华新闻</label>
+						<input type="text" name="steps" class="required">
+						<input class="fm-button open-dialog1" type="button" value="栏目权限">
+						<div id="open-dialog1"></div>
+						<input id="allChannel0" type="hidden" value="true" name="allChannels">
+						<span id="channelIdsContainer0"></span>
+					</div>
+					<div class="site-limit">
+						<input type="checkbox" name="checkbox" class="checkbox" id="checkbox1" value="1"> <label for="checkbox1">百科测试站</label>
+						<input type="text" name="steps" class="required">
+						<input class="fm-button open-dialog2" type="button" value="栏目权限">
+						<div id="open-dialog2"></div>
+						<input id="allChannel1" type="hidden" value="true" name="allChannels">
+						<span id="channelIdsContainer1"></span>
+					</div> -->
 				</div>
 				<script id="UserGroup" type="text/x-handlebars-template">
 					<strong>会员组:</strong>
@@ -103,23 +119,7 @@
 			</div>
 			<div class="p-message-right">
 				<div class="p-message-item clearfix" id="channlLimit">
-					<strong>栏目权限:</strong>
-					<div class="site-limit">
-						<input type="checkbox" name="checkbox" class="checkbox" id="checkbox0"  value="0"> <label for="checkbox0">新华新闻</label>
-						<input type="text" name="steps" class="required">
-						<input class="fm-button open-dialog1" type="button" value="栏目权限">
-						<div id="open-dialog1"></div>
-						<input id="allChannel0" type="hidden" value="true" name="allChannels">
-						<span id="channelIdsContainer0"></span>
-					</div>
-					<div class="site-limit">
-						<input type="checkbox" name="checkbox" class="checkbox" id="checkbox1" value="1"> <label for="checkbox1">百科测试站</label>
-						<input type="text" name="steps" class="required">
-						<input class="fm-button open-dialog2" type="button" value="栏目权限">
-						<div id="open-dialog2"></div>
-						<input id="allChannel1" type="hidden" value="true" name="allChannels">
-						<span id="channelIdsContainer1"></span>
-					</div>
+
 				</div>
 				<script  id="limitTemplate" type="text/x-handlebars-template">
 					<strong>栏目权限:</strong>
@@ -134,7 +134,7 @@
 							<span class='tip tip-default'></span>
 							<div id="{{openDialog}}"></div>
 							</div>
-							<input id="allChannel0" type="hidden" {{#if isAllChannel}}value="{{isAllChannel}}"{{else}}disabled="disabled"{{/if}} name="allChannels">
+							<input id="{{allChannel}}" type="hidden" {{#if isAllChannel}}value="{{isAllChannel}}"{{else}}disabled="disabled"{{/if}} name="allChannels">
 							<span id="{{chooseId}}"  value="{{isAllChannel}}" class="chooseClass"></span>
 						</div>
 						{{/each}}
@@ -159,6 +159,8 @@
 						
 					</div>
 					<input type="hidden" name="xhfriendName" id="xhfriendName">
+					<input type="hidden" name="userCloudImg" id="userCloudImg">
+					<input type="hidden" name="userLink" id="userLink">
 				</div>
 				<script id="listTemplate" type="text/x-handlebars-template">  
 						 <div class="hasBind clear">
@@ -235,7 +237,7 @@
 		}
 	})
 	$.getScript("js/personal-message.js",function(){
-		var html_professional="", html_duty="", html_level="", html_userRole="";
+		var html_professional="", html_duty="", html_level="";
 		var tp=window.personalMassage;
 		for(i=0;i<tp.title.length;i++){
 			html_professional += '<option value='+tp.title[i]+'>'+tp.titleName[i]+'</option>'
@@ -252,17 +254,13 @@
 		}
 		$("#level").html(html_level);
 
-		for(i=0; i<tp.userRole.length;i++){
-			html_userRole += '<input type="checkbox" class="check-box" id="check-box'+i+'" name="roleIds" value="'+tp.userRole[i]+'"> <label for="check-box'+i+'">'+tp.userRoleName[i]+'</label>'
-		}
-		$("#userRoles").html(html_userRole);
-
-
 	})
 
 	require(["dateUtil","queryparam","requestAFrame","form-style","dialog","position","button","widget","alerts","base64","template","formValid"],function(DateUtil,queryparam,r){
+		var html_userRole="";
 		var limitUrl;
 		$(".checkbox").toCheckbox();
+		$("#username").val("");
 		$("#password").val("");
 		if(queryparam("id")){
 			var thisID=queryparam("id")
@@ -270,13 +268,13 @@
 			$("#historyBack").removeAttr("href");
 			limitUrl="../../xhadmin/admin_global/v_channels_edit.do?";
 			$.ajax({
-				url:"http://172.18.11.88:9999/cms-docs/admin/local_global/"+thisID+"/1/true/false/edit.json",
-				//http://192.168.86.80:8083/cms-docs/admin/local_global/290/1/true/false/edit.json
+				url:"http://xuan.news.cn/cloudapi/admin/local_global/"+thisID+"/1/true/false/edit.json",
 				type:"get",
 				async:false,
 				success:function(data){
 					$.each(data.siteList,function(key,value){
 						data.siteList[key].chooseId="channelIdsContainer"+key;
+						data.siteList[key].allChannel="allChannel"+key;
 						data.siteList[key].openDialog="open-dialog"+key;
 					})
 
@@ -306,6 +304,14 @@
 
 					var usernamexh=$("#username").val();
 
+
+					/*会员角色列表*/
+					for(i=0; i<data.roleList.length;i++){
+						html_userRole += '<input type="checkbox" class="check-box" id="check-box'+i+'" name="roleIds" value="'+data.roleList[i]["id"]+'"> <label for="check-box'+i+'">'+data.roleList[i]["RoleName"]+'</label>'
+					}
+					$("#userRoles").html(html_userRole);
+
+
 					/*select回显*/
 					$("#title").val(data.jcUserExts["title"]).trigger('selectVal');
 					$("#level").val(data.jcUserExts["level"]).trigger('selectVal');
@@ -329,6 +335,8 @@
 						var template = Handlebars.compile(source); 
 						$(".bind-list").append(template(data));
 						$(".bindname").html($("#xhfriendName").val());
+						$("#userCloudImg").val(data.jcUserExts["userCloudImg"]);
+						$("#userLink").val(data.jcUserExts["userLink"]);
 					}
 
 
@@ -403,8 +411,8 @@
 							validFun:function(_v){
 								var _vR = {errorInfo:""};
 								$.ajax({
-									url:"http://172.18.11.88:9999/cms-docs/admin/local_global/"+$("#username").val()+"/check_username.json",
-									//url:"../../xhadmin/admin_global/v_check_username.do?username="+$("#username").val(),
+									//url:"http://172.18.11.88:9999/cms-docs/admin/local_global/"+$("#username").val()+"/check_username.json",
+									url:"http://xuan.news.cn/cloudapi/admin/user/"+$("#username").val()+"/check.json",
 									type:"get",
 									success:function(_data){
 										if( _data.message=="false"&&(usernamexh!=$("#username").val()) ){
@@ -446,16 +454,20 @@
 							ser.push({name:"id",value:thisID});
 
 							$.ajax({
-								url:"http://172.18.11.88:9999/cms-docs/admin/local_global/update.json",
+								url:"http://xuan.news.cn/cloudapi/admin/local_global/update.json",
 								type:"post",
 								data: ser,
 								dataType:"json",
 								success:function(data){
 									$(".edit-overlay").remove();
-									jAlert("提交成功","信息");
+									if(data.code==0){
+										jAlert("提交成功","信息");
+									}else if(data.code==1){
+										jAlert("提交失败","信息");
+									};
 									r.addTimeout("historyBack",function(){
 										$("#historyBack")[0].click();	
-									},1000);
+									},1500);
 									
 								},
 								error:function(){
@@ -472,22 +484,23 @@
 
 			limitUrl="../../xhadmin/admin_global/v_channels_add.do?";
 			$.ajax({
-				url:"http://172.18.11.88:9999/cms-docs/admin/local_global/false/1/add.json",
+				url:"http://xuan.news.cn/cloudapi/admin/local_global/false/1/add.json",
 				type:"get",
 				async:false,
 				success:function(data){
 					data.jcSites=[
-				        {
-				            "channelIds": [],
-				            "checkStep": 8,
-				            "isAllChannel": true,
-				            "jcSiteId": 1
-				        }
+				        // {
+				        //     "channelIds": [],
+				        //     "checkStep": 8,
+				        //     "isAllChannel": true,
+				        //     "jcSiteId": 1
+				        // }
 				    ];
 					data.roleIds=[];
 
 					$.each(data.siteList,function(key,value){
 						data.siteList[key].chooseId="channelIdsContainer"+key;
+						data.siteList[key].allChannel="allChannel"+key;
 						data.siteList[key].openDialog="open-dialog"+key;
 					})
 
@@ -498,6 +511,13 @@
 							}
 						};
 					}
+
+					/*会员角色列表*/
+					for(i=0; i<data.roleList.length;i++){
+						html_userRole += '<input type="checkbox" class="check-box" id="check-box'+i+'" name="roleIds" value="'+data.roleList[i]["id"]+'"> <label for="check-box'+i+'">'+data.roleList[i]["RoleName"]+'</label>'
+					}
+					$("#userRoles").html(html_userRole);
+
 
 					/*会员组回显*/
 					var UserGroupsource=$("#UserGroup").html();
@@ -555,8 +575,8 @@
 							validFun:function(_v){
 								var _vR = {errorInfo:""};
 								$.ajax({
-									url:"http://172.18.11.88:9999/cms-docs/admin/local_global/"+$("#username").val()+"/check_username.json",
-									//url:"../../xhadmin/admin_global/v_check_username.do?username="+$("#username").val(),
+									//url:"http://172.18.11.88:9999/cms-docs/admin/local_global/"+$("#username").val()+"/check_username.json",
+									url:"http://xuan.news.cn/cloudapi/admin/user/"+$("#username").val()+"/check.json",
 									type:"get",
 									data:$("#username").val(),
 									success:function(_data){
@@ -602,16 +622,20 @@
 							$("body").append("<div class='edit-overlay'></div>");
 							$(".edit-overlay").css("height",overlayHeight);
 							$.ajax({
-								url:"http://172.18.11.88:9999/cms-docs/admin/local_global/save.json",
+								url:"http://xuan.news.cn/cloudapi/admin/local_global/save.json",
 								type:"post",
 								data: $(this).serialize(),
 								dataType:"json",
 								success:function(data){
 									$(".edit-overlay").remove();
-									jAlert("提交成功","信息");
+									if(data.code==0){
+										jAlert("提交成功","信息");
+									}else if(data.code==1){
+										jAlert("提交失败","信息");
+									};
 									r.addTimeout("historyBack",function(){
 										$("#historyBack")[0].click();	
-									},1000);
+									},1500);
 									
 								},
 								error:function(){
@@ -773,6 +797,8 @@
 						$(".bind-list").append(template(magess));
 						$(".bindname").html(username);
 						$("#xhfriendName").val(username);
+						$("#userCloudImg").val(magess.userCloudImg);
+						$("#userLink").val(magess.userLink);
 					}else{
 						jAlert("<h2>绑定失败！</h2><P>炫空间账号或密码输入错误，请重新输入。</p>","提示");
 					}
@@ -790,6 +816,8 @@
 			$(".bind-start").show();
 			$(".bind-start input").val("");
 			$("#xhfriendName").val("");
+			$("#userCloudImg").val("");
+			$("#userLink").val("");
 		})
 
 		//删除绑定--end

@@ -1,4 +1,12 @@
-﻿define(function(require, exports, module) {
+﻿/**
+ * @author wangcaifeng
+ * @date: 2014-8-4
+ * @namespace NodeChosse
+ * @alone
+ * @description dialog节点选择删除
+*/
+
+define(function(require, exports, module) {
 	var _default = {
 		dialogContent:'',
 		width:540,
@@ -9,9 +17,25 @@
 		title:'',
 		showIcon:false,
 		data:'',
+		multi:true,
 		callback:function(){},
 		unification:function(){},
 	};
+
+	/**
+	 * @alias param options
+	 * @param {String} dialogContent 已选节点默认html陈列
+	 * @param {Number} width height dialog框宽高
+	 * @param {Node}   node dialog框id
+	 * @param {Node}   treeContainer tree容器
+	 * @param {String} url tree请求地址
+	 * @param {String} title dialog标题
+	 * @param {String} showIcon 是否默认样式
+	 * @param {String} data 回显数据
+	 * @param {String} multi 是否只能单选
+	 * @param {String} unification dialog关闭时操作
+	 * @param {String} callback 保存回调
+	*/
 
 	var NodeChosse=function(opt){
 		var o = $.extend(_default,opt);
@@ -20,7 +44,11 @@
 		node.empty();
 		var gotUp={};
 		var template=Handlebars.compile(o.dialogContent);
+		var multi=o.multi;
 		node.append(template(gotUp));
+
+		
+
 		node.dialog({
 			appendTo:"body",
 			width:o.width,
@@ -45,15 +73,22 @@
 					}
 				}
 				function onClick(event, treeId, treeNode, clickFlag) {
-					var count=0;
-					for(i=0; i< logs.find("li").length; i++){
-						if(logs.find("li").eq(i).attr("data-id")==treeNode.id){
-							count+=1;
+					if(multi){
+						var count=0;
+						for(i=0; i< logs.find("li").length; i++){
+							if(logs.find("li").eq(i).attr("data-id")==treeNode.id){
+								count+=1;
+							}
 						}
-					}
-					if(count==0){
-						var re="<li"+" "+"data-id="+"'"+treeNode.id+"'>"+treeNode.name+"</li>";
-						logs.append(re);
+						if(count==0){
+							var re="<li"+" "+"data-id="+"'"+treeNode.id+"'>"+treeNode.name+"</li>";
+							logs.append(re);
+						}
+					}else {
+						if(logs.find("li").length<=1){
+							var re="<li"+" "+"data-id="+"'"+treeNode.id+"'>"+treeNode.name+"</li>";
+							logs.html("").append(re);
+						}
 					}
 
 				}

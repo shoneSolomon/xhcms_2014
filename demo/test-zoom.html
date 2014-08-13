@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>imageZoom</title>
+	<link rel="stylesheet" href="../css/jqueryui/jquery-ui.css">
+	<link rel="stylesheet" href="../css/form.css">
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/require.js"></script>
+	<script src="../js/require-config.js"></script>
+</head>
+<body>
+	
+	<img id="photo" src="../images/img.png" alt="image" style="margin:250px auto; display:block;">
+
+<script>
+	
+	// http://odyniec.net/projects/imgareaselect/
+	
+	require(['module/zoom'],function(Zoom){
+		
+		var handle = new Zoom({
+			el: '#photo'
+		});
+
+	});
+</script>
+</body>
+</html>

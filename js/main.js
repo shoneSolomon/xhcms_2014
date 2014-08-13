@@ -96,6 +96,11 @@
 				
 		});
 
+		r.addTimeout("load-chat",function(){
+			$('<script src="http://tmisc.home.news.cn/chat/js/jbud.js" data-config="http://tmisc.home.news.cn/chat/js/config.js" data-main="./message/index" data-cache="true" data-params="callback=doListener&init=true&needShow=true"></script>').appendTo('body');
+			return false;
+		},1000);
+
 	});
 		
 	require(["form-style"],function(){
