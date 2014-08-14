@@ -12,10 +12,11 @@ define(function(require, exports, module) {
 		scale: 2,
 		el: null, //jQuery selector 
 		src: null,
-		style:{
+		style:{		//放大镜样式
 			width:150,
 			height:150
-		}
+		},
+		itemStyle:{} //内容样式
 	};
 
 	var handler = $('<div style="position:absolute;z-index:99999;border-radius:50%;border:1px solid #d2d2d2; box-shadow: 0px 0px 20px #333; overflow:hidden;display:none;"></div>').appendTo('body');
@@ -38,7 +39,7 @@ define(function(require, exports, module) {
 
 		$(document).on('mouseover',o.el,function(){
 			if( currentArea ) return;
-			var _t = $(this), src = o.src || _t.attr('src'), size = {width:_t.width()*o.scale,height:_t.height()*o.scale};
+			var _t = $(this), src = o.src || _t.attr('src'), size = {width:_t.width()*o.scale,height:_t.height()*o.scale,position:'absolute'};
 			
 			currentArea = $.extend(_t.offset(),{
 				width: _t.width(),
@@ -47,21 +48,26 @@ define(function(require, exports, module) {
 
 			switch(o.type){
 				case 'img':
-					handler.html( $('<img src="'+src+'" style="position:absolute;"/>').css(size) ).css(o.style).show()
+					handler.html( $('<img src="'+src+'" />').css(size) ).css(o.style).show()
 					break;
-				default: 
+				default:
+					handler.html( _t.clone().css(size).css(o.itemStyle) ).css(o.style).show(); 
+
 			}
 		})
 		.on('mousemove',function(e){
 			var off = {
-				left: e.clientX,
-				top: e.clientY
+				left: e.clientX + $(window).scrollLeft(),
+				top : e.clientY + $(window).scrollTop()
 			};
 			if( withIn(off,currentArea) ){
-				handler.css(off);
+				handler.css({
+					left: off.left,
+					top: off.top
+				});
 				handler.children().css({
-					left: -o.scale * (off.left-currentArea.left) + o.style.width / 2,
-					top : -o.scale * (off.top -currentArea.top ) + o.style.height / 2
+					left: - o.scale * (off.left-currentArea.left) + o.style.width / 2 - 1,
+					top : - o.scale * (off.top -currentArea.top ) + o.style.height / 2 - 1
 				});
 			}else{
 				handler.hide();
