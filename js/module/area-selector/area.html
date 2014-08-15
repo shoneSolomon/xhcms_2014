@@ -300,7 +300,7 @@ function _attchEvent(Pannel,data){
 
 	// 点击选择地点
 	Pannel.on("click","a",function(e){
-		var id = $(this).data("id"), detail = factory.getArea(id), isLeaf = detail && !detail.children;
+		var id = $(this).data("id"), detail = factory.getArea(id) || {id:id,name:$(this).html()}, isLeaf = detail && !detail.children;
 		if( !isLeaf ){
 			Pannel.html( compile2(detail) ).scrollTop(0);
 		}
@@ -329,7 +329,7 @@ function _attchEvent(Pannel,data){
 		var _this = $(this), 
 			id = _this.data("id"), 
 			isLeaf = !_this.hasClass("has-child"), 
-			detail = factory.getArea(id);
+			detail = factory.getArea(id) || {id:id,name:$(this).html()};
 
 		window.onData( detail, isLeaf );
 		if(!isLeaf)$(this).toggleClass("expended").next().slideToggle();
