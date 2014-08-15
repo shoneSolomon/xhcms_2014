@@ -328,7 +328,7 @@
 			</province>
 		</country>
 		<country code="1560000000" value="中国" isLeaf="false" level="2" parentCode="1" old="CN" en="Peoples Republic of China" firstHead="z" cityId="" lon="111.657597526049" lat="31.4568879953678">
-			<province code="1561100000" value="北京市" isLeaf="false" level="3" parentCode="1560000000" old="110000" en=" " firstHead="b" cityId="101010100" lon="116.413191695834" lat="39.9067855438273">
+			<province code="1561100000" value="北京" isLeaf="false" level="3" parentCode="1560000000" old="110000" en=" " firstHead="b" cityId="101010100" lon="116.413191695834" lat="39.9067855438273">
 				<city code="1561100100" value="北京市" isLeaf="false" level="4" parentCode="1561100000" old="110100" en="" firstHead="b" cityId="101010100" lon="116.413191695834" lat="39.9067855438273">
 					<county code="1561100101" value="东城区" isLeaf="true" level="5" parentCode="1561100100" old="110101" en="" firstHead="d" cityId="101010100" lon="116.42023066533" lat="39.914897426327" />
 					<county code="1561100102" value="西城区" isLeaf="true" level="5" parentCode="1561100100" old="110102" en="" firstHead="x" cityId="101010100" lon="116.355033963942" lat="39.921110215723" />
@@ -348,7 +348,7 @@
 					<county code="1561100229" value="延庆县" isLeaf="true" level="5" parentCode="1561100100" old="110229" en="" firstHead="y" cityId="101010800" lon="116.25147650767" lat="40.5069940942348" />
 				</city>
 			</province>
-			<province code="1561200000" value="天津市" isLeaf="false" level="3" parentCode="1560000000" old="120000" en=" " firstHead="t" cityId="101030100" lon="117.201351888401" lat="39.0841181610099">
+			<province code="1561200000" value="天津" isLeaf="false" level="3" parentCode="1560000000" old="120000" en=" " firstHead="t" cityId="101030100" lon="117.201351888401" lat="39.0841181610099">
 				<city code="1561200100" value="天津市" isLeaf="false" level="4" parentCode="1561200000" old="120100" en="" firstHead="t" cityId="101030100" lon="117.201351888401" lat="39.0841181610099">
 					<county code="1561200101" value="和平区" isLeaf="true" level="5" parentCode="1561200100" old="120101" en="" firstHead="h" cityId="101030100" lon="117.197800275856" lat="39.1194354188773" />
 					<county code="1561200102" value="河东区" isLeaf="true" level="5" parentCode="1561200100" old="120102" en="" firstHead="h" cityId="101030100" lon="117.255235108287" lat="39.1226832957498" />
@@ -1202,7 +1202,7 @@
 					<county code="1562302723" value="漠河县" isLeaf="true" level="5" parentCode="1562302700" old="232723" en="" firstHead="m" cityId="101050703" lon="122.745808854577" lat="52.9508866385371" />
 				</city>
 			</province>
-			<province code="1563100000" value="上海市" isLeaf="false" level="3" parentCode="1560000000" old="310000" en=" " firstHead="s" cityId="101020100" lon="121.248549149091" lat="31.1831476159535">
+			<province code="1563100000" value="上海" isLeaf="false" level="3" parentCode="1560000000" old="310000" en=" " firstHead="s" cityId="101020100" lon="121.248549149091" lat="31.1831476159535">
 				<city code="1563100100" value="上海市" isLeaf="false" level="4" parentCode="1563100000" old="310100" en="" firstHead="s" cityId="101020100" lon="121.248549149091" lat="31.1831476159535">
 					<county code="1563100101" value="黄浦区" isLeaf="true" level="5" parentCode="1563100100" old="310101" en="" firstHead="h" cityId="101020100" lon="121.471241809858" lat="31.2191296233061" />
 					<county code="1563100104" value="徐汇区" isLeaf="true" level="5" parentCode="1563100100" old="310104" en="" firstHead="x" cityId="101020100" lon="121.440533107585" lat="31.1716715977451" />
@@ -2813,7 +2813,7 @@
 					<county code="1564600323" value="中沙群岛的岛礁及其海域" isLeaf="true" level="5" parentCode="1564600300" old="460323" en="" firstHead="z" cityId="" lon="115.290500128442" lat="15.5828350701376" />
 				</city>
 			</province>
-			<province code="1565000000" value="重庆市" isLeaf="false" level="3" parentCode="1560000000" old="500000" en=" " firstHead="c" cityId="101040100" lon="106.551556658007" lat="29.5630095088266">
+			<province code="1565000000" value="重庆" isLeaf="false" level="3" parentCode="1560000000" old="500000" en=" " firstHead="c" cityId="101040100" lon="106.551556658007" lat="29.5630095088266">
 				<city code="1565000100" value="重庆市" isLeaf="false" level="4" parentCode="1565000000" old="500100" en="" firstHead="c" cityId="101040100" lon="106.551556658007" lat="29.5630095088266">
 					<county code="1565000101" value="万州区" isLeaf="true" level="5" parentCode="1565000100" old="500101" en="" firstHead="w" cityId="101040100" lon="108.455426654085" lat="30.6932238432122" />
 					<county code="1565000102" value="涪陵区" isLeaf="true" level="5" parentCode="1565000100" old="500102" en="" firstHead="f" cityId="101041400" lon="107.341918095821" lat="29.6356994450919" />
@@ -3547,7 +3547,7 @@
 					<county code="1566100830" value="清涧县" isLeaf="true" level="5" parentCode="1566100800" old="610830" en="" firstHead="q" cityId="101110412" lon="110.285962840048" lat="37.1821023719018" />
 					<county code="1566100831" value="子洲县" isLeaf="true" level="5" parentCode="1566100800" old="610831" en="" firstHead="z" cityId="101110409" lon="109.853266513854" lat="37.5297866286047" />
 				</city>
-				<city code="1566100900" value="空7" isLeaf="false" level="4" parentCode="1566100000" old="610900" en=" " firstHead="k" cityId="101110701" lon="109.028833060683" lat="32.6853385686316">
+				<city code="1566100900" value="安康市" isLeaf="false" level="4" parentCode="1566100000" old="610900" en=" " firstHead="k" cityId="101110701" lon="109.028833060683" lat="32.6853385686316">
 					<county code="1566100902" value="汉滨区" isLeaf="true" level="5" parentCode="1566100900" old="610902" en="" firstHead="h" cityId="101110701" lon="108.956799242141" lat="32.7914196745978" />
 					<county code="1566100921" value="汉阴县" isLeaf="true" level="5" parentCode="1566100900" old="610921" en="" firstHead="h" cityId="101110704" lon="108.400095944646" lat="32.8524986464103" />
 					<county code="1566100922" value="石泉县" isLeaf="true" level="5" parentCode="1566100900" old="610922" en="" firstHead="s" cityId="101110703" lon="108.212653304087" lat="33.0315402805289" />
@@ -16336,5 +16336,9 @@
 	</continent>
 	<continent code="6" value="南极洲" isLeaf="false" level="1" parentCode="-1" old="6" en="Antarctica" firstHead="n" cityId="" lon="-35.4099162708189" lat="-71.7549141728684">
 		<country code="0100000000" value="南极洲" isLeaf="true" level="2" parentCode="6" old="" en="Antarctica" firstHead="n" cityId="" lon="-35.4099162708189" lat="-71.7549141728684" />
+	</continent>
+	<continent code="7" value="全国性" isLeaf="false" level="1" parentCode="-1" old="7" en="local" firstHead="n" cityId="" lon="" lat="">
+	</continent>
+	<continent code="8" value="海外" isLeaf="false" level="1" parentCode="-1" old="8" en="foreign" firstHead="n" cityId="" lon="" lat="">	
 	</continent>
 </world>

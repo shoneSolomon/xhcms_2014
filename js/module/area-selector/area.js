@@ -52,23 +52,53 @@ var WorldFactory = function(world){
 			})(w[1])
 		};
 		kw[o.id] = o;
-		if( o.id === "1560000000" ){ o.prefix = "zn", kw["0"] = o; } //中国从世界中剥离, 通过0索引
+		if( o.id === "1560000000" ){ o.prefix = "zn", kw["0"] = o;} //中国从世界中剥离, 通过0索引
 		return o;	
 	}
-	var zhou = world[1]
+
+	var zhou = world[1];
 	for (var i = 0; i < zhou.length; i++) {
 		wld[1] = wld[1].concat( zhou[i][1] );
-	};
+	}
 	kw.root = _exec(wld);
 	this.getArea = function(id){
 		return (id+"") ? kw[id] : kw.root;
 	}
 };
-
+window.World[1].length = 6; //去除6大洲以外的异常数据
 var factory = new WorldFactory(window.World);
 
 var china = factory.getArea(0);
 var foreign = factory.getArea(-1);
+
+china.groups.splice(0,0,{
+	prefix:'热门省份直辖市',
+	list:[
+		{id:'7',name:'全国性'},
+		{id:'1561100000',name:'北京'},
+		{id:'1563100000',name:'上海'},
+		{id:'1561200000',name:'天津'},
+		{id:'1564400000',name:'广东'},
+		{id:'1563300000',name:'浙江'},
+		{id:'1561300000',name:'河北'},
+		{id:'1563200000',name:'江苏'}
+	]
+});
+
+foreign.groups.splice(0,0,{
+	prefix:'热门国家',
+	list:[
+		{id:'8',name:'海外'},
+		{id:'8400000000',name:'美国'},
+		{id:'8260000000',name:'英国'},
+		{id:'3920000000',name:'日本'},
+		{id:'3800000000',name:'意大利'},
+		{id:'6430000000',name:'俄罗斯'},
+		{id:'2500000000',name:'法国'},
+		{id:'2760000000',name:'德国'}
+	]
+});
+
 var compile = Handlebars.compile( $("#tmp-item-list").html() ), 
 	compile2 = Handlebars.compile( $("#tmp-item-list-2").html() ), 
 	chinaPannel = $("#china .pannel").html( compile(china) ),
