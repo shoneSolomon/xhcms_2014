@@ -1,7 +1,7 @@
 /**
  * @description 放大镜效果 (分别支持图片&文字等效果, 默认图片效果)
  * @author shiyangyang
- * @version 0.1.0
+ * @version 1.0.0
  * @return {[function]}   
  */
 define(function(require, exports, module) {
@@ -20,7 +20,7 @@ define(function(require, exports, module) {
 	};
 
 	var handler = $('<div style="position:absolute;z-index:99999;border-radius:50%;border:1px solid #d2d2d2; box-shadow: 0px 0px 20px #333; overflow:hidden;display:none;"></div>').appendTo('body');
-	var currentArea = null;
+	var currentArea = null, currentOption = null;
 
 	function withIn(off,area){
 		var x = off.left, y = off.top;
@@ -45,6 +45,7 @@ define(function(require, exports, module) {
 				width: _t.width(),
 				height: _t.height()
 			});
+			currentOption = o;
 
 			switch(o.type){
 				case 'img':
@@ -66,8 +67,8 @@ define(function(require, exports, module) {
 					top: off.top
 				});
 				handler.children().css({
-					left: - o.scale * (off.left-currentArea.left) + o.style.width / 2 - 1,
-					top : - o.scale * (off.top -currentArea.top ) + o.style.height / 2 - 1
+					left: - currentOption.scale * (off.left-currentArea.left) + currentOption.style.width / 2 - 1,
+					top : - currentOption.scale * (off.top -currentArea.top ) + currentOption.style.height / 2 - 1
 				});
 			}else{
 				handler.hide();
