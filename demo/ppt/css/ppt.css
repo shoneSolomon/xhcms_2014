@@ -13,10 +13,6 @@ body, div, ul, li, a, img, a img, dd, dl, dt, ol, table, tr, td, th {
     list-style: none;
     text-decoration: none;
 }
-.the-word{
-    font: bold 26px/2 "Microsoft Yahei"; 
-    text-indent: 1em;
-}
 
 /* clear fix */
 .clearfix:after {
@@ -39,6 +35,7 @@ body, div, ul, li, a, img, a img, dd, dl, dt, ol, table, tr, td, th {
 body{
     background: #ffe;
     height: 800px;
+    font-family: "Microsoft Yahei"; 
     overflow: hidden;
 }
 .main-content{
@@ -123,8 +120,15 @@ code{white-space: pre;}
 /* prettify.css */
 .prettyprint {
   background: #272822;
-  padding: .4em;
+  font:normal 16px/22px 'Arial'; 
+  margin-left:40px; 
+  color:#fff; 
+  padding:1em; 
+  display: inline-block; 
+  border-radius: 5px;
+  color: #D1EDFF;
 }
+
 .prettyprint .opn,
 .prettyprint .clo {
   color: #93a1a1;
@@ -153,7 +157,7 @@ code{white-space: pre;}
 .prettyprint .lit {
   color: #D1EDFF;
 }
-.prettyprint .pun {
+.prettyprint .pun{
   color: #D1EDFF;
 }
 .prettyprint .tag {

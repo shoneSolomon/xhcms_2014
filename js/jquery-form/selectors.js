@@ -334,7 +334,7 @@
 					var keyArr = keyMap.split(chainSpliter);
 					
 					//选中第一个层option
-					first.children("option[value="+keyArr[1]+"]").attr("selected",true);
+					first.children("option[value="+(keyArr[1]||'')+"]").attr("selected",true);
 					
 					$this.next().children().each(function(i){
 						//依次选中各个select的option
@@ -347,7 +347,7 @@
 								}
 							}
 							try{
-								next.children("option[value="+keyArr[i+2]+"]").attr("selected",true);
+								next.children("option[value="+(keyArr[i+2]||'')+"]").attr("selected",true);
 							}catch(e){
 								//TODO
 							} 

@@ -584,3 +584,8 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .site-limit .text{ float: left;}
 .site-limit .fm-checkbox{ float: left;}
 .site-limit label{ display: block; float: left; min-width: 90px;}
+#relateStage{position: relative;}
+#relateStage .mask{position: absolute; top: 0; left: 0;  width: 100%; height: 100%; background: #ccc;opacity: 0.4; filter: alpha(opacity=40); }
+.allChannel-top{ margin: 5px 0px 0px 10px !important;}
+.allChannel-top .fm-checkbox{ background-position: 2px -94px;}
+.allChannel-top .fm-checkbox.checked{background-position:2px -62px;}

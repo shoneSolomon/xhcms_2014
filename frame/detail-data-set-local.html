@@ -205,7 +205,7 @@
 					<strong>最后登录:</strong><p class="lastLoginTime"></p>
 				</div>
 				<div class="p-message-item logn-message-item  clearfix">
-					<strong>登录次数:</strong><p class="loginCount">30</p>
+					<strong>登录次数:</strong><p class="loginCount"></p>
 				</div>
 				
 			</div>
@@ -215,6 +215,7 @@
 			<input class="fm-button"  type="submit" value="提交">
 		<div>
 	</form>
+	<div id="node" style="width:520px;"></div>
 
 </body>
 
@@ -256,10 +257,10 @@
 
 	})
 
-	require(["dateUtil","queryparam","requestAFrame","form-style","dialog","position","button","widget","alerts","base64","template","formValid"],
-		function(DateUtil,queryparam,r){
+	require(["json","dateUtil","queryparam","requestAFrame","node-choose","form-style","dialog","position","button","widget","alerts","base64","template","formValid","zTree"],function(JSON,DateUtil,queryparam,r,NodeChosse){
 		var html_userRole="";
-		var limitUrl;
+		var url=require.baseUrl.replace(/xhcms_2014\/js/g,"");
+		//var url="http://172.18.11.88:8089/xhcms-docs/";
 		$(".checkbox").toCheckbox();
 		$("#username").val("");
 		$("#password").val("");
@@ -267,12 +268,14 @@
 			var thisID=queryparam("id")
 			$("#historyBack").click(function(){history.back()});
 			$("#historyBack").removeAttr("href");
-			limitUrl="../../xhadmin/admin_global/v_channels_edit.do?";
+			limitUrl="http://xuan.news.cn/cloudapi/admin/site/";
+			//limitUrl="../../xhadmin/admin_global/v_channels_edit.do?";
 			$.ajax({
-				url:"http://xuan.news.cn/cloudapi/admin/local_global/"+thisID+"/1/true/true/edit.json",
+				url:url+"admin/local_global/"+thisID+"/1/true/true/edit.json",
 				type:"get",
 				async:false,
 				success:function(data){
+					data = JSON.expend(data);
 					$.each(data.siteList,function(key,value){
 						data.siteList[key].chooseId="channelIdsContainer"+key;
 						data.siteList[key].allChannel="allChannel"+key;
@@ -349,6 +352,7 @@
 					var UserGroupsource=$("#UserGroup").html();
 					var UserGrouptemplate=Handlebars.compile(UserGroupsource);
 					$(".select-auto-item").append(UserGrouptemplate(data));
+					$("#groupId").val(data.jcUser.jcGroup.id).trigger('selectVal');
 
 					/*栏目权限回显*/
 					$("#channlLimit").html("");
@@ -360,7 +364,7 @@
 						if(!$(this).attr("value")&&$(this).parent().find("input[name=steps]").val()){
 							if(data.siteList[i]["channelIds"]){
 								for(var j=0; j< data.siteList[i]["channelIds"].length; j++) {
-									html+='<input type="hidden" value="'+data.siteList[i]["channelIds"][j]+'" name="channelIds">';	
+									html+='<input type="hidden" value="'+data.siteList[i]["channelIds"][j]["id"]+'" data-value='+data.siteList[i]["channelIds"][j]["name"]+' name="channelIds">';		
 								};
 							}
 						}
@@ -412,7 +416,7 @@
 								var _vR = {errorInfo:""};
 								$.ajax({
 									//url:"http://172.18.11.88:9999/cms-docs/admin/local_global/"+$("#username").val()+"/check_username.json",
-									url:"http://xuan.news.cn/cloudapi/admin/user/"+$("#username").val()+"/check.json",
+									url:url+"admin/local_global/"+$("#username").val()+"/check.json",
 									type:"get",
 									success:function(_data){
 										if( _data.message=="false"&&(usernamexh!=$("#username").val()) ){
@@ -454,7 +458,7 @@
 							ser.push({name:"id",value:thisID});
 
 							$.ajax({
-								url:"http://xuan.news.cn/cloudapi/admin/local_global/update.json",
+								url:url+"admin/local_global/update.json",
 								type:"post",
 								data: ser,
 								dataType:"json",
@@ -482,19 +486,20 @@
 			})
 		}else{
 
-			limitUrl="../../xhadmin/admin_global/v_channels_add.do?";
+			limitUrl="http://xuan.news.cn/cloudapi/admin/site/";
 			$.ajax({
-				url:"http://xuan.news.cn/cloudapi/admin/local_global/true/1/add.json",
+				url:url+"admin/local_global/true/1/add.json",
 				type:"get",
 				async:false,
 				success:function(data){
+					data = JSON.expend(data);
 					data.jcSites=[
-				        {
-				            "channelIds": [],
-				            "checkStep": 8,
-				            "isAllChannel": true,
-				            "jcSiteId": 1
-				        }
+				        // {
+				        //     "channelIds": [],
+				        //     "checkStep": 8,
+				        //     "isAllChannel": true,
+				        //     "jcSiteId": 1
+				        // }
 				    ];
 					data.roleIds=[];
 
@@ -523,6 +528,7 @@
 					var UserGroupsource=$("#UserGroup").html();
 					var UserGrouptemplate=Handlebars.compile(UserGroupsource);
 					$(".select-auto-item").append(UserGrouptemplate(data));
+					$("#groupId").val(4).trigger('selectVal');
 					
 					/*栏目权限回显*/
 					$("#channlLimit").html("");
@@ -576,7 +582,7 @@
 								var _vR = {errorInfo:""};
 								$.ajax({
 									//url:"http://172.18.11.88:9999/cms-docs/admin/local_global/"+$("#username").val()+"/check_username.json",
-									url:"http://xuan.news.cn/cloudapi/admin/user/"+$("#username").val()+"/check.json",
+									url:url+"admin/local_global/"+$("#username").val()+"/check.json",
 									type:"get",
 									data:$("#username").val(),
 									success:function(_data){
@@ -622,7 +628,7 @@
 							$("body").append("<div class='edit-overlay'></div>");
 							$(".edit-overlay").css("height",overlayHeight);
 							$.ajax({
-								url:"http://xuan.news.cn/cloudapi/admin/local_global/save.json",
+								url:url+"admin/local_global/save.json",
 								type:"post",
 								data: $(this).serialize(),
 								dataType:"json",
@@ -689,85 +695,72 @@
 		$("#channlLimit input[type=button]").each(function(n){
 			$(this).on("click",function(){
 				var _this=this;
-				$.ajax({
-					url:limitUrl+"siteId="+$(_this).attr("data-id")+"&userId="+thisID,
-					dataType:"text",
-					type:"get",
-					success:function(data){
-							$('#open-dialog'+n).dialog({
-							 	dialogClass: "newsList-limit",
-								appendTo:".fixed-outter-frame",
-								closeOnEscape:true,
-								width: 290,
-								height:430,
-								modal: true,
-								autoOpen:true,
-								resizable:false,
-								title:"栏目权限(新华新闻主站)",
-								open:function(){
-									$("#open-dialog"+n).html('<input type="checkbox" class="checkbox" id="checkbox-column'+n+'"/><label for="checkbox-column'+n+'">所有栏目</label><select multiple="multiple" class="column-list">'+data+'</select>');
-									$(".checkbox").toCheckbox();
-
-									var Container0=$("#channelIdsContainer"+n);
-									var list=$(".column-list",$("#open-dialog"+n));
-									if(Container0.html()){
-										for( var i=0; i<$("input",Container0).length;i++){
-											for(var j=0; j<$("option", list).length; j++){
-												if($("input",Container0).eq(i).val()==$("option", list).eq(j).val()){
-													$("option", list).eq(j).attr("selected","selected");
-												}
-											}
-										}
-									};
-									
-									$("#checkbox-column"+n).click(function(){
-										if(this.checked){
-											list.attr("disabled","disabled");
-											$("option", list).filter(":selected").each(function(){
-												$(this).removeAttr("selected");
-											})
-										}else{
-											list.removeAttr("disabled");
-										}
-									})
-									if($("#allChannel"+n).val()){
-										$("#checkbox-column"+n).trigger("click");
-									}
-								},
-								buttons:[
-									{
-										text:'确定',
-										className:'button-submit',
-										'class':'button-submit',
-										click:function(){
-											$("#channelIdsContainer"+n).html("");
-											if($("#checkbox-column"+n).is(":checked")){
-												$("#allChannel"+n).attr("value",true);
-											}else{
-												$("#allChannel"+n).attr("value",false);
-												var html=""
-												$(".column-list option", $("#open-dialog"+n)).filter(":selected").each(function(){
-													html+='<input type="hidden" value='+$(this).val()+' name="channelIds">'
-												})
-												$("#channelIdsContainer"+n).html(html);
-											}
-											$(this).dialog('close');
-										}
-									},
-									{
-										text:'取消',
-										className:'button-cancel',
-										'class':'button-cancel',
-										click:function(){ 
-											$(this).dialog('close');
-										}
-									}
-								]
-								
-							})
-
+				var Container0=$("#channelIdsContainer"+n);
+				var Containerlist=$("input",Container0);
+				window.relateData=[];
+				for(var i=0; i<Containerlist.length; i++){
+					var objitem={};
+					objitem.name=Containerlist.eq(i).attr("data-value");
+					objitem.id=Containerlist.eq(i).attr("value");
+					window.relateData.push(objitem)
+				}
+				new NodeChosse({
+					dialogContent:'<div class="clearfix">'+
+					'<div class="allChannel-top"><input type="checkbox" class="checkbox" id="checkbox-column'+n+'"/><label for="checkbox-column'+n+'">所有栏目</label></div>'+
+					'	<div class="aready_choose clearfix">'+
+					'		<span class="choose_span">已选择节点：</span>'+
+					'		<div class="aready_choose_con">'+
+					'			<ul id="logs">'+
+					'			</ul>'+
+					'		</div>'+
+					'	</div>'+
+					'	<div id="relateStage" class="stage"></div>'+	
+					'</div>',
+					width:540,
+					height:'auto',
+					node:'#node',
+					treeContainer:'#relateStage',
+					url:url+"admin/site/"+$(_this).attr("data-id")+"/channels.json",
+					title:'栏目权限(新华新闻主站)',
+					showIcon:true,
+					data:window.relateData,
+					open:function(){
+						$("#checkbox-column"+n).toCheckbox();
+						var list=$("#relateStage");
+						$("#checkbox-column"+n).click(function(){
+							if(this.checked){
+								$('<div class="mask"></div>').appendTo($("#relateStage"));
+								$("#relateStage").css("overflow","hidden");
+								$(".aready_choose_con #logs").html("");
+							}else{
+								$(".mask").remove();
+								$("#relateStage").css("overflow","scroll");
+							}
+						})
+						if($("#allChannel"+n).val()=="true"){
+							$("#checkbox-column"+n).trigger("click");
+							$("#relateStage").css("overflow","hidden");
+						}
+					},
+					unification:function(){
+						// $("#concernOut", top.document).hide();
+						// delete top.contentId;
+						// delete top.contentSubs;
+						 delete top.relateData;
+					},
+					callback:function(Arr,objs){
+						$("#channelIdsContainer"+n).html("");
+						if($("#checkbox-column"+n).is(":checked")){
+							$("#allChannel"+n).attr("value",true);
+						}else{
+							$("#allChannel"+n).attr("value",false);
+							var html=""
+							$.each(objs,function(k,v){
+								html+='<input type="hidden" value='+v["id"]+'  data-value='+v["name"]+' name="channelIds">'
+							});
+							$("#channelIdsContainer"+n).html(html);
+						}
 					}
-
 				})
 			})
 		})

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>f2e-node-server</title>
+    <base target="_blank">
+    <meta name="author" content="时扬扬">
+    <link rel="stylesheet" href="css/ppt.css">
+    <script type="text/javascript" src='../../js/jquery.min.js'></script>
+    <script type="text/javascript" src="js/prettify-min.js"></script>
+    <script>
+    document.createElement('header');
+    document.createElement('footer');
+    document.createElement('section');
+    </script>
+    <style>
+    #conf_js{position: absolute; left: 0; top: 830px;transition: .8s ease;}
+    #conf_js.active{
+        transform:translateY(-830px);
+    }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <ul class="main-panel">
+
+            <li id="section1">
+                <section>
+                    <header>
+                        <h2>
+                            f2e-node-server
+                            <a href="https://github.com/shy2850/node-server.git"><span class='mini-title'>为前端打造的自由化开发服务器</span></a>
+                        </h2>
+                    </header>
+                    <div class="section-main">
+                        <h4>功能概述</h4>
+                        <ol>
+                            <li>基本模板引擎 & 文本文件的包含和布局 <a href="http://www.w3cfuns.com/blog-5443978-5399247.html"><span class="mini-title">笔记</span></a></li>
+                            <li>less & coffee的动态解析，css、js类型文本动态压缩，</li>
+                            <li>支持通过配置，批量输出以上动态资源结果到指定文件夹。</li>
+                            <li>GET、POST请求参数，文件上传等支持，</li>
+                            <li>比较完整的远程数据代理交互支持，</li>
+                            <li>浏览器客户端代码预览，PSD文件预览【部分浏览器】。</li>
+                        </ol>
+                    </div>
+                    <footer></footer>
+                </section>
+            </li>
+
+            <li id="section2">
+                <section>
+                    <header>
+                        <h2>
+                            安装环境
+                            <span class='mini-title'>(安装nodejs&npm以及f2e-node-server)</span>
+                        </h2>
+                    </header>
+                    <div class="section-main">
+                        <h4>了解nodejs环境</h4>
+                        <ol>
+                            <li><a href="http://nodejs.org/">nodejs官网下载安装</a> <span class='mini-title'>(for Windows)</span></li>
+                            <li>检查nodejs以及npm环境 <span class='mini-title'>(DOS操作)</span></li>
+                            <li>安装f2e-node-server <span class='mini-title'>[npm install f2e-node-server]</span></li>
+                            <li>如果你看到以下信息,则表示安装成功: <span class='mini-title'>恭喜！</span>
+                                <pre class="prettyprint">
+f2e-node-server@0.8.2 node_modules/f2e-node-server
+├── cssmin@0.4.1
+├── formidable@1.0.15
+├── coffee-script@1.8.0 (mkdirp@0.3.5)
+├── uglify-js@2.4.15 (uglify-to-browserify@1.0.2, async@0.2.10, optimist@0.3.7, source-map@0.1.34)
+└── less@1.4.2 (mime@1.2.11, mkdirp@0.3.5, ycssmin@1.0.1, request@2.40.0)</pre>
+                            </li>
+                        </ol>
+                    </div>
+                    <footer></footer>
+                </section>
+            </li>
+
+            <li id="section3">
+                <section>
+                    <header>
+                        <h2>
+                            基本配置
+                            <span class='mini-title'>(简单配置项功能)</span>
+                        </h2>
+                    </header>
+                    <div class="section-main">
+                        <h4>配置根目录, 常用配置功能项等 <span class='mini-title'>nodeLib/config/conf.js</span></h4>
+                        <ol>
+                            <li>每一组配置分别对应一个独立的项目</li>
+                            <li>root:项目根目录, port:服务端口, maxConnections: 最大并发链接数</li>
+                            <li>handle:开启页面包含功能</li>
+                            <li>runJs: 支持模板功能 <span class='mini-title'>(依赖开启handle)</span></li>
+                            <li>less或者coffee的功能和handle并列</li>
+                        </ol>
+                        
+                    </div>
+                    <footer></footer>
+                </section>
+            </li>
+
+            <li id="section4">
+                <section>
+                    <header>
+                        <h2>
+                            完整配置
+                            <span class='mini-title'>(扩展配置项功能)</span>
+                        </h2>
+                    </header>
+                    <div class="section-main">
+                        <h4>配置特殊页面,资源文件常用配置,服务器代理等扩展配置 <span class='mini-title'>nodeLib/config/conf.js</span></h4>
+                        <ol>
+                            <li>404, 欢迎页面, 文件夹列表展示页<span class="mini-title">(需要开启runJs配置)</span> 配置</li>
+                            <li>debug: 开启后将不对资源文件进行压缩</li>
+                            <li>fs_mod: 是否开启文件夹目录<span class="mini-title">(需要配置folder)</span></li>
+                            <li>output: 将页面包含/less/coffee等解析结果,批量输出到指定文件夹 <a href="javascript:void(0)" link-to="section5"><span class="mini-title">pluhin:build</span></a></li>
+                            <li>agent: 根据path路径分发代理请求 <a href="javascript:void(0)" onclick="$('#conf_js').trigger('step')"><span class="mini-title">完整配置</span></a></li>
+                        </ol>
+                        <pre id="conf_js" class="prettyprint code" data-step="conf_js" contenteditable="true" spellcheck="false">
+    root :"D:\\WORK\\XhcmsProject\\Tomcat\\webapps\\xhcms\\xhcms_2014\\", //服务器索引的根目录，可配置为任意本地地址
+    welcome: "",    //使用欢迎页面的文件名，为空时，表示不使用欢迎页面
+    notFound: __dirname + "/../html/404.html",      //访问的资源不存在是，跳转的页面配置
+    folder: __dirname + "/../html/folder.html",     //显示文件夹列表时候的配置页面
+    handle: true,       //是否使用服务器模板引擎
+    coffee: true,       //是否支持coffee-script动态解析
+    less: true,         //是否支持less动态解析
+    debug: true,        //是否对js以及css文件进行简单压缩，debug:true表示不压缩
+    fs_mod: true,       //是否支持文件夹列表展示
+    port: 80,           //服务器监听端口
+    maxConnections: 1000,    //并发处理的最大连接数
+    runJs : true,
+    output: "c:\\output\\",  //静态化输出目录
+    agent : {
+        get:function(path){
+            return /static/.test(path) ? {
+                    reg : /static/,
+                    host: 'localhost',
+                    port: 2850,
+                    path: function(url){
+                        return '/index.html';
+                    }
+                } : false;
+        }
+    },
+    expires : 0     //服务端缓存时间设置</pre>
+                    <script>$('#conf_js').on('keydown keypress keyup',function(e){e.stopPropagation()}).on('blur',function(){prettyPrint()})</script>
+                    </div>
+                    <footer></footer>
+                </section>
+            </li>
+
+            <li id="section5">
+                <section>
+                    <header>
+                        <h2>
+                            其他功能
+                            <span class='mini-title'>(服务器功能扩展)</span>
+                        </h2>
+                    </header>
+                    <div class="section-main">
+                        <h4>你可以参考样例开发属于自己的插件</h4>
+                        <ol>
+                            <li>/upload: 文件上传,支持配置文件上传目录以及返回数据格式配置</li>
+                            <li>/combine: 专门为支持KISSY模块动态资源合并而开发的plugin</li>
+                            <li>/psd：为客户端预览PSD文件做的简单支持</li>
+                            <li>/prettify：为客户端预览文本文件做的简单支持</li>
+                            <li>/agent：早期使用的最简单GET请求代理实现</li>
+                            <li>/favicon：favicon.ico的简单实现</li>
+                            <li>/build：项目输出插件</li>
+                        </ol>
+                    </div>
+                    <footer></footer>
+                </section>
+            </li>
+
+        </ul>
+    </div>
+    <script type="text/javascript" src="js/ppt.js"></script>
+</body>
+</html>

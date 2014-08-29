@@ -18,6 +18,7 @@ define(function(require, exports, module) {
 		showIcon:false,
 		data:'',
 		multi:true,
+		open:function(){},
 		callback:function(){},
 		unification:function(){},
 	};
@@ -30,16 +31,16 @@ define(function(require, exports, module) {
 	 * @param {Node}   treeContainer tree容器
 	 * @param {String} url tree请求地址
 	 * @param {String} title dialog标题
-	 * @param {String} showIcon 是否默认样式
-	 * @param {String} data 回显数据
-	 * @param {String} multi 是否只能单选
-	 * @param {String} unification dialog关闭时操作
-	 * @param {String} callback 保存回调
+	 * @param {Boolean} showIcon 是否默认样式
+	 * @param {Object} data 回显数据 example[{name:'name',id:'id'}]
+	 * @param {Boolean} multi 是否只能单选
+	 * @param {Function} open dialog打开时操作
+	 * @param {Function} unification dialog关闭时操作
+	 * @param {Function} callback 保存回调
 	*/
 
 	var NodeChosse=function(opt){
 		var o = $.extend(_default,opt);
-		var obj=[];
 		var node=$(o.node);
 		node.empty();
 		var gotUp={};
@@ -93,6 +94,7 @@ define(function(require, exports, module) {
 
 				}
 				$.fn.zTree.init($(o.treeContainer), setting);
+				o.open();
 			},
 			close:function(){o.unification();},
 			buttons:[
@@ -102,10 +104,13 @@ define(function(require, exports, module) {
 					className:'button-submit',
 					id:'gatherDoc_submit',
 					click:function(){
+						var ids=[], objs = [];
 						$("#logs li").each(function(){
-							obj.push($(this).attr("data-id"))
+							var id = $(this).attr("data-id"), name = $(this).text();
+							ids.push( id );
+							objs.push({id:id,name:name});
 						})
-						o.callback(obj);
+						o.callback(ids,objs);
 						node.dialog("close");
 					}
 				},
