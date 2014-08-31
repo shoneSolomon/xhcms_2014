@@ -1,8 +1,8 @@
 /**
  * @author SHY2850
- * @date: 13-8-27
- * @namespace templateinit
- * @alone
+ * @namespace template-init
+ * @requires: template 
+ * @version 2.0
  * @description 使用handlebars初始化数据,将结果填充到指定选择器的dom
  */
 define(function(require, exports, module) {
@@ -23,26 +23,12 @@ define(function(require, exports, module) {
         return a / b;
     });
 
+    
     /**
-     * @alias param options
-     * @param {String} tmpl 模板标签或选择器[required]
-     * @param {JSON}   source 用于渲染的元数据
-     * @param {String} sourceUrl 用于渲染的元数据(ajax)，【如果定义了，将使用异步渲染和分页】 |data-url|
-     * @param {String} sourceMethod 获取元数据的ajax的type   |data-method|
-     * @param {String} dataType 获取元数据的ajax的dataType   |data-type| "jsonp"
-     * @param {Function}  sourceData  获取元数据的ajax的data  返回值为普通json数据格式的function，确保动态调用
-     * @param {String} target 目标填充标签或选择器[required]   |data-target|
-     * @param {String} pagination 是否初始化分页,如果定义，将作为分页插件的选择器  |data-pagination|
-     * @param {Boolean} append 是否以追加的模式填充目标标签       |data-append|
-     * @param {Boolean} prepend  是否以追加的模式填充目标标签     |data-prepend| 优先于append
-     * @param {Function} begin(o*数据源options*, data*渲染数据*,first*首次加载*) 数据准备完成，渲染开始前运行
-     * @param {Function} callback(o*数据源options*, pager*分页对象*,first*首次加载*) 渲染结束以后运行
-     * @param {String} nonResult 当totalPage为0时,  填充目标.
-     * @param {Object} page  @default {size:'page.size',to:'page.pn'}.
+     * @name T
      */
     return {
         __simple__ : function(o,first){
-
             if( typeof o.begin === "function" ){
                 o.begin.call(this,o,first);
             }
@@ -186,6 +172,52 @@ define(function(require, exports, module) {
                 }
             });
         },
+        /**
+         * @alias param options
+         * @param {String} tmpl 模板标签或选择器[required]
+         * @param {JSON}   source 用于渲染的元数据
+         * @param {String} sourceUrl 用于渲染的元数据(ajax)，【如果定义了，将使用异步渲染和分页】 |data-url|
+         * @param {String} sourceMethod 获取元数据的ajax的type   |data-method|
+         * @param {String} dataType 获取元数据的ajax的dataType   |data-type| "jsonp"
+         * @param {Function}  sourceData  获取元数据的ajax的data  返回值为普通json数据格式的function，确保动态调用
+         * @param {String} target 目标填充标签或选择器[required]   |data-target|
+         * @param {String} pagination 是否初始化分页,如果定义，将作为分页插件的选择器  |data-pagination|
+         * @param {Boolean} append 是否以追加的模式填充目标标签       |data-append|
+         * @param {Boolean} prepend  是否以追加的模式填充目标标签     |data-prepend| 优先于append
+         * @param {Function} begin (o*数据源options*, data*渲染数据*,first*首次加载*) 数据准备完成，渲染开始前运行
+         * @param {Function} callback (o*数据源options*, pager*分页对象*,first*首次加载*) 渲染结束以后运行
+         * @param {String} nonResult 当totalPage为0时,  填充目标.
+         * @param {Object} page  @default {size:'page.size',to:'page.pn'}.
+         * @example
+                <script type="html/template" id="temp_recycle_lists" data-target=".recycle_lists" data-pagination="#pager_recycle_lists" data-method="get">
+                    {{#with page}}
+                    <table class="table">
+                    {{#each content}}
+                        <tr class="">
+                            <td class="checked_bt"><input type="checkbox" name="checkbox" class="checkbox" id="cb1-{{id}}" value="0"></td>
+                            <td class="from_name">{{receiveUser/username}}</td>
+                            <td>{{text/title}}</td>
+                            <td>{{text/body}}</td>
+                            <td class="send_time">{{{Date text/createDate}}}</td>
+                        </tr>
+                    {{/each}}
+                    </table>
+                    <span class="currentPage">{{currentPage}}</span>
+                    <span class="totalPage">{{totalPages}}</span>
+                    {{/with}}
+                </script>
+                <script>
+                    require(['template-init'],function(T){
+                        T.init({
+                            tmpl:"#temp_recycle_lists",
+                            sourceUrl:'json/recycle_lists.json',
+                            callback:function(){
+                                $(".checkbox").toCheckbox();    
+                            }
+                        });
+                    });
+                </script>
+         */
         init : function(options){
             return this.__init__(options,true);
         },
