@@ -1,4 +1,12 @@
-define(function(require, exports, module) {
+;(function (root, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(factory);
+  } else {
+    root.DateUtil = factory();
+  }
+
+}(this,function(require, exports, module) {
 
 	//两位整数格式化，小于10高位补零
 	var fmt_num = function(n){
@@ -47,4 +55,4 @@ define(function(require, exports, module) {
 		}) );
 	};	
 
-});
+}));

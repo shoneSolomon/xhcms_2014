@@ -211,7 +211,14 @@ define(function(require, exports, module) {
                         T.init({
                             tmpl:"#temp_recycle_lists",
                             sourceUrl:'json/recycle_lists.json',
-                            callback:function(){
+                            sourceData: function(){
+                                return {
+                                    name:'name1',
+                                    time: new Date().getTime()
+                                }
+                            },
+                            callback:function(o){
+                                o.source // 真实的ajax返回数据
                                 $(".checkbox").toCheckbox();    
                             }
                         });

@@ -94,7 +94,7 @@
 	}
 
 	var CONF = isLocal ? {
-		userInfo : "http://172.18.11.80/web/current/user.json",
+		userInfo : "json/getCurrentUser.json",
 		msgCount : "json/v_countUnreadMsg.json",
 		menu 	 : "json/getMenu.json"
 	} : {
@@ -152,7 +152,9 @@
 		dataType:"json",
 		success: function(data){
 			
-				$(".login_name").html(data.user.username);
+			if(data.success){
+				$(".login_name").html(data.content.username);
+			}
 			
 		},
 		error: function(){

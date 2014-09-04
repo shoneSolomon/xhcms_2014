@@ -26,6 +26,9 @@
 			<a href="#">链接 <br>字体：宋体</a>
 		</p>
 		<p class="text-tip">提示 <br>字体：宋体    字号：12px  </p>
+		<p>
+			<input type="text" class="Wdate" id="Wdate" onfocus="if(window.WdatePicker)WdatePicker()">
+		</p>
 		<p id="radio-line">
 			<strong>性别：</strong>
 			<input type="radio" class="radio" name="radio" id="radio0" value="0"> <label for="radio0">男</label>
@@ -258,7 +261,7 @@
 		alert( "IE6 or older browser is not supported!" );
 		return ;
 	}
-
+	require(['WdatePicker']);
 	require(['formUtil'],function(F){
 
 		$('.main').prepareFormData({

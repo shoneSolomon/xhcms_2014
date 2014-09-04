@@ -1,4 +1,12 @@
-define(function(require, exports, module) {
+;(function (root, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(factory);
+  } else {
+    root.FormUtil = factory();
+  }
+
+}(this,function(require, exports, module) {
 	var $ = jQuery;
 
 	$.fn.extend({
@@ -65,4 +73,4 @@ define(function(require, exports, module) {
 		}
 	};
 
-});
+}));

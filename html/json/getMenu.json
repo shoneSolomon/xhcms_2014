@@ -773,6 +773,16 @@
                     "treeLinkUrl": "",
                     "type": "sub-nav",
                     "url": ""
+                },
+                {
+                    "id": 291,
+                    "name": "前端统计",
+                    "parentId": 7,
+                    "priority": 2,
+                    "treeLinkUrl": "",
+                    "type": "link",
+                    "url": "http://www.baidu.com",
+                    "childMenus":[]
                 }
             ],
             "id": 7,

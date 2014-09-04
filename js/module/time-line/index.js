@@ -4,7 +4,15 @@
  *  @date 2014/4/4
  *  @description 时间轴重写
  */
-define(function(require, exports, module){
+;(function (root, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(factory);
+  } else {
+    root.TimeLine = factory();
+  }
+
+}(this,function(require, exports, module){
 	var template = ''+
 		'<div class="time-line">' +
 	    '    <div class="time-inner">' +
@@ -133,4 +141,4 @@ define(function(require, exports, module){
 		return holder;
 	};
 
-});
+}));

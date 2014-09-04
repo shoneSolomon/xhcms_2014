@@ -7,9 +7,17 @@
 				return window.setTimeout(fn, 1000/60); 
 			};
 })();
+(function (root, factory) {
 
-define(function(require, exports, module) {
+  if (typeof define === 'function' && define.amd) {
+    define(factory);
+  } else {
+    root.RequestAFrame = factory();
+  }
+
+}(this,function(require, exports, module) {
 	var _timeoutQueue = {}, index = 0, countdowns = [];
+	exports = exports || {};
 	/**
 	 * 按照指定key添加轮训事件 【首次添加一般不会立即执行】
 	 * k	: 轮询事件的key
@@ -92,5 +100,5 @@ define(function(require, exports, module) {
 
 	queueTimeout();	
 
-
-});
+	return exports;
+}));

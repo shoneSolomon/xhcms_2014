@@ -17,7 +17,15 @@
 //---------------------------------------------------------------------
 // QR8bitByte
 //---------------------------------------------------------------------
-define(function(require, exports, module) {
+;(function (root, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(factory);
+  } else {
+    root.QRCode = factory();
+  }
+
+}(this,function(require, exports, module) {
 function QR8bitByte(data) {
 	this.mode = QRMode.MODE_8BIT_BYTE;
 	this.data = data;
@@ -1236,4 +1244,4 @@ QRBitBuffer.prototype = {
 	}
 };
 return QRCode;
-});
+}));

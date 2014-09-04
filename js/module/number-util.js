@@ -1,4 +1,12 @@
-define(function(require, exports, module) {
+;(function (root, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(factory);
+  } else {
+    root.NumberUtil = factory();
+  }
+
+}(this,function(require, exports, module) {
 	var _c = "零壹贰叁肆伍陆柒捌玖".split("");
 	var _d = "萬***亿***萬***圆";
 	var _e = "仟,佰,拾,".split(",");
@@ -63,4 +71,4 @@ define(function(require, exports, module) {
 		}
 	};
 
-});
+}));

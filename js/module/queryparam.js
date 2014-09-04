@@ -1,4 +1,12 @@
-define(function(require, exports, module) {
+;(function (root, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(factory);
+  } else {
+    root.QueryParam = factory();
+  }
+
+}(this,function(require, exports, module) {
 	//缓存的地址栏参数对象
 	var queryParam = {};
     /**
@@ -26,4 +34,4 @@ define(function(require, exports, module) {
 	    })(window);
 	    return key ? search[key] : search;
 	}
-});
+}));

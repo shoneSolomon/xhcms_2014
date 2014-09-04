@@ -4,7 +4,15 @@
  * @beta 0.9
  * @date 2014/05/15
  */
-define(function(require, exports, module){
+;(function (root, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(factory);
+  } else {
+    root.TxtReplacer = factory();
+  }
+
+}(this,function(require, exports, module){
 	var $ = jQuery,
 		base = {
 			reg: /^[\u4e00-\u9fa5\w\*\-]+/,
@@ -154,4 +162,4 @@ define(function(require, exports, module){
 
 	};
 
-});
+}));

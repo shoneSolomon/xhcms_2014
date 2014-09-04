@@ -4,7 +4,15 @@
  * @version 1.0.0
  * @return {[function]}   
  */
-define(function(require, exports, module) {
+(function (root, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(factory);
+  } else {
+    root.Zoom = factory();
+  }
+
+}(this,function(require, exports, module) {
 	var $ = jQuery;
 
 	var defaults = {
@@ -79,4 +87,4 @@ define(function(require, exports, module) {
 	}
 
 	return Zoom;
-});
+}));

@@ -239,8 +239,12 @@ $(function(){
 					data:{'debateId':did,'contentId':cid},
 					dataType:"json",
 					success:function(res){
-						top.debateFN.closeDialog();
-						top.debateFN.init(did);
+						if(res.code == '0'){	//增加异常判断,如果选择失败弹出错误 BY:shiyangyang
+							alert(res.message);
+						}else{
+							top.debateFN.closeDialog();
+							top.debateFN.init(did);
+						}
 					}
 				});
 			}else{
@@ -259,10 +263,15 @@ $(function(){
 					data:{'debateId':did,'contentId':cid},
 					dataType:"json",
 					success:function(res){
-						top.debateFN.closeDialog();
-						top.debateFN.init(did,function(){
-							top.debateFN.clickToEditor();
-						});
+						if(res.code == '0'){	//增加异常判断,如果选择失败弹出错误 BY:shiyangyang
+							alert(res.message);
+						}else{
+							top.debateFN.closeDialog();
+							top.debateFN.init(did,function(){
+								top.debateFN.clickToEditor();
+							});
+						}
+							
 					}
 				});
 			}else{

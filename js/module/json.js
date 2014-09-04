@@ -1,4 +1,12 @@
-define(function(require, exports, module) {
+;(function (root, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(factory);
+  } else {
+    root.JSON = factory();
+  }
+
+}(this,function(require, exports, module) {
 	function isArray(obj) { 
 		return ({}).toString.call(obj) === '[object Array]'; 
 	}
@@ -175,4 +183,4 @@ define(function(require, exports, module) {
 			}
 		}
 	};
-});
+}));

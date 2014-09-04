@@ -1,4 +1,12 @@
-define(function(require, exports, module) {
+;(function (root, factory) {
+
+  if (typeof define === 'function' && define.amd) {
+    define(factory);
+  } else {
+    root.Cookie = factory();
+  }
+
+}(this,function(require, exports, module) {
 	return {
 			set:function(c_name,value,expiredays){
 				var finalValue = escape(value);
@@ -19,4 +27,4 @@ define(function(require, exports, module) {
 				return "";
 			}
 		};
-});
+}));
