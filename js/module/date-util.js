@@ -31,28 +31,29 @@
 		$  : function(d){return this.days[d.getDay()]},
 		$$ : function(d){return this.days[d.getDay()]}
 	};
-		
-	exports.format = function(date,format,rule){
-		if( window.jQuery ){
-			rule = jQuery.extend({},_,rule); //如果引入jQuery了, 支持修改对应规则
+
+	return {
+		format : function(date,format,rule){
+			if( window.jQuery ){
+				rule = jQuery.extend({},_,rule); //如果引入jQuery了, 支持修改对应规则
+			}
+			return format.replace(_.reg,function(match,key){
+				return _[key](date);
+			});
+		},
+		parse : function(str,format){
+			format = format || "yy/MM/dd hh:mm:ss"; 	//没有定义格式的话, 使用默认的格式
+
+			var map = {}, nums = str.match( /\d{1,4}/g ), fmts = format.match( _.reg );
+			for (var i = 0; i < fmts.length; i++) {
+				map[ fmts[i] ] = nums[i];
+			}; //for循环完成格式和数据的对应关系。
+
+			//完成替换并且返回创建的Date结果。
+			return new Date( "yy/MM/dd hh:mm:ss".replace(_.reg,function(match,key){
+				return map[key] || 0;
+			}) );
 		}
-		return format.replace(_.reg,function(match,key){
-			return _[key](date);
-		});
-	};
-
-	exports.parse = function(str,format){
-		format = format || "yy/MM/dd hh:mm:ss"; 	//没有定义格式的话, 使用默认的格式
-
-		var map = {}, nums = str.match( /\d{1,4}/g ), fmts = format.match( _.reg );
-		for (var i = 0; i < fmts.length; i++) {
-			map[ fmts[i] ] = nums[i];
-		}; //for循环完成格式和数据的对应关系。
-
-		//完成替换并且返回创建的Date结果。
-		return new Date( "yy/MM/dd hh:mm:ss".replace(_.reg,function(match,key){
-			return map[key] || 0;
-		}) );
-	};	
+	}	
 
 }));

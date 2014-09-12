@@ -267,16 +267,16 @@
 						for(i=0;i<spancont.length;i++){
 							dataindex=spancont.eq(i).data('index');
 							if(index<dataindex){
-								spancont.eq(i).before('<span data-index='+index+'>'+seleStr+'<b></b></span>');
+								spancont.eq(i).before('<span data-index='+index+'>'+seleStr+'&nbsp;'+'<b></b></span>');
 								b=1;
 								break;
 							}
 						}
 						if(b==0){
-							selected.append('<span data-index='+index+'>'+seleStr+'<b></b></span>');
+							selected.append('<span data-index='+index+'>'+seleStr+'&nbsp;'+'<b></b></span>');
 						}
 					}else{
-						selected.append('<span data-index='+index+'>'+seleStr+'<b></b></span>');
+						selected.append('<span data-index='+index+'>'+seleStr+'&nbsp;'+'<b></b></span>');
 					}
 				});
 				$('html').mousedown(function(event){
@@ -314,7 +314,8 @@
 					res.refContentId.push(cid);
 					if($('#radio0').get(0).checked){
 						res.type=0;
-						res.answer=selected.text().replace(/\s/g,"");
+						// res.answer=selected.text().replace(/\s/g,"");
+						res.answer=selected.text();
 						if(res.answer==""){alert('请添加答案');return false;}
 					}
 					if($('#radio1').get(0).checked){
