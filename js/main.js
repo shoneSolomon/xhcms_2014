@@ -142,6 +142,7 @@
 
 			// 二级树形菜单选择
 			tree.on("click _click",".tree-link",function(e){
+				top.treeLevel=1000;
 				var _this = $(this);
 				if( _this.hasClass('expended') ){
 					treeHolder.animate({
@@ -156,12 +157,16 @@
 					},'fast');
 
 				}else{
+					treeHolder.hide();
+					$(".tree-link").removeClass('expended');
+
 					rightTarget.animate({
 						width: "34%"
 					},'fast');
 
 					var v_href = _this.parent().attr("href"); //存儲展示的url,
 					var e_href = _this.attr("data-href");  //存储修改的url
+					
 					//加载zTree菜单
 					var zt = $.fn.zTree.init($("#ztree-inner"), {
 						async: {
@@ -174,19 +179,44 @@
 									data.splice(0,0,{
 										id: "",
 										isParent: true,
-										name: "新华新闻主站"
+										name: "新华新闻主站",
+										leveltop:1000
 									});
 								}
-								for (var i = 0; i < data.length; i++) {
-									(function(d){
-										d.target = "targetFrame";
-										d.url = d.isParent ? v_href+"?root="+d.id : "../../xhadmin"+e_href+"?id="+d.id;
-									})(data[i]);
-								};
+								if(!_this.hasClass("branch-tree-link")){
+									for (var i = 0; i < data.length; i++) {
+										(function(d){
+											d.target = "targetFrame";
+											d.url = d.isParent ? v_href+"?root="+d.id : "../../xhadmin"+e_href+"?id="+d.id;
+										})(data[i]);
+									};
+								}else{
+									for (var i = 0; i < data.length; i++) {
+										(function(d){
+											d.target = "targetFrame";
+											d.url = d.isParent ? v_href+"?root="+d.id : e_href+"?id="+d.id;
+										})(data[i]);
+									};
+								}
 								return data;
+							}
+						},
+						callback:{
+							onClick:function(event, treeId, treeNode, clickFlag){
+								$("#ztree-inner a").each(function(){
+									// if(this.href.replace(/[\S]*=/g,"")==treeNode.id){
+									// 	var parent=$(this).parent().parent().parent();
+									// 	parent.children("a").length?top.treeParentId=parent.children("a").attr("href").replace(/[\S]*=/g,""):top.treeParentId=0
+									// }
+								})
+								//console.log(treeNode.html())
+								top.treeLevel=treeNode.leveltop?treeNode.leveltop:treeNode.level;
+								top.treeName=treeNode.name;
+								top.treeId=treeNode.id;
 							}
 						}
 					});
+
 
 					//绑定栏目节点树的更新事件
 					$("#ztree-inner").off('refresh').on('refresh',function(){

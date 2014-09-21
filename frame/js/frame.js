@@ -53,6 +53,15 @@ var conf =
 	 			siteConfigur: "json/list-sites.json"
 	 		})
 	},
+	"branchManage":{
+ 		URL : (isLocal ? {
+ 				branchList: "json/list-branches.json",
+ 				branchTreeData:"../../html/json/treeAll.json"
+	 		}:{
+	 			branchList: "json/list-branches.json",
+	 			branchTreeData:"../../html/json/treeAll.json"
+	 		})
+	},
 	'newsClassify':{        //start
 		URL : (isLocal ? {
 				newsClassify : "json/site-config.json"

@@ -229,6 +229,28 @@
                             "url": "../frame/site-mge/c-configur-list.html"
                         },
                         {
+                            "childMenus": [
+                                {
+                                    "childMenus": [],
+                                    "id": 101,
+                                    "name": "站点节点树",
+                                    "parentId": 100,
+                                    "priority": 1,
+                                    "treeLinkUrl": "../frame/site-mge/branch-edit.html",
+                                    "type": "tree-link branch-tree-link",
+                                    "url": "json/siteTree.json"
+                                }
+                            ],
+                            "id": 100,
+                            "name": "站点管理",
+                            "parentId": 18,
+                            "priority": 1,
+                            "treeLinkUrl": "",
+                            "type": "link",
+                            "url": "../frame/site-mge/branch-list.html"
+                        },
+
+                        {
                             "childMenus": [],
                             "id": 38,
                             "name": "栏目模型配置",
@@ -775,13 +797,33 @@
                     "url": ""
                 },
                 {
-                    "id": 291,
-                    "name": "前端统计",
+                    "id": 271,
+                    "name": "期段统计",
                     "parentId": 7,
                     "priority": 2,
                     "treeLinkUrl": "",
                     "type": "link",
-                    "url": "http://www.baidu.com",
+                    "url": "../frame/count-time.html",
+                    "childMenus":[]
+                },
+				{
+                    "id": 272,
+                    "name": "稿件统计",
+                    "parentId": 7,
+                    "priority": 2,
+                    "treeLinkUrl": "",
+                    "type": "link",
+                    "url": "../frame/count-contribution.html",
+                    "childMenus":[]
+                },
+				{
+                    "id": 273,
+                    "name": "统计设置",
+                    "parentId": 7,
+                    "priority": 2,
+                    "treeLinkUrl": "",
+                    "type": "link",
+                    "url": "http://www.sougou.com",
                     "childMenus":[]
                 }
             ],

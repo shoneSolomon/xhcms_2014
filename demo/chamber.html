@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zn">
 <head>
 	<meta charset="UTF-8">
@@ -150,6 +150,17 @@
 					<th>红方观点:<i class="required">*</i></th>
 					<td><input type="text" name="negative" id="negative" maxlength="20"></td>
 					<td class="text-tip">20字以内</td>
+				</tr>
+				<tr>
+					<th>标题图:</th>
+					<td>
+						<div style="position:relative;width:100%;">
+							<img style="width:300px;height:200px;" id="pic-show">
+							<a href="javascript:void(0);" class="fm-button" id="pic-upload">上传图片</a>
+							<input type="hidden" name="pic" id="pic-value" value="">
+						</div>
+					</td>
+					<td></td>
 				</tr>
 				<tr>
 					<th>有效期:</th>
@@ -311,8 +322,8 @@ require(['queryparam'],function(Q){
 
 	if( debateId ){
 		$.ajax({
-			url: '../../xhadmin/basic/getDebate.do',
-			data:{debateId:debateId,t:new Date().getTime()},
+			url: '../../admin/debate/'+debateId+'/getDebate.json',
+			cache: false,
 			dataType:'json',
 			success:function(json){
 				if( json.code == '1' ){
@@ -323,6 +334,8 @@ require(['queryparam'],function(Q){
 							panel.html( o[i].replace(/<br\/>/g,'').replace(/<a\s(data\-id\S+)[^<]+<\/a>/g,function(match,dataId){
 								return '<li '+dataId+'><a href="javascript:void(0);"><em class="sel-handle">删除</em><div class="con">'+match+'</li>';
 							}) );
+						}else if( i === 'pic' ){
+							$('#pic-show').attr('src',o[i]);
 						}
 					}
 					$('#close-chamber').show();
@@ -383,6 +396,30 @@ require(['queryparam'],function(Q){
 
 	$('#submit-line .fm-cancel').on('click',function(){
 		$('.ui-dialog-titlebar-close',top.document).trigger('click');
+	});
+});
+
+require(['frameUpload'],function(FrameUpload){
+	var upload= $('#pic-upload'),
+		show  = $('#pic-show'),
+		value = $('#pic-value');
+
+	new FrameUpload({
+		el: upload[0],
+		action: "../../admin/ueditor/uploadPic.json",
+		ajax: true,
+		onchange: function(){
+			this.submit();
+		},
+		afterUpload: function(data){
+			if( data && data.state == "SUCCESS" ){
+				show.attr("src",data.imageUrl),
+				value.val(data.imageUrl);
+			}
+		},
+		ready: function(){
+			this.setAttribute("accept","image/*");
+		}
 	});
 });
 
