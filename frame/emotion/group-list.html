@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>栏目设置列表</title>
+	<link rel="stylesheet" href="http://xuan.news.cn/cloudnews/xhcms_2014/css/jqueryui/jquery-ui.css">
+	<link rel="stylesheet" href="http://xuan.news.cn/cloudnews/xhcms_2014/css/form.css">
+	<script src="http://xuan.news.cn/cloudnews/xhcms_2014/js/jquery.min.js"></script>
+	<script src="http://xuan.news.cn/cloudnews/xhcms_2014/js/require.js"></script>
+	<script src="http://xuan.news.cn/cloudnews/xhcms_2014/js/require-config.js"></script>
+	<style type="text/css">
+		.outter-frame{width:1216px;}
+		.global_cont>div{
+			width:1000px;
+			margin-left:50px;
+		}
+		.global_cont>div .emo-nav-group{
+			display:inline-block;
+			height:26px;
+			margin-left:30px;
+		}
+		.global_cont .emo-body table{
+			margin-top:30px;
+			width:1000px;
+			text-align:center;
+		}
+		.global_cont .emo-body table tr.head-line{
+			height:48px;
+			font: bold 15px/18px "微软雅黑", 700 ;
+			border-bottom:1px solid #ccc;
+		}
+		.global_cont .emo-body table tr.content-line{
+			height:68px;
+			border-bottom:1px solid #ccc;
+		}
+
+	</style>
+</head>
+<body class="outter-frame">
+<div class="mainRight">
+	<h1>站点配置</h1>
+	<div class="station_menu">
+		<a class="fm-button" href="s-configur-list.html">返回列表</a>
+	</div>
+	<div class="global_cont">
+		<div class="emo-nav-handdle">
+			<span class="fm-button add-group">添加分组</span>
+		</div>
+
+		<div class="emo-body">
+			<script id="table-template" type="text/x-handlebars-template">
+				<table>
+					<colgroup style="width:10%"></colgroup>
+					<colgroup style="width:30%"></colgroup>
+					<colgroup style="width:30%"></colgroup>
+					<colgroup style="width:30%"></colgroup>
+					<tr class="head-line">
+						<td class="">序号</td>
+						<td class="">组名</td>
+						<td class="">创建时间</td>
+						<td class="">操作</td>
+					</tr>
+
+					  {{#each itemList}}      
+						<tr class="content-line" thisID="{{id}}" createTime="{{createTime}}" priority="{{priority}}" siteId="{{siteId}}">
+							<td class="">{{plusOne @index}}</td>
+							<td class="">{{name}}</td>
+							<td class="">{{createTime}}</td>
+							<td class="">
+								<span class="toTop"></span>
+								<span class="upOne"></span>
+								<span class="downOne"></span>
+								<span class="editThis fm-button">编辑</span>
+							</td>
+						</tr>
+					  {{/each}}
+				</table>
+			</script>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
+
+<script>
+(function(){
+	var temple = ""//用于保存 handlebars 模板
+	//添加分组
+	$(".add-group").click(function(){
+		require(["alerts"],function(){ 
+			jConfirm(
+				"<div>分组名称：<input type='text' class='group-add-name'></div><div>注：分组名称不能重复</div>",
+				"添加分组",
+				{okButton:"确定",cancelButton: "取消"},
+				function(result){
+					if(result){
+						$.ajax({
+							 type: "post",
+							 data: {name:$(".group-add-name").val()},
+							 url: "../../../xhadmin/emoticon/o_saveOrUpdateType.do",
+							 dataType: "json",
+							 success: function( data ){
+								if(data.success){
+									getEmotionList();
+									//window.location;
+								}else{
+									
+								}
+							},
+							error:function( err ){
+								alert( err );
+							}
+						 });
+					}
+				})
+			})
+		})
+		//获取标签列表
+		function getEmotionList(){
+			$.ajax({
+				type: "get",
+				url: "../../../xhadmin/emoticon/v_typeList.do",
+				dataType: "json",
+				success: function( data ){
+					require(["template"],function(){ 
+						Handlebars.registerHelper("plusOne",function(v,options){
+							return v+1;
+						});
+
+						if(!temple){ //保存 handlebars 模板
+							temple= $("#table-template").html();
+						}
+
+						var myTemplate = Handlebars.compile( temple );
+						$('.emo-body').html(myTemplate(data.data));
+						//绑定编辑当前分组名
+						$(".emo-body table").on("click",".editThis",function(){
+								var thisID= parseInt( $(this).parent().parent().attr("thisID") );
+								var createTime= $(this).parent().parent().attr("createTime");
+								//var name= $(this).parent().parent().attr("name") ;
+								var priority= $(this).parent().parent().attr("priority");
+								var siteId= $(this).parent().parent().attr("siteId") ;
+
+								require(["alerts"],function(){ 
+									jConfirm(
+										"<div>分组名称：<input type='text' class='group-edit-name'></div><div>注：分组名称不能重复</div>",
+										"修改分组",
+										{okButton:"确定",cancelButton: "取消"},
+										function(result){
+											if(result){
+												$.ajax({
+													 type: "post",
+													 data: {name: $(".group-edit-name").val(),id: thisID,createTime: createTime,priority: priority,siteId:siteId},
+													 url: "../../../xhadmin/emoticon/o_saveOrUpdateType.do",
+													 dataType: "json",
+													 success: function( data ){
+
+														if(data.success){
+															getEmotionList();
+															console.log( data );
+														}else{
+															alert(data.message);
+														}
+													},
+													error:function( err ){
+														console.log(err);
+														alert( err );
+													}
+												 });
+											}
+										})
+									})
+							})	
+					})
+				},
+				error: function(err){
+					alert("数据错误！");
+					console.log(err);
+				}
+			})
+		}
+	getEmotionList();
+
+
+})();
+
+				
+</script>

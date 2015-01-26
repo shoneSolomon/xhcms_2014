@@ -93,11 +93,18 @@ define(function(require, exports, module) {
                 _d.t = new Date().getTime()
             }
             if(o.pagination){
-                _d[o.page.to] = o.toPage||"";
+                _d[o.page.to] = o.toPage||1;
                 _d[o.page.size] = 10
             }
 
-            $[type](o.sourceUrl, $.extend(_d, o.sourceData() ),function(data){
+            $.extend(_d, o.sourceData() )
+
+            $[type](o.sourceUrl.replace(/\{\{(.*)\}\}/g,function(kw,w){
+                var r = _d[w];
+                if( typeof r != "undefined" ){
+                    return r;
+                }   // 提供restful支持
+            }), _d,function(data){
 
                 if(data.code && data.code != 200){
                     target.html( o.nonResult );
@@ -115,8 +122,8 @@ define(function(require, exports, module) {
                 var html = Handlebars.compile( tpl )(o.source),
                     dom = $("<div>"+html+"</div>");
                
-                var currentPage = dom.children(".currentPage").hide().html(),
-                    totalPage = Math.ceil( dom.children(".totalPage").hide().html() );
+                var currentPage = dom.children(".currentPage").remove().html(),
+                    totalPage = Math.ceil( dom.children(".totalPage").remove().html() );
                 if(totalPage === 0 ){
                     dom.html( o.nonResult );
                 }

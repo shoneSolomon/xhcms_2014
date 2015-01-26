@@ -80,7 +80,7 @@
 				return _this.data("select-init",true).appendTo(holder);	
 			});
 		},
-		toPager : function(opt,noToPage){
+		toPager : function(opt){
 			return $(this).each(function(){
 				var _this = $(this);
 				var o = $.extend({
@@ -102,9 +102,6 @@
 	                firstPagesCount = o.firstPagesCount,
 	                lastPagesCount = o.lastPagesCount,
 	                offset;
-
-
-
 	            /**
 		         * @brief 渲染可点击的页码
 		         * @param index {Number} 页码索引
@@ -118,12 +115,10 @@
 	            paginationInner += currPage === 1 
 	            	? '<span class="pagination-start"><span>上一页</span></span>' 
 	            	: '<a class="pagination-prev"><span>上一页</span></a>';
-
 	            if (currPage <= firstPagesCount + preposePagesCount + 1) {
 	                for(var i=1; i<currPage; i++) {
 	                    paginationInner += _renderActivePage(i);
 	                }
-
 	            } else {
 	                for(var i=1; i<=firstPagesCount; i++) {
 	                    paginationInner += _renderActivePage(i);
@@ -132,8 +127,8 @@
 	                for(var i=currPage-preposePagesCount; i<=currPage-1; i++) {
 	                    paginationInner += _renderActivePage(i);
 	                }
-	            }
-
+	            }				
+  
 	            // currPage的页码展示
 	            paginationInner += '<span class="pagination-curr">' + currPage + '</span>';
 
@@ -153,34 +148,28 @@
 	                    paginationInner += _renderActivePage(i);
 	                }
 	            }
-
+				totalPage =  totalPage === 0 ? 1 : totalPage;	//totalPage==0时，下一页不可点击
 	            paginationInner += currPage === totalPage 
 	            	? '<span class="pagination-end"><span>下一页</span></span>' 
 	            	: '<a class="pagination-next"><span>下一页</span></a>';
-
 	            $(o.el).html(paginationInner);
-
 
 	            function _switchToPage(page) {
 		            o.currentPage = Number(page);
 		            _this.toPager(o,true);	//不带初始化的分页加载
 		            _this.trigger('switch', {
-		                toPage: o.currentPage
+		                toPage: o.currentPage 
 		            });
 		        }
-
-	            if( !noToPage ){
-	            	_this.on('switch',o["switch"]);
-	            	$(o.el).on('click','.pagination-spec',function(e){
-	            		_switchToPage( $(this).html() )
-	            	}).on('click','.pagination-prev',function(e){
-	            		_switchToPage( Number( $(this).siblings(".pagination-curr").html() ) - 1 )
-	            	}).on('click','.pagination-next',function(e){
-	            		_switchToPage( Number( $(this).siblings(".pagination-curr").html() ) + 1 )
-	            	});
-	            }
+				_this.off('switch').on('switch',o["switch"]);
+				$(o.el).off('click').on('click','.pagination-spec',function(e){
+					_switchToPage( $(this).html() )
+				}).on('click','.pagination-prev',function(e){
+					_switchToPage( Number( $(this).siblings(".pagination-curr").html() ) - 1 )
+				}).on('click','.pagination-next',function(e){
+					_switchToPage( Number( $(this).siblings(".pagination-curr").html() ) + 1 )
+				});
 			});
-
 		}
 	});
 

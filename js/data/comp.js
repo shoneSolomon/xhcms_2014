@@ -10,9 +10,9 @@ fs.readFile('world.xml',function(err,data){
 		function exec(w){
 			var world = [], selector = {}, attr = w.attributes(), c = children(w) ;
 			location[attr.code] = ([
-				(attr.lon||'').replace(/(\.\d{2})\d+$/,'$1')
+				(attr.lon||'')//.replace(/(\.\d{2})\d+$/,'$1')
 				,
-				(attr.lat||'').replace(/(\.\d{2})\d+$/,'$1')
+				(attr.lat||'')//.replace(/(\.\d{2})\d+$/,'$1')
 			]).join(',');
 
 			world.push( ([attr.code,attr.value,attr.parentCode,attr.firstHead,attr.en]).join(',') );

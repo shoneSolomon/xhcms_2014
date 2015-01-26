@@ -3,11 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>人员管理—个人信息设置</title>
-	<link rel="stylesheet" href="../css/jqueryui/jquery-ui.css">
-	<link rel="stylesheet" href="../css/form.css">
-	<script src="../js/jquery.min.js"></script>
-	<script src="../js/require.js"></script>
-	<script src="../js/require-config.js"></script>
+	<link rel="stylesheet" href="http://xuan.news.cn/cloudnews/xhcms_2014/css/jqueryui/jquery-ui.css">
+	<link rel="stylesheet" href="http://xuan.news.cn/cloudnews/xhcms_2014/css/form.css">
+	<script src="http://xuan.news.cn/cloudnews/xhcms_2014/js/jquery.min.js"></script>
+	<script src="http://xuan.news.cn/cloudnews/xhcms_2014/js/require.js"></script>
+	<script src="http://xuan.news.cn/cloudnews/xhcms_2014/js/require-config.js"></script>
 </head>
 <body class="fixed-outter-frame clearfix">
 	<a class="fm-button" id="historyBack" href="../../xhadmin/admin_global/v_list.do">返回列表</a>
@@ -259,7 +259,7 @@
 
 	require(["json","dateUtil","queryparam","requestAFrame","node-choose","form-style","dialog","position","button","widget","alerts","base64","template","formValid","zTree"],function(JSON,DateUtil,queryparam,r,NodeChosse){
 		var html_userRole="";
-		var url=require.baseUrl.replace(/xhcms_2014\/js/g,"");
+		var url= "/cloudapi/";
 		//var url="http://172.18.11.88:8089/xhcms-docs/";
 		$(".checkbox").toCheckbox();
 		$("#username").val("");

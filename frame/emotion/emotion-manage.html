@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>栏目设置列表</title>
+	<link rel="stylesheet" href="http://xuan.news.cn/cloudnews/xhcms_2014/css/jqueryui/jquery-ui.css">
+	<link rel="stylesheet" href="http://xuan.news.cn/cloudnews/xhcms_2014/css/form.css">
+	<script src="http://xuan.news.cn/cloudnews/xhcms_2014/js/jquery.min.js"></script>
+	<script src="http://xuan.news.cn/cloudnews/xhcms_2014/js/require.js"></script>
+	<script src="http://xuan.news.cn/cloudnews/xhcms_2014/js/require-config.js"></script>
+	<style type="text/css">
+		.outter-frame{
+			width:1216px;
+			margin-top:50px;
+		}
+		.global_cont>div{
+			width:1000px;
+			margin-left:50px;
+		}
+		.global_cont>div .emo-nav-group{
+			display:inline-block;
+			height:26px;
+			margin-left:30px;
+		}
+		.global_cont>div .emo-nav-search{
+			position:relative;
+			margin-left:30px;
+			display:inline-block;
+			width:220px;
+			height:26px;
+			border:1px solid #ccc;
+		}
+		.global_cont>div .emo-nav-search input{
+			margin-left:5px;
+			width:185px;
+			height:26px;
+			border:none;
+			color:#999;
+		}
+		.global_cont>div .emo-nav-search img{
+			position:absolute;
+			right:0px;
+		}
+		.emo-body table{
+			margin-top:30px;
+			width:1000px;
+			text-align:center;
+		}
+		.emo-body table tr.head-line{
+			height:48px;
+			font: bold 15px/18px "微软雅黑", 700 ;
+			border-bottom:1px solid #ccc;
+		}
+		.emo-body table tr.content-line{
+			height:106px;
+			border-bottom:1px solid #ccc;
+		}
+		.emo-body table tr.content-line img{
+			width:60px;
+		}
+
+		.editThis{
+			position:relative;
+			top:38px;
+		}
+		.select{
+			height:28px;
+			min-width:80px;
+			border:1px solid #ccc;
+		}
+
+		.edit-emotion-table{
+		}
+		.edit-emotion-table tr{
+			
+			height:40px;
+		}
+		.edit-emotion-table input{
+			width:94%;
+			height:26px;
+			line-height:24px;
+		}
+		.edit-emotion-table input[type=checkbox]{
+			position: relative;
+			left: -85px;
+		}
+		.edit-emotion-table selsect{
+			width:100%;
+		}
+		#pager{
+			margin-top: 30px;
+		}
+		.emotion-group-list,.emotion-tag-list{
+			width:80px;
+			height:30px;
+		}
+	</style>
+</head>
+<body class="outter-frame">
+<div class="mainRight">
+	<!--
+	<h1>站点配置</h1>
+	<div class="station_menu">
+		<a class="fm-button" href="s-configur-list.html">返回列表</a>
+	</div>
+	-->
+	<div class="global_cont">
+		<div class="emo-nav-handdle">
+			<span class="fm-button emotion-add">添加表情</span>
+			<span class="emo-nav-group">分组: 
+				<select name="" id="emotionGroupselect" class="select">
+				</select>
+			</span>
+			<span class="emo-nav-tag">标签: 
+				<select name="" id="emotionTagselect" class="select">
+				</select>
+			</span>
+			<span class="emo-nav-search">
+				<input type="text" class="emo-nav-search-ipt" value="表情名称"/>
+				<img src="http://xuan.news.cn/cloudnews/xhcms_2014/images/ss.png" class="emo-nav-search-btn">
+			</span>
+		</div>
+
+		<div class="emo-body">
+		</div>
+		<div id="pager">
+			<div class="page fm-pager"></div>
+		</div>
+	</div>
+</div>
+
+
+<script id="select-template" type="text/x-handlebars-template">
+	<option value="false">全部</option>
+	{{#each itemList}} 
+		<option value="{{id}}">{{name}}</option>
+	{{/each}} 
+</script>
+<script id="table-template" type="text/x-handlebars-template" data-target=".emo-body" data-method="post" data-url="../../../xhadmin/emoticon/v_list.do" data-pagination="#pager .page">
+	{{#with data}}
+	<table>
+		<colgroup style="width:6%"></colgroup>
+		<colgroup style="width:10%"></colgroup>
+		<colgroup style="width:8%"></colgroup>
+		<colgroup style="width:10%"></colgroup>
+		<colgroup style="width:6%"></colgroup>
+		<colgroup style="width:10%"></colgroup>
+		<colgroup style="width:10%"></colgroup>
+		<colgroup style="width:10%"></colgroup>
+		<colgroup style="width:10%"></colgroup>
+		<tr class="head-line">
+			<td class="">序号</td>
+			<td class="">表情</td>
+			<td class="">表情标签</td>
+			<td class="">表情名称</td>
+			<td class="">分组</td>
+			<td class="">是否默认</td>
+			<td class="">上传者</td>
+			<td class="">上传时间</td>
+			<td class="">操作</td>
+		</tr>
+		{{#each itemList}}
+			<tr class="content-line" 
+				emotionId={{id}} 
+				emoticonTagId={{emoticonTagId}} 
+				emoticonTypeId={{emoticonTypeId}} 
+				grayUrl={{grayUrl}} 
+				priority={{priority}} 
+				userId={{userId}}
+				siteId={{siteId}} 
+			>
+				<td class="emo-index">{{id}}</td>
+				<td class="emo-img"><img src="{{url}}"></td>
+				<td class="emo-tag-name">{{emoticonTagName}}</td>
+				<td class="emo-name">{{name}}</td>
+				<td class="emo-type-name">{{emoticonTypeName}}</td>
+				<td class="emo-isDefault">{{parseBoolean isDefault}}</td>
+				<td class="emo-userName">{{userName}}</td>
+				<td class="emo-createTime">{{createTime}}</td>
+				<td class="editThis fm-button">编辑</td>
+			</tr>
+		{{/each}}
+	</table>
+	<span class="currentPage">{{pageNo}}</span>
+    <span class="totalPage">{{totalPage}}</span>
+	{{/with}}
+</script>
+
+<script>
+require(["template-init"], function(T){
+	var emotionGroupsList = [];		//分组id 与分组名 整理后数据[id name]
+	var emotionGroups= (function(){	//分组全数据
+		var groupData;
+		$.ajax({
+			type: "get",
+			async: false,
+			url: "../../../xhadmin/emoticon/v_typeList.do",
+			dataType: "json",
+			success: function( data ){
+				$( data.data.itemList  ).each(function(){
+					emotionGroupsList.push([this.id,this.name]);
+				})
+				groupData = data;
+			}
+		})
+		return groupData;
+	})();
+
+	var emotionTagsList = [];		//标签分组整理后数据   [id name]
+	var emotionTags= (function(){	//标签分组全数据
+		var tagData;
+		$.ajax({
+			type: "get",
+			async: false,
+			url: "../../../xhadmin/emoticon/v_tagList.do",
+			dataType: "json",
+			success: function( data ){
+				$( data.data.itemList  ).each(function(){
+					emotionTagsList.push([this.id,this.name]);
+				})
+				tagData = data;
+			}
+		})
+		return tagData;
+	})();
+
+	var myTemplate1 = Handlebars.compile($("#select-template").html());
+	$('#emotionGroupselect').html( myTemplate1( emotionGroups.data ) ); //分组
+	$('#emotionTagselect').html( myTemplate1( emotionTags.data ) );	//标签
+	
+	var inited = false;
+	var emotionManager = {
+		emotionGroups: emotionGroups,	//表情分组全部信息
+		emotionTags: emotionTags,		//标签分组全数据
+		emotionFormModule:	'<table class="edit-emotion-table">'+
+							'	<colgroup style="width:25%"></colgroup>'+
+							'	<colgroup style="width:65%"></colgroup>'+
+							'	<colgroup style="width:10%"></colgroup>'+
+							'	<tr class="">'+
+							'		<td class="">表情名称</td>'+
+							'		<td class=""><input type="text" class="ed-emotion-name"></td>'+
+							'		<td class=""></td>'+
+							'	</tr>'+
+							'	<tr class="">'+
+							'		<td class="">表情分组</td>'+
+							'		<td class="">'+
+							'			<select class="emotion-group-list"></select>'+
+							'		</td>'+
+							'		<td class=""></td>'+
+							'	</tr>'+
+							'	<tr class="">'+
+							'		<td class="">表情标签</td>'+
+							'		<td class="">'+
+							'			<select class="emotion-tag-list"></select>'+
+							'		</td>'+
+							'		<td class=""></td>'+
+							'	</tr>'+
+							'	<tr class="">'+
+							'		<td class="">是否默认</td>'+
+							'		<td class=""><input type="checkbox" class="isDefaule"></td>'+
+							'		<td class=""></td>'+
+							'	</tr>'+
+							'	<tr class="">'+
+							'		<td class="">上传表情</td>'+
+							'		<td class="">'+
+							'			<input type="text" class="ed-emotion-uploadpic">'+
+							'		</td>'+
+							'		<td class=""><div style="position:relative;">'+
+							'			<input type="button" class="ed-emotion-uploadpic-btn fm-button" value="上传">'+
+							'		</div></td>'+
+							'	</tr>'+
+							'	<tr class="">'+
+							'		<td class="">上传置灰表情</td>'+
+							'		<td class="">'+
+							'			<input type="text" class="ed-emotion-uploadgreypic">'+
+							'		</td>'+
+							'		<td class=""><div style="position:relative;">'+
+							'			<input type="button" class="ed-emotion-uploadgreypic-btn fm-button" value="上传">'+
+							'		</div></td>'+
+							'	</tr>'+
+							'</table>',
+		addEmotion:function(){			//添加表情
+			var _this = this;
+			$(".emotion-add").click(function(){
+				require(["frameUpload","json","alerts","template"],function(Uploader){ 
+					jConfirm(
+						_this.emotionFormModule,
+						"添加表情",
+						{okButton:"确定",cancelButton: "取消"},
+						function(result){
+							if(result){
+								if( $(".ed-emotion-name").val().trim()!= $(".ed-emotion-uploadpic").val().trim()!= $(".ed-emotion-uploadgreypic").val().trim()){
+								$.ajax({
+									 type: "post",
+									 data: {name:$(".ed-emotion-name").val(),
+											"emoticonType.id": $(".emotion-group-list").val(),
+											"emoticonTag.id": $(".emotion-tag-list").val(),
+											isDefaule: $(".isDefaule")[0].checked,
+											url: $(".ed-emotion-uploadpic").val(),
+											grayUrl: $(".ed-emotion-uploadgreypic").val()
+									 },
+									 url: "../../../xhadmin/emoticon/o_saveOrUpdate.do",
+									 dataType: "json",
+									 success: function( data ){
+										if(data.success){
+											//_this.init();
+											window.location.reload();
+										}else{
+											//getEmotionList();
+										}
+									},
+									error:function( err ){
+										alert( err );
+									}
+								 });
+								}else{
+									alert( "请把数据补充完整" );
+								}
+							}else{
+								window.location.reload();
+							}
+						}
+					);
+					//上传表情图片
+						var up1 = new Uploader({
+							el: $(".ed-emotion-uploadpic-btn")[0],
+							src: "upload.html",
+							ajax: true,
+							action: "../../../xhadmin/emoticon/imgUpload.do",
+							onchange: function(){
+								$(".ed-emotion-uploadpic-btn").val("上传中...");
+								this.submit();
+							},
+							afterUpload: function(t){
+								if( t && t.code == 200 ){
+									$(".ed-emotion-uploadpic-btn").val("上传");
+									$(".ed-emotion-uploadpic").val( t.data.imgUrl );
+								}
+							}
+						});
+						var up2 = new Uploader({
+							el: $(".ed-emotion-uploadgreypic-btn")[0],
+							src: "upload.html",
+							ajax: true,
+							action: "../../../xhadmin/emoticon/imgUpload.do",
+							onchange: function(){
+								$(".ed-emotion-uploadgreypic-btn").val("上传中...");
+								this.submit();
+							},
+							afterUpload: function(t){
+								if( t && t.code == 200 ){
+									//alert( t.data.imgUrl );
+									$(".ed-emotion-uploadgreypic-btn").val("上传");
+									$(".ed-emotion-uploadgreypic").val( t.data.imgUrl );
+								}
+							}
+						});
+						//console.log(up1);
+						//console.log(up2);
+					
+					$(".emotion-group-list").html(function(){
+						var optionsIn = "";
+						$(emotionGroupsList).each(function(i,v){
+							optionsIn += '<option value="'+v[0]+'">'+v[1]+'</option>'
+						})
+						//optionsIn = '<option>全部</option>'+optionsIn；
+						return optionsIn;
+					})
+					$(".emotion-tag-list").html(function(){
+						var optionsIn = "";
+						$(emotionTagsList).each(function(i,v){
+							optionsIn += '<option value="'+v[0]+'">'+v[1]+'</option>'
+						})
+						//optionsIn = '<option>全部</option>'+optionsIn；
+						return optionsIn;
+					})
+				})
+			})
+		},
+		editThisEmotion: function(){	//编辑表情
+			var _this = this;
+			//*******编辑表情   开始*****************************************/
+			$(".emo-body").on("click",".editThis",function(){
+					var $this = $( this );
+					require(["frameUpload","json","alerts","template"],function(Uploader){
+						jConfirm(
+							_this.emotionFormModule,
+							"编辑表情",
+							{okButton:"确定",cancelButton: "取消"},
+							function(result){
+								if(result){
+									if( $(".ed-emotion-name").val().trim()!= $(".ed-emotion-uploadpic").val().trim()!= $(".ed-emotion-uploadgreypic").val().trim()){
+									$.ajax({
+										 type: "post",
+										 data: {
+												id: $(".ed-emotion-name").attr("thisId"),
+												name: $(".ed-emotion-name").val(),
+												"emoticonType.id": $(".emotion-group-list").val(),
+												"emoticonTag.id": $(".emotion-tag-list").val(),
+												isDefault: $(".isDefaule")[0].checked,
+												url: $(".ed-emotion-uploadpic").val(),
+												grayUrl: $(".ed-emotion-uploadgreypic").val(),
+
+												"user.id": $(".ed-emotion-name").attr("userId"),
+												createTime: $(".ed-emotion-name").attr("createTime"),
+												priority: $(".ed-emotion-name").attr("priority"),
+												siteId: $(".ed-emotion-name").attr("siteid")
+
+										 },
+										 url: "../../../xhadmin/emoticon/o_saveOrUpdate.do",
+										 dataType: "json",
+										 success: function( data ){
+											if(data.success){
+												window.location.reload();
+											}else{
+												//getEmotionList();
+											}
+										},
+										error:function( err ){
+											alert( err );
+										}
+									 });
+									}else{
+										alert( "请把数据补充完整" );
+									}
+								}else{
+									window.location.reload();
+								}
+							}
+						);
+						//上传表情图片
+						var up1 = new Uploader({
+							el: $(".ed-emotion-uploadpic-btn")[0],
+							src: "upload.html",
+							ajax: true,
+							action: "../../../xhadmin/emoticon/imgUpload.do",
+							onchange: function(){
+								$(".ed-emotion-uploadpic-btn").val("上传中...");
+								this.submit();
+							},
+							afterUpload: function(t){
+								if( t && t.code == 200 ){
+									$(".ed-emotion-uploadpic-btn").val("上传");
+									$(".ed-emotion-uploadpic").val( t.data.imgUrl );
+								}
+							}
+						});
+						//上传置灰表情
+						var up2 = new Uploader({
+							el: $(".ed-emotion-uploadgreypic-btn")[0],
+							src: "upload.html",
+							ajax: true,
+							action: "../../../xhadmin/emoticon/imgUpload.do",
+							onchange: function(){
+								$(".ed-emotion-uploadgreypic-btn").val("上传中...");
+								this.submit();
+							},
+							afterUpload: function(t){
+								if( t && t.code == 200 ){
+									$(".ed-emotion-uploadgreypic-btn").val("上传");
+									$(".ed-emotion-uploadgreypic").val( t.data.imgUrl );
+								}
+							}
+						});
+						$(".emotion-group-list").html(function(){
+							var optionsIn = "";
+							$(emotionGroupsList).each(function(i,v){
+								optionsIn += '<option value="'+v[0]+'">'+v[1]+'</option>'
+							})
+							return optionsIn;
+						})
+						$(".emotion-tag-list").html(function(){
+							var optionsIn = "";
+							$(emotionTagsList).each(function(i,v){
+								optionsIn += '<option value="'+v[0]+'">'+v[1]+'</option>'
+							})
+							return optionsIn;
+						})
+
+						$(".ed-emotion-name").val( $this.parent().find(".emo-name").text() );//表情名称
+						$(".ed-emotion-name").attr("thisId",$this.parent().attr('emotionId'));
+						
+						var iemoticontypeid = parseInt( $this.parent().attr('emoticontypeid') );//表情分组
+						$(".emotion-group-list").find("option[value="+iemoticontypeid+"]").attr("selected",true);
+						var iemoticontagid = parseInt( $this.parent().attr('emoticontagid') );//表情标签
+						$(".emotion-tag-list").find("option[value="+iemoticontagid+"]").attr("selected",true);
+						$(".isDefaule").attr("checked",function(){
+							if( $this.parent().find(".emo-isDefault").text() == "是" ){
+								return true;
+							}else{
+								return false;
+							}
+						})	//是否默认
+						$(".ed-emotion-uploadpic").val( $this.parent().find(".emo-img img").attr("src") );//上传表情
+						$(".ed-emotion-uploadgreypic").val( $this.parent().attr("grayurl") );//上传置灰表情
+						$(".ed-emotion-name").attr("priority",$this.parent().attr('priority'));
+						$(".ed-emotion-name").attr("siteid",$this.parent().attr('siteid'));
+
+						$(".ed-emotion-name").attr("userId",$this.parent().attr('userId'));
+						$(".ed-emotion-name").attr("createTime",$this.parent().find(".emo-createTime").text());
+					}
+				)
+			})
+		},
+		pageRender: function( data ){
+			var _this = this;
+			Handlebars.registerHelper("parseBoolean",function(v,options){
+				if(v=="false"){
+					return "否";
+				}else{
+					return "是";
+				}
+			});
+			if(data&&data.type=="searchemotion"&&data.name!="表情名称"){	//检索表情
+				T[ inited ? "refresh" : "init" ]({
+					tmpl: "#table-template",
+					sourceData: function(){
+						var emoticonTypeId;
+						return {
+							pageSize: 5,
+							name: data.name
+						}
+					},
+					page: {
+						size: "pageSize",
+						to: "pageNo"
+					},
+					begin: function(o, init){
+						//console.log( o.source );
+						//console.log( init );
+						//o.source.data.totalPage = 20;
+					}
+				});
+				inited = true;
+
+			}else{
+				T[ inited ? "refresh" : "init" ]({
+					tmpl: "#table-template",
+					sourceData: function(){
+						var emoticonTypeId, pageSize= 5;
+						if( $("#emotionGroupselect").val()=="false" && $("#emotionTagselect").val()=="false"){ //查询全部
+							return {
+								pageSize: pageSize
+							}
+						}else if( ($("#emotionGroupselect").val()=="false") && ($("#emotionTagselect").val()!="false") ){ //查询标签
+							return {
+								pageSize: pageSize,
+								"emoticonTag.id": $("#emotionTagselect").val()
+							}
+						}else if( ($("#emotionTagselect").val()=="false") && ($("#emotionGroupselect").val()!="false") ){	//查询分组
+							return {
+								pageSize: pageSize,
+								"emoticonType.id": $("#emotionGroupselect").val()
+							}
+							$("#emotionTagselect").find("option[value='false']").attr("selected",true);
+						}
+					},
+					page: {
+						size: "pageSize",
+						to: "pageNo"
+					},
+					begin: function(o, init){
+						//console.log( o.source );
+						//console.log( init );
+						//o.source.data.totalPage = 20;
+					}
+				});
+				inited = true;
+			}
+			_this.editThisEmotion();
+		},
+		init:function(){
+			var _this = this;
+			_this.pageRender();
+			_this.addEmotion();
+
+			//检索框处理   开始*****************************************/
+			$(".emo-nav-search input").focus(function(){
+				$(this).val("");
+			}).blur(function(){
+				if( $(this).val()=="" ){
+					$(this).val("表情名称")
+				}
+			})
+			$(".emo-nav-search .emo-nav-search-btn").click(function(){
+				var data= {
+					type: "searchemotion",
+					name: $(".emo-nav-search input").val()
+				}
+				//var emoNameUrl = "../../../xhadmin/emoticon/v_list.do?name="+$(".emo-nav-search input").val();
+				_this.pageRender( data );
+			})
+			//分组检索   开始****************************************/
+			$("#emotionGroupselect").change(function(){
+				$("#emotionTagselect").find("option[value='false']").attr("selected",true);
+				_this.pageRender(  );
+			})
+			//标签检索   开始****************************************/
+			$("#emotionTagselect").change(function(){
+				$("#emotionGroupselect").find("option[value='false']").attr("selected",true);
+				_this.pageRender(  );
+			})
+		}
+	}
+	emotionManager.init();
+});
+</script>
+</body>
+</html>

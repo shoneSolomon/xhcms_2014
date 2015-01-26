@@ -1,0 +1,5 @@
+reg: /<link rel="stylesheet" href="http://xuan.news.cn/cloudnews/xhcms_2014/css/jqueryui/jquery-ui.css">
+	<link rel="stylesheet" href="http://xuan.news.cn/cloudnews/xhcms_2014/css/form.css">
+	<script src="http://xuan.news.cn/cloudnews/xhcms_2014/js/jquery.min.js"></script>
+	<script src="http://xuan.news.cn/cloudnews/xhcms_2014/js/require.js"></script>
+	<script src="http://xuan.news.cn/cloudnews/xhcms_2014/js/require-config.js"></script>

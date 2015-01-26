@@ -57,10 +57,14 @@ define(function(require, exports, module){
         require(['requestAFrame'],function(R){
 
             R.addTimeout(frame.id,function(){
-                var doc = frame.contentDocument || document.frames["ajaxFrame-"+_index].document;
+                var doc = frame.contentDocument;
+                try{								//若iframe关闭 关闭监听
+                	doc = doc || document.frames["ajaxFrame-"+_index].document;
+                }catch(e){
+					return false;                	
+                }
                 var input = doc.getElementById('upload');
                 if(input && !input.getAttribute('ajax-init') ){
-
                     var form = input.parentNode;
                     form.action = opt.action;
                     _this.submit = function(){

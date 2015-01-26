@@ -77,7 +77,7 @@
 		},1000);
 
 		r.addTimeout("close-tree",function(){	//检测关闭二级选框
-			var handle = tree.find(".tree-link");
+			var handle = tree.find(".tree-link")||tree.find(".treenav");
 				
 			if( treeHolder.width() ){
 				if( !handle.length || !handle.hasClass('selected')){
@@ -134,14 +134,14 @@
 		});
 		tree.on('click','dt',function(e){
 			$(this).toggleClass('dt-open').next().slideToggle("fast");
-			if( !$(this).hasClass('link') )e.preventDefault();
+			if( !$(this).hasClass('link')||$(this).hasClass('normal') )e.preventDefault();
 		});
 
 		
 		require(["zTree"],function(){
 
 			// 二级树形菜单选择
-			tree.on("click _click",".tree-link",function(e){
+			tree.on("click _click",".tree-link, .treenav",function(e){
 				top.treeLevel=1000;
 				var _this = $(this);
 				if( _this.hasClass('expended') ){
@@ -158,7 +158,7 @@
 
 				}else{
 					treeHolder.hide();
-					$(".tree-link").removeClass('expended');
+					$(".tree-link,.treenav").removeClass('expended');
 
 					rightTarget.animate({
 						width: "34%"
