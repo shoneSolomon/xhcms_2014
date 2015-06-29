@@ -241,7 +241,7 @@ body{padding:0px; margin:0px;background:url("../images/boy_bg.png") repeat; min-
 .set_column-model #tabs-2,.set_column-model #tabs-3{padding: 0px;}
 .set_column-model .table{ border: 1px solid #CBCBCB; width: 100%; }
 .set_column-model .table tr th{ border: none;}
-.set_column-model .table tr td{ border: none;}}
+.set_column-model .table tr td{ border: none;}
 .set_column-model table.table tr:hover {background:#fff;/* #c0ebe3;*/}
 .set_column-model .table tr td input{height: 28px;line-height:28px; border: 1px solid #d8d8d8; padding-left:10%;    color: #737373;}
 .set_column-model .table tr td .ids{ border: none;}
