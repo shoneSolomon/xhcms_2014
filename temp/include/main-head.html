@@ -8,7 +8,7 @@
 	var navs = request.$.title.split("/").pop().split(" - "); /*获取请求文件名*/
 	var curr = navs.pop();
 	for(var i=0; i < navs.length; i++){
-		echo( '<a href="#">'+navs[i].replace(/\d/g,"")+'</a><a> &gt; </a>' );
+		__p += ( '<a href="#">'+navs[i].replace(/\d/g,"")+'</a><a> &gt; </a>' );
 	}
-	echo( '<span class="text-normal">'+curr.split(".")[0].replace(/\d/g,"")+'</span>' );
+	__p += ( '<span class="text-normal">'+curr.split(".")[0].replace(/\d/g,"")+'</span>' );
 %>
