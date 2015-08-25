@@ -275,10 +275,10 @@
 		//$("#checkbox-line").checkVal('checkbox','0,2,3');
 
 		$("#checkbox-line").on('click',function(){
-			alert( $(this).checkVal('checkbox').join(",") );
+			console.log( $(this).checkVal('checkbox').join(",") );
 		});
 		$("#radio-line").on('click',function(){
-			alert( $(this).radioVal('radio') );
+			console.log( $(this).radioVal('radio') );
 		});
 		F.selectAll({
 			handle : "#_checkAll",
